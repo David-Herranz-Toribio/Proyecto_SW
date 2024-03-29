@@ -16,10 +16,10 @@ if(!$isArtist)
 else
     $artist_members = $_POST['musical_genres'];
 
-$usuario= Usuario::createUser($username, $email, $nickname, $password, $birthdate, $isArtist);
+$usuario = Usuario::createUser($username, $nickname, $password, $email, $birthdate, $isArtist, $artist_members);
 
 if($usuario) {
-    $_SESSION['username']= $username; 
+    $_SESSION['username'] = $username; 
     header('Location: '.RUTA_VISTAS_PATH.'/foro/Foro.php');
 }
 else 
