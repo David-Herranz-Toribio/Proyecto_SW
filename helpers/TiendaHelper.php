@@ -6,20 +6,30 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
     $rutaProdImg = RUTA_IMG_PATH.'/prodImages/'.$image;
     $rutaProducto = RUTA_VISTAS_PATH.'/tienda/ProductoVista.php';
+    $rutaCompra = RUTA_HELPERS_PATH.'/ProcesarProducto.php';
 
     //Imagen y nombre del producto
     $prodInfo =<<<EOS
     <div class="prod_info">
         <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
-        <div><a href= "$rutaProducto?prod=$id" name= "prod">@$nombre</a> </div>
+        <div><a href= "$rutaProducto?prod=$id" name= "prod">@$autor</a>, $nombre</div>
     </div>
     EOS;
+
+    $compra = '<p>No queda stock</p>';
+    if($stock != 0)
+        $compra = '<button type = "submit"> Comprar </button>';
 
     //Descripcion del producto
     $prodDesc =<<<EOS2
     <div class="prod_desc">
         <p>$descripcion</p> 
         <p>Quedan $stock unidades por valor de $precio cada una</p>
+        <form action = $rutaCompra method="post">
+            <input hidden name="Cantidad" value="1"> 
+            <input hidden name="Id" value= $id> 
+            $compra
+        </form>
     </div>
     EOS2;
 

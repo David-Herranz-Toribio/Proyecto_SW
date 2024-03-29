@@ -8,7 +8,7 @@
 -Interfaz de Pefil. Incluye seguidores y sus respectivas funciones (Ignacio), Ajustes (Alonso) 🔄️
 -Tienda (David y Hugo)🔄️
 
--Actualizar Diagramas de Base de Datos para que coincidan y Mejorarlos (Hugo)
+-Actualizar Diagramas de Base de Datos para que coincidan y Mejorarlos [PP cantidad, nueva tabla Eventos, img en producto](Hugo)
 -Crear PDF o .md de MEMORIA  (❗)
 -Actualizar dicha memoria con datos pedidos por el profe en la EVALUACION ❗❗❗❗(TODOS)❗❗❗❗
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❓

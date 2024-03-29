@@ -82,6 +82,10 @@ class Producto{
         return $result;
     }
 
+
+
+
+
     private static function inserta($producto){
 
         $result = false;
@@ -111,7 +115,7 @@ class Producto{
         return $result;
     }
 
-    public static function actualizar($producto){
+    public static function actualiza($producto){
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
     
@@ -144,7 +148,11 @@ class Producto{
 
         return $this;
     }
+
     
+    public function setStock($valor){
+        $this->stock = $valor;
+    }
 
     public function getId(){
         return $this->id;
