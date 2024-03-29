@@ -107,7 +107,7 @@ div#mensaje_bienvenida{
 section.listaPost{
 	
 	grid-column-start: 2;
-	grid-row-start: 4;
+	grid-row-start: 2;
 	display: flex;
 	flex-direction: column;
 }
@@ -132,6 +132,20 @@ article.estiloPost {
 div.user_info {
 	display: flex; 
 }
+
+
+/*Estilo de la pagina de perfil del usuario*/
+
+section.datos_perfil {
+	grid-row-start: 1;
+	grid-column-start: 2;
+}
+
+section.estiloPerfil section.listaPost {
+	grid-column-start: 2;
+	grid-row-start: 2;
+}
+
 
 /*Referente al estilo de los formularios*/ 
 

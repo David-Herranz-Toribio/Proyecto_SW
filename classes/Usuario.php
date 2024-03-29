@@ -186,5 +186,13 @@ class Usuario{
     public function getPassword(){
         return $this->password;
     }
+
+    public function getEmail(){
+        return $this->email; 
+    }
+
+    public function getBirthdate() {
+        return $this->birthdate; 
+    }
 }
 
