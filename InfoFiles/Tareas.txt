@@ -34,7 +34,7 @@
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido 
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)
 -Múltiples selecciones de género (SignUpHelper.php)
-
+-Utilizar el correo para contacto entre artistas y subcriptores O sino eliminar correo.
 
 --------------------------------------------------------CSS--------------------------------
 -Logotipo a la izquierda del todo y el login/logout arriba // Ignacio✅

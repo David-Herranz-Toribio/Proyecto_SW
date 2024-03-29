@@ -34,7 +34,7 @@ class Usuario{
     public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members){
 
         /*Primero compruebo si ya existe un usuario con el mismo username*/ 
-        $user_buscado = self::buscaUsuario($username);
+        $user_buscado = self::compruebaUsuario($username, $email);
 
         if($user_buscado){ //Ya existia un usuario con ese nombre 
             /* TODO
@@ -145,7 +145,28 @@ class Usuario{
         else 
             error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
-    
+    public static function compruebaUsuario($username, $correo){
+
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuario U WHERE U.id_user = '%s' OR U.correo = '%s'", $username, $correo); 
+        $rs = $conn->query($query); 
+        $result = false; 
+
+        if($rs){
+            $fila = $rs->fetch_assoc(); 
+
+            if($fila) {
+                //Comprobar si el usuario es artista 
+                $artista = self::esArtista($fila['id_user']); 
+                $result = new Usuario($fila['id_user'], $fila['nickname'], $fila['password'], $fila['foto'],
+                                      $fila['descripcion'], $fila['karma'], $artista, $fila['fecha'], $fila['correo']);
+            }
+
+            $rs->free(); 
+        }
+
+        return $result; 
+    } 
     //Metodo que busca en la base de datos un usuario por su nombre 
     public static function buscaUsuario($username){
 
