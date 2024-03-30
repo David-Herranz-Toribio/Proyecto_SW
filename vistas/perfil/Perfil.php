@@ -17,7 +17,16 @@ function showProfile($usuario,$favs){
     }
 
     if($usuario) {
-        $html = "<h1 class = 'texto_infor'> Perfil de @".$usuario."</h1>"; 
+        $html= "<section class = 'datos_perfil'>"; 
+        $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>"; 
+        
+        $html .= <<<EOS
+        <form action = 'AjustePerfil.php' method="post">
+            <button id= 'modify_perfil' type = "submit"> Modificar Perfil</button>
+        </form>
+        EOS; 
+
+        $html.= "</section>"; 
 
         if($favs){
             $html = "<h1 class = 'texto_infor'> Posts Favoritos de @".$usuario."</h1>"; 

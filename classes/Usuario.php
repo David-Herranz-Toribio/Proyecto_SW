@@ -167,6 +167,8 @@ class Usuario{
 
         return $result; 
     } 
+
+
     //Metodo que busca en la base de datos un usuario por su nombre 
     public static function buscaUsuario($username){
 
@@ -195,7 +197,6 @@ class Usuario{
         $this->karma = $this->karma + $num;
     }
 
-
     public function getUsername(){
         return $this->username;
     }
@@ -207,5 +208,30 @@ class Usuario{
     public function getPassword(){
         return $this->password;
     }
+
+    public function getEmail(){
+        return $this->email; 
+    }
+
+    public function getBirthdate() {
+        return $this->birthdate; 
+    }
+
+    public function setNickname($new_nickname){
+        $this->nickname= $new_nickname; 
+    }
+
+    public function setEmail($new_email){
+        $this->email= $new_email; 
+    }
+
+    public function setBirthdate($new_birthdate){
+        $this->birthdate= $new_birthdate; 
+    }
+
+    public function setPassword($new_password){
+        $this->password= $new_password; 
+    }
+
 }
 
