@@ -36,7 +36,7 @@ $form_modificar= <<<EOS
 
             <label> Password </label>
             <p></p> 
-            <input type="password" name="modify_password" value= $act_password>
+            <input type="password" name="modify_password">
                 
             <p></p> 
                 
