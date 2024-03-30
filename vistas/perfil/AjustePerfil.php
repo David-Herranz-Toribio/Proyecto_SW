@@ -8,6 +8,7 @@ require_once RUTA_CLASSES.'/Usuario.php';
 $perfil= Usuario::buscaUsuario($_SESSION['username']); 
 
 $act_nickname= $perfil->getNickname(); 
+$act_username= $perfil->getUsername(); 
 $act_email= $perfil->getEmail();
 $act_password= $perfil->getPassword(); 
 $act_nacimiento= $perfil->getBirthdate(); 
@@ -19,7 +20,7 @@ $form_modificar= <<<EOS
     <fieldset class= "formRegistro">
     <legend> Modifica tu cuenta </legend> 
         <form action= $rutaMod method="post">
-        
+            <input hidden name="id_user" value= $act_username> 
             <input hidden name="isArtist" value="0"> 
             <label> Nickname </label>
             <p></p> 
