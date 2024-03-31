@@ -10,7 +10,7 @@ $content = showProfile($usuario,$favs);
 require_once RUTA_LAYOUTS;
 
 function showProfile($usuario,$favs){
-    
+    $SettingsImage = RUTA_IMG_PATH.'/Setting_icon__.png';
     if(!$usuario){
         if (isset($_SESSION['username']))
             $usuario = $_SESSION['username'];
@@ -21,9 +21,13 @@ function showProfile($usuario,$favs){
         $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>"; 
         
         $html .= <<<EOS
-        <form action = 'AjustePerfil.php' method="post">
-            <button id= 'modify_perfil' type = "submit"> Modificar Perfil</button>
-        </form>
+        <p>
+        <section class="datos_perfil">
+        <a href="AjustePerfil.php">
+            <img src='$SettingsImage' alt="Modificar Perfil" height="45" width="50">
+        </a>
+        </section>
+        </p>
         EOS; 
 
         $html.= "</section>"; 
