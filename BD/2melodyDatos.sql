@@ -44,7 +44,7 @@ TRUNCATE TABLE `ajustes`;
 INSERT INTO `ajustes` ( `id_user`, `fuente`, `fontSize`, `temas`, `paginaPrincipal`) VALUES
 ('user1', 'Arial', 12, 'Claro', 'Inicio'),
 ('user2', 'Times New Roman', 14, 'Oscuro', 'Foro.php'),
-('user3', 'Verdana', 16, 'Neón', 'Tienda.php');
+('user3', 'Verdana', 16, 'Neón', 'Merch.php');
 --
 -- Volcado de datos para la tabla `artista`
 --
@@ -70,13 +70,13 @@ INSERT INTO `pedido` (`id_pedido`, `id_user`, `estado`, `total`, `fecha`) VALUES
 
 TRUNCATE TABLE `producto`;
 INSERT INTO `producto` (`id_prod`, `id_artista`, `imagen`, `nombre`, `descripcion`, `stock`, `precio`) VALUES
-(1, 'user2', NULL, 'Camiseta Artista 1', 'Camiseta con diseño exclusivo del artista 1', 50, 20.99),
-(2, 'user2', NULL, 'Póster Firmado', 'Póster firmado por el artista 2', 30, 15.5),
-(3, 'user2', NULL, 'Álbum en Vinilo', 'Edición especial en vinilo del álbum del artista 3', 10, 35.75),
-(4, 'user2', NULL, 'Camiseta Artista 1', 'Camiseta con diseño exclusivo del artista 2', 50, 20.99),
-(5, 'user2', NULL, 'Taza de Colección', 'Taza de colección con el arte del usuario 2', 30, 8.5),
-(6, 'user2', NULL, 'Póster Artista 1', 'Póster con ilustraciones del artista 1', 40, 12.75),
-(7, 'user2', NULL, 'Edición Limitada en Vinilo', 'Edición limitada en vinilo de las canciones del artista 2', 10, 45.99);
+(1, 'user2', `FotoMerch.png`, 'Camiseta Artista 1', 'Camiseta con diseño exclusivo del artista 1', 50, 20.99),
+(2, 'user2', `FotoMerch.png`, 'Póster Firmado', 'Póster firmado por el artista 2', 30, 15.5),
+(3, 'user2', `FotoMerch.png`, 'Álbum en Vinilo', 'Edición especial en vinilo del álbum del artista 3', 10, 35.75),
+(4, 'user2', `FotoMerch.png`, 'Camiseta Artista 1', 'Camiseta con diseño exclusivo del artista 2', 50, 20.99),
+(5, 'user2', `FotoMerch.png`, 'Taza de Colección', 'Taza de colección con el arte del usuario 2', 30, 8.5),
+(6, 'user2', `FotoMerch.png`, 'Póster Artista 1', 'Póster con ilustraciones del artista 1', 40, 12.75),
+(7, 'user2', `FotoMerch.png`, 'Edición Limitada en Vinilo', 'Edición limitada en vinilo de las canciones del artista 2', 10, 45.99);
 
 --
 -- Volcado de datos para la tabla `pedido_prod`
