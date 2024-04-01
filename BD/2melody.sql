@@ -76,7 +76,7 @@ CREATE TABLE `evento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 DROP TABLE IF EXISTS `evento_prod`;
-CREATE TABLE `pedido_prod` (
+CREATE TABLE `evento_prod` (
   `id_evento` int(11) NOT NULL,
   `id_prod` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -129,7 +129,7 @@ CREATE TABLE `seguidores` (
 DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `id_pedido` int(11) NOT NULL,
-  `id_user` varchar(63) DEFAULT NULL,
+  `id_user` varchar(63) NOT NULL,
   `estado` varchar(255) DEFAULT NULL,
   `total` float DEFAULT NULL,
   `fecha` date DEFAULT NULL
@@ -138,7 +138,7 @@ CREATE TABLE `pedido` (
 DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `id_prod` int(11) NOT NULL,
-  `id_artista` varchar(255) DEFAULT NULL,
+  `id_artista` varchar(63) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `descripcion` tinytext DEFAULT NULL,
@@ -257,8 +257,7 @@ ALTER TABLE `artista`
 -- Filtros para la tabla `evento`
 --
 ALTER TABLE `evento`
-  ADD CONSTRAINT `evento_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `artista` (`id_artista`) ON DELETE CASCADE,
-  ADD CONSTRAINT `evento_ibfk_2` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`) ON DELETE CASCADE;
+  ADD CONSTRAINT `evento_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `artista` (`id_artista`) ON DELETE CASCADE;
 
 ALTER TABLE `evento_prod`
   ADD CONSTRAINT `evento_prod_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id_evento`) ON DELETE CASCADE,
