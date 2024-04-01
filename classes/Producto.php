@@ -120,7 +120,7 @@ class Producto{
         $conn = BD::getInstance()->getConexionBd();
     
         $query = sprintf(
-            "UPDATE producto SET nombre = '%s', descripcion = '%s', imagen = '%s', stock = %d, precio = %d WHERE id_prod = %d",
+            "UPDATE producto SET nombre = '%s', descripcion = '%s', imagen = '%s', stock = %d, precio = %f WHERE id_prod = %d",
             $conn->real_escape_string($producto->nombre),
             $conn->real_escape_string($producto->descripcion),
             $conn->real_escape_string($producto->imagen),

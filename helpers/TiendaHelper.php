@@ -20,8 +20,8 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
     if($stock != 0){
      
         $compra = '<button type = "submit"> Comprar </button>
-                   <input type="number" name="Cantidad" value="0" min="1" max="';
-        $compra .= $stock.'"/><p style="display:inline"> <output name="result" for="precio * Cantidad">0</output> €</p> ';
+                   <input type="number" name="Cantidad" value="0" min="1" max="'. $stock.'"/>
+                   <p style="display:inline"> <output name="result">0</output> €</p> ';
     }
     //Descripcion del producto
     $prodDesc =<<<EOS2

@@ -21,10 +21,12 @@ if($user){
     $pedido = Pedido::buscarPedidoPorUser($user);
 
     if(!$pedido){
-        $pedido = Pedido::crearPedido(NULL, $user, 'En proceso', $producto->getPrecio(), NULL);
+        $pedido = Pedido::crearPedido(NULL, $user, 'En proceso', $producto->getPrecio() * $cant, NULL);
         $pedido = Pedido::inserta($pedido);
+    }else{
+        $pedido->setTotal($pedido->getTotal() + ($producto->getPrecio() * $cant) );
+        $pedido = Pedido::actualiza($pedido);
     }
-
     //Comprobar si mi producto esta asignado a mi pedido
     //if (true){cant++} else{insertarPP} 
     $cantPP = Pedido::consultaPP($pedido->getId(), $id);
