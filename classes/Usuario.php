@@ -30,8 +30,30 @@ class Usuario{
     }
 
 
-    public static function checkUserData($username, $nickname, $password, $email, $birthdate, $isArtist, $artist_members){
+    public static function checkUserData($username, $email, $birthdate, $isArtist){
 
+        // Lista de errores
+        $errores = [];
+
+        // El usuario ya existe
+        if(self::buscaUsuario($username))
+            $errores['username'] = 'El usuario ya existe';
+
+        // El email no es válido
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+            $errores['email'] = 'El email no es válido';
+
+
+        // La fecha es anterior al día actual
+        if($isArtist){
+            $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
+        }
+        // La fecha verifica que el usuario tiene más de 18 años
+        else{
+            $errores['birthdate'] = 'Debe tener más de 18 años para crear una cuenta';
+        }
+
+        return $errores;
     }
 
     /*
@@ -39,9 +61,6 @@ class Usuario{
         Devolvemos el objeto Usuario y por el parametro errors[] los mensajes de error que se hayan generado(usuario ya existe, contraseña débil, etc...)
     */
     public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members, &$errors){
-
-        /* Primero compruebo si ya existe un usuario con el mismo username */ 
-        $user_buscado = self::compruebaUsuario($username, $email);
 
         $conection = BD::getInstance()->getConexionBd();
         $nullv = null;
@@ -230,4 +249,3 @@ class Usuario{
     }
 
 }
-
