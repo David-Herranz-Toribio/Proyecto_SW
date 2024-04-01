@@ -53,12 +53,12 @@ class Producto{
     public static function buscarProductoPorID($id){
 
         $conection = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM producto P WHERE P.id = %d",  $id);
+        $query = sprintf("SELECT * FROM producto P WHERE P.id_prod = %d",  $id);
         $rs = $conection->query($query);
        
         while($fila = $rs->fetch_assoc()){
-            $result = self::crearProducto($fila['id'], $fila['nombre'], $fila['descripcion'], 
-                                          $fila['imagen'], $fila['autor'], $fila['stock'], $fila['precio']);
+            $result = self::crearProducto($fila['id_prod'], $fila['nombre'], $fila['descripcion'], 
+                                          $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio']);
         }
         $rs->free();
 
@@ -120,12 +120,12 @@ class Producto{
         $conn = BD::getInstance()->getConexionBd();
     
         $query = sprintf(
-            "UPDATE producto SET nombre = '%s', descripcion = '%s', imagen = '%s', stock = '%d', precio = '%d' WHERE id = %d",
+            "UPDATE producto SET nombre = '%s', descripcion = '%s', imagen = '%s', stock = %d, precio = %d WHERE id_prod = %d",
             $conn->real_escape_string($producto->nombre),
             $conn->real_escape_string($producto->descripcion),
             $conn->real_escape_string($producto->imagen),
             $producto->stock,
-            $producto->$precio,
+            $producto->precio,
             $producto->id
         );
     

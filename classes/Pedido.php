@@ -27,7 +27,7 @@ class Pedido{
     public static function buscarPedidoPorUser($id){
 
         $conection = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM pedido P WHERE P.id = %d AND P.estado = 'En proceso'" ,  $id);
+        $query = sprintf("SELECT * FROM pedido P WHERE P.id_user = '%s' AND P.estado = 'En proceso'" ,  $id);
         $rs = $conection->query($query);
         
         $fila = $rs->fetch_assoc();
@@ -49,9 +49,9 @@ class Pedido{
         $query = sprintf(
             "INSERT INTO pedido (id_user, estado, total, fecha) VALUES ('%s', '%s', %d, '%s')",
             $pedido->autor,
-            is_null($pedido->pedido_origen) ? 'NULL' : $pedido->pedido_origen,
-            $pedido->tags,
-            $conn->real_escape_string($pedido->fecha_publicacion)
+            $pedido->estado,
+            $pedido->total,
+            Pedido::generatePostDate()
         );
 
         $result = $conn->query($query);
@@ -126,6 +126,17 @@ class Pedido{
         return $result;
     }
 
+
+
+    public static function generatePostDate(){
+
+        $date = getdate();
+        $day = $date['mday'];
+        $month = $date['mon'];
+        $year = $date['year'];
+
+        return $day . "-" . $month . "-" . $year;
+    }
 
     public function getId(){
         return $this->id;

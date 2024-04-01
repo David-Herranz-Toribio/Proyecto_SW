@@ -17,16 +17,18 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
     EOS;
 
     $compra = '<p>No queda stock</p>';
-    if($stock != 0)
-        $compra = '<button type = "submit"> Comprar </button>';
-
+    if($stock != 0){
+     
+        $compra = '<button type = "submit"> Comprar </button>
+                   <input type="number" name="Cantidad" value="0" min="1" max="';
+        $compra .= $stock.'"/><p style="display:inline"> <output name="result" for="precio * Cantidad">0</output> €</p> ';
+    }
     //Descripcion del producto
     $prodDesc =<<<EOS2
     <div class="prod_desc">
         <p>$descripcion</p> 
         <p>Quedan $stock unidades por valor de $precio cada una</p>
-        <form action = $rutaCompra method="post">
-            <input hidden name="Cantidad" value="1"> 
+        <form action = $rutaCompra method="post" oninput="result.value= (parseFloat($precio) * parseInt(Cantidad.value)).toFixed(2)">            
             <input hidden name="Id" value= $id> 
             $compra
         </form>

@@ -87,14 +87,14 @@ class Usuario{
                 fecha = '%s',
                 correo = '%s'
             WHERE id_user = '%s'",
-                $user->nickname, 
-                $user->password,
-                $user->fotopath,
-                $user->desc,
+                $conn->real_escape_string($user->password),
+                $conn->real_escape_string($user->nickname), 
+                $conn->real_escape_string($user->fotopath),
+                $conn->real_escape_string($user->desc),
                 $user->karma,
                 $user->birthdate,            
-                $user->email,
-                $user->username
+                $conn->real_escape_string($user->email),
+                $conn->real_escape_string($user->username)
         );
         $result = $conn->query($query);
 
