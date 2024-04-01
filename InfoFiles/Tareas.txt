@@ -15,6 +15,8 @@
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❓
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido ❓
 
+-Mensajes de error en login (Óscar) ✅
+-Mensajes de error en sign up (Óscar)
 
 
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------
