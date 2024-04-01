@@ -1,22 +1,24 @@
 <?php
 
 function generateUserImage(){
-    $iconImage = RUTA_IMG_PATH.'/RegisterUserImage.png';
+    
+    $iconImage = RUTA_IMG_PATH . '/RegisterUserImage.png';
     $image =<<<EOS
-        <img src="$iconImage"  alt="foto de perfil" height="200" width="200">
+        <img src="$iconImage" alt="foto de perfil" height="200" width="200">
     EOS;
 
     return $image;
 }
 
 function generateArtistAccountLink(){
-    $enlace = RUTA_VISTAS_PATH.'/log/SignUpArtist.php';
+
+    $enlace = RUTA_VISTAS_PATH . '/log/SignUpArtist.php';
     return "<p> Eres un artista? <a href= $enlace> Crea tu cuenta aquí </a></p>";
 }
 
 function generateFormularyUser(){
 
-    $enlace = RUTA_HELPERS_PATH.'/ProcesarRegistro.php';
+    $enlace = RUTA_HELPERS_PATH . '/ProcesarRegistro.php';
     $form =<<<EOS
         <fieldset class= "formRegistro">
         <legend> Registra tu nueva cuenta de usuario </legend> 
@@ -27,7 +29,7 @@ function generateFormularyUser(){
                 <p></p> 
                 <input required type="text" name= "new_nickname">
 
-                <p></p> 
+                <p></p>
 
                 <label> Username (Ej: paco03) </label>
                 <p></p> 
@@ -64,7 +66,7 @@ function generateFormularyArtist(){
     $enlace = RUTA_HELPERS_PATH.'/ProcesarRegistro.php';
     $form =<<<EOS
         <fieldset class= "formRegistro">
-        <legend> Registra tu nueva cuenta de artista </legend> 
+            <legend> Registra tu nueva cuenta de artista </legend> 
             <form action= $enlace method="post">
             
                 <input hidden name="isArtist" value="1"> 
@@ -83,7 +85,7 @@ function generateFormularyArtist(){
                 <label> Email </label>
                 <p></p> 
                 <input required type="text" name="new_email">
-          
+            
                 <p></p> 
 
                 <label> Password </label>
@@ -125,4 +127,13 @@ function generateFormularyArtist(){
     EOS;
 
     return $form; 
+}
+
+function generateErrorMessages(){
+
+    if(isset($_SESSION['error']) && $_SESSION['error'] === true){
+        return 'Hubo algun error';
+    }
+
+    return '';
 }

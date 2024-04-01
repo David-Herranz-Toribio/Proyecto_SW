@@ -30,46 +30,42 @@ class Usuario{
     }
 
 
-    //Registra un nuevo usuario en la Base de Datos 
-    public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members){
+    public static function checkUserData($username, $nickname, $password, $email, $birthdate, $isArtist, $artist_members){
 
-        /*Primero compruebo si ya existe un usuario con el mismo username*/ 
+    }
+
+    /*
+        Registra un nuevo usuario en la Base de Datos
+        Devolvemos el objeto Usuario y por el parametro errors[] los mensajes de error que se hayan generado(usuario ya existe, contraseña débil, etc...)
+    */
+    public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members, &$errors){
+
+        /* Primero compruebo si ya existe un usuario con el mismo username */ 
         $user_buscado = self::compruebaUsuario($username, $email);
 
-        if($user_buscado){ //Ya existia un usuario con ese nombre 
-            /* TODO
-                Mostrar error 
-                ¿Usar lo de redirigir? 
-            */
-            return NULL; 
-        }
-        else {
-            $conection = BD::getInstance()->getConexionBd();
-            $nullv = null;
-            $karma = 0;
-            $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
-            $values = "('$username', '$nickname', '$password', '$nullv', '$nullv', $karma, '$birth', '$email'); ";
-            $query .= $values;
-            $conection->query($query);
+        $conection = BD::getInstance()->getConexionBd();
+        $nullv = null;
+        $karma = 0;
+        $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
+        $values = "('$username', '$nickname', '$password', '$nullv', '$nullv', $karma, '$birth', '$email'); ";
+        $query .= $values;
+        $conection->query($query);
 
-            $result = false; 
+        if($conection) {
+            if($artist) {
+                $query = "INSERT INTO artista (id_artista, integrantes) VALUES "; 
+                $values = "('$username', '$artist_members'); "; 
+                $query .= $values; 
 
-            if($conection) {
-                if($artist) {
-                    $query = "INSERT INTO artista (id_artista, integrantes) VALUES "; 
-                    $values = "('$username', '$artist_members'); "; 
-                    $query .= $values; 
-    
-                    $conection->query($query); 
-    
-                    if(!$conection) 
-                        error_log("Error BD ({$conection->errno}): {$conection->error}");
-                }   
-               return new Usuario($username, $nickname, $password, $nullv, $nullv, $karma, $artist, $birth, $email,); 
-            }
-            else 
-                error_log("Error BD ({$conection->errno}): {$conection->error}");
+                $conection->query($query); 
+
+                if(!$conection) 
+                    error_log("Error BD ({$conection->errno}): {$conection->error}");
+            }   
+            return new Usuario($username, $nickname, $password, $nullv, $nullv, $karma, $artist, $birth, $email,); 
         }
+        else 
+            error_log("Error BD ({$conection->errno}): {$conection->error}");
     }
 
     public static function actualiza($user){
@@ -132,7 +128,7 @@ class Usuario{
         $conn= BD::getInstance()->getConexionBd();
         $query= sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
         $rs= $conn->query($query); 
-        $result= false; 
+        $result = false; 
 
         if($rs) {
             $fila= $rs->fetch_assoc(); 
