@@ -16,12 +16,12 @@
             <a href="<?=RUTA_VISTAS_PATH?>/foro/Foro.php">
                 <img src="<?=RUTA_IMG_PATH?>/FotoForo.png" height="50" width="50" alt="Foto de foro">
             </a>
-            <details>
+            <!--  <details>
                 <summary>
                     Opciones:
                 </summary>
                 <dd><a href="<?=RUTA_VISTAS_PATH?>/foro/CrearPost.php">Publicar post</a></dd>
-            </details>
+            </details> -->
         </dt>
 
         <dt class="musica_shorcut">

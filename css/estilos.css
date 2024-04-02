@@ -182,6 +182,16 @@ button  {
 	background-color: lightgreen;
 }
 
+form.boton_publicar{
+	grid-column-start: 3 ;
+	grid-row-start: 1;
+	margin-top: 1em;
+}
+
+form.boton_publicar button {
+	width: 100px; 
+	height:  40px;
+}
 
 /*Footer de la pagina (sin usar) */ 
 .footer{
