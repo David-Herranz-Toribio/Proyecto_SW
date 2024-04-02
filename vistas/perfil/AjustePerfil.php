@@ -44,6 +44,14 @@ $form_modificar= <<<EOS
             <p></p> 
             <input type="date" name="modify_birthdate" value= $act_nacimiento>
             <p></p> 
+
+            <select name= "estilos"> 
+            <option value= 'claro'> Modo claro </option> 
+            <option value= 'oscuro'> Modo oscuro </option> 
+            </select>
+
+            <p> </p> 
+
             <button type="submit" name="register_button" > Modificar </button>
         </form>
     </fieldset>

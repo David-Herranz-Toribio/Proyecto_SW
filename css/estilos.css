@@ -89,6 +89,7 @@ main {
 	display: grid;
 	grid-auto-columns: 30% 25% 25% 20% ; 
 	grid-auto-rows: minmax(25px, auto);
+	grid-column-gap: 5%;
 }
 
 
@@ -145,6 +146,9 @@ section.estiloPerfil section.listaPost {
 	grid-column-start: 2;
 	grid-row-start: 2;
 }
+
+
+/*Estilo de la pagina de ajustes*/
 
 
 /*Referente al estilo de los formularios*/ 
