@@ -30,46 +30,61 @@ class Usuario{
     }
 
 
-    //Registra un nuevo usuario en la Base de Datos 
-    public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members){
+    public static function checkUserData($username, $email, $birthdate, $isArtist){
 
-        /*Primero compruebo si ya existe un usuario con el mismo username*/ 
-        $user_buscado = self::compruebaUsuario($username, $email);
+        // Lista de errores
+        $errores = [];
 
-        if($user_buscado){ //Ya existia un usuario con ese nombre 
-            /* TODO
-                Mostrar error 
-                ¿Usar lo de redirigir? 
-            */
-            return NULL; 
+        // El usuario ya existe
+        if(self::buscaUsuario($username))
+            $errores['username'] = 'El usuario ya existe';
+
+        // El email no es válido
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+            $errores['email'] = 'El email no es válido';
+
+
+        // La fecha es anterior al día actual
+        if($isArtist){
+            $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
         }
-        else {
-            $conection = BD::getInstance()->getConexionBd();
-            $nullv = null;
-            $karma = 0;
-            $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
-            $values = "('$username', '$nickname', '$password', '$nullv', '$nullv', $karma, '$birth', '$email'); ";
-            $query .= $values;
-            $conection->query($query);
-
-            $result = false; 
-
-            if($conection) {
-                if($artist) {
-                    $query = "INSERT INTO artista (id_artista, integrantes) VALUES "; 
-                    $values = "('$username', '$artist_members'); "; 
-                    $query .= $values; 
-    
-                    $conection->query($query); 
-    
-                    if(!$conection) 
-                        error_log("Error BD ({$conection->errno}): {$conection->error}");
-                }   
-               return new Usuario($username, $nickname, $password, $nullv, $nullv, $karma, $artist, $birth, $email,); 
-            }
-            else 
-                error_log("Error BD ({$conection->errno}): {$conection->error}");
+        // La fecha verifica que el usuario tiene más de 18 años
+        else{
+            $errores['birthdate'] = 'Debe tener más de 18 años para crear una cuenta';
         }
+
+        return $errores;
+    }
+
+    /*
+        Registra un nuevo usuario en la Base de Datos
+        Devolvemos el objeto Usuario y por el parametro errors[] los mensajes de error que se hayan generado(usuario ya existe, contraseña débil, etc...)
+    */
+    public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members, &$errors){
+
+        $conection = BD::getInstance()->getConexionBd();
+        $nullv = null;
+        $karma = 0;
+        $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
+        $values = "('$username', '$nickname', '$password', '$nullv', '$nullv', $karma, '$birth', '$email'); ";
+        $query .= $values;
+        $conection->query($query);
+
+        if($conection) {
+            if($artist) {
+                $query = "INSERT INTO artista (id_artista, integrantes) VALUES "; 
+                $values = "('$username', '$artist_members'); "; 
+                $query .= $values; 
+
+                $conection->query($query); 
+
+                if(!$conection) 
+                    error_log("Error BD ({$conection->errno}): {$conection->error}");
+            }   
+            return new Usuario($username, $nickname, $password, $nullv, $nullv, $karma, $artist, $birth, $email,); 
+        }
+        else 
+            error_log("Error BD ({$conection->errno}): {$conection->error}");
     }
 
     public static function actualiza($user){
@@ -87,14 +102,14 @@ class Usuario{
                 fecha = '%s',
                 correo = '%s'
             WHERE id_user = '%s'",
-                $user->nickname, 
-                $user->password,
-                $user->fotopath,
-                $user->desc,
+                $conn->real_escape_string($user->password),
+                $conn->real_escape_string($user->nickname), 
+                $conn->real_escape_string($user->fotopath),
+                $conn->real_escape_string($user->desc),
                 $user->karma,
                 $user->birthdate,            
-                $user->email,
-                $user->username
+                $conn->real_escape_string($user->email),
+                $conn->real_escape_string($user->username)
         );
         $result = $conn->query($query);
 
@@ -132,7 +147,7 @@ class Usuario{
         $conn= BD::getInstance()->getConexionBd();
         $query= sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
         $rs= $conn->query($query); 
-        $result= false; 
+        $result = false; 
 
         if($rs) {
             $fila= $rs->fetch_assoc(); 
@@ -234,4 +249,3 @@ class Usuario{
     }
 
 }
-

@@ -140,6 +140,13 @@ div.user_info {
 section.datos_perfil {
 	grid-row-start: 1;
 	grid-column-start: 2;
+	justify-content: space-between;
+	display: flex;
+}
+
+section.fotoPerfil {
+	grid-row-start: 2;
+	grid-column-start: 2;
 }
 
 section.estiloPerfil section.listaPost {

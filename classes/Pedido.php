@@ -27,7 +27,7 @@ class Pedido{
     public static function buscarPedidoPorUser($id){
 
         $conection = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM pedido P WHERE P.id = %d AND P.estado = 'En proceso'" ,  $id);
+        $query = sprintf("SELECT * FROM pedido P WHERE P.id_user = '%s' AND P.estado = 'En proceso'" ,  $id);
         $rs = $conection->query($query);
         
         $fila = $rs->fetch_assoc();
@@ -41,6 +41,27 @@ class Pedido{
 
         return $result;
     }
+    public static function actualiza($pedido){
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+    
+        $query = sprintf(
+            "UPDATE pedido SET  estado = '%s', total = %f WHERE id_pedido = %d",
+            $conn->real_escape_string($pedido->estado),
+            $pedido->total,
+            $pedido->id
+        );
+        
+    
+        $result = $conn->query($query);
+    
+        if (!$result) 
+            error_log($conn->error);
+        else if ($conn->affected_rows != 1) 
+            error_log("Se han actualizado '$conn->affected_rows' registros!");
+    
+        return $pedido;
+    }
 
     private static function inserta($pedido){
 
@@ -49,9 +70,9 @@ class Pedido{
         $query = sprintf(
             "INSERT INTO pedido (id_user, estado, total, fecha) VALUES ('%s', '%s', %d, '%s')",
             $pedido->autor,
-            is_null($pedido->pedido_origen) ? 'NULL' : $pedido->pedido_origen,
-            $pedido->tags,
-            $conn->real_escape_string($pedido->fecha_publicacion)
+            $pedido->estado,
+            $pedido->total,
+            Pedido::generatePostDate()
         );
 
         $result = $conn->query($query);
@@ -126,6 +147,37 @@ class Pedido{
         return $result;
     }
 
+
+
+    public static function generatePostDate(){
+
+        $date = getdate();
+        $day = $date['mday'];
+        $month = $date['mon'];
+        $year = $date['year'];
+
+        return $day . "-" . $month . "-" . $year;
+    }
+
+    public function setId($value){
+         $this->id = $value;
+    }
+
+    public function setAutor($value){
+         $this->autor = $value;
+    }
+
+    public function setEstado($value){
+         $this->estado = $value;
+    }
+
+    public function setTotal($value){
+         $this->total = $value;
+    }
+    
+    public function setFecha($value){
+         $this->fecha = $value;
+    }
 
     public function getId(){
         return $this->id;

@@ -27,9 +27,9 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `usuario`
 --
-
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
-  `id_user` varchar(64) NOT NULL,
+  `id_user` varchar(63) NOT NULL,
   `nickname` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
@@ -42,9 +42,9 @@ CREATE TABLE `usuario` (
 --
 -- Estructura de tabla para la tabla `ajustes`
 --
-
+DROP TABLE IF EXISTS `ajustes`;
 CREATE TABLE `ajustes` (
-  `id_user` varchar(64) NOT NULL,
+  `id_user` varchar(63) NOT NULL,
   `fuente` varchar(255) DEFAULT NULL,
   `fontSize` int(11) DEFAULT NULL,
   `temas` varchar(255) DEFAULT NULL,
@@ -56,21 +56,42 @@ CREATE TABLE `ajustes` (
 --
 -- Estructura de tabla para la tabla `artista`
 --
-
+DROP TABLE IF EXISTS `artista`;
 CREATE TABLE `artista` (
-  `id_artista` varchar(255) NOT NULL,
+  `id_artista` varchar(63) NOT NULL,
   `integrantes` tinytext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Estructura de tabla para la tabla `evento`
+--
+DROP TABLE IF EXISTS `evento`;
+CREATE TABLE `evento` (
+  `id_evento` int(11) NOT NULL,
+  `id_artista` varchar(63) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `descripcion` tinytext DEFAULT NULL,
+  `fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `evento_prod`;
+CREATE TABLE `evento_prod` (
+  `id_evento` int(11) NOT NULL,
+  `id_prod` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `post`
 --
+DROP TABLE IF EXISTS `post`;
 
 CREATE TABLE `post` (
   `id_post` int(11) NOT NULL,
-  `id_user` varchar(64) NOT NULL,
+  `id_user` varchar(63) NOT NULL,
   `texto` text DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `likes` int(11) DEFAULT NULL,
@@ -84,10 +105,10 @@ CREATE TABLE `post` (
 --
 -- Estructura de tabla para la tabla `postfav`
 --
-
+DROP TABLE IF EXISTS `postfav`;
 CREATE TABLE `postfav` (
   `id_post` int(11) NOT NULL,
-  `id_user` varchar(64) NOT NULL
+  `id_user` varchar(63) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -95,8 +116,8 @@ CREATE TABLE `postfav` (
 
 DROP TABLE IF EXISTS `seguidores`;
 CREATE TABLE `seguidores` (
-  `id_user` varchar(64) NOT NULL,
-  `id_seguidor` varchar(64) NOT NULL
+  `id_user` varchar(63) NOT NULL,
+  `id_seguidor` varchar(63) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -108,7 +129,7 @@ CREATE TABLE `seguidores` (
 DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `id_pedido` int(11) NOT NULL,
-  `id_user` varchar(64) DEFAULT NULL,
+  `id_user` varchar(63) NOT NULL,
   `estado` varchar(255) DEFAULT NULL,
   `total` float DEFAULT NULL,
   `fecha` date DEFAULT NULL
@@ -117,7 +138,7 @@ CREATE TABLE `pedido` (
 DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `id_prod` int(11) NOT NULL,
-  `id_artista` varchar(255) DEFAULT NULL,
+  `id_artista` varchar(63) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `descripcion` tinytext DEFAULT NULL,
@@ -128,7 +149,8 @@ CREATE TABLE `producto` (
 DROP TABLE IF EXISTS `pedido_prod`;
 CREATE TABLE `pedido_prod` (
   `id_pedido` int(11) NOT NULL,
-  `id_prod` int(11) NOT NULL
+  `id_prod` int(11) NOT NULL,
+  `cantidad` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -147,6 +169,17 @@ ALTER TABLE `ajustes`
 --
 ALTER TABLE `artista`
   ADD PRIMARY KEY (`id_artista`);
+--
+-- Indices de la tabla `evento`
+--
+ALTER TABLE `evento`
+  ADD PRIMARY KEY (`id_evento`),
+  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `evento_prod`
+  ADD PRIMARY KEY (`id_evento`,`id_prod`),
+  ADD KEY `id_prod` (`id_prod`),
+  ADD KEY `id_evento` (`id_evento`);
 
 --
 -- Indices de la tabla `post`
@@ -219,6 +252,16 @@ ALTER TABLE `ajustes`
 --
 ALTER TABLE `artista`
   ADD CONSTRAINT `artista_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `evento`
+--
+ALTER TABLE `evento`
+  ADD CONSTRAINT `evento_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `artista` (`id_artista`) ON DELETE CASCADE;
+
+ALTER TABLE `evento_prod`
+  ADD CONSTRAINT `evento_prod_ibfk_1` FOREIGN KEY (`id_evento`) REFERENCES `evento` (`id_evento`) ON DELETE CASCADE,
+  ADD CONSTRAINT `evento_prod_ibfk_2` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `post`
