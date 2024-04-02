@@ -13,10 +13,11 @@
 -Crear PDF o .md de MEMORIA  (❗)
 -Actualizar dicha memoria con datos pedidos por el profe en la EVALUACION ❗❗❗❗(TODOS)❗❗❗❗
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❓
--Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido ❓
+-Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido ✅  (Alonso)
 
 -Mensajes de error en login (Óscar) ✅
 -Mensajes de error en sign up (Óscar)
+-Diferenciar entre perfil de un usuario random y tu propio perfil ✅ (Alonso)
 
 
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------

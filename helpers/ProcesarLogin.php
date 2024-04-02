@@ -9,7 +9,7 @@ $username = htmlspecialchars($_POST['username']);
 $password = $_POST['password'] ?? null;
 
 //Comprobar credenciales
-$isValid = checkUser($username, $password);
+$isValid = Usuario::login($user, $pass);
 
 //Iniciar sesion o pedir de nuevo la cuenta
 if($isValid){
@@ -24,8 +24,4 @@ else{
     
     header('Location: ' . RUTA_VISTAS_PATH . '/log/Login.php'); 
     exit();
-}
-
-function checkUser($user, $pass){
-    return Usuario::login($user, $pass); 
 }
