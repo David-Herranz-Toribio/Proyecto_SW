@@ -1,6 +1,6 @@
 <?php
 
-function generateStaticHeader() {
+function generateStaticHeader($currentPage) {
     $iconImage = RUTA_IMG_PATH.'/2MelodyLogo.png';
 
     if (!islogged()) {
@@ -23,7 +23,7 @@ function generateStaticHeader() {
       </p>
 
       <p>
-        <form action="busqueda.php" method="get">
+        <form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
           <input type="text" name="query" placeholder="Ej. usuario: Robert09">
           <button type="submit">Buscar</button>
         </form>

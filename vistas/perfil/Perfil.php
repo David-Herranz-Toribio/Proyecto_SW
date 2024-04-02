@@ -40,11 +40,16 @@ function showProfile($usuario,$favs){
         
         if(!empty($posts)){
             $html .= "<section class = 'listaPost'>";
+            if (isset($_GET['query'])) {
+                $textoBusqueda = $_GET['query'];
+                $posts = Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
+            }   
             foreach($posts as $post){
                 $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                          $post->getTexto(), $post->getId(), $usuario);
-            }
+                                         $post->getTexto(), $post->getId(), $usuario);
+                }
             $html .= "</section>";
+
         }else
             $html .= "<section class = 'listaPost'> <h3> No has dado Like (&#10084) a ningún post</h3></section>";
     }else
