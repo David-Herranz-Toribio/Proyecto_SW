@@ -11,25 +11,26 @@ require_once RUTA_LAYOUTS;
 
 function showProfile($usuario,$favs){
     $SettingsImage = RUTA_IMG_PATH.'/Setting_icon__.png';
+    $boton_ajuste= ''; 
     if(!$usuario){
-        if (isset($_SESSION['username']))
+        if (isset($_SESSION['username'])) //Hay sesion iniciada
+            $boton_ajuste= <<<EOS
+            <p>
+            <section class="datos_perfil">
+            <a href="AjustePerfil.php">
+                <img src='$SettingsImage' alt="Modificar Perfil" height="45" width="50">
+            </a>
+            </section>
+            </p>
+            EOS;
             $usuario = $_SESSION['username'];
     }
 
     if($usuario) {
-        $html= "<section class = 'datos_perfil'>"; 
-        $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>"; 
-        
-        $html .= <<<EOS
-        <p>
-        <section class="datos_perfil">
-        <a href="AjustePerfil.php">
-            <img src='$SettingsImage' alt="Modificar Perfil" height="45" width="50">
-        </a>
-        </section>
-        </p>
-        EOS; 
 
+        $html= "<section class = 'datos_perfil'>"; 
+        $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>";  
+        $html .= $boton_ajuste; 
         $html.= "</section>"; 
 
         if($favs){

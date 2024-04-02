@@ -17,6 +17,7 @@
 
 -Mensajes de error en login (Óscar) ✅
 -Mensajes de error en sign up (Óscar)
+-Diferenciar entre perfil de un usuario random y tu propio perfil ✅ (Alonso)
 
 
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------
