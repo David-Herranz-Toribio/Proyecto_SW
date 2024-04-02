@@ -13,9 +13,15 @@ $isArtist = boolval($_POST['isArtist']);
 
 // Comprobar datos de usuario
 $errors = Usuario::checkUserData($username, $email, $birthdate, $isArtist);
+
 if( !empty($errors) ) {
     $_SESSION['error'] = $errors;
-    header('Location: ' . RUTA_VISTAS_PATH . '/log/SignUpUser.php');
+
+    if(!$isArtist)
+        header('Location: ' . RUTA_VISTAS_PATH . '/log/SignUpUser.php');
+    else
+        header('Location: ' . RUTA_VISTAS_PATH . '/log/SignUpArtist.php');
+    
     exit();
 }
 
@@ -26,7 +32,7 @@ else
     $artist_members = $_POST['musical_genres'];
 
 // Crear usuario
-$usuario = Usuario::createUser($username, $nickname, $password, $email, $birthdate, $isArtist, $artist_members, $errors);
+$usuario = Usuario::createUser($username, $nickname, $password, $email, $birthdate, $isArtist, $artist_members);
 
 // Redirigir al cliente
 $_SESSION['username'] = $username; 

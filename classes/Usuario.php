@@ -43,7 +43,6 @@ class Usuario{
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
             $errores['email'] = 'El email no es válido';
 
-
         // La fecha es anterior al día actual
         if($isArtist){
             $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
@@ -60,7 +59,7 @@ class Usuario{
         Registra un nuevo usuario en la Base de Datos
         Devolvemos el objeto Usuario y por el parametro errors[] los mensajes de error que se hayan generado(usuario ya existe, contraseña débil, etc...)
     */
-    public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members, &$errors){
+    public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members){
 
         $conection = BD::getInstance()->getConexionBd();
         $nullv = null;
