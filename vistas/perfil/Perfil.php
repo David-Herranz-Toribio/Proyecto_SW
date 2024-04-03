@@ -13,7 +13,7 @@ function showProfile($usuario,$favs){
     $SettingsImage = RUTA_IMG_PATH.'/Setting_icon__.png';
     $boton_ajuste= ''; 
     if(!$usuario){
-        if (isset($_SESSION['username'])) //Hay sesion iniciada
+        if (isset($_SESSION['username'])){ //Hay sesion iniciada
             $boton_ajuste= <<<EOS
             <p>
             <section class="datos_perfil">
@@ -24,6 +24,7 @@ function showProfile($usuario,$favs){
             </p>
             EOS;
             $usuario = $_SESSION['username'];
+        }
     }
 
     if($usuario) {
