@@ -44,7 +44,12 @@ function showProfile($usuario,$favs){
             $html .= "<section class = 'listaPost'>";
             if (isset($_GET['query'])) {
                 $textoBusqueda = $_GET['query'];
-                $posts = Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
+                if($favs){
+                    $posts = Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+                }
+                else {
+                    $posts = Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
+                }
             }   
             foreach($posts as $post){
                 $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),

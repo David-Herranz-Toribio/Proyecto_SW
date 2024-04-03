@@ -2,6 +2,14 @@
 
 function generateStaticHeader($currentPage) {
     $iconImage = RUTA_IMG_PATH.'/2MelodyLogo.png';
+    $favs = 0;
+    $placeholderText = "Ej. usuario: Robert09";
+    if (isset($_GET['favs'])) {
+      $favs = $_GET['favs']; 
+    }
+    else if (strpos($currentPage, "/vistas/perfil/Perfil.php") !== false) {
+        $placeholderText = "Ej. texto: Hola mundo";
+    }
 
     if (!islogged()) {
         $loginImage = RUTA_IMG_PATH.'/FotoLoginUser.png';
@@ -24,7 +32,8 @@ function generateStaticHeader($currentPage) {
 
       <p>
         <form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
-          <input type="text" name="query" placeholder="Ej. usuario: Robert09">
+          <input type="text" name="query" placeholder="$placeholderText">
+          <input type="hidden" name="favs" value="$favs">
           <button type="submit">Buscar</button>
         </form>
       </p>

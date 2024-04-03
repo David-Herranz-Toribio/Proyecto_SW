@@ -57,7 +57,7 @@ header div.contenedor_texto {
 	background-color: lightgreen;
 	float: left;
 	min-width: 200px;
-	width: 14%; 
+	width: 16%; 
 	min-height: 100vh;
 	position: fixed;
 	grid-area: navegacion;
