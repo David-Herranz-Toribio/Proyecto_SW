@@ -13,7 +13,7 @@ body {
 	height: 100vh;
 	display: grid;
 	grid-template-columns: 16% 84%;
-	grid-template-rows: 70px auto;
+	grid-template-rows: 10% auto;
 	grid-template-areas: 
 	"cabecera cabecera"
 	"navegacion contenido"
@@ -22,7 +22,7 @@ body {
 
 
 .header {
-	height: 70px;
+	height: 10%;
 	text-align: right;
     background-color: lightblue;
 	align-items: center;

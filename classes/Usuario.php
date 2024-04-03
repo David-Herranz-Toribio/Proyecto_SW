@@ -43,15 +43,16 @@ class Usuario{
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
             $errores['email'] = 'El email no es válido';
 
-        // La fecha es anterior al día actual
-        if($isArtist){
+        
+        /*    // La fecha es anterior al día actual
+        if($isArtist && $birthdate ){
             $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
         }
         // La fecha verifica que el usuario tiene más de 18 años
         else{
             $errores['birthdate'] = 'Debe tener más de 18 años para crear una cuenta';
         }
-
+        */
         return $errores;
     }
 

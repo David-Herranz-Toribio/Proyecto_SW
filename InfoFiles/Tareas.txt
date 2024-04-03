@@ -18,7 +18,7 @@
 -Mensajes de error en login (Óscar) ✅
 -Mensajes de error en sign up (Óscar)
 -Diferenciar entre perfil de un usuario random y tu propio perfil ✅ (Alonso)
-
+-Añadir reglas @media en CSS para que se vea bien en movil 
 
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------
 -Likes✅

@@ -127,11 +127,15 @@ function showResp($id_post, $yoYYoMismo){
 function showTestPosts($yoYYoMismo){
     $rutaPublicar = RUTA_VISTAS_PATH.'/foro/CrearPost.php';
     $content = "<h1 class = 'texto_infor'> Posts </h1>";
-    $content .= <<< EOS
-    <form class= 'boton_publicar' action = $rutaPublicar method = "post">
-    <button type = "submit">Publicar</button>
-    </form>
-    EOS; 
+
+    if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 
+        $content .= <<< EOS
+        <form class= 'boton_publicar' action = $rutaPublicar method = "post">
+        <button type = "submit">Publicar</button>
+        </form>
+        EOS; 
+    }
+
 
     $content .= "<section class = 'listaPost'>";
     $posts = Post::obtenerListaDePosts();

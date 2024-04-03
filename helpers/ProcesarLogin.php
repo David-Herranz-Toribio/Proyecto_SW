@@ -9,7 +9,7 @@ $username = htmlspecialchars($_POST['username']);
 $password = $_POST['password'] ?? null;
 
 //Comprobar credenciales
-$isValid = Usuario::login($user, $pass);
+$isValid = Usuario::login($username, $password);
 
 //Iniciar sesion o pedir de nuevo la cuenta
 if($isValid){
