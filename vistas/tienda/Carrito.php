@@ -1,14 +1,13 @@
 <?php
 
 require_once '../../Config.php';
+require_once RUTA_HELPERS.'/TiendaHelper.php';
 
-$content = showProfile();
+$user = null;
+
+if(isset($_SESSION['username']))
+    $user = $_SESSION['username'];
+
+$content = showCarrito($user);
 
 require_once RUTA_LAYOUTS;
-
-function showProfile(){
-    
-    $html = "<p> Estas viendo tu carrito </p>";
-
-    return $html;
-}

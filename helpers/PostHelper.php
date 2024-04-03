@@ -73,7 +73,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         <button type = "submit">Ver Respuestas &#128269</button>
     </form>
 
-    <form action = $rutaAdd method = "post">
+    <form action = $rutaAdd method = "post" enctype = "multipart/form-data">
         <input type = "hidden" name = "id_padre" value = "$id">
         <details>
             <summary>Responder &#10149; </summary>
