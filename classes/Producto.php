@@ -46,6 +46,21 @@ class Producto{
         return $result;
     }
 
+    public static function obtenerProductosDePedido($id){
+        $result = [];
+        $conection = BD::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM producto P JOIN pedido_prod PP ON P.id_prod = PP.id_prod WHERE PP.id_pedido = %d", $id);
+        $rs = $conection->query($query);
+        
+        while($fila = $rs->fetch_assoc()){
+            $result[] = array("producto" =>self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
+                                            $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio']),"cantidad" =>$fila['cantidad']) ;
+        }
+        $rs->free();
+
+        return $result;
+    }
+
     public static function obtenerListaDeProductos($origen_aux = 'NULL'){
 
     }
@@ -82,11 +97,7 @@ class Producto{
         return $result;
     }
 
-
-
-
-
-    private static function inserta($producto){
+    public static function inserta($producto){
 
         $result = false;
         $conn = BD::getInstance()->getConexionBd();

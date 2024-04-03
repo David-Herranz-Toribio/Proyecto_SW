@@ -41,6 +41,7 @@ class Pedido{
 
         return $result;
     }
+    
     public static function actualiza($pedido){
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
@@ -91,7 +92,7 @@ class Pedido{
 
 
 
-    private static function insertaPP($id_ped, $id_prod, $cant){
+    public static function insertaPP($id_ped, $id_prod, $cant){
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
