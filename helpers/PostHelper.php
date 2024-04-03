@@ -135,7 +135,10 @@ function showTestPosts($yoYYoMismo){
 
     $content .= "<section class = 'listaPost'>";
     $posts = Post::obtenerListaDePosts();
-
+    if (isset($_GET['query'])) {
+        $textoBusqueda = $_GET['query'];
+        $posts = Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+    }   
     foreach($posts as $post){
         $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
                                      $post->getTexto(), $post->getId(), $yoYYoMismo);   

@@ -2,4 +2,6 @@
 
 require_once RUTA_HELPERS.'/CabeceraSesion.php';
 
-echo generateStaticHeader();
+$currentPage = $_SERVER['REQUEST_URI'];
+
+echo generateStaticHeader($currentPage);

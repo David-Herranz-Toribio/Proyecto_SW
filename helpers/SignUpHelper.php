@@ -16,11 +16,26 @@ function generateArtistAccountLink(){
     return "<p> Eres un artista? <a href=$enlace> Crea tu cuenta aquí </a></p>";
 }
 
-function generateFormularyUser(){
+function generateFormularyUser($errores){
+
+    $username_error = '';
+    if( isset($errores['username']) ){
+        $username_error = $errores['username'];
+    }
+
+    $email_error = '';
+    if( isset($errores['email']) ){
+        $email_error = $errores['email'];
+    }
+
+    $birthdate_error = '';
+    if( isset($errores['birthdate']) ){
+        $birthdate_error = $errores['birthdate'];
+    }
 
     $enlace = RUTA_HELPERS_PATH . '/ProcesarRegistro.php';
     $form =<<<EOS
-    <fieldset class= "formRegistro">
+    <fieldset class="formRegistro">
     <legend> Registra tu nueva cuenta de usuario </legend> 
         <form action=$enlace method="post">
         
@@ -34,13 +49,15 @@ function generateFormularyUser(){
             <label> Username (Ej: paco03) </label>
             <p></p> 
             <input required type="text" name="new_username">
-                
+            <p> $username_error </p>
+
             <p></p> 
                 
             <label> Email </label>
             <p></p> 
             <input required type="text" name="new_email">
-        
+            <p> $email_error </p>
+
             <p></p> 
 
             <label> Password </label>
@@ -52,7 +69,10 @@ function generateFormularyUser(){
             <label> Birthdate </label>
             <p></p> 
             <input required type="date" name="new_birthdate">
-            <p></p> 
+            <p> $birthdate_error </p>
+
+            <p></p>
+
             <button type="submit" name="register_button" > Sign In </button>
         </form>
     </fieldset>
@@ -61,9 +81,24 @@ function generateFormularyUser(){
     return $form;
 }
 
-function generateFormularyArtist(){
+function generateFormularyArtist($errores){
 
-    $enlace = RUTA_HELPERS_PATH.'/ProcesarRegistro.php';
+    $username_error = '';
+    if( isset($errores['username']) ){
+        $username_error = $errores['username'];
+    }
+
+    $email_error = '';
+    if( isset($errores['email']) ){
+        $email_error = $errores['email'];
+    }
+
+    $birthdate_error = '';
+    if( isset($errores['birthdate']) ){
+        $birthdate_error = $errores['birthdate'];
+    }
+
+    $enlace = RUTA_HELPERS_PATH . '/ProcesarRegistro.php';
     $form =<<<EOS
     <fieldset class= "formRegistro">
         <legend> Registra tu nueva cuenta de artista </legend> 
@@ -73,19 +108,21 @@ function generateFormularyArtist(){
             <label> Nickname </label>
             <p></p> 
             <input required type="text" name= "new_nickname">
-
+            
             <p></p> 
 
             <label> Username (Ej: paco03) </label>
             <p></p> 
             <input required type="text" name="new_username">
-                
+            <p> $username_error </p>
+
             <p></p> 
                 
             <label> Email </label>
             <p></p> 
             <input required type="text" name="new_email">
-        
+            <p> $email_error </p>
+
             <p></p> 
 
             <label> Password </label>
@@ -97,6 +134,8 @@ function generateFormularyArtist(){
             <label> Birthdate </label>
             <p></p> 
             <input required type="date" name="new_birthdate">
+            <p> $birthdate_error </p>
+
             <p></p> 
 
             <label> Musical genre: </label><br>
@@ -120,7 +159,8 @@ function generateFormularyArtist(){
                 <option value="Metal"> Metal </option>
             </select>
 
-            <p></p> 
+            <p></p>
+
             <button type="submit" name="register_button" > Sign In </button>
         </form>
     </fieldset>
@@ -131,19 +171,8 @@ function generateFormularyArtist(){
 
 function generateErrorMessages(){
 
-    if(isset($_SESSION['error']) && $_SESSION['error'] === true){
-        $errors = $_SESSION['error'];
-        $username = $errors['username'];
-        $email = $errors['email'];
-        $birth = $errors['birthdate'];
-
-        $html =<<<EOS
-        <p> $username </p>
-        <p> $email </p>
-        <p> $birth </p>
-        EOS;
-        
-        return $html;
+    if(isset($_SESSION['error'])){
+        return $_SESSION['error'];
     }
 
     return '';
