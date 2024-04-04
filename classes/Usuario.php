@@ -43,8 +43,13 @@ class Usuario{
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
             $errores['email'] = 'El email no es válido';
 
+        // El email ya está en uso
+        else if(self::buscaEmailBD($email) == null)
+            $errores['email'] = 'El email ya está en uso';
         
-        /*    // La fecha es anterior al día actual
+        
+        /*
+        // La fecha es anterior al día actual
         if($isArtist && $birthdate ){
             $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
         }
@@ -206,6 +211,26 @@ class Usuario{
         }
 
         return $result; 
+    }
+
+    public static function buscaUsernameBD($username){
+    
+        return null;
+    }
+
+    public static function buscaNicknameBD($nickname){
+    
+        return null;
+    }
+
+    public static function buscaEmailBD($email){
+    
+        return null;
+    }
+
+    public static function buscaBirthdateBD($birthdate){
+    
+        return null;
     }
 
     public function aumentaKarma($num){
