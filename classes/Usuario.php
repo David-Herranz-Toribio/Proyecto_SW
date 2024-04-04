@@ -102,8 +102,8 @@ class Usuario{
                 fecha = '%s',
                 correo = '%s'
             WHERE id_user = '%s'",
-                $conn->real_escape_string($user->password),
-                $conn->real_escape_string($user->nickname), 
+                $conn->real_escape_string($user->nickname),
+                $conn->real_escape_string($user->password), 
                 $conn->real_escape_string($user->fotopath),
                 $conn->real_escape_string($user->desc),
                 $user->karma,
@@ -216,6 +216,10 @@ class Usuario{
         return $this->username;
     }
 
+    public function getDescrip(){
+        return $this->desc; 
+    }
+
     public function getNickname(){
         return $this->nickname;
     }
@@ -246,6 +250,11 @@ class Usuario{
 
     public function setPassword($new_password){
         $this->password= $new_password; 
+    }
+
+    public function setDescrip($new_desc){
+
+        $this->desc= $new_desc; 
     }
 
 }
