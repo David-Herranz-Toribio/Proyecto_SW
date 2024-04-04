@@ -4,6 +4,7 @@ function generateStaticHeader($currentPage) {
     $iconImage = RUTA_IMG_PATH.'/2MelodyLogo.png';
     $favs = 0;
     $placeholderText = "Ej. usuario: Robert09";
+    $user = $_GET["user"] ?? NULL;
     if (isset($_GET['user'])) {
       $user = $_GET['user']; 
     }
