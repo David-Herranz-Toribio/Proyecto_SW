@@ -76,7 +76,7 @@ class Post{
         else 
             $operation = '=';
 
-        $query = "SELECT * FROM post P WHERE P.origen $operation $origen_aux ORDER BY P.fecha DESC";
+        $query = "SELECT * FROM post P WHERE P.origen $operation $origen_aux ORDER BY P.fecha ASC";
         $rs = $conection->query($query);
 
         while($fila = $rs->fetch_assoc()){

@@ -64,7 +64,7 @@ class Pedido{
         return $pedido;
     }
 
-    private static function inserta($pedido){
+    public static function inserta($pedido){
 
         $result = false;
         $conn = BD::getInstance()->getConexionBd();

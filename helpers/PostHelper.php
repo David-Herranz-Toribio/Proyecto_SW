@@ -63,6 +63,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     }
 
     $botones .= <<<EOS5
+    <div class= 'botones_mensaje'>
     <form action = $rutaLike method = "post">
         <input type = "hidden" name = "likeId" value = "$id">
         <button type="submit">$likes &#9834 </button>
@@ -72,6 +73,9 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         <input type = "hidden" name = "respuestasId" value = "$id">
         <button type = "submit">Ver Respuestas &#128269</button>
     </form>
+    </div>
+
+    <div class= 'responder'>
 
     <form action = $rutaAdd method = "post" enctype = "multipart/form-data">
         <input type = "hidden" name = "id_padre" value = "$id">
@@ -82,6 +86,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
             <button type = "submit">Enviar respuesta</button>
         </details>
     </form>
+    <div> 
     EOS5;
 
     $html =<<<EOS6
