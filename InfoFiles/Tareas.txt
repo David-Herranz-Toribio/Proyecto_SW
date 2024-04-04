@@ -1,8 +1,8 @@
 ------------------------------------------------ COSAS PARA SEMANA SANTA----------------------------------------------------
 -IMPORTANTE: EMPEZAR A CORREGIR FORMULARIOS SIN VALIDACION (no comprobamos nunca si está bien) (David)✅
 -Imagenes ($_FILES, subir archivos etc...) (David)✅
--UTILIZAR GRID EN CSS (Alonso y Ignacio) ✅
--BD: Cascade y TABLA PRODUCTOS + asociados (Hugo) ✅
+-UTILIZAR GRID EN CSS (Alonso y Ignacio)✅
+-BD: Cascade y TABLA PRODUCTOS + asociados (Hugo)✅
 -Respuestas, eliminaciones y modificaciones en cada mensaje ✅
 -Actualizar Diagramas de Base de Datos para que coincidan y Mejorarlos [PP cantidad, nueva tabla Eventos, img en producto](Hugo)✅
 
@@ -10,38 +10,44 @@
 -Tienda (David y Hugo)🔄️
 
 
--Crear PDF o .md de MEMORIA  (❗)
--Actualizar dicha memoria con datos pedidos por el profe en la EVALUACION ❗❗❗❗(TODOS)❗❗❗❗
+-Crear PDF o .md de MEMORIA  (Óscar)✅
+-Actualizar dicha memoria con datos pedidos por el profe en la EVALUACION (Óscar)
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❓
--Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido ✅  (Alonso)
+-Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido (Alonso)✅
 
--Mensajes de error en login (Óscar) ✅
+-Mensajes de error en login (Óscar)✅
 -Mensajes de error en sign up (Óscar)
--Diferenciar entre perfil de un usuario random y tu propio perfil ✅ (Alonso)
+-Diferenciar entre perfil de un usuario random y tu propio perfil (Alonso)✅
 -Añadir reglas @media en CSS para que se vea bien en movil 
 
+
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------
--Likes✅
--Posts✅
--Respuestas✅
--Edicion y modificacion de posts✅
+-Likes ✅
+-Posts ✅
+-Respuestas ✅
+-Edicion y modificacion de posts ✅
 -Quitar gran parte de los div (Alonso)✅
 -Quitar las etiquetas style de la pagina (Alonso)✅
 -Usar etiquetas en lugar de clases ✅
 
 
-
 ----------------------------------------------------------- Ideas -----------------------------------------------------------
 -ScrollBar en el desplegable de géneros musicales (SignUpHelper.php)✅
--Que las respuestas sean desplegables✅
--Respuestas, eliminaciones y modificaciones en cada mensaje✅
+-Que las respuestas sean desplegables ✅
+-Respuestas, eliminaciones y modificaciones en cada mensaje ✅
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido 
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)
--Múltiples selecciones de género (SignUpHelper.php)
--Utilizar el correo para contacto entre artistas y subcriptores O sino eliminar correo.
+-Múltiples selecciones de géneros musicales (SignUpHelper.php)
+-Utilizar el correo para contacto entre artistas y subcriptores y tener una única cuenta asociada a un correo concreto
+-Añadir campo de descripción en perfil de usuario
+-Añadir foto de perfil para modificarla
+-Añadir funciones para buscar en la base de datos un usuario con un cierto username, nickname, email y birthdate(añadidas, falta implementacion y uso en otras funciones)
+-En lugar de tener muchos parametros en constructores podemos utilizar un array de posiciones
+    Ejemplo: tener como parametro $parametros y para acceder a los valores hacer $parametros['indice']
+
 
 --------------------------------------------------------CSS--------------------------------
--Logotipo a la izquierda del todo y el login/logout arriba // Ignacio✅
+-Logotipo a la izquierda del todo y el login/logout arriba (Ignacio)✅
 -El sidebar que ocupe toda la columna ✅
 -Mantener la posición del sidebar independientemente del lugar ✅
 -Quitar las opciones, y cuando pases el cursor por los módulos te carguen las opciones 
@@ -50,5 +56,4 @@
 -La sidebar debe contraerse y expandirse sin cambiar el fondo ✅
 -Las opciones del perfil, que sean desplegables
 -Las publicaciones guardadas, es una pestaña a parte
-
 -Quitar <br> en PostHelper.php (creacionPostHTML, responder)

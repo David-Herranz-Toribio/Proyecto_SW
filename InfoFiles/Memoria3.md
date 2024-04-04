@@ -2,27 +2,94 @@
 
 ## Funcionalidades implementadas
 
-* Funcionalidad de entrega
-    * Perfil
-    * Tienda
+* Perfil
+* Tienda
 
-* Funcionalidad extra
-    * Primera
-    * Segunda
-    * Tercera
+
+## Funcionalidad en proceso
+* Primera
+* Segunda
+* Tercera
+
 
 ## Scripts de vistas
 
-- 
+* Index
+    * index.php
+
+* Foro
+    * AddForo.php
+    * CrearPost.php
+    * Foro.php
+    * ModificarVista.php
+    * ResouestasForo.php
+
+* Layout
+    * Cabecera.php
+    * Footer.php
+    * Layout.php
+    * Sidebar.php
+
+* Log
+    * Login.php
+    * Logout.php
+    * SignUpArtist.php
+    * SignUpUser.php
+
+* Musica
+    * Musica.php
+
+* Perfil
+    * AjustePerfil.php
+    * Perfil.php
+
+* Tienda
+    * Carrito.php
+    * Entradas.php
+    * Merch.php
+    * ProductoVista.php
 
 ## Scripts adicionales
 
-- Pedido.php
-- Producto.php
-- ModificarPerfilHelper.php
-- PostHelper.php
-- ProdesarProducto.php
-- TiendaHelper.php
+### Practica 2
+
+* Clases
+    * Usuario.php
+    * Post.php
+    * BD.php
+
+* Helpers
+    * LoginHelper.php
+    * PostHelper.php
+    * SignUpHelper.php
+    * CabeceraSesion.php
+    * PostHelper.php
+    * CrearPostVista.php
+    * ProcesarLogin.php
+    * ProcesarRegistro.php
+    * ProcesarLike.php
+    * ProcesarModificacion.php
+    * ProcesarEliminar.php
+
+* Navegación
+    * Config.php
+
+* Base de datos
+    * Estructura BD : 2melody.sql
+    * Datos BD : 2melodyDatos.sql
+
+
+### Practica 3
+
+* Clases
+    * Pedido.php
+    * Producto.php
+    
+* Helpers
+    * ModificarPerfilHelper.php
+    * PostHelper.php
+    * ProcesarProducto.php
+    * TiendaHelper.php
 
 
 ## Usuarios en la base de datos
