@@ -74,7 +74,8 @@ dt  details  summary {
     cursor: pointer; /* Mantiene el cursor como puntero para indicar que se puede hacer clic */
     padding-left: 2rex; /* Espacio para el marcador personalizado */
   }
-dt   details  summary::before {
+
+dt details  summary::before {
     content: "\2630"; /* Marcador personalizado */
   }
 
@@ -113,33 +114,24 @@ section.listaPost{
 	flex-direction: column;
 }
 
-/*
-	background-color: lightgray; 
-	width: 500px; 
-	height: 100%;
-	margin-bottom: 3em;
-	background-color: #fff;
-	border: 1px solid #e1e8ed;
-	padding: 20px;
-	border-radius: 10px;	
-*/
 article.estiloPost {
 	background-color: lightcyan; 
 	width: 100%; 
-	height: 100%;
-	margin-bottom: 3em;
 	display: flex;
 	flex-direction: column; 
+
 	align-items: center;
-	margin-bottom: 5%;
 	border: solid 1px #000;
 	border-radius: 10%;
+	padding-top: 5%;
+	padding-bottom: 5%;
 }
 
 article.estiloPost div.botones_mensaje {
 	display: flex;
-	float: left;
-	justify-content: space-between;
+	flex-direction: column;
+	padding-top: 5%;
+	align-self: flex-start;
 }
 
 div.user_info {
