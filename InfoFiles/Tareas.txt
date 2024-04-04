@@ -16,7 +16,7 @@
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido (Alonso)✅
 
 -Mensajes de error en login (Óscar)✅
--Mensajes de error en sign up (Óscar)
+-Mensajes de error en sign up (Óscar)✅
 -Diferenciar entre perfil de un usuario random y tu propio perfil (Alonso)✅
 -Añadir reglas @media en CSS para que se vea bien en movil 
 
@@ -33,7 +33,7 @@
 
 ----------------------------------------------------------- Ideas -----------------------------------------------------------
 -ScrollBar en el desplegable de géneros musicales (SignUpHelper.php)✅
--Que las respuestas sean desplegables ✅
+-Respuestas sean desplegables ✅
 -Respuestas, eliminaciones y modificaciones en cada mensaje ✅
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido 
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)

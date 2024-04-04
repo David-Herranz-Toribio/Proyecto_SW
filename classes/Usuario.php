@@ -48,16 +48,24 @@ class Usuario{
             $errores['email'] = 'El email ya está en uso';
         
         
-        /*
+        // Obtener fecha actual
+        $fecha_actual = new DateTime();
+        $birthdate = new DateTime($birthdate);
+
+        // Obtener un entero a partir de la fecha
+        $fecha_num = intval(date("Ymd", strtotime($fecha_actual->format('Y-m-d'))));
+        $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
+        
+
         // La fecha es anterior al día actual
-        if($isArtist && $birthdate ){
+        if( $isArtist && $fecha_actual->diff($birthdate)->d < 1 && $birth_num < $fecha_num ){
             $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
         }
         // La fecha verifica que el usuario tiene más de 18 años
-        else{
+        else if( !$isArtist && $fecha_actual->diff($birthdate)->y < 18 && $birth_num < $fecha_num ){
             $errores['birthdate'] = 'Debe tener más de 18 años para crear una cuenta';
         }
-        */
+
         return $errores;
     }
 
