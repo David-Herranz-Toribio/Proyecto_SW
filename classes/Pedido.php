@@ -89,8 +89,23 @@ class Pedido{
     }
 
 
+    public static function quitarProductoPP($producto, $id_pedido){
+        $id_prod = $producto->getId();
+        $cantidad = self::consultaPP($id_pedido, $id_prod);
+        $conn = BD::getInstance()->getConexionBd();
+        $result = false;
 
+        if($cantidad == 1)
+            $query = sprintf( "DELETE FROM pedido_prod WHERE id_pedido = %d AND id_prod = %d ", $id_pedido, $id_prod );
+        else             
+            $query = sprintf("UPDATE pedido_prod SET cantidad = %d WHERE id_pedido = %d AND id_prod = %d ", $cantidad - 1, $id_pedido, $id_prod );
 
+        $result = $conn->query($query);
+
+        if (!$result)  
+            error_log($conn->error);
+
+    }
 
     public static function insertaPP($id_ped, $id_prod, $cant){
 
