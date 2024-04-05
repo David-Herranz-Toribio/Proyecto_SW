@@ -162,6 +162,14 @@ section.estiloPerfil section.listaPost {
 /*Estilo de la pagina de ajustes*/
 
 
+
+
+
+/*Estilo de la pagina de tienda */ 
+
+
+
+
 /*Referente al estilo de los formularios*/ 
 
 section.formulario_style{
@@ -184,7 +192,7 @@ fieldset.formRegistro {
 
 button  {
 	background-color: lightgreen;
-	border-radius: 15%;
+	border-radius: 40%;
 }
 
 form.boton_publicar{

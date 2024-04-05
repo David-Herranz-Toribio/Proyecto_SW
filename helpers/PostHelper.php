@@ -62,6 +62,28 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         EOS4;
     }
 
+
+    if(!$yoYYoMismo){
+        $responder= ' '; 
+    }
+
+    else {
+        $responder= <<<EOS
+        <div class= 'responder'>
+
+        <form action = $rutaAdd method = "post" enctype = "multipart/form-data">
+        <input type = "hidden" name = "id_padre" value = "$id">
+        <details>
+            <summary>Responder &#10149; </summary>
+            <label>Respuesta:<input type = "text" name = "post_text" required></label><br>
+            <label>Imagen:<input type = "file" name = "image" accept = "image/*"></label><br>
+            <button type = "submit">Enviar respuesta</button>
+        </details>
+        </form>
+        <div> 
+        EOS; 
+    }
+
     $botones .= <<<EOS5
     <div class= 'botones_mensaje'>
     <form action = $rutaLike method = "post">
@@ -74,19 +96,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         <button type = "submit">Ver Respuestas &#128269</button>
     </form>
     </div>
-
-    <div class= 'responder'>
-
-    <form action = $rutaAdd method = "post" enctype = "multipart/form-data">
-        <input type = "hidden" name = "id_padre" value = "$id">
-        <details>
-            <summary>Responder &#10149; </summary>
-            <label>Respuesta:<input type = "text" name = "post_text" required></label><br>
-            <label>Imagen:<input type = "file" name = "image" accept = "image/*"></label><br>
-            <button type = "submit">Enviar respuesta</button>
-        </details>
-    </form>
-    <div> 
+    $responder
     EOS5;
 
     $html =<<<EOS6
