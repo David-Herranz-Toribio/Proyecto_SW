@@ -3,11 +3,12 @@
 require_once RUTA_CLASSES.'/Producto.php';
 require_once RUTA_CLASSES.'/Pedido.php';
 
-function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio,$id_pedido, $cantidad, $user){
+function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 
     $rutaProdImg = RUTA_IMG_PATH.'/prodImages/'.$image;
     $rutaProducto = RUTA_VISTAS_PATH.'/tienda/ProductoVista.php';
-
+    
+    $total = $cantidad * $precio;
     //Imagen y nombre del producto
     $prodInfo =<<<EOS
     <div class="prod_info">
@@ -20,7 +21,10 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
     $prodDesc =<<<EOS2
     <div class="prod_desc">
         <p>$descripcion</p> 
-        <p>Has seleccionado $cantidad unidades por valor de $precio cada una</p>
+        <p>Has seleccionado $cantidad unidades por valor de $precio &#9834 cada una</p>
+    </div>
+    <div class="prod_precio">
+        <p>Total: $total &#9834</p
     </div>
     EOS2;
 
@@ -71,13 +75,13 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
      
         $compra = '<button type = "submit"> Comprar </button>
                    <input type="number" name="Cantidad" value="0" min="1" max="'. $stock.'"/>
-                   <p style="display:inline"> <output name="result">0</output> €</p> ';
+                   <p style="display:inline"> <output name="result">0</output> &#9834</p> ';
     }
     //Descripcion del producto
     $prodDesc =<<<EOS2
     <div class="prod_desc">
         <p>$descripcion</p> 
-        <p>Quedan $stock unidades por valor de $precio cada una</p>
+        <p>Quedan $stock unidades por valor de $precio &#9834 cada una</p>
         <form action = $rutaCompra method="post" oninput="result.value= (parseFloat($precio) * parseInt(Cantidad.value)).toFixed(2)">            
             <input hidden name="Id" value= $id> 
             $compra
@@ -128,7 +132,7 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
 function showProducts($yoYYoMismo){
     
-    $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
+    $content = "<h1 class = 'texto_infor'> Productos </h1>";
     $content .= "<section class = 'listaArticulos'>";
     $productos = Producto::obtenerListaDeProductos();
 

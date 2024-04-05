@@ -123,18 +123,18 @@ article.estiloPost {
 	align-items: center;
 	border: solid 1px #000;
 	border-radius: 10%;
-	padding-top: 5%;
-	padding-bottom: 5%;
+	padding: 5%;
 }
 
 article.estiloPost div.botones_mensaje {
 	display: flex;
-	flex-direction: column;
-	padding-top: 5%;
-	align-self: flex-start;
+	padding: 5%;
 }
 
 div.user_info {
+	display: flex; 
+}
+div.post_info {
 	display: flex; 
 }
 

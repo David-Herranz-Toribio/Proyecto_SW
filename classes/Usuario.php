@@ -62,7 +62,7 @@ class Usuario{
             $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
         }
         // La fecha verifica que el usuario tiene más de 18 años
-        else if( !$isArtist && $fecha_actual->diff($birthdate)->y < 18 && $birth_num < $fecha_num ){
+        else if( !$isArtist && $fecha_actual->diff($birthdate)->y < 8 && $birth_num < $fecha_num ){
             $errores['birthdate'] = 'Debe tener más de 18 años para crear una cuenta';
         }
 
