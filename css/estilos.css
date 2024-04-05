@@ -123,24 +123,12 @@ article.estiloPost {
 	align-items: center;
 	border: solid 1px #000;
 	border-radius: 10%;
-	padding-top: 5%;
-	padding-bottom: 5%;
+	padding: 5%;
 }
-
-article.estiloPost div.editar_mensaje{
-	display: flex;
-	flex-direction: column;
-
-	align-self: flex-end;
-}
-
-article.estiloPost div.editar_mensaje form button {
-	margin-top: 10%;
-}
-
 
 article.estiloPost div.botones_mensaje {
 	display: flex;
+	padding: 5%;
 	flex-direction: column;
 	
 	align-self: flex-start;
@@ -148,6 +136,9 @@ article.estiloPost div.botones_mensaje {
 
 
 div.user_info {
+	display: flex; 
+}
+div.post_info {
 	display: flex; 
 }
 
