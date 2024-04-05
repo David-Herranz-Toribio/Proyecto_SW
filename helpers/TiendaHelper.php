@@ -3,7 +3,7 @@
 require_once RUTA_CLASSES.'/Producto.php';
 require_once RUTA_CLASSES.'/Pedido.php';
 
-function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $cantidad, $user){
+function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio,$id_pedido, $cantidad, $user){
 
     $rutaProdImg = RUTA_IMG_PATH.'/prodImages/'.$image;
     $rutaProducto = RUTA_VISTAS_PATH.'/tienda/ProductoVista.php';
@@ -28,25 +28,18 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
 
     
     $botones = '';
-    /*
-    Eliminar y modificar un producto
-    if ($yoYYoMismo == $autor){
-        $rutaMod = RUTA_VISTAS_PATH.'/foro/ModificarVista.php';
-        $rutaEliminar = RUTA_HELPERS_PATH.'/ProcesarEliminar.php';
+    
+    //Eliminar un producto
+    $rutaEliminar = RUTA_HELPERS_PATH.'/ElimCarrito.php';
 
-        $botones .= <<<EOS4
-        <form action = $rutaMod method="post">
-            <input type = "hidden" name = "ModificarID" value = "$id">
-            <button type = "submit"> Modificar</button>
-        </form>
+    $botones .= <<<EOS4
+    <form action= $rutaEliminar method="post">
+        <input type="hidden" name="EliminarID" value= '$id'>
+        <input type="hidden" name="PedidoID" value= '$id_pedido'>
 
-        <form action= $rutaEliminar method="post">
-            <input type="hidden" name="EliminarID" value= '$id'>
-            <button type="submit"> Eliminar</button>
-        </form>
-        EOS4;
-    }
-    */
+        <button type="submit"> Eliminar</button>
+    </form>
+    EOS4;
 
 
     $html =<<<EOS6
@@ -137,8 +130,7 @@ function showProducts($yoYYoMismo){
     
     $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
     $content .= "<section class = 'listaArticulos'>";
-    $productos = Producto::obtenerProductosDeArtista('user2');
-    //$productos = Producto::obtenerListaDeProductos();
+    $productos = Producto::obtenerListaDeProductos();
 
     foreach($productos as $prod){
         $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
@@ -150,17 +142,27 @@ function showProducts($yoYYoMismo){
 }
 
 function showCarrito($user){
-    $content = "<h1 class = 'texto_infor'> Artículos </h1>";
+    $rutaComprar = RUTA_HELPERS_PATH.'/ProcesarCompra.php';
+
+
+    $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
+    $content .= <<< EOS
+    <form class= 'boton_publicar' action = $rutaComprar method = "post">
+    <button type = "submit">Compra</button>
+    </form>
+    EOS;
+
     $content .= "<section class = 'listaArticulos'>";
 
     $pedido = Pedido::buscarPedidoPorUser($user);
-    $productos = Producto::obtenerProductosDePedido($pedido->getId());
+    $id_pedido = $pedido->getId();
+    $productos = Producto::obtenerProductosDePedido($id_pedido);
 
     foreach($productos as $item) {
         $prod = $item['producto'];
         $cantidad = $item['cantidad'];
         $content .= creacionCarritoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
-                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $cantidad, $user);   
+                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $id_pedido, $cantidad, $user);   
     }
     $content .= "</section>";
 

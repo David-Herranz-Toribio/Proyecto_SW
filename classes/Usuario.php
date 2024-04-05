@@ -43,16 +43,29 @@ class Usuario{
         if(!filter_var($email, FILTER_VALIDATE_EMAIL))
             $errores['email'] = 'El email no es válido';
 
+        // El email ya está en uso
+        else if(self::buscaEmailBD($email) == null)
+            $errores['email'] = 'El email ya está en uso';
         
-        /*    // La fecha es anterior al día actual
-        if($isArtist && $birthdate ){
+        
+        // Obtener fecha actual
+        $fecha_actual = new DateTime();
+        $birthdate = new DateTime($birthdate);
+
+        // Obtener un entero a partir de la fecha
+        $fecha_num = intval(date("Ymd", strtotime($fecha_actual->format('Y-m-d'))));
+        $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
+        
+
+        // La fecha es anterior al día actual
+        if( $isArtist && $fecha_actual->diff($birthdate)->d < 1 && $birth_num < $fecha_num ){
             $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
         }
         // La fecha verifica que el usuario tiene más de 18 años
-        else{
+        else if( !$isArtist && $fecha_actual->diff($birthdate)->y < 18 && $birth_num < $fecha_num ){
             $errores['birthdate'] = 'Debe tener más de 18 años para crear una cuenta';
         }
-        */
+
         return $errores;
     }
 
@@ -206,6 +219,26 @@ class Usuario{
         }
 
         return $result; 
+    }
+
+    public static function buscaUsernameBD($username){
+    
+        return null;
+    }
+
+    public static function buscaNicknameBD($nickname){
+    
+        return null;
+    }
+
+    public static function buscaEmailBD($email){
+    
+        return null;
+    }
+
+    public static function buscaBirthdateBD($birthdate){
+    
+        return null;
     }
 
     public function aumentaKarma($num){

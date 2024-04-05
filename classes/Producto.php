@@ -46,6 +46,21 @@ class Producto{
         return $result;
     }
 
+    public static function obtenerListaDeProductos(){
+        $result = [];
+        $conection = BD::getInstance()->getConexionBd();
+        $query = "SELECT * FROM producto";
+        $rs = $conection->query($query);
+        
+        while($fila = $rs->fetch_assoc()){
+            $result[] = self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
+                                            $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio']);
+        }
+        $rs->free();
+
+        return $result;
+    }
+
     public static function obtenerProductosDePedido($id){
         $result = [];
         $conection = BD::getInstance()->getConexionBd();
@@ -61,9 +76,7 @@ class Producto{
         return $result;
     }
 
-    public static function obtenerListaDeProductos($origen_aux = 'NULL'){
 
-    }
 
     public static function buscarProductoPorID($id){
 
@@ -84,10 +97,8 @@ class Producto{
 
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf(
-            "DELETE FROM producto WHERE id = %d", $producto->id,
-        );
-        echo $query;
+        $query = sprintf("DELETE FROM producto WHERE id_prod = %d", $producto->id);
+
 
         $result = $conn->query($query);
 

@@ -4,6 +4,10 @@ function generateStaticHeader($currentPage) {
     $iconImage = RUTA_IMG_PATH.'/2MelodyLogo.png';
     $favs = 0;
     $placeholderText = "Ej. usuario: Robert09";
+    $user = $_GET["user"] ?? NULL;
+    if (isset($_GET['user'])) {
+      $user = $_GET['user']; 
+    }
     if (isset($_GET['favs'])) {
       $favs = $_GET['favs']; 
     }
@@ -29,11 +33,11 @@ function generateStaticHeader($currentPage) {
       <p>
         <img src = '$iconImage' alt="Logo app" height="50" width="75">
       </p>
-
       <p>
         <form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
           <input type="text" name="query" placeholder="$placeholderText">
           <input type="hidden" name="favs" value="$favs">
+          <input type="hidden" name="user" value="$user">
           <button type="submit">Buscar</button>
         </form>
       </p>
