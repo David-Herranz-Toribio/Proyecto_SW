@@ -127,12 +127,25 @@ article.estiloPost {
 	padding-bottom: 5%;
 }
 
+article.estiloPost div.editar_mensaje{
+	display: flex;
+	flex-direction: column;
+
+	align-self: flex-end;
+}
+
+article.estiloPost div.editar_mensaje form button {
+	margin-top: 10%;
+}
+
+
 article.estiloPost div.botones_mensaje {
 	display: flex;
 	flex-direction: column;
-	padding-top: 5%;
+	
 	align-self: flex-start;
 }
+
 
 div.user_info {
 	display: flex; 

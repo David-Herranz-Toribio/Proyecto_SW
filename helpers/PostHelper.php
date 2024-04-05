@@ -50,6 +50,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         $rutaEliminar = RUTA_HELPERS_PATH.'/ProcesarEliminar.php';
 
         $botones .= <<<EOS4
+        <div class= 'editar_mensaje'> 
         <form action = $rutaMod method="post">
             <input type = "hidden" name = "ModificarID" value = "$id">
             <button type = "submit"> Modificar</button>
@@ -59,6 +60,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
             <input type="hidden" name="EliminarID" value= '$id'>
             <button type="submit"> Eliminar</button>
         </form>
+        </div> 
         EOS4;
     }
 
