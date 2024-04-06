@@ -114,6 +114,8 @@ section{
 	min-width: 200px;
 }
 
+
+
 article {
 	background-color: rgb(197, 182, 231); 
 	width: 100%; 
@@ -135,6 +137,9 @@ article.estiloPost div.botones_mensaje {
 	padding: 5%;
 }
 
+
+
+
 div.user_info {
 	display: flex; 
 }
@@ -143,6 +148,16 @@ div.post_info {
 	
 }
 
+
+section.listaPost#respuestas div#headPost article {
+	border: solid 3px #000;
+}
+
+section.listaPost#respuestas div#post_respuestas article {
+	margin-top: 15%;
+	margin-left: 25%; 
+	width: 75%; 
+}
 
 /*Estilo de la pagina de perfil del usuario*/
 

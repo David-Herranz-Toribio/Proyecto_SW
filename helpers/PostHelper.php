@@ -123,7 +123,7 @@ function showResp($id_post, $yoYYoMismo){
         $post_aux= Post::buscarPostPorID($id_post); 
 
         $html = "<h1 class = 'texto_infor'> Respuestas a @".$post_aux->getAutor(). "</h1>";
-        $html .= "<section class = 'listaPost'>";
+        $html .= "<section class = 'listaPost' id='respuestas'>";
         $html .= "<div id = 'headPost'>";
         $html .= creacionPostHTML($post_aux->getAutor(), $post_aux->getImagen(), $post_aux->getLikes(),
                                   $post_aux->getTexto(), $post_aux->getId(), $yoYYoMismo);
@@ -137,11 +137,15 @@ function showResp($id_post, $yoYYoMismo){
             }   
         }
 
+        $html.= "<div id='post_respuestas'>"; 
+
+
         foreach($posts as $post){
             $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
                                       $post->getTexto(), $post->getId(), $yoYYoMismo);
         }
-        $html .= "</section> ";
+        $html.= "</div>"; 
+        $html.= "</section> ";
     }
 
     return $html;
