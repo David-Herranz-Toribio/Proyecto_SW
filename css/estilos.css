@@ -119,16 +119,16 @@ article {
 	width: 100%; 
 	display: flex;
 	flex-direction: row; 
-
 	align-items: center;
 	border: solid 1px #000;
 	border-radius: 10%;
 	padding: 5%;
+	
 }
 article.estiloPost{
 	background-color: rgb(224, 252, 255); 
 	flex-direction: column; 
-
+	word-break: break-all;
 }
 article.estiloPost div.botones_mensaje {
 	display: flex;
@@ -140,6 +140,7 @@ div.user_info {
 }
 div.post_info {
 	display: flex; 
+	
 }
 
 
