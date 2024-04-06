@@ -24,7 +24,7 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
         <p>Has seleccionado $cantidad unidades por valor de $precio &#9834 cada una</p>
     </div>
     <div class="prod_precio">
-        <p>Total: $total &#9834</p
+        <p> Total: $total &#9834</p
     </div>
     EOS2;
 

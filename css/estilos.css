@@ -1,4 +1,3 @@
-
 /*Estilos de la cabecera*/
 
 body {
@@ -6,18 +5,18 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #f4f4f4;
-  }
+}
 
-  div.container{
-	width: 100%;
-	height: 100vh;
-	display: grid;
-	grid-template-columns: 16% 84%;
-	grid-template-rows: 10% auto;
-	grid-template-areas: 
-	"cabecera cabecera"
-	"navegacion contenido"
-	"navegacion contenido";
+div.container{
+width: 100%;
+height: 100vh;
+display: grid;
+grid-template-columns: 16% 84%;
+grid-template-rows: 10% auto;
+grid-template-areas: 
+"cabecera cabecera"
+"navegacion contenido"
+"navegacion contenido";
 }
 
 
@@ -53,20 +52,17 @@ header div.contenedor_texto {
 
 /*Estilos del menu de navegacion*/ 
 
-.sidebar {
+nav.sidebar {
 	background-color: lightgreen;
-	float: left;
-	min-width: 200px;
+	min-width: 150px;
 	width: 16%; 
-	min-height: 100vh;
-	position: fixed;
+	height: 100vh;
+	position:  fixed;
 	grid-area: navegacion;
 }
 
 dl.opciones {
-
-	position: relative; 
-	top: 100px; 
+	padding-top: 50%;
 }
 
 dt  details  summary {
@@ -88,14 +84,16 @@ main {
 	background-color: lightgray;
 	grid-area: contenido;
 	display: grid;
-	grid-auto-columns: 30% 25% 25% 20% ; 
+	grid-auto-columns: 30% 35% 25% ; 
 	grid-auto-rows: minmax(25px, auto);
 	grid-column-gap: 5%;
+	min-width: 300px;
+
 }
 
 
 .texto_infor{
-	grid-column-start: 2 ;
+	grid-column-start: 2;
 	grid-row-start: 1;
 }
 
@@ -106,34 +104,36 @@ div#mensaje_bienvenida{
 
 /*Estilo de los post*/ 
 
-section.listaPost{
+section{
 	
 	grid-column-start: 2;
 	grid-row-start: 2;
 	display: flex;
 	flex-direction: column;
+
+	min-width: 200px;
 }
 
-article.estiloPost {
-	background-color: lightcyan; 
+article {
+	background-color: rgb(197, 182, 231); 
 	width: 100%; 
 	display: flex;
-	flex-direction: column; 
+	flex-direction: row; 
 
 	align-items: center;
 	border: solid 1px #000;
 	border-radius: 10%;
 	padding: 5%;
 }
+article.estiloPost{
+	background-color: rgb(224, 252, 255); 
+	flex-direction: column; 
 
+}
 article.estiloPost div.botones_mensaje {
 	display: flex;
 	padding: 5%;
-	flex-direction: column;
-	
-	align-self: flex-start;
 }
-
 
 div.user_info {
 	display: flex; 
@@ -148,8 +148,10 @@ div.post_info {
 section.datos_perfil {
 	grid-row-start: 1;
 	grid-column-start: 2;
-	justify-content: space-between;
 	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	
 }
 
 section.fotoPerfil {
@@ -167,10 +169,7 @@ section.estiloPerfil section.listaPost {
 
 
 
-
-
 /*Estilo de la pagina de tienda */ 
-
 
 
 
@@ -196,7 +195,7 @@ fieldset.formRegistro {
 
 button  {
 	background-color: lightgreen;
-	border-radius: 40%;
+	border-radius: 20%;
 }
 
 form.boton_publicar{

@@ -2,6 +2,7 @@
 
 function generateStaticHeader($currentPage) {
     $iconImage = RUTA_IMG_PATH.'/2MelodyLogo.png';
+    $linkIndex = RUTA_PROYECTO_PATH.'/index.php';
     $favs = 0;
     $placeholderText = "Ej. usuario: Robert09";
     $user = $_GET["user"] ?? NULL;
@@ -30,9 +31,9 @@ function generateStaticHeader($currentPage) {
 
     $html = <<<EOS
     <header class= 'header'>
-      <p>
-        <img src = '$iconImage' alt="Logo app" height="50" width="75">
-      </p>
+      <a href="$linkIndex">
+        <img src = '$iconImage' alt="Logo App" height="50" width="75">
+      </a>
       <p>
         <form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
           <input type="text" name="query" placeholder="$placeholderText">
