@@ -21,24 +21,24 @@ $form_modificar= <<<EOS
     <fieldset class= "formRegistro">
     <legend> Modifica tu cuenta </legend> 
         <form action= $rutaMod method="post">
-            <input hidden name="id_user" value= $act_username>
+            <input hidden name="id_user" value= "$act_username">
              
             <input hidden name="isArtist" value="0"> 
             <label> Nickname </label>
             <p></p> 
-            <input type="text" name= "modify_nickname" value= $act_nickname>
+            <input type="text" name= "modify_nickname" value= "$act_nickname">
 
             <p></p> 
                 
             <label> Descripcion </label> 
             <p></p> 
-            <input type="text" name= "modify_descrip" value= $act_descr>
+            <input type="text" name= "modify_descrip" value= "$act_descr">
 
             <p> </p> 
 
             <label> Email </label>
             <p></p> 
-            <input type="text" name="modify_email" value= $act_email>
+            <input type="text" name="modify_email" value= "$act_email">
       
             <p></p> 
 
