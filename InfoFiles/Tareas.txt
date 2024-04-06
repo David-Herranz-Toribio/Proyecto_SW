@@ -30,7 +30,7 @@
 -Hacer la funcion de comprobar email a la hora de registrarse para que no este repetido 
 -Diferenciar entre perfil de un usuario random y tu propio perfil (Alonso)✅
 -Añadir reglas @media en CSS para que se vea bien en movil 
-
+-Reorganización de carpetas (Óscar)
 
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------
 -Likes ✅
@@ -59,8 +59,8 @@
 -Implementar la funcionalidad de seguir a otros usuarios 
  y que puedas ver a tus seguidos (en perfil:  numero de seguidos y seguidores), posts de seguidos tmb.
 
--Añadir funciones para buscar en la base de datos un usuario con un cierto username, nickname, email y birthdate(añadidas, falta implementacion y uso en otras funciones)
--En lugar de tener muchos parametros en constructores podemos utilizar un array de posiciones
+-Añadir funciones para buscar en la base de datos un usuario con un cierto username, nickname, email y birthdate(añadidas, falta implementacion y uso en otras funciones) (Óscar)
+-En lugar de tener muchos parametros en constructores podemos utilizar un array de posiciones (Óscar)
     Ejemplo: tener como parametro $parametros y para acceder a los valores hacer $parametros['indice']
 
 
