@@ -8,15 +8,12 @@
 </head>
 
 <body>
-
-
     <div class = "container">
 
     <?php require_once 'Cabecera.php'; ?>
-    
     <?php require_once 'Sidebar.php'; ?>
     
-    <main class= "content">
+    <main id='content'>
         <?= $content ?>
     </main>
 

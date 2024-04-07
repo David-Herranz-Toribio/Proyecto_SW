@@ -11,32 +11,25 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
     $total = $cantidad * $precio;
     //Imagen y nombre del producto
     $prodInfo =<<<EOS
-    <div class="prod_info">
-        <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
-        <div><a href= "$rutaProducto?prod=$id" name= "prod">@$autor</a>, $nombre</div>
+    <a href= "$rutaProducto?prod=$id" name= "prod" class="prod_info">
+        <div>
+            <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
+            @$autor, $nombre
+            <p>$descripcion</p> 
+            <p>Has seleccionado $cantidad unidades por valor de $precio &#9834 cada una</p>
+        </div>
+    </a>
+    <div class="prod_precio">
+        <p> Total: $total &#9834</p>
     </div>
     EOS;
-
-    //Descripcion del producto
-    $prodDesc =<<<EOS2
-    <div class="prod_desc">
-        <p>$descripcion</p> 
-        <p>Has seleccionado $cantidad unidades por valor de $precio &#9834 cada una</p>
-    </div>
-    <div class="prod_precio">
-        <p> Total: $total &#9834</p
-    </div>
-    EOS2;
-
     
-
-    
-    $botones = '';
+    $boton = '';
     
     //Eliminar un producto
     $rutaEliminar = RUTA_HELPERS_PATH.'/ElimCarrito.php';
 
-    $botones .= <<<EOS4
+    $boton .= <<<EOS4
     <form action= $rutaEliminar method="post">
         <input type="hidden" name="EliminarID" value= '$id'>
         <input type="hidden" name="PedidoID" value= '$id_pedido'>
@@ -49,8 +42,7 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
     $html =<<<EOS6
         <article class = "estiloProd">
             $prodInfo
-            $prodDesc
-            $botones
+            $boton
         </article>
     EOS6;
 
@@ -64,10 +56,12 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
     //Imagen y nombre del producto
     $prodInfo =<<<EOS
-    <div class="prod_info">
-        <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
-        <div><a href= "$rutaProducto?prod=$id" name= "prod">@$autor</a>, $nombre</div>
-    </div>
+    <a href= "$rutaProducto?prod=$id" name= "prod" class="prod_info">
+        <div>
+            <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
+            <div>@$autor, $nombre</div>
+        </div>
+    </a>
     EOS;
 
     $compra = '<p>No queda stock</p>';
@@ -79,7 +73,7 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
     }
     //Descripcion del producto
     $prodDesc =<<<EOS2
-    <div class="prod_desc">
+    <div class="prod_info">
         <p>$descripcion</p> 
         <p>Quedan $stock unidades por valor de $precio &#9834 cada una</p>
         <form action = $rutaCompra method="post" oninput="result.value= (parseFloat($precio) * parseInt(Cantidad.value)).toFixed(2)">            
