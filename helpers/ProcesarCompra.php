@@ -15,6 +15,7 @@ $pedido = Pedido::buscarPedidoPorUser($id_user);
 $pedido->setEstado("Procesado");
 $pedido->setTotal($total);
 Pedido::actualiza($pedido);
+$_SESSION['notif_prod'] = 0;
  
 header('Location: '.RUTA_VISTAS_PATH.'/tienda/Merch.php'); 
 exit();

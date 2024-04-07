@@ -193,17 +193,18 @@ function showCarrito($user){
 
     $seccion =  "<section class = 'listaArticulos'>";
     $pedido = Pedido::buscarPedidoPorUser($user);
-    $resumen = "<div id='resumen_carrito'>";
 
-    if(empty($pedido))
+    if(empty($pedido)){
         $seccion .=  "<h1>No tienes ningun pedido activo</h1>";
-    else{
+    }else{
         $id_pedido = $pedido->getId();
         $productos = Producto::obtenerProductosDePedido($id_pedido);
 
         if(empty($productos))
             $seccion .=  "<h1>No tienes ningun producto en tu carrito</h1>";
         else{
+            $resumen = "<div id='resumen_carrito'>";
+
             foreach($productos as $item) {
                 $prod = $item['producto'];
                 $cantidad = $item['cantidad'];
@@ -219,6 +220,8 @@ function showCarrito($user){
             $user = Usuario::buscaUsuario($user);
 
             $karma = $user->getKarma();
+            $user = $user->getUsername();
+
             $resumen .="
                     <h3>Cantidad: " .$acum_cantidad."u</h3>
                     <h3>Precio Total: ". $acum_precio."&#9834</h3>
@@ -232,22 +235,23 @@ function showCarrito($user){
             }else
                 $resumen .="<h3 style='color:green;'>Diferencia: ". $diferencia."&#9834</h3>";
             
+            if($comprable){
+                $resumen .= <<< EOS
+                    <form class= 'boton_publicar' action = $rutaComprar method = "post">
+                        <input type ="hidden" name="id_user" value="$user">
+                        <input type ="hidden" name="nuevo_karma" value="$diferencia">
+                        <input type ="hidden" name="precio_total" value="$acum_precio">
+                        <button type = "submit">Compra</button>
+                    </form>    
+                EOS;
+            }
+            $content .= $resumen ."</div>";
         }
     }
     $seccion .=  "</section>";
 
-   if($comprable){
-        $user = $user->getUsername();
-        $resumen .= <<< EOS
-            <form class= 'boton_publicar' action = $rutaComprar method = "post">
-                <input type ="hidden" name="id_user" value="$user">
-                <input type ="hidden" name="nuevo_karma" value="$diferencia">
-                <input type ="hidden" name="precio_total" value="$acum_precio">
-                <button type = "submit">Compra</button>
-            </form>    
-        EOS;
-    }
 
-    $content .= $resumen ."</div>". $seccion;
+
+    $content .=  $seccion;
     return $content;
 }

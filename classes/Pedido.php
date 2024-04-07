@@ -20,7 +20,7 @@ class Pedido{
     }
 
     public static function crearPedido($id, $autor, $estado, $total, $fecha){
-        return new Pedido($id, $autor, $estado, $total, $fecha);
+        return new Pedido($id, $autor, $estado, $total, is_null($fecha) ? self::generateDate() : $fecha);
     }
 
 
@@ -47,7 +47,7 @@ class Pedido{
         $conn = BD::getInstance()->getConexionBd();
     
         $query = sprintf(
-            "UPDATE pedido SET  estado = '%s', total = %f fecha = '%s 'WHERE id_pedido = %d",
+            "UPDATE pedido SET  estado = '%s', total = %f, fecha = '%s' WHERE id_pedido = %d",
             $conn->real_escape_string($pedido->estado),
             $pedido->total,
             self::generateDate(),
@@ -193,7 +193,7 @@ class Pedido{
         $month = $date['mon'];
         $year = $date['year'];
 
-        return $day . "-" . $month . "-" . $year;
+        return  $year ."-" . $month  .  "-" .$day;
     }
 
     public function setId($value){
