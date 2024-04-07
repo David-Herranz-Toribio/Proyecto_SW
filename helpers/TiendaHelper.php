@@ -147,7 +147,6 @@ function showProducts($yoYYoMismo){
 function showCarrito($user){
     $rutaComprar = RUTA_HELPERS_PATH.'/ProcesarCompra.php';
 
-
     $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
     $content .= <<< EOS
     <form class= 'boton_publicar' action = $rutaComprar method = "post">
@@ -156,16 +155,24 @@ function showCarrito($user){
     EOS;
 
     $content .= "<section class = 'listaArticulos'>";
-
     $pedido = Pedido::buscarPedidoPorUser($user);
-    $id_pedido = $pedido->getId();
-    $productos = Producto::obtenerProductosDePedido($id_pedido);
+    
+    if(empty($pedido))
+        $content .= "<h1>No tienes ningun pedido activo</h1>";
+    else{
+        $id_pedido = $pedido->getId();
+        $productos = Producto::obtenerProductosDePedido($id_pedido);
 
-    foreach($productos as $item) {
-        $prod = $item['producto'];
-        $cantidad = $item['cantidad'];
-        $content .= creacionCarritoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
-                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $id_pedido, $cantidad, $user);   
+        if(empty($productos))
+            $content .= "<h1>No tienes ningun producto en tu carrito</h1>";
+        else{
+            foreach($productos as $item) {
+                $prod = $item['producto'];
+                $cantidad = $item['cantidad'];
+                $content .= creacionCarritoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
+                                                $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $id_pedido, $cantidad, $user);   
+            }
+        }
     }
     $content .= "</section>";
 
