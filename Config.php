@@ -2,22 +2,15 @@
 
 //  Rutas de archivos
 define('RAIZ_APP', dirname(__DIR__));
-
-define('RUTA_PROYECTO_PATH', '/Proyecto_SW');
-define('RUTA_IMG_PATH' , RUTA_PROYECTO_PATH.'/img');
-define('RUTA_VISTAS_PATH' , RUTA_PROYECTO_PATH.'/vistas');
-define('RUTA_HELPERS_PATH' , RUTA_PROYECTO_PATH.'/helpers');
-define('RUTA_CSS_PATH' , RUTA_PROYECTO_PATH.'/css');
-
-define('RUTA_PROYECTO', RAIZ_APP.'/Proyecto_SW');
-define('RUTA_BD', RUTA_PROYECTO.'/BD');
-define('RUTA_CLASSES', RUTA_PROYECTO.'/classes');
-define('RUTA_CSS' , RUTA_PROYECTO.'/css');
-define('RUTA_IMG' , RUTA_PROYECTO.'/img');
-define('RUTA_HELPERS', RUTA_PROYECTO.'/helpers');
-define('RUTA_VISTAS', RUTA_PROYECTO.'/vistas');
-define('RUTA_LAYOUTS' , RUTA_VISTAS.'/layout/Layout.php');
-
+define('PROJECT_PATH',  '/Proyecto_SW');
+define('CSS_PATH' , PROJECT_PATH . '/css');
+define('IMG_PATH' , PROJECT_PATH . '/img');
+define('INCLUDES_PATH', PROJECT_PATH . '/includes');
+define('CLASSES_PATH', INCLUDES_PATH . '/classes');
+define('HELPERS_PATH', INCLUDES_PATH . '/helpers');
+define('VIEWS_PATH', INCLUDES_PATH . '/vistas');
+define('BD_PATH', PROJECT_PATH . '/mysql');
+define('LAYOUT_PATH' , VIEWS_PATH . '/layout/Layout.php');
 
 //  Parámetros BD
 define('BD_HOST', 'localhost');
