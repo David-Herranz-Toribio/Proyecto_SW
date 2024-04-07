@@ -208,6 +208,10 @@ fieldset.formRegistro {
 button  {
 	background-color: #D4ADFC;
 	border-radius: 15px;
+	transition: background-color 0.3s ease;
+}
+button:hover  {
+	background-color: #6f14ca;
 }
 
 form.boton_publicar{
