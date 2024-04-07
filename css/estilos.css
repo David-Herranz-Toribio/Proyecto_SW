@@ -183,6 +183,12 @@ section.estiloPerfil section.listaPost {
 
 /*Estilo de la pagina de ajustes*/
 
+section.botonesEstilo {
+	display: flex;
+	flex-direction: column;
+	grid-column-start: 3;
+	grid-row-start: 2;
+}
 
 
 /*Estilo de la pagina de tienda */ 

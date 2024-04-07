@@ -16,12 +16,27 @@
     
     <?php require_once 'Sidebar.php'; ?>
     
-    <main class= "content">
+    <main id= 'main_content' class= "content">
         <?= $content ?>
     </main>
 
     </div> 
 
     <!-- Incluir footer proximamente = reproductor de música -->
+
+
+    <script> 
+        function toClaro() {
+            let fondo= document.getElementById("main_content"); 
+            fondo.style..cssText = 'background-color: red'; 
+        }
+
+        function toOscuro() {
+
+
+        }
+
+
+    </script> 
 </body>
 </html>
