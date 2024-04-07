@@ -2,6 +2,7 @@
 
 require_once '../Config.php';
 require_once RUTA_CLASSES . '/Usuario.php';
+require_once RUTA_CLASSES . '/Pedido.php';
 
 //Obtener el input
 $username = htmlspecialchars($_POST['username']);
@@ -15,7 +16,7 @@ $isValid = Usuario::login($username, $password);
 if($isValid){
     $_SESSION['username'] = $username;
     $_SESSION['login'] = true;
-    
+    $_SESSION['notif_prod'] = Pedido::numProdporUserPP($username);
     header('Location: ' . RUTA_VISTAS_PATH . '/foro/Foro.php');
     exit();
 }

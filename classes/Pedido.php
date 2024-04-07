@@ -95,9 +95,12 @@ class Pedido{
         $conn = BD::getInstance()->getConexionBd();
         $result = false;
 
-        if($cantidad == 1)
+        if($cantidad == 1){
             $query = sprintf( "DELETE FROM pedido_prod WHERE id_pedido = %d AND id_prod = %d ", $id_pedido, $id_prod );
-        else             
+            if(isset($_SESSION['notif_prod']))
+                $_SESSION['notif_prod'] = $_SESSION['notif_prod'] - 1;
+
+        }else             
             $query = sprintf("UPDATE pedido_prod SET cantidad = %d WHERE id_pedido = %d AND id_prod = %d ", $cantidad - 1, $id_pedido, $id_prod );
 
         $result = $conn->query($query);
@@ -142,6 +145,23 @@ class Pedido{
         return $result;
     }
 
+    public static function numProdporUserPP($username){
+
+        $conection = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT COUNT(*) AS num FROM pedido_prod PP JOIN pedido P ON PP.id_pedido = P.id_pedido WHERE P.id_user = '%s' AND P.estado = 'En proceso'", $username);
+        $rs = $conection->query($query);
+        
+        $fila = $rs->fetch_assoc();
+        if ($fila)
+            $result = $fila['num'];
+        else
+            $result = false;
+        
+        $rs->free();
+
+        return $result;
+    }
+    
     public static function actualizaPP($id_ped, $id_prod, $cant){
         $result = false;
         $conn = BD::getInstance()->getConexionBd();

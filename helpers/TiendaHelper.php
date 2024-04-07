@@ -67,7 +67,7 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
     $compra = '<p>No queda stock</p>';
     if($stock != 0){
      
-        $compra = '<button type = "submit"> Comprar </button>
+        $compra = '<button type = "submit" class = "botonCompra"> Comprar </button>
                    <input type="number" name="Cantidad" value="0" min="1" max="'. $stock.'"/>
                    <p style="display:inline"> <output name="result">0</output> &#9834</p> ';
     }

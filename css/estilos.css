@@ -63,19 +63,40 @@ nav.sidebar {
 	grid-area: navegacion;
 }
 
-dl.opciones {
-	padding-top: 50%;
+
+
+.opciones {	
+	margin-top: 12vh;
 }
 
-dt  details  summary {
-    list-style: none; /* Elimina la lista de estilos, incluida la flecha */
-    cursor: pointer; /* Mantiene el cursor como puntero para indicar que se puede hacer clic */
-    padding-left: 2rex; /* Espacio para el marcador personalizado */
-  }
+.opciones > li {
+	margin-bottom: 5%;
+	position: relative;
+	list-style: none;
+}
+.opciones > li  a img{
+	transition: transform 0.5s ease-out;
 
-dt details  summary::before {
-    content: "\2630"; /* Marcador personalizado */
-  }
+}
+.opciones > li  a img:hover {
+	transform: scale(1.3);
+}
+.opciones ul {
+	padding: 0;
+	padding-left: 10%;
+	margin: 0;
+	list-style: none;
+}
+
+.opciones > li:hover .desplegable {
+	visibility: visible;
+	position: unset;
+}
+
+.desplegable{
+	position: absolute;
+	visibility: collapse;
+}
 
 
 /*Contenido principal de la pagina*/
@@ -208,7 +229,7 @@ fieldset.formRegistro {
 button  {
 	background-color: #D4ADFC;
 	border-radius: 15px;
-	transition: background-color 0.3s ease;
+	transition: background-color 0.3s ease-in-out;
 }
 button:hover  {
 	background-color: #6f14ca;
@@ -279,3 +300,25 @@ form.boton_publicar button {
 .footer{
 	background-color: lightseagreen;
 }
+
+
+/*Pruebas animaciones y notificacion */ 
+
+
+#cantPedido {
+	display: inline-block;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background-color: purple;
+	border-radius: 50%;
+  }
+  
+  #cantPedido #numberProd {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 16px;
+	color: white;
+  }
