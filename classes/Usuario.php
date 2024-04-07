@@ -279,8 +279,10 @@ class Usuario{
     public static function buscaEmailBD($email){
     
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario U WHERE U.correo= '%s'", $email); 
-        if( $conn->query($query) )
+        $query = sprintf("SELECT * FROM usuario U WHERE U.correo= '%s'", $email);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        if( $fila )
             return true;
 
         return false;
