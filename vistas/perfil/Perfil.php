@@ -13,24 +13,27 @@ function showProfile($usuario,$favs){
     $SettingsImage = RUTA_IMG_PATH.'/Setting_icon__.png';
     $boton_ajuste= ''; 
     if(!$usuario){
-        if (isset($_SESSION['username'])){ //Hay sesion iniciada
-            $boton_ajuste= <<<EOS
-            <p>
-            <section class="datos_perfil">
-            <a href="AjustePerfil.php">
-                <img src='$SettingsImage' alt="Modificar Perfil" height="45" width="50">
-            </a>
-            </section>
-            </p>
-            EOS;
+        if (isset($_SESSION['username'])) //Hay sesion iniciada
             $usuario = $_SESSION['username'];
-        }
     }
 
     if($usuario) {
 
-        $html= "<section class = 'datos_perfil'>"; 
-        $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>";  
+        $html = "<section class = 'datos_perfil'>"; 
+        if($usuario ==  $_SESSION['username']){
+            $boton_ajuste = <<<EOS
+            
+            <div class="datos_perfil">
+                <a href="AjustePerfil.php">
+                    <img src='$SettingsImage' alt="Modificar Perfil" height="45" width="50">
+                </a>
+            </div>
+           
+            EOS;
+            $html .= "<h1 class = 'nombre_perfil'> Tu Perfil</h1>";
+        }
+        else
+            $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>";  
         $html .= $boton_ajuste; 
         $html.= "</section>"; 
 

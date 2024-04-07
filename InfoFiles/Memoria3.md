@@ -94,6 +94,7 @@
     * ModificarPerfilHelper.php
     * PostHelper.php
     * ProcesarProducto.php
+    * ProcesarCompra.php
     * TiendaHelper.php
 
 

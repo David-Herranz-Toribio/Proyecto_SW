@@ -301,7 +301,12 @@ class Usuario{
     public function aumentaKarma($num){
         $this->karma = $this->karma + $num;
     }
-
+    public function setKarma($num){
+        $this->karma =  $num;
+    }
+    public function getKarma(){
+        return $this->karma;
+    }
     public function getUsername(){
         return $this->username;
     }

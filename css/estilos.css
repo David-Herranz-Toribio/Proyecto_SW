@@ -88,7 +88,7 @@ nav.sidebar {
 	list-style: none;
 }
 
-.opciones > li:hover .desplegable {
+.opciones > li a:hover +.desplegable {
 	visibility: visible;
 	position: unset;
 }
@@ -96,6 +96,10 @@ nav.sidebar {
 .desplegable{
 	position: absolute;
 	visibility: collapse;
+}
+.desplegable:hover{
+	visibility: visible;
+	position: unset;
 }
 
 
@@ -107,7 +111,7 @@ nav.sidebar {
 
 	grid-area: contenido;
 	display: grid;
-	grid-template-columns: 15% 70% 15% ; 
+	grid-template-columns: 15% 65% 20% ; 
 	grid-template-rows: minmax(25px, auto);
 	text-align: center;
 	min-width: 300px;
@@ -144,6 +148,7 @@ article {
 	border: solid 1px #000;
 	border-radius: 25px;
 	padding-bottom: 1%;
+	padding-top: 1%;
 }
 
 article.estiloPost{
@@ -201,9 +206,18 @@ section.estiloPerfil section.listaPost {
 
 
 /*Estilo de la pagina de tienda */ 
-.prod_info{
+.prod_info a{
 	text-decoration: none;
 	color: inherit;
+	transition: transform 0.5s ease-out;
+
+}
+.prod_info a:hover img{
+	transform: scale(1.3);
+}
+.prod_info a:hover p{
+	color: purple;
+	background-color: #ffffff;
 }
 
 /*Referente al estilo de los formularios*/ 
@@ -235,13 +249,27 @@ button:hover  {
 	background-color: #6f14ca;
 }
 
-form.boton_publicar{
+#resumen_carrito{
+	background-color: #120118;
+	border-radius: 15px;
+	border: 1px solid #41077b;
+
+	grid-column-start: 3 ;
+	grid-row-start: 2;
+	margin: 5%;
+
+	min-width: max-content;
+	min-height: max-content;
+	max-width: 300px;
+	max-height: 400px;
+}
+.boton_publicar{
 	grid-column-start: 3 ;
 	grid-row-start: 1;
 	margin-top: 1em;
 }
 
-form.boton_publicar button {
+.boton_publicar button {
 	width: 100px; 
 	height:  40px;
 }

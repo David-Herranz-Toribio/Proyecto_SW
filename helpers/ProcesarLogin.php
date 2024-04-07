@@ -16,7 +16,11 @@ $isValid = Usuario::login($username, $password);
 if($isValid){
     $_SESSION['username'] = $username;
     $_SESSION['login'] = true;
-    $_SESSION['notif_prod'] = Pedido::numProdporUserPP($username);
+    
+    $num = Pedido::numProdporUserPP($username);
+    if($num)
+        $_SESSION['notif_prod'] = $num;
+    
     header('Location: ' . RUTA_VISTAS_PATH . '/foro/Foro.php');
     exit();
 }

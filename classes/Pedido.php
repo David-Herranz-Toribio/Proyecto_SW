@@ -47,9 +47,10 @@ class Pedido{
         $conn = BD::getInstance()->getConexionBd();
     
         $query = sprintf(
-            "UPDATE pedido SET  estado = '%s', total = %f WHERE id_pedido = %d",
+            "UPDATE pedido SET  estado = '%s', total = %f fecha = '%s 'WHERE id_pedido = %d",
             $conn->real_escape_string($pedido->estado),
             $pedido->total,
+            self::generateDate(),
             $pedido->id
         );
         
@@ -73,7 +74,7 @@ class Pedido{
             $pedido->autor,
             $pedido->estado,
             $pedido->total,
-            Pedido::generatePostDate()
+            self::generateDate()
         );
 
         $result = $conn->query($query);
@@ -185,7 +186,7 @@ class Pedido{
 
 
 
-    public static function generatePostDate(){
+    private static function generateDate(){
 
         $date = getdate();
         $day = $date['mday'];

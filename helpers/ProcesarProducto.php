@@ -37,6 +37,9 @@ if($user){
         
         if(isset($_SESSION['notif_prod']))
             $_SESSION['notif_prod'] = $_SESSION['notif_prod'] + 1;
+        else
+            $_SESSION['notif_prod'] = 1;
+
     }
 }
 

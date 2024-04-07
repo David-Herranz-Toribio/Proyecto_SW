@@ -2,6 +2,7 @@
 
 require_once RUTA_CLASSES.'/Producto.php';
 require_once RUTA_CLASSES.'/Pedido.php';
+require_once RUTA_CLASSES.'/Usuario.php';
 
 function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 
@@ -52,16 +53,24 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
     $rutaProdImg = RUTA_IMG_PATH.'/prodImages/'.$image;
     $rutaProducto = RUTA_VISTAS_PATH.'/tienda/ProductoVista.php';
+    $rutaArtista = RUTA_VISTAS_PATH.'/perfil/Perfil.php';
+
     $rutaCompra = RUTA_HELPERS_PATH.'/ProcesarProducto.php';
 
     //Imagen y nombre del producto
     $prodInfo =<<<EOS
-    <a href= "$rutaProducto?prod=$id" name= "prod" class="prod_info">
-        <div>
+    <div class="prod_info">
+        <a href= "$rutaProducto?prod=$id" name= "prod" >
             <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
-            <div>@$autor, $nombre</div>
+            <p>$nombre</p>
+        </a>
+        <div>
+            <a href= "$rutaArtista?user=$autor" name= "prod" >
+              <p>Creador: @$autor</p>
+            </a>
         </div>
-    </a>
+    </div>
+
     EOS;
 
     $compra = '<p>No queda stock</p>';
@@ -124,6 +133,35 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
     return $html;
 }
 
+
+function showProduct($yoYYoMismo, $id){
+    $prod = Producto::obtenerProductoporId($id);
+
+    // Por si hay que hacer alguna busqueda mas tarde
+
+    // if(!empty($productos)){
+    //     if (isset($_GET['query'])) {
+    //         $textoBusqueda = $_GET['query'];
+    //         $productos = Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
+    //     }   
+    // }
+
+    $content = "<h1 class = 'texto_infor'> Producto ".$prod->getNombre()." </h1>";
+    $content .= "<section class = 'listaArticulos'>";
+
+    // MIRAR LOS BOCETOS PARA HACER ALGO MAS ESPECIFICO PARA PRODUCTO INDIVIDUAL Y PONER POST AQUI TAMBIEN POR EJEMPLO
+    $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
+                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
+
+
+
+                                       
+    $content .= "</section>";
+
+    return $content;
+
+}
+
 function showProducts($yoYYoMismo){
     
     $content = "<h1 class = 'texto_infor'> Productos </h1>";
@@ -146,35 +184,70 @@ function showProducts($yoYYoMismo){
 
 function showCarrito($user){
     $rutaComprar = RUTA_HELPERS_PATH.'/ProcesarCompra.php';
+    $acum_precio = 0;
+    $acum_cantidad = 0;
+    $diferencia = 0;
+    $comprable = true;
 
     $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
-    $content .= <<< EOS
-    <form class= 'boton_publicar' action = $rutaComprar method = "post">
-    <button type = "submit">Compra</button>
-    </form>
-    EOS;
 
-    $content .= "<section class = 'listaArticulos'>";
+    $seccion =  "<section class = 'listaArticulos'>";
     $pedido = Pedido::buscarPedidoPorUser($user);
-    
+    $resumen = "<div id='resumen_carrito'>";
+
     if(empty($pedido))
-        $content .= "<h1>No tienes ningun pedido activo</h1>";
+        $seccion .=  "<h1>No tienes ningun pedido activo</h1>";
     else{
         $id_pedido = $pedido->getId();
         $productos = Producto::obtenerProductosDePedido($id_pedido);
 
         if(empty($productos))
-            $content .= "<h1>No tienes ningun producto en tu carrito</h1>";
+            $seccion .=  "<h1>No tienes ningun producto en tu carrito</h1>";
         else{
             foreach($productos as $item) {
                 $prod = $item['producto'];
                 $cantidad = $item['cantidad'];
-                $content .= creacionCarritoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
-                                                $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $id_pedido, $cantidad, $user);   
+                $acum_cantidad += $cantidad;
+
+                $precio = $prod->getPrecio();
+                $acum_precio += ($cantidad * $precio);
+
+                $seccion .=  creacionCarritoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
+                                                $prod->getImagen(), $prod->getStock(), $precio, $id_pedido, $cantidad, $user);   
             }
+            
+            $user = Usuario::buscaUsuario($user);
+
+            $karma = $user->getKarma();
+            $resumen .="
+                    <h3>Cantidad: " .$acum_cantidad."u</h3>
+                    <h3>Precio Total: ". $acum_precio."&#9834</h3>
+                    <h3>-</h3>
+                    <h3>Tu Saldo (&#9834): ". $karma ."</h3>";
+            $diferencia = intval($karma - $acum_precio);
+            if ($diferencia  < 0) {
+                $comprable = false;
+                $resumen .="<h3 style='color:red;'>Diferencia: ". $diferencia."&#9834</h3>";
+
+            }else
+                $resumen .="<h3 style='color:green;'>Diferencia: ". $diferencia."&#9834</h3>";
+            
         }
     }
-    $content .= "</section>";
+    $seccion .=  "</section>";
 
+   if($comprable){
+        $user = $user->getUsername();
+        $resumen .= <<< EOS
+            <form class= 'boton_publicar' action = $rutaComprar method = "post">
+                <input type ="hidden" name="id_user" value="$user">
+                <input type ="hidden" name="nuevo_karma" value="$diferencia">
+                <input type ="hidden" name="precio_total" value="$acum_precio">
+                <button type = "submit">Compra</button>
+            </form>    
+        EOS;
+    }
+
+    $content .= $resumen ."</div>". $seccion;
     return $content;
 }
