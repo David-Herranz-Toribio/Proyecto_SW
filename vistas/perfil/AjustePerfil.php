@@ -53,23 +53,22 @@ $form_modificar= <<<EOS
             <input type="date" name="modify_birthdate" value= $act_nacimiento>
             <p></p> 
 
-            <select name= "estilos"> 
-            <option value= 'claro'> Modo claro </option> 
-            <option value= 'oscuro'> Modo oscuro </option> 
-            </select>
-
-            <p> </p> 
-
             <button type="submit" name="register_button" > Modificar </button>
         </form>
     </fieldset>
     </section> 
 EOS; 
 
+$cambio_modo= <<<EOS
+<section class= 'botonesEstilo'> 
+<button type= "button" onclick= "toClaro()"> Modo claro </button> 
+<button type= "button" onclick= "toOscuro()"> Modo oscuro </button> 
+</section> 
+EOS; 
 
 $content= <<<EOS
     $form_modificar
-
+    $cambio_modo
 EOS; 
 
 
