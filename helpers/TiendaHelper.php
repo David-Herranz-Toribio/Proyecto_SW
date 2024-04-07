@@ -129,7 +129,12 @@ function showProducts($yoYYoMismo){
     $content = "<h1 class = 'texto_infor'> Productos </h1>";
     $content .= "<section class = 'listaArticulos'>";
     $productos = Producto::obtenerListaDeProductos();
-
+    if(!empty($productos)){
+        if (isset($_GET['query'])) {
+            $textoBusqueda = $_GET['query'];
+            $productos = Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
+        }   
+    }
     foreach($productos as $prod){
         $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                          $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   

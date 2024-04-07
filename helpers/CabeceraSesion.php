@@ -9,12 +9,15 @@ function generateStaticHeader($currentPage) {
     if (isset($_GET['user'])) {
       $user = $_GET['user']; 
     }
-    if (isset($_GET['favs'])) {
+    if (isset($_GET['favs']) && $_GET['favs'] == 1) {
       $favs = $_GET['favs']; 
     }
     else if (strpos($currentPage, "/vistas/perfil/Perfil.php") !== false) {
         $placeholderText = "Ej. texto: Hola mundo";
     }
+    else if (strpos($currentPage, "/vistas/tienda/Merch.php") !== false) {
+      $placeholderText = "Ej. producto: Camiseta";
+  }
 
     if (!islogged()) {
         $loginImage = RUTA_IMG_PATH.'/FotoLoginUser.png';

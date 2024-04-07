@@ -93,6 +93,16 @@ class Producto{
         return $result;
     }
 
+    public static function LupaNombreProductoExistentes($productos, $textoBusqueda) {
+        $result = [];
+        foreach ($productos as $producto) {
+            if (stripos($producto->getNombre(), $textoBusqueda) !== false) { 
+                $result[] = $producto; 
+            }
+        }
+        return $result;
+    }
+
     public static function borrarProducto($producto){
 
         $result = false;
