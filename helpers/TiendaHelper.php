@@ -12,17 +12,19 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
     $total = $cantidad * $precio;
     //Imagen y nombre del producto
     $prodInfo =<<<EOS
-    <a href= "$rutaProducto?prod=$id" name= "prod" class="prod_info">
-        <div>
+    <div class="prod_info">
+        <a href= "$rutaProducto?prod=$id" name= "prod" >
             <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
-            @$autor, $nombre
-            <p>$descripcion</p> 
-            <p>Has seleccionado $cantidad unidades por valor de $precio &#9834 cada una</p>
+            <p>$nombre</p>
+        </a>
+        <div>
+            <a href= "$rutaArtista?user=$autor" name= "prod" >
+              <p>Creador: @$autor</p>
+            </a>
         </div>
-    </a>
+    </div>
     <div class="prod_precio">
         <p> Total: $total &#9834</p>
-    </div>
     EOS;
     
     $boton = '';
@@ -37,6 +39,8 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
 
         <button type="submit"> Eliminar</button>
     </form>
+    </div>
+
     EOS4;
 
 

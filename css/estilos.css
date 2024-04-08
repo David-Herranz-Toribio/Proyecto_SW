@@ -112,7 +112,7 @@ nav.sidebar {
 	grid-area: contenido;
 	display: grid;
 	grid-template-columns: 15% 65% 20% ; 
-	grid-template-rows: minmax(25px, auto);
+	grid-template-rows: minmax(25px, 120px);
 	text-align: center;
 	min-width: 300px;
 }
@@ -145,6 +145,7 @@ article {
 	display: flex;
 	flex-direction: row; 
 	align-items: center;
+	justify-content: space-evenly;
 	border: solid 1px #000;
 	border-radius: 25px;
 	padding-bottom: 1%;
@@ -211,7 +212,7 @@ section.estiloPerfil section.listaPost {
 	grid-row-start: 2;
 }
 
-/*Estilo de la pagina de tienda */ 
+/*Estilo de la pagina de tienda */
 .prod_info a{
 	text-decoration: none;
 	color: inherit;
