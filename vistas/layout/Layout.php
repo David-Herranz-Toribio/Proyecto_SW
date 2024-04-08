@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=RUTA_CSS_PATH?>/estilos.css">
+    <link rel="shortcut icon" href="<?=RUTA_IMG_PATH?>/2MelodyLogo.png" type="image/png" />
     <title> 2Music </title>
 </head>
 
 <body>
-
-
     <div class = "container">
 
     <?php require_once 'Cabecera.php'; ?>
-    
     <?php require_once 'Sidebar.php'; ?>
     
-    <main id= 'main_content' class= "content">
+    <main id='content'>
         <?= $content ?>
     </main>
 
@@ -26,17 +24,18 @@
 
 
     <script> 
-        function toClaro() {
-            let fondo= document.getElementById("main_content"); 
-            fondo.style..cssText = 'background-color: red'; 
-        }
-
-        function toOscuro() {
-
+        function toClaro(){
 
         }
 
+
+        function toOscuro(){
+
+
+        }
 
     </script> 
+
+
 </body>
 </html>

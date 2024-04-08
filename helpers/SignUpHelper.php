@@ -18,19 +18,34 @@ function generateArtistAccountLink(){
 
 function generateFormularyUser($errores){
 
-    $username_error = '';
-    if( isset($errores['username']) ){
-        $username_error = $errores['username'];
+    $username_usado_error = '';
+    if( isset($errores['username_usado']) ){
+        $username_usado_error = $errores['username_usado'];
     }
 
-    $email_error = '';
-    if( isset($errores['email']) ){
-        $email_error = $errores['email'];
+    $email_invalido_error = '';
+    if( isset($errores['email_invalido']) ){
+        $email_invalido_error = $errores['email_invalido'];
     }
 
-    $birthdate_error = '';
-    if( isset($errores['birthdate']) ){
-        $birthdate_error = $errores['birthdate'];
+    $email_usado_error = '';
+    if( isset($errores['email_en_uso']) ){
+        $email_usado_error = $errores['email_en_uso'];
+    }
+
+    $short_password_error = '';
+    if( isset($errores['short_password']) ){
+        $short_password_error = $errores['short_password'];
+    }
+
+    $fecha_anterior_error = '';
+    if( isset($errores['fecha_anterior']) ){
+        $fecha_anterior_error = $errores['fecha_anterior'];
+    }
+
+    $fecha_mayor_edad_error = '';
+    if( isset($errores['fecha_mayor_edad']) ){
+        $fecha_mayor_edad_error = $errores['fecha_mayor_edad'];
     }
 
     $enlace = RUTA_HELPERS_PATH . '/ProcesarRegistro.php';
@@ -49,29 +64,22 @@ function generateFormularyUser($errores){
             <label> Username (Ej: paco03) </label>
             <p></p> 
             <input required type="text" name="new_username">
-            <p> $username_error </p>
+            <p> $username_usado_error </p>
 
-            <p></p> 
-                
             <label> Email </label>
             <p></p> 
             <input required type="text" name="new_email">
-            <p> $email_error </p>
-
-            <p></p> 
+            <p> $email_invalido_error <br> $email_usado_error</p>
 
             <label> Password </label>
-            <p></p> 
-            <input required type="password" name="new_password">
-                
-            <p></p> 
-                
-            <label> Birthdate </label>
-            <p></p> 
-            <input required type="date" name="new_birthdate">
-            <p> $birthdate_error </p>
-
             <p></p>
+            <input required type="password" name="new_password">
+            <p> $short_password_error </p>
+
+            <label> Birthdate </label>
+            <p></p>
+            <input required type="date" name="new_birthdate">
+            <p> $fecha_anterior_error <br> $fecha_mayor_edad_error </p>
 
             <button type="submit" name="register_button" > Sign In </button>
         </form>
@@ -83,19 +91,34 @@ function generateFormularyUser($errores){
 
 function generateFormularyArtist($errores){
 
-    $username_error = '';
-    if( isset($errores['username']) ){
-        $username_error = $errores['username'];
+    $username_usado_error = '';
+    if( isset($errores['username_usado']) ){
+        $username_usado_error = $errores['username_usado'];
     }
 
-    $email_error = '';
-    if( isset($errores['email']) ){
-        $email_error = $errores['email'];
+    $email_invalido_error = '';
+    if( isset($errores['email_invalido']) ){
+        $email_invalido_error = $errores['email_invalido'];
     }
 
-    $birthdate_error = '';
-    if( isset($errores['birthdate']) ){
-        $birthdate_error = $errores['birthdate'];
+    $email_usado_error = '';
+    if( isset($errores['email_en_uso']) ){
+        $email_usado_error = $errores['email_en_uso'];
+    }
+
+    $short_password_error = '';
+    if( isset($errores['short_password']) ){
+        $short_password_error = $errores['short_password'];
+    }
+
+    $fecha_anterior_error = '';
+    if( isset($errores['fecha_anterior']) ){
+        $fecha_anterior_error = $errores['fecha_anterior'];
+    }
+
+    $fecha_mayor_edad_error = '';
+    if( isset($errores['fecha_mayor_edad']) ){
+        $fecha_mayor_edad_error = $errores['fecha_mayor_edad'];
     }
 
     $enlace = RUTA_HELPERS_PATH . '/ProcesarRegistro.php';
@@ -114,29 +137,22 @@ function generateFormularyArtist($errores){
             <label> Username (Ej: paco03) </label>
             <p></p> 
             <input required type="text" name="new_username">
-            <p> $username_error </p>
-
-            <p></p> 
+            <p> $username_usado_error </p>
                 
             <label> Email </label>
             <p></p> 
             <input required type="text" name="new_email">
-            <p> $email_error </p>
-
-            <p></p> 
+            <p> $email_invalido_error <br> $email_usado_error</p>
 
             <label> Password </label>
             <p></p> 
             <input required type="password" name="new_password">
-                
-            <p></p> 
+            <p> $short_password_error </p>
                 
             <label> Birthdate </label>
             <p></p> 
             <input required type="date" name="new_birthdate">
-            <p> $birthdate_error </p>
-
-            <p></p> 
+            <p> $fecha_anterior_error <br> $fecha_mayor_edad_error </p>
 
             <label> Musical genre: </label><br>
             <select name="musical_genres" size = "6">

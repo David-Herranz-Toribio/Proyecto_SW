@@ -16,36 +16,40 @@ class Usuario{
     private $email;
 
 
-    function __construct($user, $nickname, $pass, $fotopath, $desc, $karma, $isArtist, $birth, $email){
-        
-        $this->username = $user;
-        $this->nickname = $nickname;
-        $this->password = $pass;
-        $this->fotopath = $fotopath;
-        $this->desc = $desc;
-        $this->karma = $karma;
-        $this->isArtist = $isArtist;
-        $this->birthdate = $birth;
-        $this->email = $email;
+    function __construct(&$parameters){
+
+        $this->username = $parameters['username'];
+        $this->nickname = $parameters['nickname'];
+        $this->email = $parameters['email'];
+        $this->password = $parameters['password'];
+        $this->fotopath = $parameters['fotopath'];
+        $this->desc = $parameters['desc'];
+        $this->karma = $parameters['karma'];
+        $this->isArtist = $parameters['isArtist'];
+        $this->birthdate = $parameters['birthdate'];
     }
 
 
-    public static function checkUserData($username, $email, $birthdate, $isArtist){
+    public static function checkUserData($username, $password_length, $email, $birthdate, $isArtist){
 
         // Lista de errores
         $errores = [];
 
         // El usuario ya existe
-        if(self::buscaUsuario($username))
-            $errores['username'] = 'El usuario ya existe';
+        if( self::buscaUsuario($username) )
+            $errores['username_usado'] = 'El usuario ya existe';
 
+        // La contraseña no tiene al menos 8 caracteres
+        if( $password_length < 8 )
+            $errores['short_password'] = 'La contraseña debe tener al menos 8 caracteres';
+        
         // El email no es válido
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-            $errores['email'] = 'El email no es válido';
+        if( !filter_var($email, FILTER_VALIDATE_EMAIL) )
+            $errores['email_invalido'] = 'El email no es válido';
 
         // El email ya está en uso
-        else if(self::buscaEmailBD($email) == null)
-            $errores['email'] = 'El email ya está en uso';
+        else if( self::buscaEmailBD($email) )
+            $errores['email_en_uso'] = 'El email ya está en uso';
         
         
         // Obtener fecha actual
@@ -55,15 +59,20 @@ class Usuario{
         // Obtener un entero a partir de la fecha
         $fecha_num = intval(date("Ymd", strtotime($fecha_actual->format('Y-m-d'))));
         $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
-        
 
         // La fecha es anterior al día actual
-        if( $isArtist && $fecha_actual->diff($birthdate)->d < 1 && $birth_num < $fecha_num ){
-            $errores['birthdate'] = 'La fecha debe ser anterior al día actual';
+        if( $isArtist ){
+
+            if( $fecha_actual->diff($birthdate)->d < 1 )
+                $errores['fecha_anterior'] = 'La fecha debe ser anterior al dia actual';
         }
-        // La fecha verifica que el usuario tiene más de 18 años
-        else if( !$isArtist && $fecha_actual->diff($birthdate)->y < 8 && $birth_num < $fecha_num ){
-            $errores['birthdate'] = 'Debe tener más de 18 años para crear una cuenta';
+        else{
+
+            if( $fecha_actual->diff($birthdate)->y < 18 )
+                $errores['fecha_mayor_edad'] = 'Debes ser mayor de 18 años';
+
+            if( $birth_num > $fecha_num )
+                $errores['fecha_anterior'] = 'La fecha debe ser anterior al dia actual';
         }
 
         return $errores;
@@ -73,7 +82,17 @@ class Usuario{
         Registra un nuevo usuario en la Base de Datos
         Devolvemos el objeto Usuario y por el parametro errors[] los mensajes de error que se hayan generado(usuario ya existe, contraseña débil, etc...)
     */
-    public static function createUser($username, $nickname, $password, $email, $birth, $artist, $artist_members){
+    public static function createUser(&$parametros){
+
+        // Parametros del usuario
+        $username = $parametros['username'];
+        $nickname = $parametros['nickname'];
+        $email = $parametros['email'];
+        $password = $parametros['password'];
+        $karma =  $parametros['karma'];
+        $artist = $parametros['isArtist'];
+        $birth = $parametros['birthdate'];
+        $artist_members = $parametros['artist_members'];
 
         $conection = BD::getInstance()->getConexionBd();
         $nullv = null;
@@ -93,8 +112,9 @@ class Usuario{
 
                 if(!$conection) 
                     error_log("Error BD ({$conection->errno}): {$conection->error}");
-            }   
-            return new Usuario($username, $nickname, $password, $nullv, $nullv, $karma, $artist, $birth, $email,); 
+            }
+
+            return new Usuario($parameters); 
         }
         else 
             error_log("Error BD ({$conection->errno}): {$conection->error}");
@@ -143,7 +163,8 @@ class Usuario{
 
         $usuario = self::buscaUsuario($username); 
         
-        if($usuario && $usuario->comprueba_password($password)) //El login es correcto 
+        //El login es correcto
+        if($usuario && $usuario->comprueba_password($password))
             return $usuario; 
 
         return false; 
@@ -159,8 +180,7 @@ class Usuario{
 
         $conn= BD::getInstance()->getConexionBd();
         $query= sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
-        $rs= $conn->query($query); 
-        $result = false; 
+        $rs = $conn->query($query);  
 
         if($rs) {
             $fila= $rs->fetch_assoc(); 
@@ -173,6 +193,7 @@ class Usuario{
         else 
             error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
+
     public static function compruebaUsuario($username, $correo){
 
         $conn = BD::getInstance()->getConexionBd();
@@ -184,10 +205,23 @@ class Usuario{
             $fila = $rs->fetch_assoc(); 
 
             if($fila) {
+
                 //Comprobar si el usuario es artista 
-                $artista = self::esArtista($fila['id_user']); 
-                $result = new Usuario($fila['id_user'], $fila['nickname'], $fila['password'], $fila['foto'],
-                                      $fila['descripcion'], $fila['karma'], $artista, $fila['fecha'], $fila['correo']);
+                $artista = self::esArtista($fila['id_user']);
+
+                //Parametros de la clase Usuario
+                $parameters = [];
+                $parameters['username'] = $fila['id_user'];
+                $parameters['nickname'] = $fila['nickname'];
+                $parameters['email'] = $fila['correo'];
+                $parameters['password'] = $fila['password'];
+                $parameters['fotopath'] = $fila['foto'];
+                $parameters['desc'] = $fila['descripcion'];
+                $parameters['karma'] = $fila['karma'];
+                $parameters['isArtist'] = $artista;
+                $parameters['birthdate'] = $fila['fecha'];
+
+                $result = new Usuario($parameters);
             }
 
             $rs->free(); 
@@ -195,7 +229,6 @@ class Usuario{
 
         return $result; 
     } 
-
 
     //Metodo que busca en la base de datos un usuario por su nombre 
     public static function buscaUsuario($username){
@@ -208,11 +241,23 @@ class Usuario{
         if($rs){
             $fila = $rs->fetch_assoc(); 
 
-            if($fila) {
+            if($fila){
                 //Comprobar si el usuario es artista 
-                $artista = self::esArtista($fila['id_user']); 
-                $result = new Usuario($fila['id_user'], $fila['nickname'], $fila['password'], $fila['foto'],
-                                      $fila['descripcion'], $fila['karma'], $artista, $fila['fecha'], $fila['correo']);
+                $artista = self::esArtista($fila['id_user']);
+
+                //Parametros de la clase Usuario
+                $parameters = [];
+                $parameters['username'] = $fila['id_user'];
+                $parameters['nickname'] = $fila['nickname'];
+                $parameters['email'] = $fila['correo'];
+                $parameters['password'] = $fila['password'];
+                $parameters['fotopath'] = $fila['foto'];
+                $parameters['desc'] = $fila['descripcion'];
+                $parameters['karma'] = $fila['karma'];
+                $parameters['isArtist'] = $artista;
+                $parameters['birthdate'] = $fila['fecha'];
+
+                $result = new Usuario($parameters);
             }
 
             $rs->free(); 
@@ -221,30 +266,47 @@ class Usuario{
         return $result; 
     }
 
-    public static function buscaUsernameBD($username){
-    
-        return null;
-    }
-
     public static function buscaNicknameBD($nickname){
-    
-        return null;
+        
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuario U WHERE U.nickname= '%s'", $nickname); 
+        if( $conn->query($query) )
+            return true;
+
+        return false;
     }
 
     public static function buscaEmailBD($email){
     
-        return null;
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuario U WHERE U.correo= '%s'", $email);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        if( $fila )
+            return true;
+
+        return false;
     }
 
-    public static function buscaBirthdateBD($birthdate){
+    public static function buscaFechaBD($fecha){
     
-        return null;
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuario U WHERE U.correo= '%s'", $fecha); 
+        if( $conn->query($query) )
+            return true;
+
+        return false;
     }
 
     public function aumentaKarma($num){
         $this->karma = $this->karma + $num;
     }
-
+    public function setKarma($num){
+        $this->karma =  $num;
+    }
+    public function getKarma(){
+        return $this->karma;
+    }
     public function getUsername(){
         return $this->username;
     }
@@ -265,29 +327,28 @@ class Usuario{
         return $this->email; 
     }
 
-    public function getBirthdate() {
+    public function getBirthdate(){
         return $this->birthdate; 
     }
 
     public function setNickname($new_nickname){
-        $this->nickname= $new_nickname; 
+        $this->nickname = $new_nickname; 
     }
 
     public function setEmail($new_email){
-        $this->email= $new_email; 
+        $this->email = $new_email; 
     }
 
     public function setBirthdate($new_birthdate){
-        $this->birthdate= $new_birthdate; 
+        $this->birthdate = $new_birthdate; 
     }
 
     public function setPassword($new_password){
-        $this->password= $new_password; 
+        $this->password = $new_password; 
     }
 
     public function setDescrip($new_desc){
-
-        $this->desc= $new_desc; 
+        $this->desc = $new_desc; 
     }
 
 }

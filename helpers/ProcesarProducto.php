@@ -32,8 +32,15 @@ if($user){
     $cantPP = Pedido::consultaPP($pedido->getId(), $id);
     if($cantPP)
         Pedido::actualizaPP($pedido->getId(), $id, $cantPP + $cant);
-    else
+    else{
         Pedido::insertaPP($pedido->getId(), $id, $cant);
+        
+        if(isset($_SESSION['notif_prod']))
+            $_SESSION['notif_prod'] = $_SESSION['notif_prod'] + 1;
+        else
+            $_SESSION['notif_prod'] = 1;
+
+    }
 }
 
 header('Location: ' .RUTA_VISTAS_PATH. '/tienda/Merch.php');

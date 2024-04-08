@@ -46,6 +46,21 @@ class Producto{
         return $result;
     }
 
+    public static function obtenerProductoporId($id){
+        $result = [];
+        $conection = BD::getInstance()->getConexionBd();
+        $query = "SELECT * FROM producto WHERE id_prod = ". $id;
+        $rs = $conection->query($query);
+        
+        $fila = $rs->fetch_assoc();
+        $result = self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
+                                            $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio']);
+        
+        $rs->free();
+
+        return $result;
+    }
+
     public static function obtenerListaDeProductos(){
         $result = [];
         $conection = BD::getInstance()->getConexionBd();
@@ -90,6 +105,16 @@ class Producto{
         }
         $rs->free();
 
+        return $result;
+    }
+
+    public static function LupaNombreProductoExistentes($productos, $textoBusqueda) {
+        $result = [];
+        foreach ($productos as $producto) {
+            if (stripos($producto->getNombre(), $textoBusqueda) !== false) { 
+                $result[] = $producto; 
+            }
+        }
         return $result;
     }
 

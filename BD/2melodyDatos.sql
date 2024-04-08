@@ -84,9 +84,8 @@ INSERT INTO `producto` (`id_artista`, `imagen`, `nombre`, `descripcion`, `stock`
 TRUNCATE TABLE `pedido`;
 INSERT INTO `pedido` (`id_user`, `estado`, `total`, `fecha`)VALUES
 ('user1', 'En proceso', 50, '2024-03-08'),
-('user1', 'Entregado', 75.5, '2024-03-09'),
-('user1', 'Pendiente', 30.2, '2024-03-10'),
-('user1', 'Entregado', 62.25, '2024-03-11');
+('user2', 'En proceso', 75.5, '2024-03-09'),
+('user1', 'Procesado', 30.2, '2024-03-10'),
 --
 -- Volcado de datos para la tabla `pedido_prod`
 --
@@ -96,9 +95,9 @@ INSERT INTO `pedido_prod` (`id_pedido`, `id_prod`, `cantidad`)VALUES
 (1, 1, 1),
 (2, 2, 1),
 (3, 3, 1),
-(4, 4, 1),
-(4, 5, 2),
-(4, 6, 4);
+(2, 4, 1),
+(3, 5, 2),
+(2, 6, 4);
 
 TRUNCATE TABLE `evento`;
 INSERT INTO `evento` (`id_artista`, `nombre`, `descripcion`, `fecha`) VALUES
