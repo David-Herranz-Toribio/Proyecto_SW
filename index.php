@@ -49,7 +49,7 @@ require_once "Config.php";
 
         <img src='<?=RUTA_IMG_PATH?>/Pentagrama.png' height="100" width="100%" alt="Foto Logo app">
 
-        <p class='textoIndex'>
+        <p id='txtFinalIndx'>
             ¿A qué esperas? Únete a nosotros en 2Melody y haz que tu experiencia musical
             sea más emocionante, interactiva y enriquecedora que nunca. Pincha en los enlaces de abajo y comienza 
             esta nueva aventura.

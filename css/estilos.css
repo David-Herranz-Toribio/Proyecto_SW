@@ -6,6 +6,7 @@ body {
 	padding: 0;
 	background-color: lightgray;
 	color: #e1e1e1;
+	text-decoration: none;
 }
 
 div.container{
@@ -140,30 +141,50 @@ section{
 }
 
 article {
-	background-color: #9290C3; 
-	width: 100%; 
+	background-color: #2c292e; 
 	display: flex;
-	flex-direction: row; 
+	flex-direction: row;
+	position: relative; 
 	align-items: center;
 	justify-content: space-evenly;
 	border: solid 1px #000;
 	border-radius: 25px;
 	padding-bottom: 1%;
 	padding-top: 1%;
+	width: 100%; 
 }
 
 article.estiloPost{
 	background-color: #2c292e;
 	flex-direction: column;
+	justify-content: space-between;
 	word-break: break-all;
 }
 article.estiloPost div.botones_mensaje {
 	display: flex;
-	padding: 5%;
+	padding: 1%;
 }
 
-div.user_info {
-	display: flex; 
+.user_info{
+	display: flex;
+
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+.modElim{
+	margin-left: auto;
+	position: absolute;
+	right: 20px;
+}
+.modElim form{
+	display: inline-block;
+	margin-left: auto;
+}
+
+.user_info button{
+	margin-left: auto
 }
 div.post_info {
 	display: flex; 
@@ -197,7 +218,6 @@ section.datos_perfil button {
 	height: 45px;
 	
 }
-
 section.fotoPerfil {
 	grid-row-start: 2;
 	grid-column-start: 2;
@@ -231,7 +251,7 @@ section.estiloPerfil section.listaPost {
 }
 .prod_info a:hover p{
 	color: purple;
-	background-color: #ffffff;
+	background-color: #fff;
 }
 
 /*Referente al estilo de los formularios*/ 
@@ -258,6 +278,8 @@ button  {
 	background-color: #D4ADFC;
 	border-radius: 15px;
 	transition: background-color 0.3s ease-in-out;
+	min-width: 30px;
+	min-height: 25px;
 }
 button:hover  {
 	background-color: #6f14ca;
@@ -271,11 +293,6 @@ button:hover  {
 	grid-column-start: 3 ;
 	grid-row-start: 2;
 	margin: 5%;
-
-	min-width: max-content;
-	min-height: max-content;
-	max-width: 300px;
-	max-height: 400px;
 }
 .boton_publicar{
 	grid-column-start: 3 ;
@@ -336,6 +353,10 @@ button:hover  {
 }
 .textoIndex{
 	font-size: x-large;
+}
+#txtFinalIndx{
+	font-size: x-large;
+	color:#000;
 }
 
 /*Footer de la pagina (sin usar) */ 

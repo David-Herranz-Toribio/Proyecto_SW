@@ -107,25 +107,27 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
     */
     
     $botones = '';
-    /*
-    Eliminar y modificar un producto
+    
+    //Eliminar y modificar un producto
     if ($yoYYoMismo == $autor){
         $rutaMod = RUTA_VISTAS_PATH.'/foro/ModificarVista.php';
         $rutaEliminar = RUTA_HELPERS_PATH.'/ProcesarEliminar.php';
 
         $botones .= <<<EOS4
+        <div class= 'modElim'> 
         <form action = $rutaMod method="post">
             <input type = "hidden" name = "ModificarID" value = "$id">
-            <button type = "submit"> Modificar</button>
+            <button type = "submit"> &#9998 </button>
         </form>
 
         <form action= $rutaEliminar method="post">
             <input type="hidden" name="EliminarID" value= '$id'>
-            <button type="submit"> Eliminar</button>
+            <button type="submit"> &#10060 </button>
         </form>
+        </div>
         EOS4;
     }
-    */
+    
 
 
     $html =<<<EOS6
@@ -196,8 +198,8 @@ function showCarrito($user){
     $comprable = true;
 
     $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
-
     $seccion =  "<section class = 'listaArticulos'>";
+
     $pedido = Pedido::buscarPedidoPorUser($user);
 
     if(empty($pedido)){
@@ -211,8 +213,7 @@ function showCarrito($user){
         else{
             $resumen = "<div id='resumen_carrito'>
             
-            <h2>Resumen Pedido</h2>
-            ";
+            <h2>Resumen Pedido</h2>";
             $iter = 0;
             foreach($productos as $item) {
                 $iter++;
@@ -241,10 +242,10 @@ function showCarrito($user){
             $diferencia = intval($karma - $acum_precio);
             if ($diferencia  < 0) {
                 $comprable = false;
-                $resumen .="<h3 style='color:red;'>Diferencia: ". $diferencia."&#9834</h3>";
+                $resumen .="<h3 style='color:red;'>Nuevo saldo: ". $diferencia."&#9834</h3>";
 
             }else
-                $resumen .="<h3 style='color:green;'>Diferencia: ". $diferencia."&#9834</h3>";
+                $resumen .="<h3 style='color:green;'>Nuevo saldo: ". $diferencia."&#9834</h3>";
             
             if($comprable){
                 $resumen .= <<< EOS

@@ -13,7 +13,7 @@ function generateStaticHeader($currentPage) {
       $favs = $_GET['favs']; 
     }
     else if (strpos($currentPage, "/vistas/perfil/Perfil.php") !== false) {
-        $placeholderText = "Ej. texto: Hola mundo";
+        $placeholderText = "Ej. texto: Buena foto";
     }
     else if (strpos($currentPage, "/vistas/tienda/Merch.php") !== false) {
       $placeholderText = "Ej. producto: Camiseta";
@@ -42,7 +42,7 @@ function generateStaticHeader($currentPage) {
           <input type="text" name="query" placeholder="$placeholderText">
           <input type="hidden" name="favs" value="$favs">
           <input type="hidden" name="user" value="$user">
-          <button type="submit">Buscar</button>
+          <button type="submit">&#128269</button>
         </form>
       </p>
 
