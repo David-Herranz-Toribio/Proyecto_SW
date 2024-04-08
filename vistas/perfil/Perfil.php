@@ -23,7 +23,7 @@ function showProfile($usuario,$favs){
 
         $html = "<section class = 'datos_perfil'>"; 
 
-        if($usuario ==  $_SESSION['username']){ //TU PERFIL
+        if(isset($_SESSION['username']) && $usuario ==  $_SESSION['username']){ //TU PERFIL
             $boton_ajuste = <<<EOS
             
             <div class="datos_perfil">
@@ -37,37 +37,39 @@ function showProfile($usuario,$favs){
         }
         else{ // PERFIL DE OTRO
 
-            //FUNCIONALIDAD DE SEGUIR/DEJAR DE SEGUIR
-
-            $us= Usuario::buscaUsuario($_SESSION['username']); 
-
-            if($us->estaSiguiendo($usuario)){ //Comprobamos si ya seguimos al user del perfil en concreto
-                $textoBoton= 'Dejar de seguir';
-                $seguir= false;
-            }
-            else {
-                $textoBoton= 'Seguir';
-                $seguir= true; 
-            }
-
-            $rutaSeguimiento= RUTA_HELPERS_PATH.'/ProcesarSeguimiento.php'; 
-            $rutaRetorno= RUTA_VISTAS_PATH.'/perfil/Perfil.php'; 
-
             $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>";  
-            $html .= <<<EOS
+            //FUNCIONALIDAD DE SEGUIR/DEJAR DE SEGUIR
+            if(isset($_SESSION['username'])){
+                $us= Usuario::buscaUsuario($_SESSION['username']); 
 
-            <div class= "datos_perfil"> 
-                <form action = $rutaSeguimiento method= "post"> 
+                if($us->estaSiguiendo($usuario)){ //Comprobamos si ya seguimos al user del perfil en concreto
+                    $textoBoton= 'Dejar de seguir';
+                    $seguir= false;
+                }
+                else {
+                    $textoBoton= 'Seguir';
+                    $seguir= true; 
+                }
 
-                <input type = "hidden" name= "return" value= $rutaRetorno?user=$usuario>
-                <input type = "hidden" name = "id" value = $usuario>
-                <input type = "hidden" name = "no_seguir/seguir" value= $seguir>
-                <button type="submit"> $textoBoton </button>
+                $rutaSeguimiento= RUTA_HELPERS_PATH.'/ProcesarSeguimiento.php'; 
+                $rutaRetorno= RUTA_VISTAS_PATH.'/perfil/Perfil.php'; 
+ 
+                $html .= <<<EOS
 
-                </form>  
+                <div class= "datos_perfil"> 
+                    <form action = $rutaSeguimiento method= "post"> 
 
-            </div> 
-            EOS;
+                    <input type = "hidden" name= "return" value= $rutaRetorno?user=$usuario>
+                    <input type = "hidden" name = "id" value = $usuario>
+                    <input type = "hidden" name = "no_seguir/seguir" value= $seguir>
+                    <button type="submit"> $textoBoton </button>
+
+                    </form>  
+
+                </div> 
+                EOS;
+            }
+            
         }
         $html .= $boton_ajuste; 
         $html.= "</section>"; 
