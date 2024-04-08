@@ -20,7 +20,7 @@
     -Primero, Pagina de un Producto Individual. Luego, Juntar foro con producto 
      por una relacion N - M para poner en cada producto las reseñas de este como si fuera otro mini foro.
 
--Crear PDF o .md de MEMORIA  (Óscar)✅
+-Crear PDF o .md de MEMORIA (Óscar)✅
 -Actualizar dicha memoria con datos pedidos por el profe en la EVALUACION (Óscar)✅
 -Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❓
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido (Alonso)✅
@@ -30,7 +30,7 @@
 -Hacer la funcion de comprobar email a la hora de registrarse para que no este repetido 
 -Diferenciar entre perfil de un usuario random y tu propio perfil (Alonso)✅
 -Añadir reglas @media en CSS para que se vea bien en movil 
--Reorganización de carpetas (Óscar)
+-Reorganización de carpetas (Óscar)✅
 
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------
 -Likes ✅

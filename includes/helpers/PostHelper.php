@@ -5,38 +5,58 @@ require_once CLASSES_URL . '/Post.php';
 function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
     $rutaPFP = IMG_PATH . '/FotoPerfil.png';
-    $rutaPerfil = VIEWS_PATH . '/perfil/Perfil.php';
+    $rutaPerfil = IMG_PATH . '/perfil/Perfil.php';
 
     //Imagen de usuario junto a su username
     $user_info =<<<EOS
     <div class="user_info">
         <img alt = "user_info" src= $rutaPFP width="50px" height="50px">
         <div><a href= "$rutaPerfil?user=$autor" name= "user">@$autor</a> </div>
-    </div>
     EOS;
 
+    if ($yoYYoMismo == $autor){
+        $rutaMod = IMG_PATH . '/foro/ModificarVista.php';
+        $rutaEliminar = HELPERS_PATH . '/ProcesarEliminar.php';
+
+        $user_info .= <<<EOS2
+        <div class= 'modElim'> 
+        <form action = $rutaMod method="post">
+            <input type = "hidden" name = "ModificarID" value = "$id">
+            <button type = "submit"> &#9998 </button>
+        </form>
+
+        <form action= $rutaEliminar method="post">
+            <input type="hidden" name="EliminarID" value= '$id'>
+            <button type="submit"> &#10060</button>
+        </form>
+        </div> 
+        EOS2;
+    }
+
+
     //Texto del post
-    $post_info =<<<EOS2
+    $post_info =<<<EOS3
+    </div>
     <div class="post_info">
         <p>$texto</p> 
     </div>
-    EOS2;
+    EOS3;
 
     //Imagen del post
-    $rutaImagen = IMG_PATH . '/postImages/' . $image;
+    $rutaImagen = IMG_PATH . '/postImages/'.$image;
     $post_image = "";
 
     if(!empty($image)){
-        $post_image =<<<EOS3
+        $post_image =<<<EOS4
         <div class="post_image">
             <img alt = "post_image" src = $rutaImagen width = "70" heigth = "70">
         </div>
-        EOS3;
+        EOS4;
     }
 
     $rutaLike = HELPERS_PATH . '/ProcesarLike.php';
-    $rutaRespuestas = VIEWS_PATH . '/foro/RespuestasForo.php';
-    $rutaAdd = VIEWS_PATH . '/foro/AddForo.php';
+    $rutaRespuestas = IMG_PATH . '/foro/RespuestasForo.php';
+    $rutaAdd = IMG_PATH . '/foro/AddForo.php';
     
     //Likes, respuestas y responder
     /*
@@ -44,33 +64,14 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
     }
     */
-    $botones = '';
-    if ($yoYYoMismo == $autor){
-        $rutaMod = VIEWS_PATH . '/foro/ModificarVista.php';
-        $rutaEliminar = HELPERS_PATH . '/ProcesarEliminar.php';
-
-        $botones .= <<<EOS4
-        <div class= 'editar_mensaje'> 
-        <form action = $rutaMod method="post">
-            <input type = "hidden" name = "ModificarID" value = "$id">
-            <button type = "submit"> Modificar</button>
-        </form>
-
-        <form action= $rutaEliminar method="post">
-            <input type="hidden" name="EliminarID" value= '$id'>
-            <button type="submit"> Eliminar</button>
-        </form>
-        </div> 
-        EOS4;
-    }
 
 
     if(!$yoYYoMismo){
-        $responder= ' '; 
+        $responder= ''; 
     }
 
     else {
-        $responder= <<<EOS
+        $responder= <<<EOS5
         <div class= 'responder'>
 
         <form action = $rutaAdd method = "post" enctype = "multipart/form-data">
@@ -83,10 +84,10 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         </details>
         </form>
         <div> 
-        EOS; 
+        EOS5; 
     }
 
-    $botones .= <<<EOS5
+    $botones = <<<EOS6
     <div class= 'botones_mensaje'>
     <form action = $rutaLike method = "post">
         <input type = "hidden" name = "likeId" value = "$id">
@@ -95,27 +96,27 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
     <form action = $rutaRespuestas method = "post">
         <input type = "hidden" name = "respuestasId" value = "$id">
-        <button type = "submit">Ver Respuestas &#128269</button>
+        <button type = "submit">&#128172</button>
     </form>
     </div>
     $responder
-    EOS5;
+    EOS6;
 
-    $html =<<<EOS6
+    $html =<<<EOS7
         <article class = "estiloPost">
             $user_info
             $post_info
             $post_image
             $botones
         </article>
-    EOS6;
+    EOS7;
 
     return $html;
 }
 
 function showResp($id_post, $yoYYoMismo){
 
-    $rutaNoLog = VIEWS_PATH . '/log/Login.php';
+    $rutaNoLog = IMG_PATH . '/log/Login.php';
 
     if (!isset($_SESSION['username']))
         $html= "<p class = 'texto_infor'> No estas logead@,  <a href = $rutaNoLog> <strong>  pulsa aqui para iniciar sesion </strong> </a> </p>";
@@ -123,6 +124,7 @@ function showResp($id_post, $yoYYoMismo){
         $post_aux= Post::buscarPostPorID($id_post); 
 
         $html = "<h1 class = 'texto_infor'> Respuestas a @".$post_aux->getAutor(). "</h1>";
+        $html .= "<section class = 'listaPost' id='respuestas'>";
         $html .= "<section  id='respuestas'>";
         $html .= "<div id = 'headPost'>";
         $html .= creacionPostHTML($post_aux->getAutor(), $post_aux->getImagen(), $post_aux->getLikes(),
@@ -152,7 +154,8 @@ function showResp($id_post, $yoYYoMismo){
 }
 
 function showTestPosts($yoYYoMismo){
-    $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
+
+    $rutaPublicar = IMG_PATH . '/foro/CrearPost.php';
     $content = "<h1 class = 'texto_infor'> Posts </h1>";
 
     if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 
