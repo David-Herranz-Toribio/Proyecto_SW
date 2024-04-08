@@ -1,12 +1,12 @@
 <?php
-require_once "Config.php";
+require_once "includes/Config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?=RUTA_CSS_PATH?>/estilos.css">
+    <link rel="stylesheet" href="<?=CSS_PATH?>/estilos.css">
     <title> 2Music </title>
 </head>
 
@@ -15,7 +15,7 @@ require_once "Config.php";
     <main>
         <div id='tituloIndex'>
             <h1>Bienvenido a 2Melody</h1>
-            <img src='<?=RUTA_IMG_PATH?>/2MelodyLogo.png' height="300" width="500" alt="Foto Logo app">
+            <img src='<?=IMG_PATH?>/2MelodyLogo.png' height="300" width="500" alt="Foto Logo app">
         </div>
         
         <div id='presentacion'>
@@ -47,7 +47,7 @@ require_once "Config.php";
             </div>
         </div>
 
-        <img src='<?=RUTA_IMG_PATH?>/Pentagrama.png' height="100" width="100%" alt="Foto Logo app">
+        <img src='<?=IMG_PATH?>/Pentagrama.png' height="100" width="100%" alt="Foto Logo app">
 
         <p id='txtFinalIndx'>
             ¿A qué esperas? Únete a nosotros en 2Melody y haz que tu experiencia musical
@@ -57,20 +57,20 @@ require_once "Config.php";
         
         
         <div id='enlacesIndex'>
-            <a href="<?=RUTA_VISTAS_PATH?>/perfil/Perfil.php">
-                <img src='<?=RUTA_IMG_PATH?>/FotoPerfil.png' height="200" width="200" alt="Foto Perfil">
+            <a href="<?=VIEWS_PATH?>/perfil/Perfil.php">
+                <img src='<?=IMG_PATH?>/FotoPerfil.png' height="200" width="200" alt="Foto Perfil">
             </a>
 
-            <a href="<?=RUTA_VISTAS_PATH?>/foro/Foro.php">
-                <img src='<?=RUTA_IMG_PATH?>/FotoForo.png' height="200" width="200" alt="Foto Foro">
+            <a href="<?=VIEWS_PATH?>/foro/Foro.php">
+                <img src='<?=IMG_PATH?>/FotoForo.png' height="200" width="200" alt="Foto Foro">
             </a>
 
-            <a href="<?=RUTA_VISTAS_PATH?>/musica/Musica.php">
-                    <img src="<?=RUTA_IMG_PATH?>/FotoMusica.png" height="200" width="200" alt="Foto Musica">
+            <a href="<?=VIEWS_PATH?>/musica/Musica.php">
+                    <img src="<?=IMG_PATH?>/FotoMusica.png" height="200" width="200" alt="Foto Musica">
             </a>
 
-            <a href="<?=RUTA_VISTAS_PATH?>/tienda/Merch.php">
-                <img src='<?=RUTA_IMG_PATH?>/FotoTienda.png' height="200" width="200" alt="Foto Tienda">
+            <a href="<?=VIEWS_PATH?>/tienda/Merch.php">
+                <img src='<?=IMG_PATH?>/FotoTienda.png' height="200" width="200" alt="Foto Tienda">
             </a>
         </div>
 

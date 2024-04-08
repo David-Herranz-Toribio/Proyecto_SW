@@ -9,16 +9,16 @@ body {
 }
 
 div.container{
-width: 100%;
-height: 100vh;
-display: grid;
-grid-template-columns: 16% 84%;
-grid-template-columns: minmax(150px, 16%) 1fr;
-grid-template-rows: 10% auto;
-grid-template-areas: 
-"cabecera cabecera"
-"navegacion contenido"
-"navegacion contenido";
+	width: 100%;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 16% 84%;
+	grid-template-columns: minmax(150px, 16%) 1fr;
+	grid-template-rows: 10% auto;
+	grid-template-areas: 
+	"cabecera cabecera"
+	"navegacion contenido"
+	"navegacion contenido";
 }
 
 
@@ -63,7 +63,9 @@ nav.sidebar {
 	grid-area: navegacion;
 }
 
-
+ul.opciones{
+	margin-top: 100px;
+}
 
 .opciones {	
 	margin-top: 12vh;
@@ -108,7 +110,6 @@ nav.sidebar {
 
 #content {
 	background-color: #1a1a1a;
-
 	grid-area: contenido;
 	display: grid;
 	grid-template-columns: 15% 65% 20% ; 
@@ -234,7 +235,7 @@ section.estiloPerfil section.listaPost {
 
   /*Estilo de la pagina de ajustes*/
 
-  section.botonesEstilo {
+section.botonesEstilo {
 	display: flex;
 	flex-direction: column;
 	grid-column-start: 3;
@@ -291,7 +292,6 @@ button:hover  {
 	background-color: #120118;
 	border-radius: 15px;
 	border: 1px solid #41077b;
-
 	grid-column-start: 3 ;
 	grid-row-start: 2;
 	margin: 5%;
@@ -312,11 +312,9 @@ button:hover  {
 
 #tituloIndex{
 	background-image: url('../img/FondoIndex.jpg');
-
 	background-position: center bottom; /* Ajusta la posición de las imágenes */
     background-repeat: no-repeat; /* Evita que las imágenes se repitan */
     background-size: cover; /* Ajusta el tamaño de las imágenes al contenedor */
-	
 	color: #b32949;
 	display: flex;
     flex-direction: column;
@@ -333,7 +331,6 @@ button:hover  {
 #presentacion{
 	background-color: black;
 	background-image: url('../img/FondoIndex2.png');
-
 	height: 30%;
 	background-position: center bottom; /* Ajusta la posición de las imágenes */
     background-repeat: no-repeat; /* Evita que las imágenes se repitan */
@@ -368,8 +365,6 @@ button:hover  {
 
 
 /*Pruebas animaciones y notificacion */ 
-
-
 #cantPedido {
 	display: inline-block;
 	position: absolute;
@@ -377,13 +372,13 @@ button:hover  {
 	height: 30px;
 	background-color: purple;
 	border-radius: 50%;
-  }
+}
   
-  #cantPedido #numberProd {
+#cantPedido #numberProd {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 16px;
 	color: white;
-  }
+}
