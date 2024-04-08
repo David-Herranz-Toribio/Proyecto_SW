@@ -159,6 +159,69 @@ class Usuario{
         return $post->guarda();
     }
 
+
+    /*Metodo que te permite seguir a un usuario*/ 
+
+    public function seguir ($user_a_seguir){
+        $seguidor= $this->getUsername(); 
+        $result= false; 
+
+        $conn= BD::getInstance()->getConexionBd();
+
+        $query = sprintf("INSERT INTO seguidores(id_user, id_seguidor) VALUES"); 
+        $values= "('$user_a_seguir', '$seguidor'); "; 
+        $query.= $values; 
+
+        $result= $conn->query($query);
+
+        if(!$result){
+            error_log($conn->error);
+        }
+
+        return $result; 
+    }
+
+    public function estaSiguiendo ($user){
+        $result= true; 
+        $seguidor= $this->getUsername(); 
+        $conn= BD::getInstance()->getConexionBd();
+
+        $query= sprintf("SELECT * FROM seguidores WHERE id_user= '%s' AND id_seguidor= '%s'", $user, $seguidor); 
+        $rs= $conn->query($query); 
+
+        if($rs->num_rows == 0)
+            $result = false;
+        
+        $rs->free();
+        return $result; 
+    }
+
+
+
+    public function dejarDeSeguir ($user_siguiendo){
+        $seguidor= $this->getUsername(); 
+        $result= false; 
+
+        $conn= BD::getInstance()->getConexionBd();
+
+        $query = sprintf("DELETE FROM seguidores WHERE (id_user = '%s' AND id_seguidor= '%s')", 
+        $user_siguiendo, 
+        $seguidor);  
+
+
+        $result= $conn->query($query);
+
+        if(!$result){
+            error_log($conn->error);
+        }
+
+        return $result; 
+
+
+
+    }
+
+
     public static function login($username, $password) {
 
         $usuario = self::buscaUsuario($username); 

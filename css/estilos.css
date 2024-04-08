@@ -188,6 +188,13 @@ section.datos_perfil {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-direction: row;
+	
+}
+
+section.datos_perfil button {
+	width: 75px;
+	height: 45px;
 	
 }
 

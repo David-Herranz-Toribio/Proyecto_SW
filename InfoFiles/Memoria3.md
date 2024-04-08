@@ -96,6 +96,7 @@
     * ProcesarProducto.php
     * ProcesarCompra.php
     * TiendaHelper.php
+    * ProcesarSeguimiento.php
 
 
 ## Usuarios en la base de datos
