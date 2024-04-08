@@ -25,6 +25,7 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
         </div>
     </div>
     <div class="prod_precio">
+        <p> Cantidad: $cantidad unidades</p>
         <p> Total: $total &#9834</p>
     EOS;
     
@@ -208,16 +209,20 @@ function showCarrito($user){
         if(empty($productos))
             $seccion .=  "<h1>No tienes ningun producto en tu carrito</h1>";
         else{
-            $resumen = "<div id='resumen_carrito'>";
-
+            $resumen = "<div id='resumen_carrito'>
+            
+            <h2>Resumen Pedido</h2>
+            ";
+            $iter = 0;
             foreach($productos as $item) {
+                $iter++;
                 $prod = $item['producto'];
                 $cantidad = $item['cantidad'];
                 $acum_cantidad += $cantidad;
 
                 $precio = $prod->getPrecio();
                 $acum_precio += ($cantidad * $precio);
-
+                $resumen .="<h4>".$iter.". ".$prod->getNombre()." --- ".($cantidad * $precio) ."&#9834</h4>";
                 $seccion .=  creacionCarritoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                                 $prod->getImagen(), $prod->getStock(), $precio, $id_pedido, $cantidad, $user);   
             }
@@ -228,8 +233,9 @@ function showCarrito($user){
             $user = $user->getUsername();
 
             $resumen .="
-                    <h3>Cantidad: " .$acum_cantidad."u</h3>
+                    <h3>--------------------------------</h3>
                     <h3>Precio Total: ". $acum_precio."&#9834</h3>
+                    <h3>Cantidad: " .$acum_cantidad."</h3>
                     <h3>-</h3>
                     <h3>Tu Saldo (&#9834): ". $karma ."</h3>";
             $diferencia = intval($karma - $acum_precio);
