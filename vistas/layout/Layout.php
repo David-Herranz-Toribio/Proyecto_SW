@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=RUTA_CSS_PATH?>/estilos.css">
+    <link rel="shortcut icon" href="<?=RUTA_IMG_PATH?>/2MelodyLogo.png" type="image/png" />
     <title> 2Music </title>
 </head>
 
@@ -20,5 +21,21 @@
     </div> 
 
     <!-- Incluir footer proximamente = reproductor de música -->
+
+
+    <script> 
+        function toClaro(){
+
+        }
+
+
+        function toOscuro(){
+
+
+        }
+
+    </script> 
+
+
 </body>
 </html>
