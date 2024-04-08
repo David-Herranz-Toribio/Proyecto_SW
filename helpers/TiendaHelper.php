@@ -8,6 +8,7 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
 
     $rutaProdImg = RUTA_IMG_PATH.'/prodImages/'.$image;
     $rutaProducto = RUTA_VISTAS_PATH.'/tienda/ProductoVista.php';
+    $rutaArtista = RUTA_VISTAS_PATH.'/perfil/Perfil.php';
     
     $total = $cantidad * $precio;
     //Imagen y nombre del producto
