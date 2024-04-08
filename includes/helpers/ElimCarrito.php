@@ -11,7 +11,6 @@ $user = null;
 if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
-
 if($user){
     $prod = Producto::buscarProductoPorID($id);
     Pedido::quitarProductoPP($prod, $id_pedido);

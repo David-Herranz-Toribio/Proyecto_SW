@@ -6,6 +6,7 @@ body {
 	padding: 0;
 	background-color: lightgray;
 	color: #e1e1e1;
+	text-decoration: none;
 }
 
 div.container{
@@ -63,19 +64,44 @@ nav.sidebar {
 	grid-area: navegacion;
 }
 
-dl.opciones {
-	padding-top: 50%;
+
+
+.opciones {	
+	margin-top: 12vh;
 }
 
-dt  details  summary {
-    list-style: none; /* Elimina la lista de estilos, incluida la flecha */
-    cursor: pointer; /* Mantiene el cursor como puntero para indicar que se puede hacer clic */
-    padding-left: 2rex; /* Espacio para el marcador personalizado */
-  }
+.opciones > li {
+	margin-bottom: 5%;
+	position: relative;
+	list-style: none;
+}
+.opciones > li  a img{
+	transition: transform 0.5s ease-out;
 
-dt details  summary::before {
-    content: "\2630"; /* Marcador personalizado */
-  }
+}
+.opciones > li  a img:hover {
+	transform: scale(1.3);
+}
+.opciones ul {
+	padding: 0;
+	padding-left: 10%;
+	margin: 0;
+	list-style: none;
+}
+
+.opciones > li a:hover +.desplegable {
+	visibility: visible;
+	position: unset;
+}
+
+.desplegable{
+	position: absolute;
+	visibility: collapse;
+}
+.desplegable:hover{
+	visibility: visible;
+	position: unset;
+}
 
 
 /*Contenido principal de la pagina*/
@@ -86,8 +112,8 @@ dt details  summary::before {
 
 	grid-area: contenido;
 	display: grid;
-	grid-template-columns: 15% 70% 15% ; 
-	grid-template-rows: minmax(25px, auto);
+	grid-template-columns: 15% 65% 20% ; 
+	grid-template-rows: minmax(25px, 120px);
 	text-align: center;
 	min-width: 300px;
 }
@@ -115,28 +141,50 @@ section{
 }
 
 article {
-	background-color: #9290C3; 
-	width: 100%; 
+	background-color: #2c292e; 
 	display: flex;
-	flex-direction: row; 
+	flex-direction: row;
+	position: relative; 
 	align-items: center;
+	justify-content: space-evenly;
 	border: solid 1px #000;
 	border-radius: 25px;
 	padding-bottom: 1%;
+	padding-top: 1%;
+	width: 100%; 
 }
 
 article.estiloPost{
 	background-color: #2c292e;
 	flex-direction: column;
+	justify-content: space-between;
 	word-break: break-all;
 }
 article.estiloPost div.botones_mensaje {
 	display: flex;
-	padding: 5%;
+	padding: 1%;
 }
 
-div.user_info {
-	display: flex; 
+.user_info{
+	display: flex;
+
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+.modElim{
+	margin-left: auto;
+	position: absolute;
+	right: 20px;
+}
+.modElim form{
+	display: inline-block;
+	margin-left: auto;
+}
+
+.user_info button{
+	margin-left: auto
 }
 div.post_info {
 	display: flex; 
@@ -161,9 +209,15 @@ section.datos_perfil {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-direction: row;
 	
 }
 
+section.datos_perfil button {
+	width: 75px;
+	height: 45px;
+	
+}
 section.fotoPerfil {
 	grid-row-start: 2;
 	grid-column-start: 2;
@@ -175,14 +229,29 @@ section.estiloPerfil section.listaPost {
 }
 
 
-/*Estilo de la pagina de ajustes*/
 
+  /*Estilo de la pagina de ajustes*/
 
+  section.botonesEstilo {
+	display: flex;
+	flex-direction: column;
+	grid-column-start: 3;
+	grid-row-start: 2;
+}
 
-/*Estilo de la pagina de tienda */ 
-.prod_info{
+/*Estilo de la pagina de tienda */
+.prod_info a{
 	text-decoration: none;
 	color: inherit;
+	transition: transform 0.5s ease-out;
+
+}
+.prod_info a:hover img{
+	transform: scale(1.3);
+}
+.prod_info a:hover p{
+	color: purple;
+	background-color: #fff;
 }
 
 /*Referente al estilo de los formularios*/ 
@@ -208,19 +277,30 @@ fieldset.formRegistro {
 button  {
 	background-color: #D4ADFC;
 	border-radius: 15px;
-	transition: background-color 0.3s ease;
+	transition: background-color 0.3s ease-in-out;
+	min-width: 30px;
+	min-height: 25px;
 }
 button:hover  {
 	background-color: #6f14ca;
 }
 
-form.boton_publicar{
+#resumen_carrito{
+	background-color: #120118;
+	border-radius: 15px;
+	border: 1px solid #41077b;
+
+	grid-column-start: 3 ;
+	grid-row-start: 2;
+	margin: 5%;
+}
+.boton_publicar{
 	grid-column-start: 3 ;
 	grid-row-start: 1;
 	margin-top: 1em;
 }
 
-form.boton_publicar button {
+.boton_publicar button {
 	width: 100px; 
 	height:  40px;
 }
@@ -274,8 +354,34 @@ form.boton_publicar button {
 .textoIndex{
 	font-size: x-large;
 }
+#txtFinalIndx{
+	font-size: x-large;
+	color:#000;
+}
 
 /*Footer de la pagina (sin usar) */ 
 .footer{
 	background-color: lightseagreen;
 }
+
+
+/*Pruebas animaciones y notificacion */ 
+
+
+#cantPedido {
+	display: inline-block;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background-color: purple;
+	border-radius: 50%;
+  }
+  
+  #cantPedido #numberProd {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 16px;
+	color: white;
+  }

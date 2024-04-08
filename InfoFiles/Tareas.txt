@@ -12,7 +12,7 @@
     -Añadir foto de perfil para modificarla
     -En perfil poder ver los Pedidos 'Procesados'
     -Incluir en Ajustes un boton de eliminar cuenta ❓
-
+    -Poder seguir a gente y que te sigan (Alonso)
 
 -Tienda (David y Hugo)🔄️
     -Crear una pagina de Tus Artistas seguidos y cuando pinches en uno te lleve a una pagina que tenga 

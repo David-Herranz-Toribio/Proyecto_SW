@@ -129,7 +129,7 @@ class Post{
         $month = $date['mon'];
         $year = $date['year'];
 
-        return $day . "-" . $month . "-" . $year;
+        return $year  . "-" .$month . "-" . $day;
     }
 
     public static function likeAsignado($id,$user){
