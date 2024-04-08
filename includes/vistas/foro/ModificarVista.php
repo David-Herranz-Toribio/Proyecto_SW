@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../Config.php';
+require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 
 $post = Post::buscarPostPorID($_POST['ModificarID']);

@@ -1,6 +1,6 @@
 <?php 
 
-require_once '../../../Config.php';
+require_once '../../Config.php';
 require_once HELPERS_URL . '/LoginHelper.php';
 
 global $isArtist;

@@ -36,5 +36,5 @@ if($user){
         Pedido::insertaPP($pedido->getId(), $id, $cant);
 }
 
-header('Location: ' . VIEWS_URL . '/tienda/Merch.php');
+header('Location: ' . VIEWS_PATH . '/tienda/Merch.php');
 exit();

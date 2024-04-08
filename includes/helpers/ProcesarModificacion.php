@@ -31,5 +31,5 @@ if ($_FILES['image']['name'] != ''){
 
 Post::actualizar($post);
 
-header('Location:'. VIEWS_URL .'/foro/Foro.php');
+header('Location:'. VIEWS_PATH .'/foro/Foro.php');
 exit();

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../Config.php';
+require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
 
@@ -33,5 +33,5 @@ else $post_father = 'NULL';
 $user = Usuario::buscaUsuario($username);
 $post = $user->publicarPost($post_text, $post_image, $post_father);
 
-header('Location:'. VIEWS_URL .'/foro/Foro.php'); 
+header('Location:'. VIEWS_PATH .'/foro/Foro.php'); 
 exit(); 

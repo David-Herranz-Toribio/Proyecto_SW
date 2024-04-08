@@ -1,6 +1,6 @@
 <?php 
 
-require_once '../../Config.php';
+require_once '../Config.php';
 require_once CLASSES_URL . '/Post.php';
 
 $id = $_POST['EliminarID'];
@@ -16,5 +16,4 @@ if($isValid && $user){
     Post::borrarPost($post);
 }
 
-header('Location:'. VIEWS_URL .'/foro/Foro.php');
-exit();
+header('Location:'. VIEWS_PATH .'/foro/Foro.php');

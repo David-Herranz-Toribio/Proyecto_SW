@@ -19,5 +19,5 @@ if($user){
     Producto::actualiza($prod);
 }
 
-header('Location:'. VIEWS_URL .'/tienda/Carrito.php');
+header('Location:'. VIEWS_PATH .'/tienda/Carrito.php');
 exit();

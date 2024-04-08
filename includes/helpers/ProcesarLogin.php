@@ -1,6 +1,6 @@
 <?php 
 
-require_once '../../Config.php';
+require_once '../Config.php';
 require_once CLASSES_URL . '/Usuario.php';
 
 //Obtener el input
@@ -16,12 +16,12 @@ if($isValid){
     $_SESSION['username'] = $username;
     $_SESSION['login'] = true;
     
-    header('Location: ' . VIEWS_URL . '/foro/Foro.php');
+    header('Location: ' . VIEWS_PATH . '/foro/Foro.php');
     exit();
 }
 else{
     $_SESSION['error'] = true;
     
-    header('Location: ' . VIEWS_URL . '/log/Login.php'); 
+    header('Location: ' . VIEWS_PATH . '/log/Login.php'); 
     exit();
 }

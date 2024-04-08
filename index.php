@@ -1,5 +1,5 @@
 <?php
-require_once "Config.php";
+require_once "includes/Config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -2,7 +2,7 @@
 
 require_once '../../Config.php';
 
-function generatePostPublicationHTML($id_padre= 'NULL'){
+function generatePostPublicationHTML($id_padre = 'NULL'){
 
     $ruta = VIEWS_PATH . '/foro/Addforo.php';
 

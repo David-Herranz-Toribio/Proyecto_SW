@@ -22,4 +22,4 @@ if($birthdate) $usu_mod->setBirthdate($birthdate);
 
 Usuario:: actualiza($usu_mod); 
 
-header('Location: '. VIEWS_URL .'/perfil/Perfil.php'); 
+header('Location: '. VIEWS_PATH .'/perfil/Perfil.php'); 

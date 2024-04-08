@@ -12,7 +12,7 @@ define('INCLUDES_PATH', PROJECT_PATH . '/includes');
 define('BD_PATH', PROJECT_PATH . '/mysql');
 
 // URLs
-define('ROOT_PATH', dirname(__DIR__) . '/Proyecto_SW');
+define('ROOT_PATH', dirname(__DIR__) . '/../Proyecto_SW');
 define('CSS_URL' , ROOT_PATH . '/css');
 define('IMG_URL' , ROOT_PATH . '/img');
 define('INCLUDES_URL', ROOT_PATH . '/includes');

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../Config.php';
+require_once '../../Config.php';
 require_once HELPERS_URL . '/PostHelper.php';
 
 $id_post = $_POST["respuestasId"] ?? NULL;
