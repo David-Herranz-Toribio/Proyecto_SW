@@ -1,6 +1,6 @@
 <?php
 
-require_once HELPERS_PATH . '/CabeceraSesion.php';
+require_once HELPERS_URL . '/CabeceraSesion.php';
 
 $currentPage = $_SERVER['REQUEST_URI'];
 

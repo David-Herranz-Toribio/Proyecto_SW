@@ -1,6 +1,6 @@
 <?php
 
-require_once CLASSES_PATH.'/Post.php';
+require_once CLASSES_URL . '/Post.php';
 
 function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 

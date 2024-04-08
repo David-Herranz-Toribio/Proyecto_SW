@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../Config.php';
-require_once HELPERS_PATH . '/SignUpHelper.php';
+require_once '../../../Config.php';
+require_once HELPERS_URL . '/SignUpHelper.php';
 
 $imgUser = generateUserImage();
 $errors = generateErrorMessages();
@@ -16,4 +16,4 @@ $content =<<<EOS
     </section> 
 EOS; 
 
-require_once LAYOUT_PATH; 
+require_once LAYOUT_URL; 

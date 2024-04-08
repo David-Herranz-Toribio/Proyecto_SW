@@ -1,11 +1,13 @@
 <?php
 
 function generateStaticHeader($currentPage) {
+
     $iconImage = IMG_PATH . '/2MelodyLogo.png';
     $linkIndex = PROJECT_PATH . '/index.php';
     $favs = 0;
     $placeholderText = "Ej. usuario: Robert09";
     $user = $_GET["user"] ?? NULL;
+
     if (isset($_GET['user'])) {
       $user = $_GET['user']; 
     }
@@ -17,16 +19,17 @@ function generateStaticHeader($currentPage) {
     }
 
     if (!islogged()) {
-        $loginImage = IMG_PATH . '/FotoLoginUser.png';
-        $altText = 'Foto de login';
-        $link = VIEWS_PATH . '/log/Login.php';
-        $texto = "Iniciar sesión";
-    } else {
-        $loginImage = IMG_PATH . '/FotoLogoutUser.png';
-        $altText = 'Foto de logout';
-        $link = VIEWS_PATH . '/log/Logout.php';
-        $username = $_SESSION['username'];
-        $texto = "Bienvenido " . $username; 
+      $loginImage = IMG_PATH . '/FotoLoginUser.png';
+      $altText = 'Foto de login';
+      $link = VIEWS_PATH . '/log/Login.php';
+      $texto = "Iniciar sesión";
+    }
+    else {
+      $loginImage = IMG_PATH . '/FotoLogoutUser.png';
+      $altText = 'Foto de logout';
+      $link = VIEWS_PATH . '/log/Logout.php';
+      $username = $_SESSION['username'];
+      $texto = "Bienvenido " . $username; 
     }
 
     $html = <<<EOS
@@ -62,5 +65,5 @@ function generateStaticHeader($currentPage) {
 }
 
 function islogged(){
-    return isset($_SESSION['username']);
+  return isset($_SESSION['username']);
 }

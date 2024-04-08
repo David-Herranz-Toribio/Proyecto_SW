@@ -1,8 +1,8 @@
 <?php 
 
-require_once '../Config.php';
-require_once CLASSES_PATH . '/Producto.php';
-require_once CLASSES_PATH . '/Pedido.php';
+require_once '../../Config.php';
+require_once CLASSES_URL . '/Producto.php';
+require_once CLASSES_URL . '/Pedido.php';
 
 $id = $_POST['EliminarID'];
 $id_pedido = $_POST['PedidoID'];
@@ -19,5 +19,5 @@ if($user){
     Producto::actualiza($prod);
 }
 
-header('Location:'. VIEWS_PATH .'/tienda/Carrito.php');
+header('Location:'. VIEWS_URL .'/tienda/Carrito.php');
 exit();

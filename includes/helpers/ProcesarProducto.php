@@ -1,8 +1,8 @@
 <?php 
 
-require_once "../Config.php";
-require_once CLASSES_PATH . '/Producto.php';
-require_once CLASSES_PATH . '/Pedido.php';
+require_once "../../Config.php";
+require_once CLASSES_URL . '/Producto.php';
+require_once CLASSES_URL . '/Pedido.php';
 
 $id = $_POST['Id'];
 $cant = $_POST['Cantidad'];
@@ -36,5 +36,5 @@ if($user){
         Pedido::insertaPP($pedido->getId(), $id, $cant);
 }
 
-header('Location: ' . VIEWS_PATH . '/tienda/Merch.php');
+header('Location: ' . VIEWS_URL . '/tienda/Merch.php');
 exit();

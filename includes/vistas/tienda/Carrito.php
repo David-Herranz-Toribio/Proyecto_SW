@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../Config.php';
-require_once HELPERS_PATH . '/TiendaHelper.php';
+require_once '../../../Config.php';
+require_once HELPERS_URL . '/TiendaHelper.php';
 
 $user = null;
 
@@ -12,4 +12,4 @@ if(isset($_SESSION['username'])){
     $content = showCarrito($user);
 }
 
-require_once LAYOUT_PATH;
+require_once LAYOUT_URL;

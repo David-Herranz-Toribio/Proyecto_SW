@@ -1,8 +1,8 @@
 <?php
 
-require_once '../../Config.php';
-require_once CLASSES_PATH . '/Post.php';
-require_once CLASSES_PATH . '/Usuario.php';
+require_once '../../../Config.php';
+require_once CLASSES_URL . '/Post.php';
+require_once CLASSES_URL . '/Usuario.php';
 
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : false;
 $post_text = isset($_POST['post_text']) ? htmlspecialchars($_POST['post_text']) : false;  
@@ -33,5 +33,5 @@ else $post_father = 'NULL';
 $user = Usuario::buscaUsuario($username);
 $post = $user->publicarPost($post_text, $post_image, $post_father);
 
-header('Location:'. VIEWS_PATH .'/foro/Foro.php'); 
+header('Location:'. VIEWS_URL .'/foro/Foro.php'); 
 exit(); 

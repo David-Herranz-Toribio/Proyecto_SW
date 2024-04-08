@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../Config.php';
+require_once '../../../Config.php';
 
 function generateHeader(){
     $html = '<p> 2Music ¡Música sin limites para perder el tiempo! </p>';

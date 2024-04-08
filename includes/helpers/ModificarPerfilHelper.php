@@ -1,6 +1,6 @@
 <?php
-require_once '../Config.php';
-require_once CLASSES_PATH . '/Usuario.php'; 
+require_once '../../Config.php';
+require_once CLASSES_URL . '/Usuario.php'; 
 
 $id_user= $_POST['id_user']; 
 $nickname = htmlspecialchars($_POST['modify_nickname']);
@@ -22,4 +22,4 @@ if($birthdate) $usu_mod->setBirthdate($birthdate);
 
 Usuario:: actualiza($usu_mod); 
 
-header('Location: '. VIEWS_PATH .'/perfil/Perfil.php'); 
+header('Location: '. VIEWS_URL .'/perfil/Perfil.php'); 

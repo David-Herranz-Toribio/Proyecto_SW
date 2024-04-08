@@ -1,17 +1,18 @@
 <?php
 
 require_once '../../../Config.php';
-require_once CLASSES_PATH . '/Post.php';
+require_once CLASSES_URL . '/Post.php';
 
 $usuario = $_GET["user"] ?? NULL;
 $favs = $_GET["favs"] ?? NULL;
-$content = showProfile($usuario,$favs);
+$content = showProfile($usuario, $favs);
 
-//require_once LAYOUT_PATH;
+require_once LAYOUT_URL;
 
-function showProfile($usuario,$favs){
+function showProfile($usuario, $favs){
+
     $SettingsImage = IMG_PATH . '/Setting_icon__.png';
-    $boton_ajuste= ''; 
+    $boton_ajuste = ''; 
     if(!$usuario){
         if (isset($_SESSION['username'])){ //Hay sesion iniciada
             $boton_ajuste= <<<EOS

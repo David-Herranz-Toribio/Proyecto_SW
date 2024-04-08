@@ -1,7 +1,7 @@
 <?php
 
-require_once '../../Config.php';
-require_once HELPERS_PATH . '/CrearPostVista.php';
+require_once '../../../Config.php';
+require_once HELPERS_URL . '/CrearPostVista.php';
 
 if(isset($_POST['id_padre'])) 
     $id_padre = $_POST['id_padre']; 
@@ -10,4 +10,4 @@ else
 
 $content = generatePostPublicationHTML($id_padre);
 
-require_once LAYOUT_PATH;
+require_once LAYOUT_URL;

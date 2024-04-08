@@ -1,7 +1,7 @@
 <?php 
 
-require_once '../../Config.php';
-require_once HELPERS_PATH . '/LoginHelper.php';
+require_once '../../../Config.php';
+require_once HELPERS_URL . '/LoginHelper.php';
 
 global $isArtist;
 
@@ -17,4 +17,4 @@ $content =<<<EOS
     </section> 
 EOS;
     
-require_once LAYOUT_PATH;
+require_once LAYOUT_URL;

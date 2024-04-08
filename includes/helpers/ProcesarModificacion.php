@@ -1,8 +1,8 @@
 <?php 
 
-require_once '../Config.php';
-require_once CLASSES_PATH . '/Post.php';
-require_once CLASSES_PATH . '/Usuario.php';
+require_once '../../Config.php';
+require_once CLASSES_URL . '/Post.php';
+require_once CLASSES_URL . '/Usuario.php';
 
 $id = $_POST['id'];
 $tx = htmlspecialchars($_POST['postText']);
@@ -31,5 +31,5 @@ if ($_FILES['image']['name'] != ''){
 
 Post::actualizar($post);
 
-header('Location:'. VIEWS_PATH .'/foro/Foro.php');
+header('Location:'. VIEWS_URL .'/foro/Foro.php');
 exit();

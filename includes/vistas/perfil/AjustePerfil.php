@@ -1,8 +1,7 @@
 <?php
 
-require_once '../../Config.php';
-
-require_once CLASSES_PATH . '/Usuario.php'; 
+require_once '../../../Config.php';
+require_once CLASSES_URL . '/Usuario.php'; 
 
 
 $perfil= Usuario::buscaUsuario($_SESSION['username']); 
@@ -73,7 +72,7 @@ $content= <<<EOS
 EOS; 
 
 
-require_once LAYOUT_PATH; 
+require_once LAYOUT_URL; 
 
 
 

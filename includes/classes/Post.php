@@ -2,7 +2,7 @@
 
 require_once 'BD.php';
 require_once 'Usuario.php';
-require_once HELPERS_PATH . '/PostHelper.php';
+require_once HELPERS_URL . '/PostHelper.php';
 
 class Post{
 

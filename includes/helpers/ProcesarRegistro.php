@@ -1,7 +1,7 @@
 <?php
 
-require_once '../Config.php';
-require_once CLASSES_PATH . '/Usuario.php'; 
+require_once '../../Config.php';
+require_once CLASSES_URL . '/Usuario.php'; 
 
 // Datos comunes
 $username =  htmlspecialchars($_POST['new_username']);
@@ -19,9 +19,9 @@ if( !empty($errors) ) {
     $_SESSION['error'] = $errors;
 
     if(!$isArtist)
-        header('Location: ' . VIEWS_PATH . '/log/SignUpUser.php');
+        header('Location: ' . VIEWS_URL . '/log/SignUpUser.php');
     else
-        header('Location: ' . VIEWS_PATH . '/log/SignUpArtist.php');
+        header('Location: ' . VIEWS_URL . '/log/SignUpArtist.php');
     
     exit();
 }
@@ -48,4 +48,4 @@ $usuario = Usuario::createUser($parametros);
 
 // Redirigir al cliente
 $_SESSION['username'] = $username; 
-header('Location: ' . VIEWS_PATH . '/foro/Foro.php');
+header('Location: ' . VIEWS_URL . '/foro/Foro.php');
