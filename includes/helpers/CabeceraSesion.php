@@ -7,29 +7,30 @@ function generateStaticHeader($currentPage) {
     $favs = 0;
     $placeholderText = "Ej. usuario: Robert09";
     $user = $_GET["user"] ?? NULL;
-
     if (isset($_GET['user'])) {
       $user = $_GET['user']; 
     }
-    if (isset($_GET['favs'])) {
+    if (isset($_GET['favs']) && $_GET['favs'] == 1) {
       $favs = $_GET['favs']; 
     }
     else if (strpos($currentPage, "/vistas/perfil/Perfil.php") !== false) {
-        $placeholderText = "Ej. texto: Hola mundo";
+        $placeholderText = "Ej. texto: Buena foto";
     }
+    else if (strpos($currentPage, "/vistas/tienda/Merch.php") !== false) {
+      $placeholderText = "Ej. producto: Camiseta";
+  }
 
     if (!islogged()) {
-      $loginImage = IMG_PATH . '/FotoLoginUser.png';
-      $altText = 'Foto de login';
-      $link = VIEWS_PATH . '/log/Login.php';
-      $texto = "Iniciar sesión";
-    }
-    else {
-      $loginImage = IMG_PATH . '/FotoLogoutUser.png';
-      $altText = 'Foto de logout';
-      $link = VIEWS_PATH . '/log/Logout.php';
-      $username = $_SESSION['username'];
-      $texto = "Bienvenido " . $username; 
+        $loginImage = IMG_PATH . '/FotoLoginUser.png';
+        $altText = 'Foto de login';
+        $link = VIEWS_PATH . '/log/Login.php';
+        $texto = "Iniciar sesión";
+    } else {
+        $loginImage = IMG_PATH . '/FotoLogoutUser.png';
+        $altText = 'Foto de logout';
+        $link = VIEWS_PATH . '/log/Logout.php';
+        $username = $_SESSION['username'];
+        $texto = "Bienvenido " . $username; 
     }
 
     $html = <<<EOS
@@ -42,7 +43,7 @@ function generateStaticHeader($currentPage) {
           <input type="text" name="query" placeholder="$placeholderText">
           <input type="hidden" name="favs" value="$favs">
           <input type="hidden" name="user" value="$user">
-          <button type="submit">Buscar</button>
+          <button type="submit">&#128269</button>
         </form>
       </p>
 
@@ -65,5 +66,5 @@ function generateStaticHeader($currentPage) {
 }
 
 function islogged(){
-  return isset($_SESSION['username']);
+    return isset($_SESSION['username']);
 }
