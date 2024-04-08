@@ -6,7 +6,6 @@ body {
 	padding: 0;
 	background-color: lightgray;
 	color: #e1e1e1;
-	text-decoration: none;
 }
 
 div.container{
@@ -142,20 +141,24 @@ section{
 
 article {
 	background-color: #2c292e; 
+	border: solid 2px #230058;
 	display: flex;
 	flex-direction: row;
 	position: relative; 
 	align-items: center;
 	justify-content: space-evenly;
-	border: solid 1px #000;
 	border-radius: 25px;
 	padding-bottom: 1%;
 	padding-top: 1%;
+	margin-top: 1%;
 	width: 100%; 
+	word-break: break-all;
+
 }
 
 article.estiloPost{
 	background-color: #2c292e;
+	border: solid 2px #230058;
 	flex-direction: column;
 	justify-content: space-between;
 	word-break: break-all;
@@ -191,13 +194,12 @@ div.post_info {
 }
 
 
-section.listaPost#respuestas div#headPost article {
-	border: solid 3px #000;
+#headPost article {
+	border: solid 5px #230058;
 }
 
-section.listaPost#respuestas div#post_respuestas article {
-	margin-top: 15%;
-	margin-left: 25%; 
+#post_respuestas article {
+	margin-left: 14%;
 	width: 75%; 
 }
 
@@ -208,7 +210,7 @@ section.datos_perfil {
 	grid-column-start: 2;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 	flex-direction: row;
 	
 }

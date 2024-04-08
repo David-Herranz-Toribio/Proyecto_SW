@@ -127,7 +127,7 @@ function showResp($id_post, $yoYYoMismo){
         $post_aux= Post::buscarPostPorID($id_post); 
 
         $html = "<h1 class = 'texto_infor'> Respuestas a @".$post_aux->getAutor(). "</h1>";
-        $html .= "<section class = 'listaPost' id='respuestas'>";
+        $html .= "<section  id='respuestas'>";
         $html .= "<div id = 'headPost'>";
         $html .= creacionPostHTML($post_aux->getAutor(), $post_aux->getImagen(), $post_aux->getLikes(),
                                   $post_aux->getTexto(), $post_aux->getId(), $yoYYoMismo);
