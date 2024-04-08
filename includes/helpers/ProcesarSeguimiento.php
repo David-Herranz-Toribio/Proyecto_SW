@@ -1,6 +1,6 @@
 <?php
 require_once "../Config.php";
-require_once RUTA_CLASSES.'/Usuario.php';
+require_once CLASSES_URL . '/Usuario.php';
 
 
 $usu_a_seguir= $_POST["id"]; 
@@ -18,28 +18,5 @@ if(!$accion_a_tomar){ //Dejar de seguir
 else $usuario_seguidor->seguir($usu_a_seguir); //Seguir
 
 
-header('Location: ' .$retorno);  
-
-exit(); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+header('Location: ' . $retorno);
+exit();
