@@ -24,32 +24,28 @@ function showProfile($usuario, $favs){
     $html .= "</section>";
 
     // Mostrar imagen de perfil del usuario
-    $html .= displayUserImage($user);
+    $html .= displayUserImage($user->getPhoto());
 
     // Mostrar número de seguidores y seguidos del usuario
     $html .= displayFollowersAndFollowed($user);
 
-    // Botón para ver posts favoritos del usuario
+    // Botón para ver posts favoritos del usuario 
     $html .= displayFavoritePosts($user, $favs);
 
-    // Boton de follow/unfollow solo si no estoy en mi perfil
+    // Mostrar botón de follow/unfollow para el usuario a visualizar
     if(!$isSelfProfile){
 
         // Obtenemos el objeto Usuario que corresponde al cliente
         $me = Usuario::buscaUsuario($_SESSION['username']); 
 
         //Comprobamos si seguimos al usuario del perfil a visualizar
-        $following = $me->estaSiguiendo($user);
+        $following = $me->estaSiguiendo($user->getUsername());
         $textoBoton = $following ? 'Seguir' : 'Dejar de seguir';
 
         // Boton de follow/unfollow
         $html .= displayFollowButton($user->getUsername(), $textoBoton, $following);
     }
 
-    // Mostrar posts favoritos del usuario
-    if($favs){
-        // INCLUIR VISTA FavoritosHelper.php
-    }
 
     return $html;
 }

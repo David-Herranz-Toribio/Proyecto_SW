@@ -18,6 +18,10 @@
     -Implementar helper SeguidoresHelper.php
     -Implementar helper SeguidosHelper.php
     -Implementar helper FavoritosHelper.php
+    -Mejorar la lógica de la vistas PerfilHelper:
+        Si $isSelfProfile es true llamamos a la funcion mostrarPerfilCliente()
+        Si no llamamos a la funciono mostrarPerfilExterno()
+        Ahí dentro incluimos la lógica de cada uno para evitar tantos if's anidados
 
 -Tienda (David y Hugo)✅
     -Crear una pagina de Artista y cuando pinches en uno te lleve a una pagina que tenga 
