@@ -2,6 +2,7 @@
 
 require_once '../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
+require_once CLASSES_URL . '/Pedido.php'; 
 
 // Datos comunes
 $username =  htmlspecialchars($_POST['new_username']);
@@ -30,8 +31,14 @@ if( !empty($errors) ) {
 $artist_members = '';
 if(!$isArtist)
     $artist_members = null;
-else
+else{
     $artist_members = $_POST['musical_genres'];
+    $_SESSION['isArtist'] = true;
+}
+
+$num = Pedido::numProdporUserPP($username);
+if($num)
+    $_SESSION['notif_prod'] = $num;
 
 // Datos para crear usuario
 $parametros = [];
@@ -49,3 +56,4 @@ $usuario = Usuario::createUser($parametros);
 // Redirigir al cliente
 $_SESSION['username'] = $username; 
 header('Location: ' . VIEWS_PATH . '/foro/Foro.php');
+exit();

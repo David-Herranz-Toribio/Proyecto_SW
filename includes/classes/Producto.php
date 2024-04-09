@@ -2,6 +2,7 @@
 
 require_once 'BD.php';
 
+
 class Producto{
 
     private $id;
@@ -11,9 +12,10 @@ class Producto{
     private $autor;
     private $stock;
     private $precio;
+    private $cantidadPP;//Cantidad de productos por pedido
 
 
-    private function __construct($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio){
+    private function __construct($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio, $cantidadPP){
         
         $this->id = $id;
         $this->nombre = $nombre;
@@ -22,11 +24,12 @@ class Producto{
         $this->autor = $autor;
         $this->stock = $stock;
         $this->precio = $precio;
+        $this->cantidadPP = $cantidadPP;
      
     }
 
-    public static function crearProducto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio){
-        return new Producto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio);
+    public static function crearProducto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio, $cantidadPP = NULL){
+        return new Producto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio, $cantidadPP);
     }
     
 
@@ -83,8 +86,8 @@ class Producto{
         $rs = $conection->query($query);
         
         while($fila = $rs->fetch_assoc()){
-            $result[] = array("producto" =>self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
-                                            $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio']),"cantidad" =>$fila['cantidad']) ;
+            $result[] = self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
+                                            $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio'], $fila['cantidad']);
         }
         $rs->free();
 
@@ -118,11 +121,15 @@ class Producto{
         return $result;
     }
 
-    public static function borrarProducto($producto){
+    public function borrarProducto(){
+        if ($this->imagen != 'FotoMerch.png')
+            unlink(IMG_URL . '/prodImages/'. $this->imagen);
 
+        
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM producto WHERE id_prod = %d", $producto->id);
+        $query = sprintf("DELETE FROM producto WHERE id_prod = %d", $this->id);
+
 
 
         $result = $conn->query($query);
@@ -226,5 +233,8 @@ class Producto{
 
     public function getPrecio(){
         return $this->precio;
+    }
+    public function getCantidadPP(){
+        return $this->cantidadPP;
     }
 }
