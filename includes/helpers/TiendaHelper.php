@@ -233,15 +233,16 @@ function showCarrito($user){
             
             <h2>Resumen Pedido</h2>";
             $iter = 0;
-            foreach($productos as $item) {
+            foreach($productos as $prod) {
                 $iter++;
-                $prod = $item['producto'];
-                $cantidad = $item['cantidad'];
+                $cantidad = $prod->getCantidad();
                 $acum_cantidad += $cantidad;
 
                 $precio = $prod->getPrecio();
                 $acum_precio += ($cantidad * $precio);
+                
                 $resumen .="<h4>".$iter.". ".$prod->getNombre()." --- ".($cantidad * $precio) ."&#9834</h4>";
+
                 $seccion .=  creacionCarritoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                                 $prod->getImagen(), $prod->getStock(), $precio, $id_pedido, $cantidad, $user);   
             }

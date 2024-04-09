@@ -14,10 +14,10 @@
     -Incluir en Ajustes un boton de eliminar cuenta ❓
     -Poder seguir a gente y que te sigan (Alonso)
 
--Tienda (David y Hugo)🔄️
-    -Crear una pagina de Tus Artistas seguidos y cuando pinches en uno te lleve a una pagina que tenga 
+-Tienda (David y Hugo)✅
+    -Crear una pagina de Artista y cuando pinches en uno te lleve a una pagina que tenga 
      apartados para ver sus producto, eventos y posts (y Musica este cuando implementado).
-    -Primero, Pagina de un Producto Individual. Luego, Juntar foro con producto 
+    -Primero, Pagina de un Producto Individual.✅ Luego, Juntar foro con producto 
      por una relacion N - M para poner en cada producto las reseñas de este como si fuera otro mini foro.
 
 -Crear PDF o .md de MEMORIA (Óscar)✅
