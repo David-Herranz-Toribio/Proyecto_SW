@@ -12,8 +12,7 @@ div.container{
 	width: 100%;
 	height: 100vh;
 	display: grid;
-	grid-template-columns: 16% 84%;
-	grid-template-columns: minmax(150px, 16%) 1fr;
+	grid-template-columns: minmax(150px, 10%) 1fr;
 	grid-template-rows: 10% auto;
 	grid-template-areas: 
 	"cabecera cabecera"
@@ -56,8 +55,9 @@ header div.contenedor_texto {
 
 nav.sidebar {
 	background-color: #120118;
-	min-width: 150px;
-	width: 16%; 
+	border: solid 2px #230058;
+	min-width: 100px;
+	width: 10%; 
 	height: 100vh;
 	position:  fixed;
 	grid-area: navegacion;

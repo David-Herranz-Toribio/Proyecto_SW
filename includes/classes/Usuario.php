@@ -249,9 +249,9 @@ class Usuario{
             $fila= $rs->fetch_assoc(); 
 
             if($fila)
-                return 1; 
+                return true; 
             else 
-                return 0; 
+                return false; 
         }
         else 
             error_log("Error BD ({$conn->errno}): {$conn->error}");
