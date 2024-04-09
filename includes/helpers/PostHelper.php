@@ -11,7 +11,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     $user_info =<<<EOS
     <div class="user_info">
         <img alt = "user_info" src= $rutaPFP width="50px" height="50px">
-        <div><a href= "$rutaPerfil?user=$autor" name= "user">@$autor</a> </div>
+        <div><a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> </div>
     EOS;
 
     if ($yoYYoMismo == $autor){
