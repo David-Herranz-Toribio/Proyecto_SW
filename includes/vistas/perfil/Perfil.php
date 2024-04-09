@@ -92,7 +92,7 @@ function showProfile($usuario,$favs){
             }   
             foreach($posts as $post){
                 $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                         $post->getTexto(), $post->getId(), $usuario);
+                                         $post->getTexto(), $post->getId(), $_SESSION['username']);
                 }
             $html .= "</section>";
 
