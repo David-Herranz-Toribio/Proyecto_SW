@@ -12,18 +12,18 @@ require_once LAYOUT_URL;
 function showProfile($usuario,$favs){
 
     $SettingsImage = IMG_PATH.'/Setting_icon__.png';
-    $boton_ajuste= ''; 
+    $boton= ''; 
     if(!$usuario){
         if (isset($_SESSION['username'])) //Hay sesion iniciada
             $usuario = $_SESSION['username'];
     }
 
     if($usuario) { 
-
+        $usu= Usuario::buscaUsuario($usuario); 
         $html = "<section class = 'datos_perfil'>"; 
-
+        
         if(isset($_SESSION['username']) && $usuario ==  $_SESSION['username']){ //TU PERFIL
-            $boton_ajuste = <<<EOS
+            $boton = <<<EOS
             
             <div class="datos_perfil">
                 <a href="AjustePerfil.php">
@@ -31,12 +31,10 @@ function showProfile($usuario,$favs){
                 </a>
             </div>
            
-            EOS;
-            $html .= "<h1 class = 'nombre_perfil'> Tu Perfil</h1>";
+            EOS; 
+            
         }
         else{ // PERFIL DE OTRO
-
-            $html .= "<h1 class = 'nombre_perfil'> Perfil de @".$usuario."</h1>";  
             //FUNCIONALIDAD DE SEGUIR/DEJAR DE SEGUIR
             if(isset($_SESSION['username'])){
                 $us= Usuario::buscaUsuario($_SESSION['username']); 
@@ -53,7 +51,7 @@ function showProfile($usuario,$favs){
                 $rutaSeguimiento= HELPERS_PATH.'/ProcesarSeguimiento.php'; 
                 $rutaRetorno= VIEWS_PATH.'/perfil/Perfil.php'; 
  
-                $html .= <<<EOS
+                $boton .= <<<EOS
 
                 <div class= "datos_perfil"> 
                     <form action = $rutaSeguimiento method= "post"> 
@@ -70,7 +68,9 @@ function showProfile($usuario,$favs){
             }
             
         }
-        $html .= $boton_ajuste; 
+       
+        $html .= datos_usuario($usu->getNickname(), $usu->getUsername(), $usu->getDescrip(), $usu->getDescrip());
+        $html .= $boton; 
         $html.= "</section>"; 
 
         if($favs){
@@ -106,4 +106,13 @@ function showProfile($usuario,$favs){
         $html = "<h1 class = 'texto_infor'>  No estas logead@ </h1>";
 
     return $html;
+}
+
+
+function datos_usuario($nickname, $username, $descripcion, $cumpleaños){
+    $user_data = <<<EOS
+    <h1 class = 'nombre_perfil'> $nickname @$username </h1>
+    EOS;
+
+    return $user_data; 
 }
