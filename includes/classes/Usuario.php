@@ -154,6 +154,33 @@ class Usuario{
         return $result;
     }
 
+    public static function deleteUser($username) {
+        $result = false;
+        $conn = BD::getInstance()->getConexionBd();
+        
+        $query = "DELETE FROM usuario WHERE id_user = '$username'";
+        $result = $conn->query($query);
+        
+        if (!$result) {
+            error_log($conn->error);
+        } else {
+            $query = "DELETE FROM artista WHERE id_artista = '$username'";
+            $result = $conn->query($query);
+            
+            if (!$result) {
+                error_log($conn->error);
+            } else {
+                // Aqui se comprueba si se elimina correctamente un registro
+                if ($conn->affected_rows != 1) {
+                    error_log("Se han eliminado '$conn->affected_rows' registros");
+                }
+            }
+        }
+        return $result;
+    }    
+
+
+
     public function publicarPost($post_text, $post_image, $post_father){
         $post = Post::crearPost($this->username, $post_text, $post_image, 0, null, $post_father, Post::generatePostDate());
         return $post->guarda();
