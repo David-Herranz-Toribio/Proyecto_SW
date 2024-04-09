@@ -98,16 +98,17 @@ class Pedido{
 
         if($cantidad == 1){
             $query = sprintf( "DELETE FROM pedido_prod WHERE id_pedido = %d AND id_prod = %d ", $id_pedido, $id_prod );
-            if(isset($_SESSION['notif_prod']))
-                $_SESSION['notif_prod'] = $_SESSION['notif_prod'] - 1;
-
+            $result = true;
         }else             
             $query = sprintf("UPDATE pedido_prod SET cantidad = %d WHERE id_pedido = %d AND id_prod = %d ", $cantidad - 1, $id_pedido, $id_prod );
 
-        $result = $conn->query($query);
+        $rs = $conn->query($query);
 
-        if (!$result)  
+        if (!$rs)  
             error_log($conn->error);
+
+
+        return $result;
 
     }
 

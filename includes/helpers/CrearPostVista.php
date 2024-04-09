@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../Config.php';
+require_once '../Config.php';
 
 function generatePostPublicationHTML($id_padre = 'NULL'){
 

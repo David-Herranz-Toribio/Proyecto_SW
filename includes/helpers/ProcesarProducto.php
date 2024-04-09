@@ -1,6 +1,6 @@
 <?php 
 
-require_once "../../Config.php";
+require_once "../Config.php";
 require_once CLASSES_URL . '/Producto.php';
 require_once CLASSES_URL . '/Pedido.php';
 
@@ -35,7 +35,7 @@ if($user){
     else{
         Pedido::insertaPP($pedido->getId(), $id, $cant);
         
-        if(isset($_SESSION['notif_prod']))
+        if($_SESSION['notif_prod'] >= 1)
             $_SESSION['notif_prod'] = $_SESSION['notif_prod'] + 1;
         else
             $_SESSION['notif_prod'] = 1;
