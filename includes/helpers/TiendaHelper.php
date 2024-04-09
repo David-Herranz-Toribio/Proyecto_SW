@@ -172,8 +172,7 @@ function showProduct($yoYYoMismo, $id){
 
 function showProducts($yoYYoMismo){
     
-    $content = "<h1 class = 'texto_infor'> Productos </h1>";
-    $content .= "<section class = 'listaArticulos'>";
+    $content = "<section class = 'listaArticulos'>";
     $productos = Producto::obtenerListaDeProductos();
     if(!empty($productos)){
         if (isset($_GET['query'])) {
@@ -265,5 +264,37 @@ function showCarrito($user){
 
 
     $content .=  $seccion;
+    return $content;
+}
+function addProd($yo){
+    $rutaAddProd = HELPERS_PATH . '/ProcesarAddProd.php';
+
+    $content =<<<EOS
+    <h1 class = 'texto_infor'> Tus productos </h1>
+    <section class = 'formulario_style'>
+        <form action = '$rutaAddProd' method = 'post'>
+            <input type = "hidden" name = "Autor" value = "$yo">
+
+            <label>Nombre</label>
+            <input type="text" name="Nombre" value="">
+
+            <label>Imagen</label>
+            <input type = "file" name = "Imagen" accept = "image/*">
+        
+            <label>Descripcion</label>
+            <textarea name = "Descripcion""></textarea>
+
+            <label>Stock</label>
+            <input type="number" name="Stock" value="1" min="1" max='9999'"/>
+
+            <label>Precio</label>
+            <input type="number" name="Precio" value="1" min="1" max='9999'"/>
+
+            <button type = "submit">Crear producto</button>
+        </form>
+    </section>
+
+    EOS;
+
     return $content;
 }

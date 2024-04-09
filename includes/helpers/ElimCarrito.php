@@ -1,6 +1,6 @@
 <?php 
 
-require_once '../../Config.php';
+require_once '../Config.php';
 require_once CLASSES_URL . '/Producto.php';
 require_once CLASSES_URL . '/Pedido.php';
 
@@ -13,7 +13,9 @@ if(isset($_SESSION['username']))
 
 if($user){
     $prod = Producto::buscarProductoPorID($id);
-    Pedido::quitarProductoPP($prod, $id_pedido);
+    if(Pedido::quitarProductoPP($prod, $id_pedido)){
+        $_SESSION['notif_prod'] = $_SESSION['notif_prod'] - 1;
+    }
     $prod->setStock($prod->getStock() + 1);
     Producto::actualiza($prod);
 }

@@ -267,7 +267,8 @@ ALTER TABLE `evento_prod`
 -- Filtros para la tabla `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE;
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE,
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`origen`) REFERENCES `post` (`id_post`) ON DELETE CASCADE;
 
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE;
@@ -292,7 +293,7 @@ ALTER TABLE `postfav`
 
 
 
-SET FOREIGN_KEY_CHECKS=0;
+SET FOREIGN_KEY_CHECKS=1;
 
 COMMIT;
 
