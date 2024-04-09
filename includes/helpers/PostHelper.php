@@ -5,7 +5,7 @@ require_once CLASSES_URL . '/Post.php';
 function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
     $rutaPFP = IMG_PATH . '/FotoPerfil.png';
-    $rutaPerfil = IMG_PATH . '/perfil/Perfil.php';
+    $rutaPerfil = VIEWS_PATH . '/perfil/Perfil.php';
 
     //Imagen de usuario junto a su username
     $user_info =<<<EOS
@@ -15,7 +15,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     EOS;
 
     if ($yoYYoMismo == $autor){
-        $rutaMod = IMG_PATH . '/foro/ModificarVista.php';
+        $rutaMod = VIEWS_PATH . '/foro/ModificarVista.php';
         $rutaEliminar = HELPERS_PATH . '/ProcesarEliminar.php';
 
         $user_info .= <<<EOS2
@@ -55,8 +55,8 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     }
 
     $rutaLike = HELPERS_PATH . '/ProcesarLike.php';
-    $rutaRespuestas = IMG_PATH . '/foro/RespuestasForo.php';
-    $rutaAdd = IMG_PATH . '/foro/AddForo.php';
+    $rutaRespuestas = VIEWS_PATH . '/foro/RespuestasForo.php';
+    $rutaAdd = VIEWS_PATH . '/foro/AddForo.php';
     
     //Likes, respuestas y responder
     /*
@@ -116,7 +116,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
 function showResp($id_post, $yoYYoMismo){
 
-    $rutaNoLog = IMG_PATH . '/log/Login.php';
+    $rutaNoLog = VIEWS_PATH . '/log/Login.php';
 
     if (!isset($_SESSION['username']))
         $html= "<p class = 'texto_infor'> No estas logead@,  <a href = $rutaNoLog> <strong>  pulsa aqui para iniciar sesion </strong> </a> </p>";
@@ -155,7 +155,7 @@ function showResp($id_post, $yoYYoMismo){
 
 function showTestPosts($yoYYoMismo){
 
-    $rutaPublicar = IMG_PATH . '/foro/CrearPost.php';
+    $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
     $content = "<h1 class = 'texto_infor'> Posts </h1>";
 
     if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 

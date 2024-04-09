@@ -1,5 +1,5 @@
 <?php
-require_once '../../Config.php';
+require_once '../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
 
 $id_user= $_POST['id_user']; 
