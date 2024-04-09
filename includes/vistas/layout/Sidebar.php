@@ -30,9 +30,9 @@
                 <img src="<?=IMG_PATH?>/FotoTienda.png" height="50" width="50" alt="Foto de tienda">
             </a>
             <ul class="desplegable">
-                <li><a href="<?=VIEWS_PATH?>/tienda/Entradas.php"><img src="<?=IMG_PATH?>/FotoEntrada.png" height="50" width="50" alt="Foto de eventos"></a></li>
+                <li><a href="<?=VIEWS_PATH?>/tienda/Merch.php"><img src="<?=IMG_PATH?>/FotoMerch.png" height="50" width="50" alt="Foto de merchandising"></a></li>
                 <?php if(isset($_SESSION['isArtist']) && $_SESSION['isArtist'] ){ ?>
-                    <li><a href="<?=VIEWS_PATH?>/tienda/Merch.php"><img src="<?=IMG_PATH?>/FotoMerch.png" height="50" width="50" alt="Foto de merchandising"></a></li>
+                    <li><a href="<?=VIEWS_PATH?>/tienda/MiTiendaVista.php"><img src="<?=IMG_PATH?>/FotoEntrada.png" height="50" width="50" alt="Foto de mi tienda"></a></li>
                 <?php } ?>
             </ul>
         </li>
@@ -44,7 +44,6 @@
                     <div id="numberProd"><?=$_SESSION['notif_prod']?></div>
                 </div>
             <?php } ?>
-
         </li>
     </ul>
 </nav>

@@ -5,7 +5,7 @@ require_once HELPERS_URL . '/TiendaHelper.php';
 
 $yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 
-$content = "<h1 class = 'texto_infor'> Productos </h1>";
+$content = addProd($yo);
 $content .= showProducts($yo);
 
 require_once LAYOUT_URL;

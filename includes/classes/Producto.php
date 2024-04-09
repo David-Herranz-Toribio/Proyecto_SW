@@ -139,9 +139,8 @@ class Producto{
         $conn = BD::getInstance()->getConexionBd();
 
         $query = sprintf(
-            "INSERT INTO producto (id, nombre, descripcion, imagen, autor, stock, precio)
-                       VALUES ('%d','%s','%s', %s, %s, '%d', '%d')",
-            $producto->id,
+            "INSERT INTO producto (nombre, descripcion, imagen, id_artista, stock, precio)
+                       VALUES ('%s','%s', '%s', '%s', %d, %d)",
             $conn->real_escape_string($producto->nombre),
             $conn->real_escape_string($producto->descripcion),
             is_null($producto->imagen) ? 'NULL' : $conn->real_escape_string($producto->imagen),

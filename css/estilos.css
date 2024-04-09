@@ -133,7 +133,6 @@ div#mensaje_bienvenida{
 
 section{
 	grid-column-start: 2;
-	grid-row-start: 2;
 	color: #cdcdcd;
 	display: flex;
 	flex-direction: column;
@@ -263,9 +262,32 @@ section.formulario_style{
 	grid-row-start: 2;
 	grid-row-end: 3;
 	grid-column-start: 2;
-	display: flex; 
+	background-color: #120118;
+	border: solid 2px #230058;
+	display: flex;
 	flex-direction: column;
-	width: 300px;
+	align-items: center;
+	padding: 1%;
+	border-radius: 25px;
+
+	min-width: 200px;
+}
+section.formulario_style form{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #120118;
+	position: relative;
+	width: 100%;
+}
+/*Todos los elementos dentro de form*/
+section.formulario_style form *{
+	margin-top: 10px;
+	border-radius: 10px;
+	height: 20%;
+}
+section.formulario_style form textarea{
+	width: 25%;
 }
 
 
