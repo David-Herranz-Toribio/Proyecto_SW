@@ -2,6 +2,7 @@
 
 require_once 'BD.php';
 
+
 class Producto{
 
     private $id;
@@ -118,11 +119,15 @@ class Producto{
         return $result;
     }
 
-    public static function borrarProducto($producto){
+    public function borrarProducto(){
+        if ($this->imagen != 'FotoMerch.png')
+            unlink(IMG_URL . '/prodImages/'. $this->imagen);
 
+        
         $result = false;
         $conn = BD::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM producto WHERE id_prod = %d", $producto->id);
+        $query = sprintf("DELETE FROM producto WHERE id_prod = %d", $this->id);
+
 
 
         $result = $conn->query($query);

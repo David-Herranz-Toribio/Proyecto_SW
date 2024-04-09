@@ -9,11 +9,10 @@ $user = null;
 if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
-$isValid = true;
-
-if($isValid && $user){
+if($user){
     $post = Post::buscarPostPorID($id);
     Post::borrarPost($post);
 }
 
 header('Location:'. VIEWS_PATH .'/foro/Foro.php');
+exit();

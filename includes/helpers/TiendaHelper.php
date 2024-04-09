@@ -110,12 +110,12 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
     
     //Eliminar y modificar un producto
     if ($yoYYoMismo == $autor){
-        $rutaMod = VIEWS_PATH . '/foro/ModificarVista.php';
-        $rutaEliminar = HELPERS_PATH . '/ProcesarEliminar.php';
+        $rutaMod = VIEWS_PATH . '/tienda/MiTiendaVista.php';
+        $rutaEliminar = HELPERS_PATH . '/ProcesarElimProd.php';
 
         $botones .= <<<EOS4
         <div class= 'modElim'> 
-        <form action = $rutaMod method="post">
+        <form action = $rutaMod method="get">
             <input type = "hidden" name = "ModificarID" value = "$id">
             <button type = "submit"> &#9998 </button>
         </form>
@@ -174,6 +174,25 @@ function showProducts($yoYYoMismo){
     
     $content = "<section class = 'listaArticulos'>";
     $productos = Producto::obtenerListaDeProductos();
+    if(!empty($productos)){
+        if (isset($_GET['query'])) {
+            $textoBusqueda = $_GET['query'];
+            $productos = Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
+        }   
+    }
+    foreach($productos as $prod){
+        $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
+                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
+    }
+    $content .= "</section>";
+
+    return $content;
+}
+
+function showProductsArtista($yoYYoMismo){
+    
+    $content = "<section class = 'listaArticulos'>";
+    $productos = Producto::obtenerProductosDeArtista($yoYYoMismo);
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
@@ -262,33 +281,57 @@ function showCarrito($user){
     $seccion .=  "</section>";
 
 
-
     $content .=  $seccion;
     return $content;
 }
-function addProd($yo){
-    $rutaAddProd = HELPERS_PATH . '/ProcesarAddProd.php';
+
+function addProd($yo, $id_prod){
+    $rutaAddProd = HELPERS_PATH . '/ProcesarTienda.php';
+
+    $nombre = "";
+    $descripcion = "";
+    $stock = "";
+    $precio = "";
+    $imagen = 'FotoMerch.png';  
+    $imagen_html = "";
+    
+
+    if(!is_null($id_prod)){
+        $prod = Producto::obtenerProductoporId($id_prod);
+  
+        $nombre = $prod->getNombre();
+        $descripcion = $prod->getDescripcion();
+        $stock = $prod->getStock();
+        $precio = $prod->getPrecio();
+
+        $imagen = $prod->getImagen();  
+
+        $imagen_html = "<img src='".IMG_PATH . '/prodImages/'. $imagen."' width = '70' heigth = '70'>";
+    }
 
     $content =<<<EOS
     <h1 class = 'texto_infor'> Tus productos </h1>
     <section class = 'formulario_style'>
-        <form action = '$rutaAddProd' method = 'post'>
+        <form action = '$rutaAddProd' method = 'post' enctype = 'multipart/form-data'>
             <input type = "hidden" name = "Autor" value = "$yo">
+            <input type = "hidden" name = "Id" value = $id_prod>
+            <input type = "hidden" name = "Imagen_antigua" value = $imagen>
 
             <label>Nombre</label>
-            <input type="text" name="Nombre" value="">
+            <input type="text" name="Nombre" value="$nombre">
 
             <label>Imagen</label>
             <input type = "file" name = "Imagen" accept = "image/*">
-        
+            $imagen_html
+
             <label>Descripcion</label>
-            <textarea name = "Descripcion""></textarea>
+            <textarea name = "Descripcion">$descripcion</textarea>
 
             <label>Stock</label>
-            <input type="number" name="Stock" value="1" min="1" max='9999'"/>
+            <input type="number" name="Stock" value="$stock" min="1" max='9999'/>
 
             <label>Precio</label>
-            <input type="number" name="Precio" value="1" min="1" max='9999'"/>
+            <input type="number" name="Precio" value="$precio" min="1" max='9999'/>
 
             <button type = "submit">Crear producto</button>
         </form>
@@ -298,3 +341,33 @@ function addProd($yo){
 
     return $content;
 }
+        
+//     $content =<<<EOS
+//     <h1 class = 'texto_infor'> Tus productos </h1>
+//     <section class = 'formulario_style'>
+//         <form action = '$rutaAddProd' method = 'post' enctype = 'multipart/form-data'>
+//             <input type = "hidden" name = "Autor" value = "$yo">
+
+//             <label>Nombre</label>
+//             <input type="text" name="Nombre" value="">
+
+//             <label>Imagen</label>
+//             <input type = "file" name = "Imagen" accept = "image/*">
+        
+//             <label>Descripcion</label>
+//             <textarea name = "Descripcion""></textarea>
+
+//             <label>Stock</label>
+//             <input type="number" name="Stock" value="1" min="1" max='9999'"/>
+
+//             <label>Precio</label>
+//             <input type="number" name="Precio" value="1" min="1" max='9999'"/>
+
+//             <button type = "submit">Crear producto</button>
+//         </form>
+//     </section>
+
+//     EOS;
+
+//     return $content;
+// }
