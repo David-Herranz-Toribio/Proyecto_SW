@@ -179,16 +179,14 @@ class Usuario{
         return $result;
     }    
 
-
-
     public function publicarPost($post_text, $post_image, $post_father){
         $post = Post::crearPost($this->username, $post_text, $post_image, 0, null, $post_father, Post::generatePostDate());
         return $post->guarda();
     }
 
-
-    /*Metodo que te permite seguir a un usuario*/ 
-
+    /*
+        Metodo que te permite seguir a un usuario
+    */ 
     public function seguir ($user_a_seguir){
         $seguidor= $this->getUsername(); 
         $result= false; 
@@ -209,12 +207,13 @@ class Usuario{
     }
 
     public function estaSiguiendo ($user){
-        $result= true; 
-        $seguidor= $this->getUsername(); 
-        $conn= BD::getInstance()->getConexionBd();
+        
+        $result = true; 
+        $seguidor = $this->getUsername(); 
+        $conn = BD::getInstance()->getConexionBd();
 
-        $query= sprintf("SELECT * FROM seguidores WHERE id_user= '%s' AND id_seguidor= '%s'", $user, $seguidor); 
-        $rs= $conn->query($query); 
+        $query = sprintf("SELECT * FROM seguidores WHERE id_user= '%s' AND id_seguidor= '%s'", $user, $seguidor); 
+        $rs = $conn->query($query); 
 
         if($rs->num_rows == 0)
             $result = false;
@@ -223,11 +222,10 @@ class Usuario{
         return $result; 
     }
 
-
-
     public function dejarDeSeguir ($user_siguiendo){
-        $seguidor= $this->getUsername(); 
-        $result= false; 
+
+        $seguidor = $this->getUsername(); 
+        $result = false; 
 
         $conn= BD::getInstance()->getConexionBd();
 
@@ -247,7 +245,6 @@ class Usuario{
 
 
     }
-
 
     public static function login($username, $password) {
 
@@ -411,6 +408,10 @@ class Usuario{
 
     public function getPassword(){
         return $this->password;
+    }
+
+    public function getPhoto(){
+        return $this->fotopath;
     }
 
     public function getEmail(){

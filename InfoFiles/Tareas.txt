@@ -13,6 +13,11 @@
     -En perfil poder ver los Pedidos 'Procesados'
     -Incluir en Ajustes un boton de eliminar cuenta ❓
     -Poder seguir a gente y que te sigan (Alonso)
+    -Añadir función en Usuario.php para obtener los seguidores de un usuario
+    -Añadir función en Usuario.php para obtener los seguidos de un usuario
+    -Implementar helper SeguidoresHelper.php
+    -Implementar helper SeguidosHelper.php
+    -Implementar helper FavoritosHelper.php
 
 -Tienda (David y Hugo)🔄️
     -Crear una pagina de Tus Artistas seguidos y cuando pinches en uno te lleve a una pagina que tenga 

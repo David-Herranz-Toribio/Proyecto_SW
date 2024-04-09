@@ -2,18 +2,20 @@
 
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
-
+require_once CLASSES_URL . '/Usuario.php';
+require_once 'FavoritosHelper.php';
 
 function showProfile($usuario, $favs){
 
-    $isSelfProfile = $_SESSION['username'] == $usuario;
+    $user = Usuario::buscaUsuario($usuario);
+    $isSelfProfile = $_SESSION['username'] == $user->getUsername();
     $html = "<section class='datos_perfil'>"; 
 
     // Mostrar nombre de usuario
     if($isSelfProfile)
         $html .= "<h1 class='nombre_perfil'> Mi Perfil </h1>";
     else
-        $html .= "<h1 class='nombre_perfil'> Perfil de @" . $usuario . "</h1>";
+        $html .= "<h1 class='nombre_perfil'> Perfil de @" . $user->getUsername() . "</h1>";
 
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
@@ -21,6 +23,14 @@ function showProfile($usuario, $favs){
 
     $html .= "</section>";
 
+    // Mostrar imagen de perfil del usuario
+    $html .= displayUserImage($user);
+
+    // Mostrar número de seguidores y seguidos del usuario
+    $html .= displayFollowersAndFollowed($user);
+
+    // Botón para ver posts favoritos del usuario
+    $html .= displayFavoritePosts($user, $favs);
 
     // Boton de follow/unfollow solo si no estoy en mi perfil
     if(!$isSelfProfile){
@@ -29,48 +39,20 @@ function showProfile($usuario, $favs){
         $me = Usuario::buscaUsuario($_SESSION['username']); 
 
         //Comprobamos si seguimos al usuario del perfil a visualizar
-        $following = $me->estaSiguiendo($usuario);
+        $following = $me->estaSiguiendo($user);
         $textoBoton = $following ? 'Seguir' : 'Dejar de seguir';
 
         // Boton de follow/unfollow
-        $html .= displayFollowButton($usuario, $textoBoton, $following);
+        $html .= displayFollowButton($user->getUsername(), $textoBoton, $following);
     }
 
-    
+    // Mostrar posts favoritos del usuario
     if($favs){
-        $html = "<h1 class='texto_infor'> Posts Favoritos de @".$usuario."</h1>"; 
-        $posts = Post::obtenerPostsFavPorUser($usuario); 
+        // INCLUIR VISTA FavoritosHelper.php
     }
-    else{
-        $posts = Post::obtenerPostsDeUsuario($usuario); 
-    }  
-    if(!empty($posts)){
-        
-        $html .= "<section class='listaPost'>";
-        if (isset($_GET['query'])) {
-            $textoBusqueda = $_GET['query'];
-            if($favs){
-                $posts = Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
-            }
-            else {
-                $posts = Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
-            }
-        }   
-        foreach($posts as $post){
-            $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                        $post->getTexto(), $post->getId(), $_SESSION['username']);
-            }
-        $html .= "</section>";
-
-    }
-    else{
-        $html .= "<section class = 'listaPost'> <h3> No has dado Like (&#10084) a ningún post</h3></section>";
-    }
-    
 
     return $html;
 }
-
 
 function displaySettingsOption(){
 
@@ -86,7 +68,7 @@ function displaySettingsOption(){
     return $boton_ajuste;
 }
 
-function displayFollowButton($user, $text, $following){
+function displayFollowButton($username, $text, $following){
 
     $rutaSeguimiento = HELPERS_PATH . '/ProcesarSeguimiento.php'; 
     $rutaRetorno = VIEWS_PATH . '/perfil/Perfil.php';
@@ -95,8 +77,8 @@ function displayFollowButton($user, $text, $following){
     <div class= "datos_perfil"> 
         <form action=$rutaSeguimiento method="post"> 
 
-        <input type="hidden" name="return" value=$rutaRetorno?user=$user>
-        <input type="hidden" name="id" value=$user>
+        <input type="hidden" name="return" value=$rutaRetorno?user=$username>
+        <input type="hidden" name="id" value=$username>
         <input type="hidden" name="no_seguir/seguir" value=$following>
         <button type="submit"> $text </button>
 
@@ -105,4 +87,64 @@ function displayFollowButton($user, $text, $following){
     EOS;
 
     return $html;
+}
+
+function displayUserImage($image){
+
+    $profile_image_path = IMG_PATH . '/profileImages/' . $image;
+
+    $html =<<<EOS
+    <div class='profile_user_image'>
+        <img src='$profile_image_path' height='100px' width='100px'>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayFollowersAndFollowed($user){
+
+    $seguidores = displayFollowers($user);
+    $seguidos = displayFollowing($user);
+
+    $html =<<<EOS
+    <div>
+        $seguidores
+        $seguidos
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayFollowers($user){
+
+    $followers_path = '';
+    $num_followers = 1; // Obtener numero de seguidores
+
+    $html =<<<EOS
+    <div>
+        $num_followers <a href='$followers_path'> seguidores </a>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayFollowing($user){
+
+    $following_path = '';
+    $num_following = 1; // Obtener numero de seguidos
+
+    $html =<<<EOS
+    <div>
+        $num_following <a href='$following_path'> seguidores </a>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayFavoritePosts($user, $favs){
+    return mostrarFavoritos($user, $favs);
 }
