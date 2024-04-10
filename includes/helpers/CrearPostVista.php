@@ -12,9 +12,9 @@ function generatePostPublicationHTML($id_padre = 'NULL'){
         <form name = "datos_post" action = $ruta method = "post" enctype = "multipart/form-data">
             <input type = "hidden" name = "id_padre" value = "$id_padre">
             Mensaje: <textarea name = "post_text" required style = "resize: none; "></textarea><br><br>
-            <label>Imagen:<input type = "file" name = "image" accept = "image/*"></label><br>
-            <br><br>
-             <input type = "submit">Publicar</input>
+            Imagen:<input type = "file" name = "image" accept = "image/*">
+            <br><br><br>
+            <button type="submit"> Publicar </button>
         </form>
     </fieldset>
     EOS;
