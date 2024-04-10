@@ -31,12 +31,13 @@ function showProfile($usuario, $favs){
     $isArtist = $_SESSION['isArtist'];
     $isSelfProfile = $_SESSION['username'] == $usuario;
 
+    
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
     $html = displayProfileHeader($user, $isArtist, $favs, $isSelfProfile);
 
     // Mostrar los posts publicados por el usuario
     $html .= displayPosts($user);
-
+ 
     return $html;
 }
 
@@ -44,12 +45,12 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     
     $html = "<section class='datos_perfil'>";
 
+    $html .= "<div class= 'identidad'>";
+
     // Mostrar imagen, nickname, username y descripcion
     $html .= displayUserImage($user->getPhoto());
     $html .= displayNickname($user->getNickname());
     $html .= displayUsername($user->getUsername());
-    $html .= displayUserDescription($user->getDescrip());
-
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
         $html .= displaySettingsOption();
@@ -58,12 +59,9 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     if($isArtist)
         $html .= displayShopLink($user);
 
-    // Mostrar followers/following
-    $html .= displayFollowersAndFollowed($user);
-
-    // Mostrar botón de favoritos solo si es tu perfil
-    if($isSelfProfile)
-        $html .= displayFavoritePostsButton($user, $favs);
+    // Mostrar followers/following y botón de favoritos
+    $html .= displayFollowersAndFollowed($user); 
+    $html .= displayFavoritePostsButton($user, $favs);
 
     // Mostrar botón de follow/unfollow si es el perfil de otro usuario
     if(!$isSelfProfile){
@@ -78,8 +76,23 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
         // Boton de follow/unfollow
         $html .= displayFollowButton($user->getUsername(), $textoBoton, $following);
     }
+    $html .= "</div>"; 
 
+    $html .= displayUserDescription($user->getDescrip());
+
+
+    // Mostrar link de tienda si es un artista
+    if($isArtist)
+        $html .= displayShopLink($user);
+
+    // Mostrar followers/following
+    $html .= displayFollowersAndFollowed($user); 
+   
     $html .= "</section>";
+
+    //Mostrar boton de favoritos
+    $html .= displayFavoritePostsButton($user, $favs);
+ 
 
     return $html;
 }
@@ -90,7 +103,7 @@ function displayPosts($user){
     $html = "<section class='posts_perfil'>";
 
     if(!$lista_posts){
-        $html =<<<EOS
+        $html .=<<<EOS
         No se ha publicado nada aun ¡Crea una publicación ahora!
         EOS;
 
@@ -113,7 +126,7 @@ function displayFollowButton($username, $text, $following){
     $rutaRetorno = VIEWS_PATH . '/perfil/Perfil.php';
 
     $html =<<<EOS
-    <div class= "datos_perfil"> 
+    <div class= "boton_seguir"> 
         <form action=$rutaSeguimiento method="post"> 
 
         <input type="hidden" name="return" value=$rutaRetorno?user=$username>
@@ -144,7 +157,7 @@ function displayUserImage($image){
 function displayNickname($nickname){
     
     $html =<<<EOS
-    <div clas='user_nickname'>
+    <div class='user_nickname'>
         <p> $nickname </p>
     </div>
     EOS;
@@ -155,7 +168,7 @@ function displayNickname($nickname){
 function displayUsername($username){
 
     $html =<<<EOS
-    <div clas='user_username'>
+    <div class='user_username'>
         <p> @$username </p>
     </div>
     EOS;
@@ -209,8 +222,13 @@ function displayFollowersAndFollowed($user){
 
     $html =<<<EOS
     <div>
+        <div> 
         $seguidores
+        </div>
+
+        <div>
         $seguidos
+        </div>
     </div>
     EOS;
 
@@ -223,9 +241,7 @@ function displayFollowers($user){
     $num_followers = 1; // Obtener numero de seguidores
 
     $html =<<<EOS
-    <div>
         $num_followers <a href='$followers_path'> seguidores </a>
-    </div>
     EOS;
 
     return $html;
@@ -237,9 +253,7 @@ function displayFollowing($user){
     $num_following = 1; // Obtener numero de seguidos
 
     $html =<<<EOS
-    <div>
-        $num_following <a href='$following_path'> seguidores </a>
-    </div>
+        $num_following <a href='$following_path'> siguiendo </a>
     EOS;
 
     return $html;
@@ -251,11 +265,13 @@ function displayFavoritePostsButton($user, $favs){
     $favs_view = VIEWS_PATH . '/perfil/Favoritos.php';
 
     $html =<<<EOS
-    <form action='$favs_view' method='post'>
+    <div class= 'opcion_favoritos'>
+    <form action='$favs_view' method='get'>
         <input type='hidden' name='user' value='$username'>
         <input type='hidden' name='favs' value='$favs'>
         <button type='submit'> Favs </button>
     </form>
+    </div>  
     EOS;
 
     return $html;

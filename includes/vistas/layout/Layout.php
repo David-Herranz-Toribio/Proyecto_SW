@@ -20,5 +20,9 @@
     </div> 
 
     <!-- Incluir footer proximamente = reproductor de música -->
+
+    <script type= "text/javascript" src= "<?=JS_URL?>/cambioEstilo.js">
+    </script>
+
 </body>
 </html>
