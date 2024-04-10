@@ -85,7 +85,7 @@ TRUNCATE TABLE `pedido`;
 INSERT INTO `pedido` (`id_user`, `estado`, `total`, `fecha`)VALUES
 ('user1', 'En proceso', 50, '2024-03-08'),
 ('user2', 'En proceso', 75.5, '2024-03-09'),
-('user1', 'Procesado', 30.2, '2024-03-10'),
+('user1', 'Procesado', 30.2, '2024-03-10');
 --
 -- Volcado de datos para la tabla `pedido_prod`
 --
