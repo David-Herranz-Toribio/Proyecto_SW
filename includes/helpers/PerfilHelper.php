@@ -31,7 +31,7 @@ function showProfile($usuario, $favs){
     return $html;
 }
 
-function displayProfileHeader(&$user, &$isArtist, &$favs, &$isSelfProfile){
+function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     
     $html = "<section class='datos_perfil'>";
 
@@ -72,7 +72,7 @@ function displayProfileHeader(&$user, &$isArtist, &$favs, &$isSelfProfile){
     return $html;
 }
 
-function displayPosts(&$user){
+function displayPosts($user){
 
     $lista_posts = Post::obtenerPostsDeUsuario($user->getUsername());
     $html = "<section class='posts_perfil'>";
@@ -129,7 +129,7 @@ function displayUserImage($image){
     return $html;
 }
 
-function displayNickname(&$nickname){
+function displayNickname($nickname){
     
     $html =<<<EOS
     <div clas='user_nickname'>
@@ -140,7 +140,7 @@ function displayNickname(&$nickname){
     return $html;
 }
 
-function displayUsername(&$username){
+function displayUsername($username){
 
     $html =<<<EOS
     <div clas='user_username'>
