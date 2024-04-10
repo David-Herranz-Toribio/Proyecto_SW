@@ -13,6 +13,14 @@
     -En perfil poder ver los Pedidos 'Procesados'
     -Incluir en Ajustes un boton de eliminar cuenta ❓
     -Poder seguir a gente y que te sigan (Alonso)
+    -Menu para navegar en el perfil: 
+        1) Post Favoritos 
+        2) Tus post 
+        3) Historial de pedidos 
+        4) Si artista => Tus productos
+        5) Informacion perfil => (Nickname, descripcion, cumpleaños, nºseguidores, nºseguidos, karma )
+        6) Si artista =>  Musica 
+
     -Añadir función en Usuario.php para obtener los seguidores de un usuario
     -Añadir función en Usuario.php para obtener los seguidos de un usuario
     -Implementar helper SeguidoresHelper.php
