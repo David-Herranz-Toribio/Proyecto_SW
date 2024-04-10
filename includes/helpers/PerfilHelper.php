@@ -4,6 +4,7 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
 require_once 'FavoritosHelper.php';
+require_once 'PostHelper.php';
 
 
 function showNotLogged(){
@@ -34,21 +35,11 @@ function displayProfileHeader(&$user, &$isArtist, &$favs, &$isSelfProfile){
     
     $html = "<section class='datos_perfil'>";
 
-    // Mostrar imagen de perfil del usuario
+    // Mostrar imagen, nickname, username y descripcion
     $html .= displayUserImage($user->getPhoto());
-
-    // Mostrar nickname del usuario
     $html .= displayNickname($user->getNickname());
-
-    // Mostrar el nombre del usuario
     $html .= displayUsername($user->getUsername());
-
-    // Mostrar descripción del usuario
     $html .= displayUserDescription($user->getDescrip());
-
-    // Mostrar los géneros musicales si es un artista
-    if($isArtist)
-        $html .= displayMusicalGenres($user);
 
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
@@ -58,13 +49,11 @@ function displayProfileHeader(&$user, &$isArtist, &$favs, &$isSelfProfile){
     if($isArtist)
         $html .= displayShopLink($user);
 
-    // Mostrar número de seguidores y seguidos del usuario
-    $html .= displayFollowersAndFollowed($user);
-
-    // Botón para ver posts favoritos del usuario 
+    // Mostrar followers/following y botón de favoritos
+    $html .= displayFollowersAndFollowed($user); 
     $html .= displayFavoritePostsButton($user, $favs);
 
-    // Mostrar botón de follow/unfollow para el usuario a visualizar
+    // Mostrar botón de follow/unfollow si es el perfil de otro usuario
     if(!$isSelfProfile){
 
         // Obtenemos el objeto Usuario que corresponde al cliente
@@ -85,19 +74,23 @@ function displayProfileHeader(&$user, &$isArtist, &$favs, &$isSelfProfile){
 
 function displayPosts(&$user){
 
-    $posts = Post::obtenerPostsDeUsuario($user->getUsername());
-    $html = '';
+    $lista_posts = Post::obtenerPostsDeUsuario($user->getUsername());
+    $html = "<section class='posts_perfil'>";
 
-    if(!$posts){
-        $html = 'No se ha publicado nada aun ¡Crea una publicación ahora!';
+    if(!$lista_posts){
+        $html =<<<EOS
+        No se ha publicado nada aun ¡Crea una publicación ahora!
+        EOS;
+
         return $html;
     }
 
-    $html =<<<EOS
-    <section>
+    foreach($lista_posts as $post){
+        $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(), 
+                                  $post->getTexto(), $post->getId(), $user->getUsername());
+    }
 
-    </section>
-    EOS;
+    $html .= "</section>";
 
     return $html;
 }
@@ -167,10 +160,6 @@ function displayUserDescription($desc){
     EOS;
 
     return $html;
-}
-
-function displayMusicalGenres(&$user){
-    
 }
 
 function displaySettingsOption(){
