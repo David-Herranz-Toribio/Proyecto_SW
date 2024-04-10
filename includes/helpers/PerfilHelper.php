@@ -3,6 +3,7 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
+require_once 'FavoritosHelper.php';
 require_once 'PostHelper.php';
 
 
@@ -18,18 +19,8 @@ function showNotLogged(){
 function showProfile($usuario, $favs){
 
     $user = Usuario::buscaUsuario($usuario);
-    if(!$user){
-        $html =<<<EOS
-        <div class='notFoundError'>
-            ¡No se han encontrado resultados!
-        </div>
-        EOS;
-
-        return $html;
-    }
-
     $isArtist = $_SESSION['isArtist'];
-    $isSelfProfile = $_SESSION['username'] == $usuario;
+    $isSelfProfile = $_SESSION['username'] == $user->getUsername();
 
     
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
@@ -53,15 +44,8 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     $html .= displayUsername($user->getUsername());
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
-        $html .= displaySettingsOption();
-  
-    // Mostrar link de tienda si es un artista
-    if($isArtist)
-        $html .= displayShopLink($user);
-
-    // Mostrar followers/following y botón de favoritos
-    $html .= displayFollowersAndFollowed($user); 
-    $html .= displayFavoritePostsButton($user, $favs);
+    $html .= displaySettingsOption();
+    
 
     // Mostrar botón de follow/unfollow si es el perfil de otro usuario
     if(!$isSelfProfile){
@@ -262,17 +246,16 @@ function displayFollowing($user){
 function displayFavoritePostsButton($user, $favs){
 
     $username = $user->getUsername();
-    $favs_view = VIEWS_PATH . '/perfil/Favoritos.php';
+    $view_path = VIEWS_PATH . '/Favoritos.php';
 
     $html =<<<EOS
     <div class= 'opcion_favoritos'>
-    <form action='$favs_view' method='get'>
+    <form action='$view_path' method='get'>
         <input type='hidden' name='user' value='$username'>
         <input type='hidden' name='favs' value='$favs'>
         <button type='submit'> Favs </button>
     </form>
     </div>  
     EOS;
-
     return $html;
 }
