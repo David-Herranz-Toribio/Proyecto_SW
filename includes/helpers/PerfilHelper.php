@@ -22,12 +22,13 @@ function showProfile($usuario, $favs){
     $isArtist = $_SESSION['isArtist'];
     $isSelfProfile = $_SESSION['username'] == $user->getUsername();
 
+    
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
     $html = displayProfileHeader($user, $isArtist, $favs, $isSelfProfile);
 
     // Mostrar los posts publicados por el usuario
     $html .= displayPosts($user);
-
+ 
     return $html;
 }
 
@@ -35,16 +36,21 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     
     $html = "<section class='datos_perfil'>";
 
+    $html .= "<div class= 'identidad'>";
+
     // Mostrar imagen, nickname, username y descripcion
     $html .= displayUserImage($user->getPhoto());
     $html .= displayNickname($user->getNickname());
     $html .= displayUsername($user->getUsername());
-    $html .= displayUserDescription($user->getDescrip());
-
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
-        $html .= displaySettingsOption();
+    $html .= displaySettingsOption();
   
+    $html .= "</div>"; 
+
+    $html .= displayUserDescription($user->getDescrip());
+
+
     // Mostrar link de tienda si es un artista
     if($isArtist)
         $html .= displayShopLink($user);
@@ -78,7 +84,7 @@ function displayPosts($user){
     $html = "<section class='posts_perfil'>";
 
     if(!$lista_posts){
-        $html =<<<EOS
+        $html .=<<<EOS
         No se ha publicado nada aun ¡Crea una publicación ahora!
         EOS;
 
@@ -132,7 +138,7 @@ function displayUserImage($image){
 function displayNickname($nickname){
     
     $html =<<<EOS
-    <div clas='user_nickname'>
+    <div class='user_nickname'>
         <p> $nickname </p>
     </div>
     EOS;
@@ -143,7 +149,7 @@ function displayNickname($nickname){
 function displayUsername($username){
 
     $html =<<<EOS
-    <div clas='user_username'>
+    <div class='user_username'>
         <p> @$username </p>
     </div>
     EOS;
@@ -197,8 +203,13 @@ function displayFollowersAndFollowed($user){
 
     $html =<<<EOS
     <div>
+        <div> 
         $seguidores
+        </div>
+
+        <div>
         $seguidos
+        </div>
     </div>
     EOS;
 
@@ -211,9 +222,7 @@ function displayFollowers($user){
     $num_followers = 1; // Obtener numero de seguidores
 
     $html =<<<EOS
-    <div>
         $num_followers <a href='$followers_path'> seguidores </a>
-    </div>
     EOS;
 
     return $html;
@@ -225,9 +234,7 @@ function displayFollowing($user){
     $num_following = 1; // Obtener numero de seguidos
 
     $html =<<<EOS
-    <div>
-        $num_following <a href='$following_path'> seguidores </a>
-    </div>
+        $num_following <a href='$following_path'> siguiendo </a>
     EOS;
 
     return $html;
@@ -239,11 +246,13 @@ function displayFavoritePostsButton($user, $favs){
     $helper_path = HELPERS_PATH . '/FavoritosHelper.php';
 
     $html =<<<EOS
+    <div class= 'opcion_favoritos'>
     <form action='$helper_path' method='get'>
         <input type='hidden' name='user' value='$username'>
         <input type='hidden' name='favs' value='$favs'>
         <button type='submit'> Favs </button>
     </form>
+    </div>  
     EOS;
     return $html;
 }

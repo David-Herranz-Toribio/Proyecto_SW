@@ -113,7 +113,7 @@ ul.opciones{
 	grid-area: contenido;
 	display: grid;
 	grid-template-columns: 15% 65% 20% ; 
-	grid-template-rows: minmax(25px, 120px);
+	grid-template-rows: minmax(25px, auto);
 	text-align: center;
 	min-width: 300px;
 }
@@ -206,31 +206,33 @@ div.post_info {
 /*Estilo de la pagina de perfil del usuario*/
 
 section.datos_perfil {
-	grid-row-start: 1;
-	grid-column-start: 2;
+	
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
-	flex-direction: row;
-	
+	flex-direction: column;
+	grid-row-start: 1;
+	grid-column-start: 2;
+	padding-top: 5%;
 }
+
+section.datos_perfil div{
+	display: flex;
+	column-gap: 5%;
+	flex-direction: row;
+}
+
+section.posts_perfil{
+	grid-column-start: 2;
+	margin-top: 5%;
+	grid-row-start: 2;
+}
+
 
 section.datos_perfil button {
 	width: 75px;
 	height: 45px;
 	
 }
-section.fotoPerfil {
-	grid-row-start: 2;
-	grid-column-start: 2;
-}
-
-section.estiloPerfil section.listaPost {
-	grid-column-start: 2;
-	grid-row-start: 2;
-}
-
-
 
   /*Estilo de la pagina de ajustes*/
 
