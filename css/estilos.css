@@ -269,24 +269,29 @@ section.botonesEstilo {
 section.formulario_style{
 	grid-row-start: 1;
 	grid-column-start: 2;
-	background-color: #120118;
-	border: solid 2px #230058;
 	display: flex;
+	/*background-color: #120118;*/
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	padding: 1%;
 	border-radius: 25px;
 
 	min-width: 100px;
 }
-section.formulario_style form{
+
+section.formulario_style  form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: #120118;
 	position: relative;
 	width: 100%;
 }
+
+
+
+
+
 /*Todos los elementos dentro de form*/
 section.formulario_style form *{
 	margin-top: 10px;
@@ -294,16 +299,13 @@ section.formulario_style form *{
 	height: 20%;
 }
 section.formulario_style form textarea{
-	width: 25%;
+	width: 50%;
+	 
 }
 
 
 fieldset legend {
 	text-align: center;
-}
-
-fieldset.formRegistro {
-	background-color: lightgray;
 }
 
 button  {

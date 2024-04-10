@@ -10,8 +10,7 @@ $act_nickname = $perfil->getNickname();
 $act_username = $perfil->getUsername(); 
 $act_descr = $perfil->getDescrip(); 
 $act_email = $perfil->getEmail();
-$act_password = $perfil->getPassword(); 
-$act_nacimiento = $perfil->getBirthdate(); 
+$act_password = $perfil->getPassword();  
 $rutaMod = HELPERS_PATH . '/ModificarPerfilHelper.php'; 
 $rutaDel = HELPERS_PATH . '/ProcesarEliminarUsuario.php'; 
 $link = VIEWS_PATH . '/log/Logout.php';
@@ -29,34 +28,23 @@ $form_modificar= <<<EOS
              
             <input hidden name="isArtist" value="0"> 
             <label> Nickname </label>
-            <p></p> 
+             
             <input type="text" name= "modify_nickname" value= "$act_nickname">
 
-            <p></p> 
-                
             <label> Descripcion </label> 
-            <p></p> 
+         
             <input type="text" name= "modify_descrip" value= "$act_descr">
 
-            <p> </p> 
-
             <label> Email </label>
-            <p></p> 
+            
             <input type="text" name="modify_email" value= "$act_email">
       
-            <p></p> 
 
             <label> Password </label>
-            <p></p> 
+            
             <input type="password" name="modify_password">
-                
-            <p></p> 
-                
-            <label> Birthdate </label>
-            <p></p> 
-            <input type="date" name="modify_birthdate" value= $act_nacimiento>
-            <p></p> 
 
+                
             <button type="submit" name="register_button" > Modificar </button>
         </form>
     </fieldset>
@@ -68,27 +56,32 @@ $cambio_modo= <<<EOS
 <button type= "button" onclick= "toClaro()"> Modo claro </button> 
 <button type= "button" onclick= "toOscuro()"> Modo oscuro </button> 
 <p></p> 
-<p></p> 
-    <form action= $rutaDel method="post2">
-        <div class= 'info_session'> 
-                <div class= 'contenedor_texto'> 
-                <p>
-                    $texto
-                <p> 
-                </div> 
-                <div class= 'contenedor_imagen'> 
-                    <button type="submit" name="delete_button">
-                    <img src="$RemoveImage" height="30" width="30" alt="$altText">
-                    </button>
-                </div> 
-            </div> 
-    </form>
+<p></p>
 </section> 
+EOS; 
+
+
+$funcion_eliminar = <<<EOS
+<form action= $rutaDel method="post2">
+<div class= 'info_session'> 
+        <div class= 'contenedor_texto'> 
+        <p>
+            $texto
+        <p> 
+        </div> 
+        <div class= 'contenedor_imagen'> 
+            <button type="submit" name="delete_button">
+            <img src="$RemoveImage" height="30" width="30" alt="$altText">
+            </button>
+        </div> 
+    </div> 
+</form>
+
 EOS; 
 
 $content= <<<EOS
     $form_modificar
-    $cambio_modo
+    $funcion_eliminar
 EOS; 
 
 

@@ -9,9 +9,6 @@ $email = htmlspecialchars($_POST['modify_email']);
 
 $password = $_POST['modify_password'];
 
-
-$birthdate = $_POST['modify_birthdate'];
-
 $usu_mod= Usuario::buscaUsuario($id_user); 
 if($nickname) $usu_mod->setNickname($nickname);
 
@@ -23,8 +20,6 @@ if($password){
     $password= password_hash($password, PASSWORD_DEFAULT);
     $usu_mod->setPassword($password);
 } 
-
-if($birthdate) $usu_mod->setBirthdate($birthdate);
 
 Usuario:: actualiza($usu_mod); 
 
