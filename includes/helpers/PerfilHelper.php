@@ -45,19 +45,7 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
     $html .= displaySettingsOption();
-  
-    $html .= "</div>"; 
-
-    $html .= displayUserDescription($user->getDescrip());
-
-
-    // Mostrar link de tienda si es un artista
-    if($isArtist)
-        $html .= displayShopLink($user);
-
-    // Mostrar followers/following y botón de favoritos
-    $html .= displayFollowersAndFollowed($user); 
-    $html .= displayFavoritePostsButton($user, $favs);
+    
 
     // Mostrar botón de follow/unfollow si es el perfil de otro usuario
     if(!$isSelfProfile){
@@ -72,8 +60,23 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
         // Boton de follow/unfollow
         $html .= displayFollowButton($user->getUsername(), $textoBoton, $following);
     }
+    $html .= "</div>"; 
 
+    $html .= displayUserDescription($user->getDescrip());
+
+
+    // Mostrar link de tienda si es un artista
+    if($isArtist)
+        $html .= displayShopLink($user);
+
+    // Mostrar followers/following
+    $html .= displayFollowersAndFollowed($user); 
+   
     $html .= "</section>";
+
+    //Mostrar boton de favoritos
+    $html .= displayFavoritePostsButton($user, $favs);
+ 
 
     return $html;
 }
@@ -107,7 +110,7 @@ function displayFollowButton($username, $text, $following){
     $rutaRetorno = VIEWS_PATH . '/perfil/Perfil.php';
 
     $html =<<<EOS
-    <div class= "datos_perfil"> 
+    <div class= "boton_seguir"> 
         <form action=$rutaSeguimiento method="post"> 
 
         <input type="hidden" name="return" value=$rutaRetorno?user=$username>
