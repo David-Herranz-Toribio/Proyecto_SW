@@ -101,7 +101,7 @@ function displayPosts($user){
 
     foreach($lista_posts as $post){
         $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(), 
-                                  $post->getTexto(), $post->getId(), $user->getUsername());
+                                  $post->getTexto(), $post->getId(), $_SESSION['username']);
     }
 
     $html .= "</section>";
