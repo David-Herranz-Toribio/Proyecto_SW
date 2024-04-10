@@ -4,9 +4,6 @@
             <a href="<?=VIEWS_PATH?>/perfil/Perfil.php">
                 <img src="<?=IMG_PATH?>/FotoPerfil.png" height="50" width="50" alt="Foto perfil">
             </a>
-            <ul class="desplegable">
-                <li><a href="<?=VIEWS_PATH?>/perfil/Perfil.php?favs=1">Posts Favoritos</a></li>
-            </ul>
         </li>
 
         <li>

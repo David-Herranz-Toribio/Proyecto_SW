@@ -41,6 +41,10 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     $html .= displayNickname($user->getNickname());
     $html .= displayUsername($user->getUsername());
 
+    // Mostrar las corcheas si es el perfil del cliente
+    if($isSelfProfile)
+        $html .= displayCredit($user->getKarma());
+
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
         $html .= displaySettingsOption();
@@ -60,6 +64,9 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     }
     $html .= "</div>"; 
 
+    // Mostrar fecha de nacimiento del usuario
+    $html .= displayBirthday($user->getBirthdate());
+
     // Mostrar descripción del usuario
     $html .= displayUserDescription($user->getDescrip());
 
@@ -69,11 +76,12 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
 
     // Mostrar followers/following
     $html .= displayFollowersAndFollowed($user); 
-    $html .= "</section>";
-
+    
     //Mostrar boton de favoritos
     $html .= displayFavoritePostsButton($user, $favs);
  
+    // 
+    $html .= "</section>";
 
     return $html;
 }
@@ -151,6 +159,28 @@ function displayUsername($username){
     $html =<<<EOS
     <div class='user_username'>
         <p> @$username </p>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayCredit($credit){
+
+    $html =<<<EOS
+    <div>
+        <p> $credit &#9834 </p>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayBirthday($birthday){
+
+    $html =<<<EOS
+    <div class='user_birthday'>
+        <p> Nacimiento: $birthday </p>
     </div>
     EOS;
 
@@ -241,11 +271,11 @@ function displayFollowing($user){
 function displayFavoritePostsButton($user, $favs){
 
     $username = $user->getUsername();
-    $view_path = VIEWS_PATH . '/Favoritos.php';
+    $view_path = VIEWS_PATH . '/perfil/Favoritos.php';
 
     $html =<<<EOS
-    <div class= 'opcion_favoritos'>
-    <form action='$view_path' method='get'>
+    <div class='opcion_favoritos'>
+    <form action='$view_path' method='post'>
         <input type='hidden' name='user' value='$username'>
         <input type='hidden' name='favs' value='$favs'>
         <button type='submit'> Favs </button>
