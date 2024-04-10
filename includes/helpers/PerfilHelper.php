@@ -5,32 +5,64 @@ require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
 require_once 'FavoritosHelper.php';
 
+
+function showNotLogged(){
+
+    $html =<<<EOS
+    <h1 class='texto_infor'> No estas logead@ </h1>
+    EOS;
+
+    return $html;
+}
+
 function showProfile($usuario, $favs){
 
     $user = Usuario::buscaUsuario($usuario);
+    $isArtist = $_SESSION['isArtist'];
     $isSelfProfile = $_SESSION['username'] == $user->getUsername();
-    $html = "<section class='datos_perfil'>"; 
 
-    // Mostrar nombre de usuario
-    if($isSelfProfile)
-        $html .= "<h1 class='nombre_perfil'> Mi Perfil </h1>";
-    else
-        $html .= "<h1 class='nombre_perfil'> Perfil de @" . $user->getUsername() . "</h1>";
+    // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
+    $html = displayProfileHeader($user, $isArtist, $favs, $isSelfProfile);
+
+    // Mostrar los posts publicados por el usuario
+    $html .= displayPosts($user);
+
+    return $html;
+}
+
+function displayProfileHeader(&$user, &$isArtist, &$favs, &$isSelfProfile){
+    
+    $html = "<section class='datos_perfil'>";
+
+    // Mostrar imagen de perfil del usuario
+    $html .= displayUserImage($user->getPhoto());
+
+    // Mostrar nickname del usuario
+    $html .= displayNickname($user->getNickname());
+
+    // Mostrar el nombre del usuario
+    $html .= displayUsername($user->getUsername());
+
+    // Mostrar descripción del usuario
+    $html .= displayUserDescription($user->getDescrip());
+
+    // Mostrar los géneros musicales si es un artista
+    if($isArtist)
+        $html .= displayMusicalGenres($user);
 
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
         $html .= displaySettingsOption();
-
-    $html .= "</section>";
-
-    // Mostrar imagen de perfil del usuario
-    $html .= displayUserImage($user->getPhoto());
+  
+    // Mostrar link de tienda si es un artista
+    if($isArtist)
+        $html .= displayShopLink($user);
 
     // Mostrar número de seguidores y seguidos del usuario
     $html .= displayFollowersAndFollowed($user);
 
     // Botón para ver posts favoritos del usuario 
-    $html .= displayFavoritePosts($user, $favs);
+    $html .= displayFavoritePostsButton($user, $favs);
 
     // Mostrar botón de follow/unfollow para el usuario a visualizar
     if(!$isSelfProfile){
@@ -46,22 +78,28 @@ function showProfile($usuario, $favs){
         $html .= displayFollowButton($user->getUsername(), $textoBoton, $following);
     }
 
+    $html .= "</section>";
 
     return $html;
 }
 
-function displaySettingsOption(){
+function displayPosts(&$user){
 
-    $settingsImage = IMG_PATH . '/Setting_icon__.png';
-    $boton_ajuste =<<<EOS
-    <div class='datos_perfil'>
-        <a href='AjustePerfil.php'>
-            <img src='$settingsImage' alt="Modificar Perfil" height="45" width="50">
-        </a>
-    </div>
+    $posts = Post::obtenerPostsDeUsuario($user->getUsername());
+    $html = '';
+
+    if(!$posts){
+        $html = 'No se ha publicado nada aun ¡Crea una publicación ahora!';
+        return $html;
+    }
+
+    $html =<<<EOS
+    <section>
+
+    </section>
     EOS;
 
-    return $boton_ajuste;
+    return $html;
 }
 
 function displayFollowButton($username, $text, $following){
@@ -90,8 +128,73 @@ function displayUserImage($image){
     $profile_image_path = IMG_PATH . '/profileImages/' . $image;
 
     $html =<<<EOS
-    <div class='profile_user_image'>
+    <div class='user_image'>
         <img src='$profile_image_path' height='100px' width='100px'>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayNickname(&$nickname){
+    
+    $html =<<<EOS
+    <div clas='user_nickname'>
+        <p> $nickname </p>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayUsername(&$username){
+
+    $html =<<<EOS
+    <div clas='user_username'>
+        <p> @$username </p>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayUserDescription($desc){
+
+    $html =<<<EOS
+    <div class='user_desc'>
+        <p> $desc </p>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayMusicalGenres(&$user){
+    
+}
+
+function displaySettingsOption(){
+
+    $settingsImage = IMG_PATH . '/Setting_icon__.png';
+    $boton_ajuste =<<<EOS
+    <div class='datos_perfil'>
+        <a href='AjustePerfil.php'>
+            <img src='$settingsImage' alt="Modificar Perfil" height="45" width="50">
+        </a>
+    </div>
+    EOS;
+
+    return $boton_ajuste;
+}
+
+function displayShopLink($artist){
+
+    $shop_name = 'Tienda: ' . $artist->getUsername();
+    $shop_link = VIEWS_PATH . '/tienda/MiTiendaVista.php';
+
+    $html =<<<EOS
+    <div class='shop_link'>
+        <a href='$shop_link'> $shop_name </a>
     </div>
     EOS;
 
@@ -141,6 +244,17 @@ function displayFollowing($user){
     return $html;
 }
 
-function displayFavoritePosts($user, $favs){
-    return mostrarFavoritos($user, $favs);
+function displayFavoritePostsButton($user, $favs){
+
+    $username = $user->getUsername();
+    $helper_path = HELPERS_PATH . '/FavoritosHelper.php';
+
+    $html =<<<EOS
+    <form action='$helper_path' method='get'>
+        <input type='hidden' name='user' value='$username'>
+        <input type='hidden' name='favs' value='$favs'>
+        <button type='submit'> Favs </button>
+    </form>
+    EOS;
+    return $html;
 }
