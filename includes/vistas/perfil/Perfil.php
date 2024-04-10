@@ -14,7 +14,7 @@ if(isset($_SESSION['username'])){
     $content = showProfile($usuario, $favs);
 }
 else{
-    $content = "<h1 class = 'texto_infor'>  No estas logead@ </h1>";
+    $content = showNotLogged();
 }
 
 require_once LAYOUT_URL;

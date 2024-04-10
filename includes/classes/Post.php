@@ -103,6 +103,7 @@ class Post{
     }
 
     public static function LupaDescripcionPostExistentes($posts, $textoBusqueda) {
+        
         $result = [];
         foreach ($posts as $post) {
             if (stripos($post->getTexto(), $textoBusqueda) !== false) { 
@@ -113,6 +114,7 @@ class Post{
     }
 
     public static function LupaUsuarioPostExistentes($posts, $textoBusqueda) {
+
         $result = [];
         foreach ($posts as $post) {
             if (stripos($post->getAutor(), $textoBusqueda) !== false) { 
@@ -132,7 +134,7 @@ class Post{
         return $year  . "-" .$month . "-" . $day;
     }
 
-    public static function likeAsignado($id,$user){
+    public static function likeAsignado($id, $user){
 
         $result = true ;
         $conection = BD::getInstance()->getConexionBd();

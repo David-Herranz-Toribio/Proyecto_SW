@@ -13,7 +13,6 @@
 
 ## Funcionalidad en proceso
 
-* Segunda
 * Tercera
 
 
