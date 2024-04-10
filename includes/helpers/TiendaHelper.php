@@ -235,7 +235,7 @@ function showCarrito($user){
             $iter = 0;
             foreach($productos as $prod) {
                 $iter++;
-                $cantidad = $prod->getCantidad();
+                $cantidad = $prod->getCantidadPP();
                 $acum_cantidad += $cantidad;
 
                 $precio = $prod->getPrecio();
