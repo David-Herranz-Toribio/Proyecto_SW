@@ -4,10 +4,10 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
 
-function mostrarFavoritos($user, $favs){
+function mostrarFavoritos($username, $favs){
 
     $html = ''; 
-    $posts = Post::obtenerPostsFavPorUser($user->getUsername());
+    $posts = Post::obtenerPostsFavPorUser($username);
 
     if(empty($posts)){
         $html .= "<section class='listaPost'><h3> No has dado Like (&#10084) a ningún post</h3></section>";

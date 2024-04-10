@@ -3,8 +3,8 @@
 require_once '../../Config.php';
 require_once HELPERS_URL . '/FavoritosHelper.php';
 
-$username = $_GET['username'];
-$favs = $_GET['favs'];
+$username = $_POST['user'];
+$favs = $_POST['favs'];
 
 $content = mostrarFavoritos($username, $favs);
 
