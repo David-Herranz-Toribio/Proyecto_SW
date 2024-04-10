@@ -55,7 +55,7 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
 
         //Comprobamos si seguimos al usuario del perfil a visualizar
         $following = $me->estaSiguiendo($user->getUsername());
-        $textoBoton = $following ? 'Seguir' : 'Dejar de seguir';
+        $textoBoton = $following ? 'Dejar de seguir': 'Seguir' ;
 
         // Boton de follow/unfollow
         $html .= displayFollowButton($user->getUsername(), $textoBoton, $following);

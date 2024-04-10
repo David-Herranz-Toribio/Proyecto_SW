@@ -208,6 +208,7 @@ div.post_info {
 section.datos_perfil {
 	width: 60%;
 	display: flex;
+	border: solid 6px #1e688b;
 	border-radius: 25px;
 	margin-left: 20%;
 	padding-top: 5%;
@@ -266,8 +267,7 @@ section.botonesEstilo {
 /*Referente al estilo de los formularios*/ 
 
 section.formulario_style{
-	grid-row-start: 2;
-	grid-row-end: 3;
+	grid-row-start: 1;
 	grid-column-start: 2;
 	background-color: #120118;
 	border: solid 2px #230058;
@@ -277,7 +277,7 @@ section.formulario_style{
 	padding: 1%;
 	border-radius: 25px;
 
-	min-width: 200px;
+	min-width: 100px;
 }
 section.formulario_style form{
 	display: flex;
