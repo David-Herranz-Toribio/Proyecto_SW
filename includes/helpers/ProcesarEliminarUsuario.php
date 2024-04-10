@@ -12,4 +12,4 @@ $isValid = true;
 if($isValid && $user){
     Usuario::deleteUser($user);
 }
-header('Location:'. VIEWS_PATH .'/foro/Foro.php');
+header('Location:'. VIEWS_PATH .'/log/Logout.php');
