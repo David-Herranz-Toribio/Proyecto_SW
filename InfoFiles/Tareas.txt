@@ -17,8 +17,7 @@
         1) Post Favoritos 
         2) Tus post 
         3) Historial de pedidos 
-        4) Si artista => Tus productos
-        5) Informacion perfil => (Nickname, descripcion, cumpleaños, nºseguidores, nºseguidos, karma )
+        4) Si artista => Tus productos (Tienda)
         6) Si artista =>  Musica 
 
     -Añadir función en Usuario.php para obtener los seguidores de un usuario

@@ -3,8 +3,9 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
-require_once 'FavoritosHelper.php';
 require_once 'PostHelper.php';
+
+
 
 
 function showNotLogged(){
@@ -16,18 +17,19 @@ function showNotLogged(){
     return $html;
 }
 
-function showProfile($usuario, $favs){
+function showProfile($user, $favs){
 
-    $user = Usuario::buscaUsuario($usuario);
+
     $isArtist = $_SESSION['isArtist'];
+
     $isSelfProfile = $_SESSION['username'] == $user->getUsername();
 
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
     $html = displayProfileHeader($user, $isArtist, $favs, $isSelfProfile);
 
     // Mostrar los posts publicados por el usuario
-    $html .= displayPosts($user);
- 
+   
+
     return $html;
 }
 
@@ -70,17 +72,19 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
     // Mostrar descripción del usuario
     $html .= displayUserDescription($user->getDescrip());
 
+    
+    // Mostrar followers/following
+    $html .= displayFollowersAndFollowed($user); 
+    
+    
+    $html .= "<div class= 'menu_perfil'>"; 
+    //Mostrar boton de favoritos
+    $html .= displayFavoritePostsButton($user, $favs);
     // Mostrar link de tienda si es un artista
     if($isArtist)
         $html .= displayShopLink($user);
 
-    // Mostrar followers/following
-    $html .= displayFollowersAndFollowed($user); 
-    
-    //Mostrar boton de favoritos
-    $html .= displayFavoritePostsButton($user, $favs);
- 
-    // 
+    $html.= "</div> "; 
     $html .= "</section>";
 
     return $html;
@@ -89,7 +93,7 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
 function displayPosts($user){
 
     $lista_posts = Post::obtenerPostsDeUsuario($user->getUsername());
-    $html = "<section class='posts_perfil'>";
+    $html = "<section class='publicaciones_perfil'>";
 
     if(!$lista_posts){
         $html .=<<<EOS
@@ -108,6 +112,37 @@ function displayPosts($user){
 
     return $html;
 }
+
+
+function displayFavoritePost ($user){
+    $html = ''; 
+    $posts = Post::obtenerPostsFavPorUser($user->getUsername());
+
+    if(empty($posts)){
+        $html .= "<section class='listaPost'><h3> No has dado Like (&#10084) a ningún post</h3></section>";
+        return $html;
+    }
+
+    $html .= "<section class='listaPost'>";
+    if (isset($_GET['query'])) {
+
+        $textoBusqueda = $_GET['query'];
+        if($favs)
+            $posts = Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+        else
+            $posts = Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
+    }
+    
+    foreach($posts as $post){
+        $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
+                                  $post->getTexto(), $post->getId(), $_SESSION['username']);
+    }
+    $html .= "</section>";
+
+    return $html;
+
+}
+
 
 function displayFollowButton($username, $text, $following){
 
@@ -271,13 +306,12 @@ function displayFollowing($user){
 function displayFavoritePostsButton($user, $favs){
 
     $username = $user->getUsername();
-    $view_path = VIEWS_PATH . '/perfil/Favoritos.php';
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
 
     $html =<<<EOS
     <div class='opcion_favoritos'>
-    <form action='$view_path' method='post'>
-        <input type='hidden' name='user' value='$username'>
-        <input type='hidden' name='favs' value='$favs'>
+    <form action= $view_path method='post'>
+        <input type='hidden' name='opcion' value='favoritos'>
         <button type='submit'> Favs </button>
     </form>
     </div>  

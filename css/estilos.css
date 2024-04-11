@@ -115,7 +115,7 @@ ul.opciones{
 	grid-template-columns: 15% 65% 20% ; 
 	grid-template-rows: minmax(25px, auto);
 	text-align: center;
-	min-width: 300px;
+	min-width: 100px;
 }
 
 
@@ -227,7 +227,7 @@ section.datos_perfil div{
 	flex-direction: row;
 }
 
-section.posts_perfil{
+section.publicaciones_perfil{
 	grid-column-start: 2;
 	margin-top: 5%;
 	grid-row-start: 2;
