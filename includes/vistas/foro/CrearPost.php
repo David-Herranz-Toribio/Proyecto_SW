@@ -10,4 +10,8 @@ else
 
 $content = generatePostPublicationHTML($id_padre);
 
-require_once LAYOUT_URL;
+require_once LAYOUT_URL;  
+
+
+
+
