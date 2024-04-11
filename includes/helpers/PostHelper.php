@@ -10,11 +10,17 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     //Imagen de usuario junto a su username
     $user = Usuario::buscaUsuario($autor);
     $rutaPFP = IMG_PATH . '/profileImages/'.$user->getPhoto();
-    $user_info =<<<EOS
+    
+    $user_info= <<<EOS
     <div class="user_info">
-        <img alt="user_info" src=$rutaPFP width="50px" height="50px">
-        <div><a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> </div>
-    EOS;
+    <div class= 'user_image'> 
+    <img alt="user_info" src=$rutaPFP width="50px" height="50px">
+    </div>
+
+    <div>
+    <a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> 
+    </div>
+    EOS; 
 
     if ($yoYYoMismo == $autor){
         $rutaMod = VIEWS_PATH . '/foro/ModificarVista.php';

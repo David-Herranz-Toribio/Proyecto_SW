@@ -71,6 +71,7 @@ $parametros['birthdate'] = $birthdate;
 $parametros['isArtist'] = $isArtist;
 $parametros['artist_members'] = $artist_members;
 $parametros['profile_image'] = $profile_image;
+$parametros['karma']= 0; 
 
 // Crear usuario
 $usuario = Usuario::createUser($parametros);

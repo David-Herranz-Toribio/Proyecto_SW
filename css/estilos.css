@@ -8,6 +8,8 @@ body {
 	color: #e1e1e1;
 }
 
+
+
 div.container{
 	width: 100%;
 	height: 100vh;
@@ -240,6 +242,11 @@ section.datos_perfil button {
 	width: 75px;
 	height: 45px;
 	
+}
+
+div.user_image img {
+	border-radius:150px;
+	border:5px solid white;
 }
 
   /*Estilo de la pagina de ajustes*/
