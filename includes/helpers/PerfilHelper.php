@@ -4,7 +4,7 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
 require_once 'PostHelper.php';
-
+require_once 'TiendaHelper.php'; 
 
 // Constantes para navegar entre vistas
 define('POSTS_VIEW', 'POSTS');
@@ -202,14 +202,10 @@ function displayOrders($user){
 }
 
 function displayProducts($user){
-
+    $productos= showProductsArtista($user->getUsername()); 
     $html =<<<EOS
-    <section class= 'publicaciones_perfil'> 
-    <div class='lista_productos'>
-        TIENDA
-    </div>
-    </section> 
-    EOS;
+        $productos
+    EOS; 
 
     return $html;
 }
@@ -217,7 +213,7 @@ function displayProducts($user){
 function displayMusic($user){
 
     $username = $user->getUsername();
-
+    
     $html =<<<EOS
     <div class='lista_musica'>
         MUSICA DEL ARTISTA $username
@@ -394,6 +390,7 @@ function displayPostsButton($user){
     $html =<<<EOS
     <div class='opcion_posts'>
     <form action=$view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
         <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Posts </button>
     </form>
@@ -413,6 +410,7 @@ function displayFavoritePostsButton($user){
     $html =<<<EOS
     <div class='opcion_favoritos'>
     <form action=$view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
         <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Favs </button>
     </form>
@@ -431,6 +429,7 @@ function displayMusicButton($user){
     $html =<<<EOS
     <div class='opcion_musica'>
     <form action=$view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
         <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Musica </button>
     </form>
@@ -449,6 +448,7 @@ function displayShopButton($user){
     $html =<<<EOS
     <div class='opcion_tienda'>
     <form action= $view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
         <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Tienda </button>
     </form>
@@ -467,6 +467,7 @@ function displayOrdersButton($user){
     $html =<<<EOS
     <div class='opcion_pedidos'>
     <form action= $view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
         <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Pedidos </button>
     </form>
