@@ -266,20 +266,20 @@ class Usuario{
     //Comprueba si el usuario se trata de un artista 
     public static function esArtista($id_u) {
 
-        $conn= BD::getInstance()->getConexionBd();
-        $query= sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
         $rs = $conn->query($query);  
 
-        if($rs) {
-            $fila= $rs->fetch_assoc(); 
-
-            if($fila)
-                return true; 
-            else 
-                return false; 
-        }
-        else 
+        if(!$rs){
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return;
+        }
+
+        $fila = $rs->fetch_assoc(); 
+        if($fila)
+            return true;
+        else 
+            return false;
     }
 
     public static function compruebaUsuario($username, $correo){
