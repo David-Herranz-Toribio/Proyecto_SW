@@ -4,7 +4,7 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
 
 
-$perfil= Usuario::buscaUsuario($_SESSION['username']); 
+$perfil = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
 
 $act_nickname = $perfil->getNickname(); 
 $act_username = $perfil->getUsername(); 

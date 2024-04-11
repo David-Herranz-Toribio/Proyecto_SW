@@ -8,7 +8,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     $rutaPerfil = VIEWS_PATH . '/perfil/Perfil.php';
 
     //Imagen de usuario junto a su username
-    $user = Usuario::buscaUsuario($autor);
+    $user = es\ucm\fdi\aw\Usuario::buscaUsuario($autor);
     $rutaPFP = IMG_PATH . '/profileImages/'.$user->getPhoto();
     
     $user_info= <<<EOS
@@ -129,7 +129,7 @@ function showResp($id_post, $yoYYoMismo){
     if (!isset($_SESSION['username']))
         $html= "<p class = 'texto_infor'> No estas logead@,  <a href = $rutaNoLog> <strong>  pulsa aqui para iniciar sesion </strong> </a> </p>";
     else{
-        $post_aux= Post::buscarPostPorID($id_post); 
+        $post_aux = es\ucm\fdi\aw\Post::buscarPostPorID($id_post); 
 
         $html = "<h1 class = 'texto_infor'> Respuestas a @".$post_aux->getAutor(). "</h1>";
         $html .= "<section class = 'listaPost' id='respuestas'>";
@@ -139,11 +139,11 @@ function showResp($id_post, $yoYYoMismo){
                                   $post_aux->getTexto(), $post_aux->getId(), $yoYYoMismo);
         $html .= "</div>";
 
-        $posts = Post::obtenerListaDePosts($id_post); 
+        $posts = es\ucm\fdi\aw\Post::obtenerListaDePosts($id_post); 
         if(!empty($posts)){
             if (isset($_GET['query'])) {
                 $textoBusqueda = $_GET['query'];
-                $posts = Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+                $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
             }   
         }
 
@@ -175,11 +175,11 @@ function showTestPosts($yoYYoMismo){
     }
 
     $content .= "<section class = 'listaPost'>";
-    $posts = Post::obtenerListaDePosts();
+    $posts = es\ucm\fdi\aw\Post::obtenerListaDePosts();
     if(!empty($posts)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $posts = Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+            $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
         }   
     }
     foreach($posts as $post){

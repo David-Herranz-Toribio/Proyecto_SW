@@ -35,7 +35,7 @@ else
     $profile_image = 'FotoPerfil.png';
 
 // Comprobar datos de usuario
-$errors = Usuario::checkUserData($username, $password_length, $email, $birthdate, $isArtist);
+$errors = es\ucm\fdi\aw\Usuario::checkUserData($username, $password_length, $email, $birthdate, $isArtist);
 
 if( !empty($errors) ) {
     $_SESSION['error'] = $errors;
@@ -57,7 +57,7 @@ else{
     $_SESSION['isArtist'] = true;
 }
 
-$num = Pedido::numProdporUserPP($username);
+$num = es\ucm\fdi\aw\Pedido::numProdporUserPP($username);
 if($num)
     $_SESSION['notif_prod'] = $num;
 
@@ -74,7 +74,7 @@ $parametros['profile_image'] = $profile_image;
 $parametros['karma']= 0; 
 
 // Crear usuario
-$usuario = Usuario::createUser($parametros);
+$usuario = es\ucm\fdi\aw\Usuario::createUser($parametros);
 
 // Redirigir al cliente
 $_SESSION['username'] = $username; 

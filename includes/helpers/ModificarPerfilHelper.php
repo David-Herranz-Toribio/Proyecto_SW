@@ -9,7 +9,7 @@ $email = htmlspecialchars($_POST['modify_email']);
 
 $password = $_POST['modify_password'];
 
-$usu_mod= Usuario::buscaUsuario($id_user); 
+$usu_mod= es\ucm\fdi\aw\Usuario::buscaUsuario($id_user); 
 if($nickname) $usu_mod->setNickname($nickname);
 
 if($descripcion) $usu_mod->setDescrip($descripcion); 
@@ -21,6 +21,6 @@ if($password){
     $usu_mod->setPassword($password);
 } 
 
-Usuario:: actualiza($usu_mod); 
+es\ucm\fdi\aw\Usuario::actualiza($usu_mod); 
 
 header('Location: '. VIEWS_PATH .'/perfil/Perfil.php'); 

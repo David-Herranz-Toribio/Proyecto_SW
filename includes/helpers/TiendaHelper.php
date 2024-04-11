@@ -143,7 +143,7 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
 
 function showProduct($yoYYoMismo, $id){
-    $prod = Producto::obtenerProductoporId($id);
+    $prod = es\ucm\fdi\aw\Producto::obtenerProductoporId($id);
 
     // Por si hay que hacer alguna busqueda mas tarde
 
@@ -173,11 +173,11 @@ function showProduct($yoYYoMismo, $id){
 function showProducts($yoYYoMismo){
     
     $content = "<section class = 'listaArticulos'>";
-    $productos = Producto::obtenerListaDeProductos();
+    $productos = es\ucm\fdi\aw\Producto::obtenerListaDeProductos();
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $productos = Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
+            $productos = es\ucm\fdi\aw\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
     foreach($productos as $prod){
@@ -192,11 +192,11 @@ function showProducts($yoYYoMismo){
 function showProductsArtista($yoYYoMismo){
     
     $content = "<section class = 'listaArticulos'>";
-    $productos = Producto::obtenerProductosDeArtista($yoYYoMismo);
+    $productos = es\ucm\fdi\aw\Producto::obtenerProductosDeArtista($yoYYoMismo);
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $productos = Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
+            $productos = es\ucm\fdi\aw\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
     foreach($productos as $prod){
@@ -218,13 +218,13 @@ function showCarrito($user){
     $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
     $seccion =  "<section class = 'listaArticulos'>";
 
-    $pedido = Pedido::buscarPedidoPorUser($user);
+    $pedido = es\ucm\fdi\aw\Pedido::buscarPedidoPorUser($user);
 
     if(empty($pedido)){
         $seccion .=  "<h1>No tienes ningun pedido activo</h1>";
     }else{
         $id_pedido = $pedido->getId();
-        $productos = Producto::obtenerProductosDePedido($id_pedido);
+        $productos = es\ucm\fdi\aw\Producto::obtenerProductosDePedido($id_pedido);
 
         if(empty($productos))
             $seccion .=  "<h1>No tienes ningun producto en tu carrito</h1>";
@@ -247,7 +247,7 @@ function showCarrito($user){
                                                 $prod->getImagen(), $prod->getStock(), $precio, $id_pedido, $cantidad, $user);   
             }
             
-            $user = Usuario::buscaUsuario($user);
+            $user = es\ucm\fdi\aw\Usuario::buscaUsuario($user);
 
             $karma = $user->getKarma();
             $user = $user->getUsername();
@@ -298,7 +298,7 @@ function addProd($yo, $id_prod){
     
 
     if(!is_null($id_prod)){
-        $prod = Producto::obtenerProductoporId($id_prod);
+        $prod = es\ucm\fdi\aw\Producto::obtenerProductoporId($id_prod);
   
         $nombre = $prod->getNombre();
         $descripcion = $prod->getDescripcion();

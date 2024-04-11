@@ -26,7 +26,7 @@ function showNotLogged(){
 function showProfile($user, $opcion){
 
     $isSelfProfile = $_SESSION['username'] == $user->getUsername();
-    $isArtist = Usuario::esArtista($user->getUsername());
+    $isArtist = es\ucm\fdi\aw\Usuario::esArtista($user->getUsername());
 
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
     $html = displayProfileHeader($user, $isArtist, $isSelfProfile);
@@ -59,7 +59,7 @@ function displayProfileHeader($user, $isArtist, $isSelfProfile){
     if(!$isSelfProfile){
 
         // Obtenemos el objeto Usuario que corresponde al cliente
-        $me = Usuario::buscaUsuario($_SESSION['username']); 
+        $me = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
 
         //Comprobamos si seguimos al usuario del perfil a visualizar
         $following = $me->estaSiguiendo($user->getUsername());
@@ -141,7 +141,7 @@ function displayContent($user, $opcion){
 
 function displayPosts($user){
 
-    $lista_posts = Post::obtenerPostsDeUsuario($user->getUsername());
+    $lista_posts = es\ucm\fdi\aw\Post::obtenerPostsDeUsuario($user->getUsername());
     $html = "<section class='publicaciones_perfil'>";
 
     if(!$lista_posts){
@@ -165,7 +165,7 @@ function displayPosts($user){
 function displayFavoritePost ($user){
 
     $html = ''; 
-    $posts = Post::obtenerPostsFavPorUser($user->getUsername());
+    $posts = es\ucm\fdi\aw\Post::obtenerPostsFavPorUser($user->getUsername());
 
     if(empty($posts)){
         $html .= "<section class='publicaciones_perfil'><h3> No has dado Like (&#10084) a ningún post</h3></section>";
@@ -176,7 +176,7 @@ function displayFavoritePost ($user){
     if (isset($_GET['query'])) {
 
         $textoBusqueda = $_GET['query'];
-        $posts = Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
+        $posts = es\ucm\fdi\aw\Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
     }
     
     foreach($posts as $post){

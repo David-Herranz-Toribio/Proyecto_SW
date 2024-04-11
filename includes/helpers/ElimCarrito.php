@@ -12,12 +12,12 @@ if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
 if($user){
-    $prod = Producto::buscarProductoPorID($id);
-    if(Pedido::quitarProductoPP($prod, $id_pedido)){
+    $prod = es\ucm\fdi\aw\Producto::buscarProductoPorID($id);
+    if(es\ucm\fdi\aw\Pedido::quitarProductoPP($prod, $id_pedido)){
         $_SESSION['notif_prod'] = $_SESSION['notif_prod'] - 1;
     }
     $prod->setStock($prod->getStock() + 1);
-    Producto::actualiza($prod);
+    es\ucm\fdi\aw\Producto::actualiza($prod);
 }
 
 header('Location:'. VIEWS_PATH .'/tienda/Carrito.php');
