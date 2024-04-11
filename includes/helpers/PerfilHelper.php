@@ -11,6 +11,7 @@ define('POSTS_VIEW', 'POSTS');
 define('FAVS_VIEW', 'FAVS');
 define('PRODUCTS_VIEW', 'PRODUCTS');
 define('ORDERS_VIEW', 'ORDERS');
+define('MUSIC_VIEW', 'MUSIC');
 
 
 function showNotLogged(){
@@ -87,6 +88,9 @@ function displayProfileHeader($user, $isArtist, $isSelfProfile){
     //Mostrar boton de favoritos
     $html .= displayFavoritePostsButton($user);
 
+    if($isArtist)
+        $html .= displayMusicButton($user);
+
     // Mostrar boton de pedidos si es el perfil del cliente
     if($isSelfProfile)
         $html .= displayOrdersButton($user);
@@ -108,17 +112,23 @@ function displayContent($user, $opcion){
 
         case NULL:
         case 'POSTS':
-            $html .= displayPosts($user);
+            $html = displayPosts($user);
             break; 
         
         case 'FAVS':
-            $html .= displayFavoritePost($user); 
+            $html = displayFavoritePost($user); 
             break; 
 
         case 'ORDERS':
+            $html = displayOrders($user);
             break; 
 
         case 'PRODUCTS':
+            $html = displayProducts($user);
+            break;
+
+        case 'MUSIC':
+            $html = displayMusic($user);
             break;
 
         default:
@@ -174,6 +184,42 @@ function displayFavoritePost ($user){
                                   $post->getTexto(), $post->getId(), $_SESSION['username']);
     }
     $html .= "</section>";
+
+    return $html;
+}
+
+function displayOrders($user){
+
+    $html =<<<EOS
+    <div class='lista_pedidos'>
+        PEDIDOS
+    </div>
+    EOS;
+
+
+    return $html;
+}
+
+function displayProducts($user){
+
+    $html =<<<EOS
+    <div class='lista_productos'>
+        TIENDA
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayMusic($user){
+
+    $username = $user->getUsername();
+
+    $html =<<<EOS
+    <div class='lista_musica'>
+        MUSICA DEL ARTISTA $username
+    </div>
+    EOS;
 
     return $html;
 }
@@ -363,9 +409,27 @@ function displayFavoritePostsButton($user){
 
     $html =<<<EOS
     <div class='opcion_favoritos'>
-    <form action= $view_path method='get'>
+    <form action=$view_path method='get'>
         <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Favs </button>
+    </form>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayMusicButton($user){
+
+    $username = $user->getUsername();
+    $value = MUSIC_VIEW;
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
+
+    $html =<<<EOS
+    <div class='opcion_musica'>
+    <form action=$view_path method='get'>
+        <input type='hidden' name='opcion' value='$value'>
+        <button type='submit'> Musica </button>
     </form>
     </div>
     EOS;
@@ -377,7 +441,7 @@ function displayShopButton($user){
 
     $username = $user->getUsername();
     $value = PRODUCTS_VIEW;
-    $view_path = VIEWS_PATH . '/tienda/MiTiendaVista.php';
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
 
     $html =<<<EOS
     <div class='opcion_tienda'>
@@ -395,7 +459,7 @@ function displayOrdersButton($user){
 
     $username = $user->getUsername();
     $value = ORDERS_VIEW;
-    $view_path = VIEWS_PATH . '/tienda/MiTiendaVista.php';
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
 
     $html =<<<EOS
     <div class='opcion_pedidos'>
