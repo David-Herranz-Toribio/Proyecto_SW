@@ -428,6 +428,10 @@ class Usuario{
         $this->nickname = $new_nickname; 
     }
 
+    public function setPhoto($new_photo){
+        $this->fotopath = $new_photo;
+    }
+
     public function setEmail($new_email){
         $this->email = $new_email; 
     }

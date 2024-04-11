@@ -257,6 +257,27 @@ section.botonesEstilo {
 	grid-row-start: 2;
 }
 
+
+.settingsProfile {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    grid-area: cabecera;
+}
+
+.foto_perfil,
+.contenedor_texto,
+.eliminar_cuenta {
+    flex: 1; /* Para que cada div ocupe el mismo espacio */
+    text-align: center; /* Alineación de texto centrada */
+	padding-right: 20%;
+}
+
+
 /*Estilo de la pagina de tienda */
 .prod_info a{
 	text-decoration: none;
