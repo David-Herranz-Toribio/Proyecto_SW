@@ -298,8 +298,12 @@ function showHistorialPedidos($id_user){
         $lista.= "<article class= 'estiloPed'>";
         $id_ped= $pedido->getId(); 
         $productos=  es\ucm\fdi\aw\Producto::obtenerProductosDePedido($id_ped);
-        $lista.= "<h3> Ident. Pedido: $id_ped </h3>";     
-
+        $lista.= "<div class='prod_info'>
+                    <h3> Ident. Pedido:". $id_ped ."</h3>
+                    <h3> Fecha: ".$pedido->getFecha()."</h3>
+                    <h3> Total: ".$pedido->getTotal()." &#9834</h3>
+                    </div>";   
+        $lista.= "<div class= 'estiloPedido'>";
         foreach($productos as $producto) {
             $lista .= "<div class= 'estiloProd'>"; 
 
@@ -336,6 +340,7 @@ function showHistorialPedidos($id_user){
 
             $lista .= "</div>"; 
         }
+        $lista.= "</div>";
 
         $lista .= "</article>"; 
     }
