@@ -9,11 +9,8 @@ $user = null;
 if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
-//Check credentials
-$isValid = true;
-
 //Log usear or ask again for his account
-if($isValid && $user){
+if($user){
     //añadir like BD
     $aux = 1;
     $post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
@@ -26,8 +23,7 @@ if($isValid && $user){
     
     $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($post->getAutor());
     $usuario->aumentaKarma($aux);
-    es\ucm\fdi\aw\Usuario::actualiza($usuario);
-    
+    $usuario->actualiza();
     $post->aumentaLikes($aux);
     es\ucm\fdi\aw\Post::actualizar($post);
 }

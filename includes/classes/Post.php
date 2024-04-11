@@ -156,7 +156,8 @@ class Post{
         $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM post P WHERE P.id_post = %d",  $id);
         $rs = $conection->query($query);
-       
+        $result = NULL;
+
         while($fila = $rs->fetch_assoc()){
             $result = new Post($fila['id_post'],$fila['id_user'], $fila['texto'], $fila['imagen'], $fila['likes'], $fila['origen'],$fila['tags'],  $fila['fecha']);
         }
@@ -200,13 +201,13 @@ class Post{
 
         return $result;
     }
-    public static function borrarPost($post){
+    public function borrarPost(){
 
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "DELETE FROM post WHERE (id_post = %d)",
-            $post->id,
+            $this->id,
         );
         echo $query;
 

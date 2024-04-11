@@ -11,7 +11,7 @@ if(isset($_SESSION['username']))
 
 if($user){
     $post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
-    es\ucm\fdi\aw\Post::borrarPost($post);
+    $post->borrarPost();
 }
 
 header('Location:'. VIEWS_PATH .'/foro/Foro.php');

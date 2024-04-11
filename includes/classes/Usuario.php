@@ -122,7 +122,7 @@ class Usuario{
             error_log("Error BD ({$conection->errno}): {$conection->error}");
     }
 
-    public static function actualiza($user){
+    public function actualiza(){
         
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -137,14 +137,14 @@ class Usuario{
                 fecha = '%s',
                 correo = '%s'
             WHERE id_user = '%s'",
-                $conn->real_escape_string($user->nickname),
-                $conn->real_escape_string($user->password), 
-                $conn->real_escape_string($user->fotopath),
-                $conn->real_escape_string($user->desc),
-                $user->karma,
-                $user->birthdate,            
-                $conn->real_escape_string($user->email),
-                $conn->real_escape_string($user->username)
+                $conn->real_escape_string($this->nickname),
+                $conn->real_escape_string($this->password), 
+                $conn->real_escape_string($this->fotopath),
+                $conn->real_escape_string($this->desc),
+                $this->karma,
+                $this->birthdate,            
+                $conn->real_escape_string($this->email),
+                $conn->real_escape_string($this->username)
         );
         $result = $conn->query($query);
 

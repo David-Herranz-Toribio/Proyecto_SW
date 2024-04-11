@@ -81,5 +81,6 @@
 -Botones de vistas en perfil (Óscar)✅
 -Boton tienda del perfil muestra datos✅
 -Boton pedidos del perfil muestra datos✅
--Implementación de namespaces
+-Implementación de namespaces✅
+-Actualizar pull requests del profesor sobre la práctica2✅
 -CSS para cambiar preferencias❌
