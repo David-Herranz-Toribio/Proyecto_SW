@@ -42,6 +42,22 @@ class Pedido{
         return $result;
     }
     
+    public static function buscarHistorialPedidos($id_user){
+        $conection = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM pedido P WHERE P.id_user = '%s' AND P.estado = 'Procesado'" ,  $id_user);
+        $rs = $conection->query($query);
+        
+        while($fila = $rs->fetch_assoc()){
+            $result[]= self::crearPedido($fila['id_pedido'], $fila['id_user'], $fila['estado'],
+                                        $fila['total'], $fila['fecha']); 
+        }
+        $rs->free();
+        
+        return $result; 
+    }
+
+
+
     public static function actualiza($pedido){
         $result = false;
         $conn = BD::getInstance()->getConexionBd();

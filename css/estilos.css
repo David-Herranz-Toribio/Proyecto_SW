@@ -230,10 +230,19 @@ section.datos_perfil div{
 }
 
 section.publicaciones_perfil{
+	display: flex;
+	flex-direction: column;
 	grid-column-start: 2;
 	margin-top: 5%;
 	grid-row-start: 2;
 }
+
+section.publicaciones_perfil article {
+	display: flex; 
+	flex-direction: column;
+
+}
+
 
 section.datos_perfil button {
 	width: 75px;

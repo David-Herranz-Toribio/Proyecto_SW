@@ -190,13 +190,13 @@ function displayFavoritePost ($user){
 
 function displayOrders($user){
 
+    $lista_pedidos= showHistorialPedidos($user->getUsername());
+
     $html =<<<EOS
     <section class= 'publicaciones_perfil'> 
-    <div class='lista_pedidos'>
-        PEDIDOS
-    </div>
+        $lista_pedidos
+    </section> 
     EOS;
-
 
     return $html;
 }
