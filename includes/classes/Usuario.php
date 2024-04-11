@@ -93,12 +93,13 @@ class Usuario{
         $artist = $parametros['isArtist'];
         $birth = $parametros['birthdate'];
         $artist_members = $parametros['artist_members'];
+        $profile_image = $parametros['profile_image'];
 
         $conection = BD::getInstance()->getConexionBd();
         $nullv = null;
         $karma = 0;
         $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
-        $values = "('$username', '$nickname', '$password', '$nullv', '$nullv', $karma, '$birth', '$email'); ";
+        $values = "('$username', '$nickname', '$password', '$profile_image', '$nullv', $karma, '$birth', '$email'); ";
         $query .= $values;
         $conection->query($query);
 
