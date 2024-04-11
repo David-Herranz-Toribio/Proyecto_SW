@@ -286,6 +286,66 @@ function showCarrito($user){
     return $content;
 }
 
+
+function showHistorialPedidos($id_user){
+    
+    /*Sacar de la BD los pedidos ya procesados */ 
+    $pedidos= es\ucm\fdi\aw\Pedido:: buscarHistorialPedidos($id_user);  
+    $lista= ''; 
+
+
+    foreach($pedidos as $pedido){
+        $lista.= "<article class= 'estiloPed'>";
+        $id_ped= $pedido->getId(); 
+        $productos=  es\ucm\fdi\aw\Producto::obtenerProductosDePedido($id_ped);
+        $lista.= "<h3> Ident. Pedido: $id_ped </h3>";     
+
+        foreach($productos as $producto) {
+            $lista .= "<div class= 'estiloProd'>"; 
+
+            $id_prod=  $producto->getId(); 
+            $name_prod= $producto->getNombre(); 
+            $desc_prod= $producto->getDescripcion(); 
+            $autor_prod= $producto->getAutor(); 
+            $img_prod= $producto->getImagen(); 
+            $cantidad_prod= $producto->getCantidadPP(); 
+            $precio_prod=  $producto->getPrecio();                               
+            $total= $cantidad_prod * $precio_prod;
+
+            $rutaProdImg = IMG_PATH .  '/prodImages/'.$img_prod;
+            $rutaProducto = VIEWS_PATH . '/tienda/ProductoVista.php';
+            $rutaArtista = VIEWS_PATH . '/perfil/Perfil.php';
+
+
+
+            $lista.= <<<EOS
+            <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
+            <p>$name_prod</p>
+            <div>
+            <a href= "$rutaArtista?user=$autor_prod" name= "prod" >
+              <p>Creador: @$autor_prod</p>
+            </a>
+             </div>
+
+
+             <div class="prod_precio">
+             <p> Cantidad: $cantidad_prod unidades</p>
+             <p> Total: $total &#9834</p>
+             </div>
+            EOS; 
+
+            $lista .= "</div>"; 
+        }
+
+        $lista .= "</article>"; 
+    }
+
+    $lista.= "</section>";  
+
+
+    return $lista; 
+}
+
 function addProd($yo, $id_prod){
     $rutaAddProd = HELPERS_PATH . '/ProcesarTienda.php';
 
@@ -342,33 +402,3 @@ function addProd($yo, $id_prod){
 
     return $content;
 }
-        
-//     $content =<<<EOS
-//     <h1 class = 'texto_infor'> Tus productos </h1>
-//     <section class = 'formulario_style'>
-//         <form action = '$rutaAddProd' method = 'post' enctype = 'multipart/form-data'>
-//             <input type = "hidden" name = "Autor" value = "$yo">
-
-//             <label>Nombre</label>
-//             <input type="text" name="Nombre" value="">
-
-//             <label>Imagen</label>
-//             <input type = "file" name = "Imagen" accept = "image/*">
-        
-//             <label>Descripcion</label>
-//             <textarea name = "Descripcion""></textarea>
-
-//             <label>Stock</label>
-//             <input type="number" name="Stock" value="1" min="1" max='9999'"/>
-
-//             <label>Precio</label>
-//             <input type="number" name="Precio" value="1" min="1" max='9999'"/>
-
-//             <button type = "submit">Crear producto</button>
-//         </form>
-//     </section>
-
-//     EOS;
-
-//     return $content;
-// }
