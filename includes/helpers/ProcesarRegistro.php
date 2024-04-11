@@ -13,6 +13,27 @@ $password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
 $birthdate = $_POST['new_birthdate'];
 $isArtist = boolval($_POST['isArtist']);
 
+
+if ($_FILES['image']['name'] != ''){
+    $archivo_nombre = $_FILES['image']['name'];
+    $archivo_tipo = $_FILES['image']['type'];
+    $archivo_tamaño = $_FILES['image']['size'];
+    $archivo_temporal = $_FILES['image']['tmp_name'];
+
+    $directorio_destino = IMG_URL . '/profileImages/';
+
+    //Nombre con extension
+    $ultimo_punto = strrpos($archivo_nombre, '.');
+    $extension = substr($archivo_nombre, $ultimo_punto + 1);
+    $profile_image = uniqid() . '.' . $extension;
+
+    //Ruta de guardado
+    $ruta_destino = $directorio_destino . $profile_image;
+    move_uploaded_file($archivo_temporal, $ruta_destino);
+}
+else
+    $archivo_nombre = 'FotoPerfil.png';
+
 // Comprobar datos de usuario
 $errors = Usuario::checkUserData($username, $password_length, $email, $birthdate, $isArtist);
 
@@ -49,6 +70,7 @@ $parametros['email'] = $email;
 $parametros['birthdate'] = $birthdate;
 $parametros['isArtist'] = $isArtist;
 $parametros['artist_members'] = $artist_members;
+$parametros['profile_image'] = $profile_image;
 
 // Crear usuario
 $usuario = Usuario::createUser($parametros);

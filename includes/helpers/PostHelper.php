@@ -1,13 +1,15 @@
 <?php
 
 require_once CLASSES_URL . '/Post.php';
+require_once CLASSES_URL . '/Usuario.php';
 
 function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
-    $rutaPFP = IMG_PATH . '/FotoPerfil.png';
     $rutaPerfil = VIEWS_PATH . '/perfil/Perfil.php';
 
     //Imagen de usuario junto a su username
+    $user = Usuario::buscaUsuario($autor);
+    $rutaPFP = IMG_PATH . '/profileImages/'.$user->getPhoto();
     $user_info =<<<EOS
     <div class="user_info">
         <img alt="user_info" src=$rutaPFP width="50px" height="50px">

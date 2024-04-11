@@ -52,7 +52,7 @@ function generateFormularyUser($errores){
     $form =<<<EOS
     <fieldset class="formRegistro">
     <legend> Registra tu nueva cuenta de usuario </legend> 
-        <form action=$enlace method="post">
+        <form action=$enlace method="post"enctype = "multipart/form-data">
         
             <input hidden name="isArtist" value="0"> 
             <label> Nickname </label>
@@ -80,7 +80,7 @@ function generateFormularyUser($errores){
             <p></p>
             <input required type="date" name="new_birthdate">
             <p> $fecha_anterior_error <br> $fecha_mayor_edad_error </p>
-
+            Imagen:<input type = "file" name = "image" accept = "image/*">
             <button type="submit" name="register_button" > Sign In </button>
         </form>
     </fieldset>
