@@ -32,7 +32,7 @@ if ($_FILES['image']['name'] != ''){
     move_uploaded_file($archivo_temporal, $ruta_destino);
 }
 else
-    $archivo_nombre = 'FotoPerfil.png';
+    $profile_image = 'FotoPerfil.png';
 
 // Comprobar datos de usuario
 $errors = Usuario::checkUserData($username, $password_length, $email, $birthdate, $isArtist);

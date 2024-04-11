@@ -80,7 +80,9 @@ function generateFormularyUser($errores){
             <p></p>
             <input required type="date" name="new_birthdate">
             <p> $fecha_anterior_error <br> $fecha_mayor_edad_error </p>
-            Imagen:<input type = "file" name = "image" accept = "image/*">
+            <label> Foto de perfil </label>
+            <p></p>
+                <input type = "file" name = "image" accept = "image/*">
             <button type="submit" name="register_button" > Sign In </button>
         </form>
     </fieldset>
