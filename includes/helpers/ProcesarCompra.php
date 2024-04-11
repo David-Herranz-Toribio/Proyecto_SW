@@ -9,7 +9,7 @@ $total= $_POST['precio_total'];
 
 $usu_mod= es\ucm\fdi\aw\Usuario::buscaUsuario($id_user); 
 $usu_mod->setKarma($karma);
-es\ucm\fdi\aw\Usuario:: actualiza($usu_mod); 
+$usu_mod->actualiza(); 
 
 $pedido = es\ucm\fdi\aw\Pedido::buscarPedidoPorUser($id_user);
 $pedido->setEstado("Procesado");

@@ -1,15 +1,5 @@
 <?php
 
-function generateUserImage(){
-    
-    $iconImage = IMG_PATH . '/RegisterUserImage.png';
-    $image =<<<EOS
-        <img src="$iconImage" alt="foto de perfil" height="200" width="200">
-    EOS;
-
-    return $image;
-}
-
 function generateArtistAccountLink(){
 
     $enlace = VIEWS_PATH . '/log/SignUpArtist.php';
