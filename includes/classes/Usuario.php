@@ -22,7 +22,7 @@ class Usuario{
         $this->nickname = $parameters['nickname'];
         $this->email = $parameters['email'];
         $this->password = $parameters['password'];
-        $this->fotopath = $parameters['fotopath'];
+        $this->fotopath = $parameters['profile_image'];
         $this->desc = $parameters['desc'];
         $this->karma = $parameters['karma'];
         $this->isArtist = $parameters['isArtist'];
@@ -115,7 +115,7 @@ class Usuario{
                     error_log("Error BD ({$conection->errno}): {$conection->error}");
             }
 
-            return new Usuario($parameters); 
+            return new Usuario($parametros); 
         }
         else 
             error_log("Error BD ({$conection->errno}): {$conection->error}");
@@ -339,7 +339,7 @@ class Usuario{
                 $parameters['nickname'] = $fila['nickname'];
                 $parameters['email'] = $fila['correo'];
                 $parameters['password'] = $fila['password'];
-                $parameters['fotopath'] = $fila['foto'];
+                $parameters['profile_image'] = $fila['foto'];
                 $parameters['desc'] = $fila['descripcion'];
                 $parameters['karma'] = $fila['karma'];
                 $parameters['isArtist'] = $artista;
