@@ -8,7 +8,7 @@ require_once HELPERS_URL . '/PerfilHelper.php';
 if(isset($_SESSION['username'])){
 
     $usuario = $_GET["user"] ?? $_SESSION['username'];
-    $opcion = $_POST['opcion'] ?? NULL;
+    $opcion = $_GET['opcion'] ?? NULL;
     $user = Usuario::buscaUsuario($usuario);
     $content = showProfile($user, $opcion);
 }

@@ -10,7 +10,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     //Imagen de usuario junto a su username
     $user_info =<<<EOS
     <div class="user_info">
-        <img alt = "user_info" src= $rutaPFP width="50px" height="50px">
+        <img alt="user_info" src=$rutaPFP width="50px" height="50px">
         <div><a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> </div>
     EOS;
 
@@ -19,8 +19,8 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         $rutaEliminar = HELPERS_PATH . '/ProcesarEliminar.php';
 
         $user_info .= <<<EOS2
-        <div class= 'modElim'> 
-        <form action = $rutaMod method="post">
+        <div class='modElim'> 
+        <form action=$rutaMod method="post">
             <input type = "hidden" name = "ModificarID" value = "$id">
             <button type = "submit"> &#9998 </button>
         </form>
@@ -67,12 +67,12 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
 
     if(!$yoYYoMismo){
-        $responder= ''; 
+        $responder = ''; 
     }
 
     else {
-        $responder= <<<EOS5
-        <div class= 'responder'>
+        $responder =<<<EOS5
+        <div class='responder'>
 
         <form action = $rutaAdd method = "post" enctype = "multipart/form-data">
         <input type = "hidden" name = "id_padre" value = "$id">
@@ -88,13 +88,13 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     }
 
     $botones = <<<EOS6
-    <div class= 'botones_mensaje'>
+    <div class='botones_mensaje'>
     <form action = $rutaLike method = "post">
         <input type = "hidden" name = "likeId" value = "$id">
         <button type="submit">$likes &#9834 </button>
     </form>
 
-    <form action = $rutaRespuestas method = "post">
+    <form action=$rutaRespuestas method = "post">
         <input type = "hidden" name = "respuestasId" value = "$id">
         <button type = "submit">&#128172</button>
     </form>

@@ -107,19 +107,23 @@ function displayContent($user, $opcion){
     switch($opcion) {
 
         case NULL:
-        case 'POSTS_VIEW': 
+        case 'POSTS':
             $html .= displayPosts($user);
             break; 
         
-        case 'FAVS_VIEW': 
+        case 'FAVS':
             $html .= displayFavoritePost($user); 
             break; 
 
-        case 'ORDERS_VIEW': 
+        case 'ORDERS':
             break; 
 
-        case 'PRODUCTS_VIEW': 
-            break; 
+        case 'PRODUCTS':
+            break;
+
+        default:
+            $html = 'VISTA NO RECONOCIDA';
+            break;
     }
 
     return $html;
@@ -149,6 +153,7 @@ function displayPosts($user){
 }
 
 function displayFavoritePost ($user){
+
     $html = ''; 
     $posts = Post::obtenerPostsFavPorUser($user->getUsername());
 
@@ -171,7 +176,6 @@ function displayFavoritePost ($user){
     $html .= "</section>";
 
     return $html;
-
 }
 
 function displayFollowButton($user, $text, $following){
@@ -360,7 +364,7 @@ function displayFavoritePostsButton($user){
     $html =<<<EOS
     <div class='opcion_favoritos'>
     <form action= $view_path method='get'>
-        <input type='hidden' name='opcion' value='favoritos'>
+        <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Favs </button>
     </form>
     </div>
@@ -378,7 +382,7 @@ function displayShopButton($user){
     $html =<<<EOS
     <div class='opcion_tienda'>
     <form action= $view_path method='get'>
-        <input type='hidden' name='opcion' value='favoritos'>
+        <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Tienda </button>
     </form>
     </div>
@@ -396,7 +400,7 @@ function displayOrdersButton($user){
     $html =<<<EOS
     <div class='opcion_pedidos'>
     <form action= $view_path method='get'>
-        <input type='hidden' name='opcion' value='favoritos'>
+        <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Pedidos </button>
     </form>
     </div>
