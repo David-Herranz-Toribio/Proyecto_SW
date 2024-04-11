@@ -208,18 +208,18 @@ div.post_info {
 /*Estilo de la pagina de perfil del usuario*/
 
 section.datos_perfil {
-	width: 60%;
+	width: 85%;
 	display: flex;
 	border: solid 6px #1e688b;
 	border-radius: 25px;
-	margin-left: 20%;
+	margin: 3% 5%; 
 	padding-top: 5%;
 	padding-right: 5%;
-	margin-top: 5%;
 	align-items: center;
 	flex-direction: column;
 	grid-row-start: 1;
-	grid-column-start: 2;
+	grid-column-start: 1;
+	grid-column-end: 4;
 	background-color:#2c292e; 
 }
 
