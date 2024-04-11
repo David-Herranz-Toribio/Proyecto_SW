@@ -168,11 +168,11 @@ function displayFavoritePost ($user){
     $posts = Post::obtenerPostsFavPorUser($user->getUsername());
 
     if(empty($posts)){
-        $html .= "<section class='listaPost'><h3> No has dado Like (&#10084) a ningún post</h3></section>";
+        $html .= "<section class='publicaciones_perfil'><h3> No has dado Like (&#10084) a ningún post</h3></section>";
         return $html;
     }
 
-    $html .= "<section class='listaPost'>";
+    $html .= "<section class='publicaciones_perfil'>";
     if (isset($_GET['query'])) {
 
         $textoBusqueda = $_GET['query'];
@@ -191,6 +191,7 @@ function displayFavoritePost ($user){
 function displayOrders($user){
 
     $html =<<<EOS
+    <section class= 'publicaciones_perfil'> 
     <div class='lista_pedidos'>
         PEDIDOS
     </div>
@@ -203,9 +204,11 @@ function displayOrders($user){
 function displayProducts($user){
 
     $html =<<<EOS
+    <section class= 'publicaciones_perfil'> 
     <div class='lista_productos'>
         TIENDA
     </div>
+    </section> 
     EOS;
 
     return $html;
