@@ -22,7 +22,7 @@ class Usuario{
         $this->nickname = $parameters['nickname'];
         $this->email = $parameters['email'];
         $this->password = $parameters['password'];
-        $this->fotopath = $parameters['fotopath'];
+        $this->fotopath = $parameters['profile_image'];
         $this->desc = $parameters['desc'];
         $this->karma = $parameters['karma'];
         $this->isArtist = $parameters['isArtist'];
@@ -95,12 +95,13 @@ class Usuario{
         $foto= $parametros['pefil_img']; 
 
         $artist_members = $parametros['artist_members'];
+        $profile_image = $parametros['profile_image'];
 
         $conection = BD::getInstance()->getConexionBd();
         $nullv = null;
         $karma = 0;
         $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
-        $values = "('$username', '$nickname', '$password', '$foto', '$nullv', $karma, '$birth', '$email'); ";
+        $values = "('$username', '$nickname', '$password', '$profile_image', '$nullv', $karma, '$birth', '$email'); ";
         $query .= $values;
         $conection->query($query);
 
@@ -116,7 +117,7 @@ class Usuario{
                     error_log("Error BD ({$conection->errno}): {$conection->error}");
             }
 
-            return new Usuario($parameters); 
+            return new Usuario($parametros); 
         }
         else 
             error_log("Error BD ({$conection->errno}): {$conection->error}");
@@ -267,20 +268,20 @@ class Usuario{
     //Comprueba si el usuario se trata de un artista 
     public static function esArtista($id_u) {
 
-        $conn= BD::getInstance()->getConexionBd();
-        $query= sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
+        $conn = BD::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
         $rs = $conn->query($query);  
 
-        if($rs) {
-            $fila= $rs->fetch_assoc(); 
-
-            if($fila)
-                return true; 
-            else 
-                return false; 
-        }
-        else 
+        if(!$rs){
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return;
+        }
+
+        $fila = $rs->fetch_assoc(); 
+        if($fila)
+            return true;
+        else 
+            return false;
     }
 
     public static function compruebaUsuario($username, $correo){
@@ -340,7 +341,7 @@ class Usuario{
                 $parameters['nickname'] = $fila['nickname'];
                 $parameters['email'] = $fila['correo'];
                 $parameters['password'] = $fila['password'];
-                $parameters['fotopath'] = $fila['foto'];
+                $parameters['profile_image'] = $fila['foto'];
                 $parameters['desc'] = $fila['descripcion'];
                 $parameters['karma'] = $fila['karma'];
                 $parameters['isArtist'] = $artista;

@@ -5,48 +5,42 @@
 -BD: Cascade y TABLA PRODUCTOS + asociados (Hugo)✅
 -Respuestas, eliminaciones y modificaciones en cada mensaje ✅
 -Implementar CSS para la vista de las respuestas (Alonso) ✅
--Actualizar Diagramas de Base de Datos para que coincidan y Mejorarlos [PP cantidad, nueva tabla Eventos, img en producto](Hugo)✅
+-Actualizar Diagramas de Base de Datos para que coincidan y Mejorarlos [PP cantidad, img en producto](Hugo)✅
 
 -Interfaz de Pefil. Incluye seguidores y sus respectivas funciones (Ignacio), Ajustes (Alonso) 🔄️
-    -Añadir campo de descripción en perfil de usuario
-    -Añadir foto de perfil para modificarla
-    -En perfil poder ver los Pedidos 'Procesados'
-    -Incluir en Ajustes un boton de eliminar cuenta ❓
-    -Poder seguir a gente y que te sigan (Alonso)
-    -Menu para navegar en el perfil: 
-        1) Post Favoritos 
-        2) Tus post 
-        3) Historial de pedidos 
-        4) Si artista => Tus productos
-        5) Informacion perfil => (Nickname, descripcion, cumpleaños, nºseguidores, nºseguidos, karma )
-        6) Si artista =>  Musica 
+    -Añadir campo de descripción en perfil de usuario (Óscar)✅
+    -Añadir foto de perfil para modificarla❌
+    -Incluir en Ajustes un boton de eliminar cuenta✅
+    -Poder seguir a gente y que te sigan (Alonso)✅
+    -Menu para navegar en el perfil: (Óscar)✅
+        1) Post Favoritos✅
+        2) Tus post✅
+        3) Historial de pedidos✅
+        4) Si artista => Tus productos✅
+        5) Informacion perfil => (Nickname, descripcion, cumpleaños, nºseguidores, nºseguidos, karma )✅
+        6) Si artista =>  Musica❌
 
-    -Añadir función en Usuario.php para obtener los seguidores de un usuario
-    -Añadir función en Usuario.php para obtener los seguidos de un usuario
-    -Implementar helper SeguidoresHelper.php
-    -Implementar helper SeguidosHelper.php
-    -Implementar helper FavoritosHelper.php
     -Mejorar la lógica de la vistas PerfilHelper:
-        Si $isSelfProfile es true llamamos a la funcion mostrarPerfilCliente()
-        Si no llamamos a la funciono mostrarPerfilExterno()
-        Ahí dentro incluimos la lógica de cada uno para evitar tantos if's anidados
+        Si $isSelfProfile es true llamamos a la funcion mostrarPerfilCliente()✅
+        Si no llamamos a la funciono mostrarPerfilExterno()✅
 
 -Tienda (David y Hugo)✅
     -Crear una pagina de Artista y cuando pinches en uno te lleve a una pagina que tenga 
-     apartados para ver sus producto, eventos y posts (y Musica este cuando implementado).
-    -Primero, Pagina de un Producto Individual.✅ Luego, Juntar foro con producto 
-     por una relacion N - M para poner en cada producto las reseñas de este como si fuera otro mini foro.
+     apartados para ver sus producto, eventos y posts (y Musica este cuando implementado)✅
+    -Primero, Pagina de un Producto Individual.✅
+    -Luego, Juntar foro con producto por una relacion N - M para poner en cada producto las reseñas 
+    de este como si fuera otro mini foro.❌
 
 -Crear PDF o .md de MEMORIA (Óscar)✅
 -Actualizar dicha memoria con datos pedidos por el profe en la EVALUACION (Óscar)✅
--Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❓
+-Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❌
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido (Alonso)✅
 
 -Mensajes de error en login (Óscar)✅
 -Mensajes de error en sign up (Óscar)✅
--Hacer la funcion de comprobar email a la hora de registrarse para que no este repetido 
+-Hacer la funcion de comprobar email a la hora de registrarse para que no este repetido✅
 -Diferenciar entre perfil de un usuario random y tu propio perfil (Alonso)✅
--Añadir reglas @media en CSS para que se vea bien en movil 
+-Añadir reglas @media en CSS para que se vea bien en movil❌
 -Reorganización de carpetas (Óscar)✅
 
 ------------------------------------------------ Rutas y correccion de la P2 ------------------------------------------------
@@ -64,18 +58,10 @@
 -Respuestas sean desplegables ✅
 -Respuestas, eliminaciones y modificaciones en cada mensaje ✅
 -Publicar a lo mejor quedaria mejor en el Titulo de Foro o algo parecido 
--Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)
--Múltiples selecciones de géneros musicales (SignUpHelper.php)
-
--Utilizar el correo para contacto entre artistas y subcriptores y tener una única cuenta asociada a un correo concreto
-
--Añadir campo de descripción en perfil de usuario
--Añadir foto de perfil para modificarla
--En perfil poder ver los Pedidos 'Procesados'.
-
--Implementar la funcionalidad de seguir a otros usuarios 
- y que puedas ver a tus seguidos (en perfil:  numero de seguidos y seguidores), posts de seguidos tmb.
-
+-Opciones exclusivas de Admin y Restricciones para Usuarios normales (si procede tambien las subcripciones)❌
+-Múltiples selecciones de géneros musicales (SignUpHelper.php)❌
+-Utilizar el correo para contacto entre artistas y subcriptores y tener una única cuenta asociada a un correo concreto❌
+-Añadir campo de descripción en perfil de usuario✅
 -Añadir funciones para buscar en la base de datos un usuario con un cierto username, nickname, email y birthdate(añadidas, falta implementacion y uso en otras funciones) (Óscar)✅
 -En lugar de tener muchos parametros en constructores podemos utilizar un array de posiciones (Óscar)✅
 
@@ -84,10 +70,15 @@
 -Logotipo a la izquierda del todo y el login/logout arriba (Ignacio)✅
 -El sidebar que ocupe toda la columna ✅
 -Mantener la posición del sidebar independientemente del lugar ✅
--Quitar las opciones, y cuando pases el cursor por los módulos te carguen las opciones 
--Usar los porcentajes para el ajuste de los componentes de la pagina
+-Quitar las opciones, y cuando pases el cursor por los módulos te carguen las opciones✅
+-Usar los porcentajes para el ajuste de los componentes de la pagina❌
 -Tamaños mínimos para los elementos ✅
 -La sidebar debe contraerse y expandirse sin cambiar el fondo ✅
--Las opciones del perfil, que sean desplegables
--Las publicaciones guardadas, es una pestaña a parte
+-Las opciones del perfil, que sean desplegables❌
 -Quitar <br> en PostHelper.php (creacionPostHTML, responder)
+
+--HOY--
+-Botones de vistas en perfil (Óscar)✅
+-Boton tienda del perfil muestra datos❌
+-Boton pedidos del perfil muestra datos❌
+-CSS para cambiar preferencias❌

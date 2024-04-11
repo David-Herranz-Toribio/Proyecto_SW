@@ -3,8 +3,15 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
-require_once 'FavoritosHelper.php';
 require_once 'PostHelper.php';
+require_once 'TiendaHelper.php'; 
+
+// Constantes para navegar entre vistas
+define('POSTS_VIEW', 'POSTS');
+define('FAVS_VIEW', 'FAVS');
+define('PRODUCTS_VIEW', 'PRODUCTS');
+define('ORDERS_VIEW', 'ORDERS');
+define('MUSIC_VIEW', 'MUSIC');
 
 
 function showNotLogged(){
@@ -16,34 +23,33 @@ function showNotLogged(){
     return $html;
 }
 
-function showProfile($usuario, $favs){
+function showProfile($user, $opcion){
 
-    $user = Usuario::buscaUsuario($usuario);
-    $isArtist = $_SESSION['isArtist'];
     $isSelfProfile = $_SESSION['username'] == $user->getUsername();
+    $isArtist = Usuario::esArtista($user->getUsername());
 
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
-    $html = displayProfileHeader($user, $isArtist, $favs, $isSelfProfile);
+    $html = displayProfileHeader($user, $isArtist, $isSelfProfile);
 
-    // Mostrar los posts publicados por el usuario
-    $html .= displayPosts($user);
- 
+    // Mostrar contenido
+    $html .= displayContent($user, $opcion);
+
     return $html;
 }
 
-function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
+function displayProfileHeader($user, $isArtist, $isSelfProfile){
     
     $html = "<section class='datos_perfil'>";
     $html .= "<div class= 'identidad'>";
 
     // Mostrar imagen, nickname, username y descripcion
-    $html .= displayUserImage($user->getPhoto());
-    $html .= displayNickname($user->getNickname());
-    $html .= displayUsername($user->getUsername());
+    $html .= displayUserImage($user);
+    $html .= displayNickname($user);
+    $html .= displayUsername($user);
 
     // Mostrar las corcheas si es el perfil del cliente
     if($isSelfProfile)
-        $html .= displayCredit($user->getKarma());
+        $html .= displayCredit($user);
 
     // Mostrar opcion de ajuste si está logeado y es su perfil
     if($isSelfProfile)
@@ -60,28 +66,75 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
         $textoBoton = $following ? 'Dejar de seguir': 'Seguir' ;
 
         // Boton de follow/unfollow
-        $html .= displayFollowButton($user->getUsername(), $textoBoton, $following);
+        $html .= displayFollowButton($user, $textoBoton, $following);
     }
     $html .= "</div>"; 
 
     // Mostrar fecha de nacimiento del usuario
-    $html .= displayBirthday($user->getBirthdate());
+    $html .= displayBirthday($user);
 
     // Mostrar descripción del usuario
-    $html .= displayUserDescription($user->getDescrip());
-
-    // Mostrar link de tienda si es un artista
-    if($isArtist)
-        $html .= displayShopLink($user);
+    $html .= displayUserDescription($user);
 
     // Mostrar followers/following
     $html .= displayFollowersAndFollowed($user); 
-    
+
+    /* SECCION DE BOTONES */
+    $html .= "<div class='menu_perfil'>";
+
+    // Mostrar boton de posts
+    $html .= displayPostsButton($user);
+
     //Mostrar boton de favoritos
-    $html .= displayFavoritePostsButton($user, $favs);
- 
-    // 
+    $html .= displayFavoritePostsButton($user);
+
+    if($isArtist)
+        $html .= displayMusicButton($user);
+
+    // Mostrar boton de pedidos si es el perfil del cliente
+    if($isSelfProfile)
+        $html .= displayOrdersButton($user);
+
+    // Mostrar boton de tienda si es un artista
+    if($isArtist)
+        $html .= displayShopButton($user);
+
+    $html.= "</div> "; 
     $html .= "</section>";
+
+    return $html;
+}
+
+function displayContent($user, $opcion){
+
+    $html = '';
+    switch($opcion) {
+
+        case NULL:
+        case 'POSTS':
+            $html = displayPosts($user);
+            break; 
+        
+        case 'FAVS':
+            $html = displayFavoritePost($user); 
+            break; 
+
+        case 'ORDERS':
+            $html = displayOrders($user);
+            break; 
+
+        case 'PRODUCTS':
+            $html = displayProducts($user);
+            break;
+
+        case 'MUSIC':
+            $html = displayMusic($user);
+            break;
+
+        default:
+            $html = 'VISTA NO RECONOCIDA';
+            break;
+    }
 
     return $html;
 }
@@ -89,7 +142,7 @@ function displayProfileHeader($user, $isArtist, $favs, $isSelfProfile){
 function displayPosts($user){
 
     $lista_posts = Post::obtenerPostsDeUsuario($user->getUsername());
-    $html = "<section class='posts_perfil'>";
+    $html = "<section class='publicaciones_perfil'>";
 
     if(!$lista_posts){
         $html .=<<<EOS
@@ -109,7 +162,70 @@ function displayPosts($user){
     return $html;
 }
 
-function displayFollowButton($username, $text, $following){
+function displayFavoritePost ($user){
+
+    $html = ''; 
+    $posts = Post::obtenerPostsFavPorUser($user->getUsername());
+
+    if(empty($posts)){
+        $html .= "<section class='publicaciones_perfil'><h3> No has dado Like (&#10084) a ningún post</h3></section>";
+        return $html;
+    }
+
+    $html .= "<section class='publicaciones_perfil'>";
+    if (isset($_GET['query'])) {
+
+        $textoBusqueda = $_GET['query'];
+        $posts = Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
+    }
+    
+    foreach($posts as $post){
+        $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
+                                  $post->getTexto(), $post->getId(), $_SESSION['username']);
+    }
+    $html .= "</section>";
+
+    return $html;
+}
+
+function displayOrders($user){
+
+    $html =<<<EOS
+    <section class= 'publicaciones_perfil'> 
+    <div class='lista_pedidos'>
+        PEDIDOS
+    </div>
+    EOS;
+
+
+    return $html;
+}
+
+function displayProducts($user){
+    $productos= showProductsArtista($user->getUsername()); 
+    $html =<<<EOS
+        $productos
+    EOS; 
+
+    return $html;
+}
+
+function displayMusic($user){
+
+    $username = $user->getUsername();
+    
+    $html =<<<EOS
+    <div class='lista_musica'>
+        MUSICA DEL ARTISTA $username
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayFollowButton($user, $text, $following){
+
+    $username = $user->getUsername();
 
     $rutaSeguimiento = HELPERS_PATH . '/ProcesarSeguimiento.php'; 
     $rutaRetorno = VIEWS_PATH . '/perfil/Perfil.php';
@@ -130,8 +246,9 @@ function displayFollowButton($username, $text, $following){
     return $html;
 }
 
-function displayUserImage($image){
+function displayUserImage($user){
 
+    $image = $user->getPhoto();
     $profile_image_path = IMG_PATH . '/profileImages/' . $image;
 
     $html =<<<EOS
@@ -143,8 +260,10 @@ function displayUserImage($image){
     return $html;
 }
 
-function displayNickname($nickname){
+function displayNickname($user){
     
+    $nickname = $user->getNickname();
+
     $html =<<<EOS
     <div class='user_nickname'>
         <p> $nickname </p>
@@ -154,7 +273,9 @@ function displayNickname($nickname){
     return $html;
 }
 
-function displayUsername($username){
+function displayUsername($user){
+
+    $username = $user->getUsername();
 
     $html =<<<EOS
     <div class='user_username'>
@@ -165,7 +286,9 @@ function displayUsername($username){
     return $html;
 }
 
-function displayCredit($credit){
+function displayCredit($user){
+
+    $credit = $user->getKarma();
 
     $html =<<<EOS
     <div>
@@ -176,7 +299,9 @@ function displayCredit($credit){
     return $html;
 }
 
-function displayBirthday($birthday){
+function displayBirthday($user){
+
+    $birthday = $user->getBirthdate();
 
     $html =<<<EOS
     <div class='user_birthday'>
@@ -187,7 +312,9 @@ function displayBirthday($birthday){
     return $html;
 }
 
-function displayUserDescription($desc){
+function displayUserDescription($user){
+
+    $desc = $user->getDescrip();
 
     $html =<<<EOS
     <div class='user_desc'>
@@ -210,20 +337,6 @@ function displaySettingsOption(){
     EOS;
 
     return $boton_ajuste;
-}
-
-function displayShopLink($artist){
-
-    $shop_name = 'Tienda: ' . $artist->getUsername();
-    $shop_link = VIEWS_PATH . '/tienda/MiTiendaVista.php';
-
-    $html =<<<EOS
-    <div class='shop_link'>
-        <a href='$shop_link'> $shop_name </a>
-    </div>
-    EOS;
-
-    return $html;
 }
 
 function displayFollowersAndFollowed($user){
@@ -268,19 +381,98 @@ function displayFollowing($user){
     return $html;
 }
 
-function displayFavoritePostsButton($user, $favs){
+function displayPostsButton($user){
 
     $username = $user->getUsername();
-    $view_path = VIEWS_PATH . '/perfil/Favoritos.php';
+    $value = POSTS_VIEW;
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
+
+    $html =<<<EOS
+    <div class='opcion_posts'>
+    <form action=$view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
+        <input type='hidden' name='opcion' value='$value'>
+        <button type='submit'> Posts </button>
+    </form>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayFavoritePostsButton($user){
+
+    // Sin usar ahora pero util para mostrar favoritos de otros usuarios en el futuro
+    $username = $user->getUsername();
+    $value = FAVS_VIEW;
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
 
     $html =<<<EOS
     <div class='opcion_favoritos'>
-    <form action='$view_path' method='post'>
-        <input type='hidden' name='user' value='$username'>
-        <input type='hidden' name='favs' value='$favs'>
+    <form action=$view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
+        <input type='hidden' name='opcion' value='$value'>
         <button type='submit'> Favs </button>
     </form>
-    </div>  
+    </div>
     EOS;
+
+    return $html;
+}
+
+function displayMusicButton($user){
+
+    $username = $user->getUsername();
+    $value = MUSIC_VIEW;
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
+
+    $html =<<<EOS
+    <div class='opcion_musica'>
+    <form action=$view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
+        <input type='hidden' name='opcion' value='$value'>
+        <button type='submit'> Musica </button>
+    </form>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayShopButton($user){
+
+    $username = $user->getUsername();
+    $value = PRODUCTS_VIEW;
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
+
+    $html =<<<EOS
+    <div class='opcion_tienda'>
+    <form action= $view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
+        <input type='hidden' name='opcion' value='$value'>
+        <button type='submit'> Tienda </button>
+    </form>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayOrdersButton($user){
+
+    $username = $user->getUsername();
+    $value = ORDERS_VIEW;
+    $view_path = VIEWS_PATH . '/perfil/Perfil.php';
+
+    $html =<<<EOS
+    <div class='opcion_pedidos'>
+    <form action= $view_path method='get'>
+        <input type= 'hidden' name= 'user' value= '$username'>
+        <input type='hidden' name='opcion' value='$value'>
+        <button type='submit'> Pedidos </button>
+    </form>
+    </div>
+    EOS;
+
     return $html;
 }
