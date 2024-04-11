@@ -70,7 +70,7 @@ $parametros['email'] = $email;
 $parametros['birthdate'] = $birthdate;
 $parametros['isArtist'] = $isArtist;
 $parametros['artist_members'] = $artist_members;
-$parametros['profile_image'] = $archivo_nombre;
+$parametros['profile_image'] = $profile_image;
 
 // Crear usuario
 $usuario = Usuario::createUser($parametros);
