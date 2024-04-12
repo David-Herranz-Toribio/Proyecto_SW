@@ -208,66 +208,6 @@ function showProductsArtista($yoYYoMismo){
     return $content;
 }
 
-function showHistorialPedidos($id_user){
-    
-    /*Sacar de la BD los pedidos ya procesados */ 
-    $pedidos= Pedido:: buscarHistorialPedidos($id_user);  
-    $lista= ''; 
-
-
-    foreach($pedidos as $pedido){
-        $lista.= "<article class= 'estiloPed'>";
-        $id_ped= $pedido->getId(); 
-        $productos=  Producto::obtenerProductosDePedido($id_ped);
-        $lista.= "<h3> Ident. Pedido: $id_ped </h3>";     
-
-        foreach($productos as $producto) {
-            $lista .= "<div class= 'estiloProd'>"; 
-
-            $id_prod=  $producto->getId(); 
-            $name_prod= $producto->getNombre(); 
-            $desc_prod= $producto->getDescripcion(); 
-            $autor_prod= $producto->getAutor(); 
-            $img_prod= $producto->getImagen(); 
-            $cantidad_prod= $producto->getCantidadPP(); 
-            $precio_prod=  $producto->getPrecio();                               
-            $total= $cantidad_prod * $precio_prod;
-
-            $rutaProdImg = IMG_PATH .  '/prodImages/'.$img_prod;
-            $rutaProducto = VIEWS_PATH . '/tienda/ProductoVista.php';
-            $rutaArtista = VIEWS_PATH . '/perfil/Perfil.php';
-
-
-
-            $lista.= <<<EOS
-            <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
-            <p>$name_prod</p>
-            <div>
-            <a href= "$rutaArtista?user=$autor_prod" name= "prod" >
-              <p>Creador: @$autor_prod</p>
-            </a>
-             </div>
-
-
-             <div class="prod_precio">
-             <p> Cantidad: $cantidad_prod unidades</p>
-             <p> Total: $total &#9834</p>
-             </div>
-            EOS; 
-
-            $lista .= "</div>"; 
-        }
-
-        $lista .= "</article>"; 
-    }
-
-    $lista.= "</section>";  
-
-
-    return $lista; 
-}
-
-
 function showCarrito($user){
     $rutaComprar = HELPERS_PATH . '/ProcesarCompra.php';
     $acum_precio = 0;
