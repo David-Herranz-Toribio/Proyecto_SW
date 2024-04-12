@@ -4,13 +4,15 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
 
 
-$perfil= Usuario::buscaUsuario($_SESSION['username']); 
+$perfil = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
+
 
 $act_nickname = $perfil->getNickname(); 
 $act_username = $perfil->getUsername(); 
 $act_descr = $perfil->getDescrip(); 
 $act_email = $perfil->getEmail();
 $act_password = $perfil->getPassword();  
+$image = $perfil->getPhoto();  
 $rutaMod = HELPERS_PATH . '/ModificarPerfilHelper.php'; 
 $rutaDel = HELPERS_PATH . '/ProcesarEliminarUsuario.php'; 
 $link = VIEWS_PATH . '/log/Logout.php';
@@ -23,7 +25,7 @@ $form_modificar= <<<EOS
     <section class= "formulario_style">
     <fieldset class= "formRegistro">
     <legend> Modifica tu cuenta </legend> 
-        <form action= $rutaMod method="post">
+        <form action= $rutaMod method="post"enctype = "multipart/form-data">
             <input hidden name="id_user" value= "$act_username">
              
             <input hidden name="isArtist" value="0"> 
@@ -44,6 +46,8 @@ $form_modificar= <<<EOS
             
             <input type="password" name="modify_password">
 
+            <label> Modificar foto de perfil </label>
+                <input type = "file" name = "image" accept = "image/*">
                 
             <button type="submit" name="register_button" > Modificar </button>
         </form>
@@ -59,6 +63,24 @@ $cambio_modo= <<<EOS
 <p></p>
 </section> 
 EOS; 
+
+
+$profile_image_path = IMG_PATH . '/profileImages/' . $image;
+
+
+$titulo =<<<EOS
+<div class='user_image'>
+    Ajuste de perfil
+</div>
+EOS;
+
+$FotoPerfil =<<<EOS
+<div class='user_image'>
+    <img src='$profile_image_path' height='100px' width='100px'>
+</div>
+EOS;
+
+
 
 
 $funcion_eliminar = <<<EOS
@@ -80,15 +102,12 @@ $funcion_eliminar = <<<EOS
 EOS; 
 
 $content= <<<EOS
-    $form_modificar
+    $FotoPerfil
     $funcion_eliminar
+    $form_modificar
 EOS; 
 
 
 require_once LAYOUT_URL; 
-
-
-
-
 
 

@@ -10,8 +10,8 @@ if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
 if($user){
-    $post = Post::buscarPostPorID($id);
-    Post::borrarPost($post);
+    $post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
+    $post->borrarPost();
 }
 
 header('Location:'. VIEWS_PATH .'/foro/Foro.php');

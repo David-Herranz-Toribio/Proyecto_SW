@@ -1,6 +1,7 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once 'BD.php';
+require_once 'Aplicacion.php';
 
 
 class Producto{
@@ -36,7 +37,7 @@ class Producto{
     public static function obtenerProductosDeArtista($username){
 
         $result = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf( "SELECT * FROM producto P WHERE P.id_artista = '%s'", $username);
         $rs = $conection->query($query);
         
@@ -51,7 +52,7 @@ class Producto{
 
     public static function obtenerProductoporId($id){
         $result = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM producto WHERE id_prod = ". $id;
         $rs = $conection->query($query);
         
@@ -66,7 +67,7 @@ class Producto{
 
     public static function obtenerListaDeProductos(){
         $result = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM producto";
         $rs = $conection->query($query);
         
@@ -81,7 +82,7 @@ class Producto{
 
     public static function obtenerProductosDePedido($id){
         $result = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf( "SELECT * FROM producto P JOIN pedido_prod PP ON P.id_prod = PP.id_prod WHERE PP.id_pedido = %d", $id);
         $rs = $conection->query($query);
         
@@ -98,7 +99,7 @@ class Producto{
 
     public static function buscarProductoPorID($id){
 
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM producto P WHERE P.id_prod = %d",  $id);
         $rs = $conection->query($query);
        
@@ -127,7 +128,7 @@ class Producto{
 
         
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("DELETE FROM producto WHERE id_prod = %d", $this->id);
 
 
@@ -143,7 +144,7 @@ class Producto{
     public static function inserta($producto){
 
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
 
         $query = sprintf(
             "INSERT INTO producto (nombre, descripcion, imagen, id_artista, stock, precio)
@@ -170,7 +171,7 @@ class Producto{
 
     public static function actualiza($producto){
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
     
         $query = sprintf(
             "UPDATE producto SET nombre = '%s', descripcion = '%s', imagen = '%s', stock = %d, precio = %f WHERE id_prod = %d",

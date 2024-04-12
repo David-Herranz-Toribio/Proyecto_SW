@@ -1,6 +1,7 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once 'BD.php';
+require_once 'Aplicacion.php';
 require_once 'Usuario.php';
 require_once HELPERS_URL . '/PostHelper.php';
 
@@ -36,7 +37,7 @@ class Post{
     public static function obtenerPostsDeUsuario($username){
 
         $result = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf( "SELECT * FROM post P WHERE P.id_user = '%s' ORDER BY P.fecha DESC", $username);
         $rs = $conection->query($query);
         
@@ -51,7 +52,7 @@ class Post{
     public static function obtenerPostsFavPorUser($username){
 
         $result = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT P.id_post, P.id_user AS post_user, P.texto, P.imagen, P.likes, P.origen, P.tags, P.fecha FROM post P 
                           JOIN postfav F ON P.id_post = F.id_post WHERE F.id_user = '%s' ORDER BY P.fecha DESC",
                          $username);
@@ -69,7 +70,7 @@ class Post{
     public static function obtenerListaDePosts($origen_aux = 'NULL'){
 
         $post = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
 
         if($origen_aux == 'NULL')
             $operation = 'IS';
@@ -90,7 +91,7 @@ class Post{
     public static function buscarPostPorUsuario($user){
 
         $result = [];
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM post P JOIN usuario U ON P.id_user = U.id_user WHERE U.id_user = '%s';", $user); 
         $rs = $conection->query($query);
 
@@ -137,7 +138,7 @@ class Post{
     public static function likeAsignado($id, $user){
 
         $result = true ;
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM postfav P WHERE P.id_post  = %d AND P.id_user  = '%s'",$id , $user);
         $rs = $conection->query($query);
 
@@ -152,10 +153,11 @@ class Post{
 
     public static function buscarPostPorID($id){
 
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM post P WHERE P.id_post = %d",  $id);
         $rs = $conection->query($query);
-       
+        $result = NULL;
+
         while($fila = $rs->fetch_assoc()){
             $result = new Post($fila['id_post'],$fila['id_user'], $fila['texto'], $fila['imagen'], $fila['likes'], $fila['origen'],$fila['tags'],  $fila['fecha']);
         }
@@ -167,7 +169,7 @@ class Post{
     public static function insertaFav($post, $user){
 
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO postfav (id_post,id_user) VALUES (%d, '%s')",
             $post->id,
@@ -185,7 +187,7 @@ class Post{
     public static function borraFav($post, $user){
 
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "DELETE FROM postfav WHERE (id_post = %d AND id_user = '%s')",
             $post->id,
@@ -199,13 +201,13 @@ class Post{
 
         return $result;
     }
-    public static function borrarPost($post){
+    public function borrarPost(){
 
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "DELETE FROM post WHERE (id_post = %d)",
-            $post->id,
+            $this->id,
         );
         echo $query;
 
@@ -219,7 +221,7 @@ class Post{
     private static function inserta($post){
 
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO post (id_user, texto, imagen, likes, origen, tags, fecha)
                        VALUES ('%s','%s','%s', %d, %s, '%s', '%s')",
@@ -246,7 +248,7 @@ class Post{
 
     public static function actualizar($post){
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
     
         $query = sprintf(
             "UPDATE post SET texto = '%s', imagen = '%s', likes = %d, tags = '%s', fecha = '%s' WHERE id_post = %d",

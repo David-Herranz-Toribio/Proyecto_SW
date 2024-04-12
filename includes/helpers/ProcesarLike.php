@@ -9,27 +9,23 @@ $user = null;
 if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
-//Check credentials
-$isValid = true;
-
 //Log usear or ask again for his account
-if($isValid && $user){
+if($user){
     //añadir like BD
     $aux = 1;
-    $post = Post::buscarPostPorID($id);
+    $post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
     
-    if(Post::likeAsignado($id,$user)){
+    if(es\ucm\fdi\aw\Post::likeAsignado($id,$user)){
         $aux = -1;
-        Post::borraFav($post, $user);
+        es\ucm\fdi\aw\Post::borraFav($post, $user);
     }else
-        Post::insertaFav($post, $user);
+    es\ucm\fdi\aw\Post::insertaFav($post, $user);
     
-    $usuario = Usuario::buscaUsuario($post->getAutor());
+    $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($post->getAutor());
     $usuario->aumentaKarma($aux);
-    Usuario::actualiza($usuario);
-    
+    $usuario->actualiza();
     $post->aumentaLikes($aux);
-    Post::actualizar($post);
+    es\ucm\fdi\aw\Post::actualizar($post);
 }
 
 header('Location: ' . VIEWS_PATH . '/foro/Foro.php');

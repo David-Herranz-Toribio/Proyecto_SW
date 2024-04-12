@@ -77,8 +77,10 @@
 -Las opciones del perfil, que sean desplegables❌
 -Quitar <br> en PostHelper.php (creacionPostHTML, responder)
 
---HOY--
+----------------------------------------------------------- ULTIMOS CAMBIOS -----------------------------------------------------------
 -Botones de vistas en perfil (Óscar)✅
--Boton tienda del perfil muestra datos❌
--Boton pedidos del perfil muestra datos❌
+-Boton tienda del perfil muestra datos✅
+-Boton pedidos del perfil muestra datos✅
+-Implementación de namespaces✅
+-Actualizar pull requests del profesor sobre la práctica2✅
 -CSS para cambiar preferencias❌

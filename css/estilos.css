@@ -14,7 +14,7 @@ div.container{
 	width: 100%;
 	height: 100vh;
 	display: grid;
-	grid-template-columns: minmax(150px, 10%) 1fr;
+	grid-template-columns: minmax(100px, 10%) 1fr;
 	grid-template-rows: 10% auto;
 	grid-template-areas: 
 	"cabecera cabecera"
@@ -169,7 +169,25 @@ article.estiloPost div.botones_mensaje {
 	display: flex;
 	padding: 1%;
 }
+.estiloPed{
+    justify-content: space-around;
+}
 
+.estiloPedido{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+    justify-content: flex-end;
+
+	position: relative;
+	overflow-x:auto;
+	max-width: 55%;
+	min-width: 80px;
+}
+.estiloProd{
+	padding: 1%;
+	margin: 1%;
+}
 .user_info{
 	display: flex;
 
@@ -252,7 +270,7 @@ section.datos_perfil button {
 
 div.user_image img {
 	border-radius:150px;
-	border:5px solid white;
+	border:3px solid white;
 }
 
   /*Estilo de la pagina de ajustes*/
@@ -264,6 +282,34 @@ section.botonesEstilo {
 	grid-row-start: 2;
 }
 
+
+.settingsProfile {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    grid-area: cabecera;
+}
+
+.foto_perfil,
+.contenedor_texto,
+.eliminar_cuenta {
+    flex: 1; /* Para que cada div ocupe el mismo espacio */
+    text-align: center; /* Alineación de texto centrada */
+	padding-right: 20%;
+}
+
+.estiloPed div.prod_info{
+	display: flex;
+	flex-direction: column;
+	align-items:baseline;
+	width: auto;
+	word-break: keep-all;
+
+}
 /*Estilo de la pagina de tienda */
 .prod_info a{
 	text-decoration: none;

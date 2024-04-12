@@ -1,6 +1,7 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once 'BD.php';
+require_once 'Aplicacion.php';
 require_once 'Post.php';
 
 class Usuario{
@@ -53,8 +54,8 @@ class Usuario{
         
         
         // Obtener fecha actual
-        $fecha_actual = new DateTime();
-        $birthdate = new DateTime($birthdate);
+        $fecha_actual = new \DateTime();
+        $birthdate = new \DateTime($birthdate);
 
         // Obtener un entero a partir de la fecha
         $fecha_num = intval(date("Ymd", strtotime($fecha_actual->format('Y-m-d'))));
@@ -97,7 +98,7 @@ class Usuario{
         $artist_members = $parametros['artist_members'];
         $profile_image = $parametros['profile_image'];
 
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $nullv = null;
         $karma = 0;
         $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
@@ -123,10 +124,10 @@ class Usuario{
             error_log("Error BD ({$conection->errno}): {$conection->error}");
     }
 
-    public static function actualiza($user){
+    public function actualiza(){
         
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         
         $query = sprintf(
             "UPDATE usuario SET
@@ -138,14 +139,14 @@ class Usuario{
                 fecha = '%s',
                 correo = '%s'
             WHERE id_user = '%s'",
-                $conn->real_escape_string($user->nickname),
-                $conn->real_escape_string($user->password), 
-                $conn->real_escape_string($user->fotopath),
-                $conn->real_escape_string($user->desc),
-                $user->karma,
-                $user->birthdate,            
-                $conn->real_escape_string($user->email),
-                $conn->real_escape_string($user->username)
+                $conn->real_escape_string($this->nickname),
+                $conn->real_escape_string($this->password), 
+                $conn->real_escape_string($this->fotopath),
+                $conn->real_escape_string($this->desc),
+                $this->karma,
+                $this->birthdate,            
+                $conn->real_escape_string($this->email),
+                $conn->real_escape_string($this->username)
         );
         $result = $conn->query($query);
 
@@ -159,7 +160,7 @@ class Usuario{
 
     public static function deleteUser($username) {
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         
         $query = "DELETE FROM usuario WHERE id_user = '$username'";
         $result = $conn->query($query);
@@ -194,7 +195,7 @@ class Usuario{
         $seguidor= $this->getUsername(); 
         $result= false; 
 
-        $conn= BD::getInstance()->getConexionBd();
+        $conn= Aplicacion::getInstance()->getConexionBd();
 
         $query = sprintf("INSERT INTO seguidores(id_user, id_seguidor) VALUES"); 
         $values= "('$user_a_seguir', '$seguidor'); "; 
@@ -213,7 +214,7 @@ class Usuario{
         
         $result = true; 
         $seguidor = $this->getUsername(); 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
 
         $query = sprintf("SELECT * FROM seguidores WHERE id_user= '%s' AND id_seguidor= '%s'", $user, $seguidor); 
         $rs = $conn->query($query); 
@@ -230,7 +231,7 @@ class Usuario{
         $seguidor = $this->getUsername(); 
         $result = false; 
 
-        $conn= BD::getInstance()->getConexionBd();
+        $conn= Aplicacion::getInstance()->getConexionBd();
 
         $query = sprintf("DELETE FROM seguidores WHERE (id_user = '%s' AND id_seguidor= '%s')", 
         $user_siguiendo, 
@@ -268,7 +269,7 @@ class Usuario{
     //Comprueba si el usuario se trata de un artista 
     public static function esArtista($id_u) {
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
         $rs = $conn->query($query);  
 
@@ -286,7 +287,7 @@ class Usuario{
 
     public static function compruebaUsuario($username, $correo){
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario U WHERE U.id_user = '%s' OR U.correo = '%s'", $username, $correo); 
         $rs = $conn->query($query); 
         $result = false; 
@@ -323,7 +324,7 @@ class Usuario{
     //Metodo que busca en la base de datos un usuario por su nombre 
     public static function buscaUsuario($username){
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario U WHERE U.id_user= '%s'", $username); 
         $rs = $conn->query($query); 
         $result = false; 
@@ -358,7 +359,7 @@ class Usuario{
 
     public static function buscaNicknameBD($nickname){
         
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario U WHERE U.nickname= '%s'", $nickname); 
         if( $conn->query($query) )
             return true;
@@ -368,7 +369,7 @@ class Usuario{
 
     public static function buscaEmailBD($email){
     
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario U WHERE U.correo= '%s'", $email);
         $rs = $conn->query($query);
         $fila = $rs->fetch_assoc();
@@ -380,7 +381,7 @@ class Usuario{
 
     public static function buscaFechaBD($fecha){
     
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario U WHERE U.correo= '%s'", $fecha); 
         if( $conn->query($query) )
             return true;
@@ -427,6 +428,10 @@ class Usuario{
 
     public function setNickname($new_nickname){
         $this->nickname = $new_nickname; 
+    }
+
+    public function setPhoto($new_photo){
+        $this->fotopath = $new_photo;
     }
 
     public function setEmail($new_email){

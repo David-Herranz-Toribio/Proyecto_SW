@@ -10,15 +10,15 @@ $username = htmlspecialchars($_POST['username']);
 $password = $_POST['password'] ?? null;
 
 //Comprobar credenciales
-$isValid = Usuario::login($username, $password);
+$isValid = es\ucm\fdi\aw\Usuario::login($username, $password);
 
 //Iniciar sesion o pedir de nuevo la cuenta
 if($isValid){
     $_SESSION['username'] = $username;
     $_SESSION['login'] = true;
-    $_SESSION['isArtist'] = Usuario::esArtista($username);
+    $_SESSION['isArtist'] = es\ucm\fdi\aw\Usuario::esArtista($username);
     
-    $num = Pedido::numProdporUserPP($username);
+    $num = es\ucm\fdi\aw\Pedido::numProdporUserPP($username);
     if($num)
         $_SESSION['notif_prod'] = $num;
     

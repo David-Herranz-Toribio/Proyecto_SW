@@ -4,7 +4,7 @@ require_once '../../Config.php';
 
 function generatePostPublicationHTML($id_padre = 'NULL'){
 
-    $ruta = VIEWS_PATH . '/foro/Addforo.php';
+    $ruta = VIEWS_PATH . '/foro/AddForo.php';
 
     $html =<<<EOS
     <fieldset>

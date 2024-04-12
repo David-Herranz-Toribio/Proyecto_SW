@@ -1,6 +1,7 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once 'BD.php';
+require_once 'Aplicacion.php';
 
 class Pedido{
 
@@ -26,7 +27,7 @@ class Pedido{
 
     public static function buscarPedidoPorUser($id){
 
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM pedido P WHERE P.id_user = '%s' AND P.estado = 'En proceso'" ,  $id);
         $rs = $conection->query($query);
         
@@ -42,8 +43,9 @@ class Pedido{
         return $result;
     }
     
+
     public static function buscarHistorialPedidos($id_user){
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM pedido P WHERE P.id_user = '%s' AND P.estado = 'Procesado'" ,  $id_user);
         $rs = $conection->query($query);
         
@@ -58,9 +60,10 @@ class Pedido{
 
 
 
+
     public static function actualiza($pedido){
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
     
         $query = sprintf(
             "UPDATE pedido SET  estado = '%s', total = %f, fecha = '%s' WHERE id_pedido = %d",
@@ -84,7 +87,7 @@ class Pedido{
     public static function inserta($pedido){
 
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO pedido (id_user, estado, total, fecha) VALUES ('%s', '%s', %d, '%s')",
             $pedido->autor,
@@ -107,9 +110,10 @@ class Pedido{
 
 
     public static function quitarProductoPP($producto, $id_pedido){
+
         $id_prod = $producto->getId();
         $cantidad = self::consultaPP($id_pedido, $id_prod);
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $result = false;
 
         if($cantidad == 1){
@@ -130,7 +134,7 @@ class Pedido{
 
     public static function insertaPP($id_ped, $id_prod, $cant){
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO pedido_prod (id_pedido, id_prod, cantidad) VALUES (%d, %d, %d)",
             $id_ped, 
@@ -148,7 +152,7 @@ class Pedido{
     //Busca en la tabla pedido_prod un pedido y un producto con ids y si lo encuentra devuelve la cantidad de productos asignados
     public static function consultaPP($id_ped, $id_prod){
 
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM pedido_prod P WHERE P.id_pedido = %d AND P.id_prod = %d", $id_ped, $id_prod);
         $rs = $conection->query($query);
         
@@ -165,7 +169,7 @@ class Pedido{
 
     public static function numProdporUserPP($username){
 
-        $conection = BD::getInstance()->getConexionBd();
+        $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT COUNT(*) AS num FROM pedido_prod PP JOIN pedido P ON PP.id_pedido = P.id_pedido WHERE P.id_user = '%s' AND P.estado = 'En proceso'", $username);
         $rs = $conection->query($query);
         
@@ -181,8 +185,9 @@ class Pedido{
     }
     
     public static function actualizaPP($id_ped, $id_prod, $cant){
+        
         $result = false;
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
     
         $query = sprintf(
             "UPDATE pedido_prod SET cantidad = %d WHERE id_pedido = %d AND id_prod = %d",

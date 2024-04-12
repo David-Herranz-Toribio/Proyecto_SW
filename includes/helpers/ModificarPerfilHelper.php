@@ -9,7 +9,26 @@ $email = htmlspecialchars($_POST['modify_email']);
 
 $password = $_POST['modify_password'];
 
-$usu_mod= Usuario::buscaUsuario($id_user); 
+$usu_mod= es\ucm\fdi\aw\Usuario::buscaUsuario($id_user); 
+
+if ($_FILES['image']['name'] != ''){
+    $archivo_nombre = $_FILES['image']['name'];
+    $archivo_tipo = $_FILES['image']['type'];
+    $archivo_tamaño = $_FILES['image']['size'];
+    $archivo_temporal = $_FILES['image']['tmp_name'];
+
+    $directorio_destino = IMG_URL . '/profileImages/';
+
+    //Nombre con extension
+    $ultimo_punto = strrpos($archivo_nombre, '.');
+    $extension = substr($archivo_nombre, $ultimo_punto + 1);
+    $profile_image = uniqid() . '.' . $extension;
+
+    //Ruta de guardado
+    $ruta_destino = $directorio_destino . $profile_image;
+    move_uploaded_file($archivo_temporal, $ruta_destino);
+    $usu_mod->setPhoto($profile_image);
+}
 if($nickname) $usu_mod->setNickname($nickname);
 
 if($descripcion) $usu_mod->setDescrip($descripcion); 
@@ -21,6 +40,6 @@ if($password){
     $usu_mod->setPassword($password);
 } 
 
-Usuario:: actualiza($usu_mod); 
+$usu_mod->actualiza(); 
 
 header('Location: '. VIEWS_PATH .'/perfil/Perfil.php'); 

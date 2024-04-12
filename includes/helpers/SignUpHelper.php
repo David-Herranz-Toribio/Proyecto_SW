@@ -1,15 +1,5 @@
 <?php
 
-function generateUserImage(){
-    
-    $iconImage = IMG_PATH . '/RegisterUserImage.png';
-    $image =<<<EOS
-        <img src="$iconImage" alt="foto de perfil" height="200" width="200">
-    EOS;
-
-    return $image;
-}
-
 function generateArtistAccountLink(){
 
     $enlace = VIEWS_PATH . '/log/SignUpArtist.php';
@@ -128,7 +118,7 @@ function generateFormularyArtist($errores){
     $form =<<<EOS
     <fieldset class= "formRegistro">
         <legend> Registra tu nueva cuenta de artista </legend> 
-        <form action= $enlace method="post">
+        <form action=$enlace method="post"enctype = "multipart/form-data">
         
             <input hidden name="isArtist" value="1"> 
             <label> Nickname </label>
@@ -182,6 +172,9 @@ function generateFormularyArtist($errores){
 
             <p></p>
 
+            <label> Foto de perfil </label>
+            <p></p>
+                <input type = "file" name = "image" accept = "image/*">
             <button type="submit" name="register_button" > Sign In </button>
         </form>
     </fieldset>

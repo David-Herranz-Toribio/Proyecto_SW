@@ -9,7 +9,7 @@ if(isset($_SESSION['username'])){
 
     $usuario = $_GET["user"] ?? $_SESSION['username'];
     $opcion = $_GET['opcion'] ?? NULL;
-    $user = Usuario::buscaUsuario($usuario);
+    $user = es\ucm\fdi\aw\Usuario::buscaUsuario($usuario);
     $content = showProfile($user, $opcion);
 }
 else{
