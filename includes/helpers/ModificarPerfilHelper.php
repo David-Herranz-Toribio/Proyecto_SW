@@ -40,6 +40,6 @@ if($password){
     $usu_mod->setPassword($password);
 } 
 
-es\ucm\fdi\aw\Usuario::actualiza($usu_mod); 
+$usu_mod->actualiza(); 
 
 header('Location: '. VIEWS_PATH .'/perfil/Perfil.php'); 
