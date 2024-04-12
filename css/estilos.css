@@ -321,7 +321,6 @@ section.botonesEstilo {
 /*Referente al estilo de los formularios*/ 
 
 section.formulario_style{
-	grid-row-start: 1;
 	grid-column-start: 2;
 	display: flex;
 	/*background-color: #120118;*/

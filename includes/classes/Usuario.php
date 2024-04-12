@@ -166,19 +166,7 @@ class Usuario{
         
         if (!$result) {
             error_log($conn->error);
-        } else {
-            $query = "DELETE FROM artista WHERE id_artista = '$username'";
-            $result = $conn->query($query);
-            
-            if (!$result) {
-                error_log($conn->error);
-            } else {
-                // Aqui se comprueba si se elimina correctamente un registro
-                if ($conn->affected_rows != 1) {
-                    error_log("Se han eliminado '$conn->affected_rows' registros");
-                }
-            }
-        }
+        } 
         return $result;
     }    
 
@@ -381,7 +369,7 @@ class Usuario{
     public static function buscaFechaBD($fecha){
     
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario U WHERE U.correo= '%s'", $fecha); 
+        $query = sprintf("SELECT * FROM usuario U WHERE U.fecha= '%s'", $fecha); 
         if( $conn->query($query) )
             return true;
 

@@ -50,8 +50,6 @@ function generateFormularyUser($errores){
             <input required type="text" name= "new_nickname">
 
             <p></p>
-            <label> Foto de perfil </label> 
-            <input type = "file" name = "image" accept = "image/*">
             <label> Username (Ej: paco03) </label>
             <p></p> 
             <input required type="text" name="new_username">
@@ -126,8 +124,6 @@ function generateFormularyArtist($errores){
             <input required type="text" name= "new_nickname">
             
             <p></p> 
-            <label> Foto de perfil </label> 
-            <input type = "file" name = "image" accept = "image/*">
 
             <label> Username (Ej: paco03) </label>
             <p></p> 
