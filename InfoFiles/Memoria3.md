@@ -247,7 +247,12 @@
   * Incluir en Ajustes un boton de eliminar cuenta
   * Implementacion de barra de búsqueda
   * Implementacion de fotos de perfil visibles de usuario
-  * Logotipo a la izquierda del todo y el login/logout arriba
+  * Cabecera de la página 
+  * incluir 
+  * Cabecera de la página
+  * Cabecera de la página
+  * Cabecera de la página
+
 
 * Alonso
   * Mejora del css con uso de grid

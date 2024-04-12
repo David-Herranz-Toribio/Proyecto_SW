@@ -376,6 +376,23 @@ class Usuario{
         return false;
     }
 
+    public static function checkEmail($email){
+        $errores = [];
+        if( !filter_var($email, FILTER_VALIDATE_EMAIL) )
+            $errores['email_invalido'] = 'El email no es válido';
+        else if( self::buscaEmailBD($email) )
+            $errores['email_en_uso'] = 'El email ya está en uso';
+        return $errores;
+    }
+
+    public static function checkPassword($password_length){
+        $errores = [];
+        if( $password_length < 8 )
+            $errores['short_password'] = 'La contraseña debe tener al menos 8 caracteres';
+        return $errores;
+    }
+    
+
     public function aumentaKarma($num){
         $this->karma = $this->karma + $num;
     }

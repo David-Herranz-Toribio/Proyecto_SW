@@ -6,8 +6,9 @@ $id_user= $_POST['id_user'];
 $nickname = htmlspecialchars($_POST['modify_nickname']);
 $descripcion= htmlspecialchars($_POST['modify_descrip']); 
 $email = htmlspecialchars($_POST['modify_email']);
-
+$password_length = strlen($_POST['modify_password']);
 $password = $_POST['modify_password'];
+
 
 $usu_mod= es\ucm\fdi\aw\Usuario::buscaUsuario($id_user); 
 
@@ -29,6 +30,26 @@ if ($_FILES['image']['name'] != ''){
     move_uploaded_file($archivo_temporal, $ruta_destino);
     $usu_mod->setPhoto($profile_image);
 }
+$isArtist = 0;
+
+if($usu_mod->getEmail() != $email) {
+    $errors = es\ucm\fdi\aw\Usuario::checkEmail($email);
+    if( !empty($errors) ) {
+        $_SESSION['error'] = $errors;
+        header('Location: ' . VIEWS_PATH . '/perfil/AjustePerfil.php');
+        exit();
+    }
+}
+
+if($password_length > 0) {
+    $errors = es\ucm\fdi\aw\Usuario::checkPassword($password_length);
+    if( !empty($errors) ) {
+        $_SESSION['error'] = $errors;
+        header('Location: ' . VIEWS_PATH . '/perfil/AjustePerfil.php');
+        exit();
+    }
+}
+
 if($nickname) $usu_mod->setNickname($nickname);
 
 if($descripcion) $usu_mod->setDescrip($descripcion); 
