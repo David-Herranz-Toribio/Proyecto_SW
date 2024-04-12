@@ -1,4 +1,3 @@
------------------------------------------------- COSAS PARA SEMANA SANTA----------------------------------------------------
 -IMPORTANTE: EMPEZAR A CORREGIR FORMULARIOS SIN VALIDACION (no comprobamos nunca si está bien) (David)✅
 -Imagenes ($_FILES, subir archivos etc...) (David)✅
 -UTILIZAR GRID EN CSS (Alonso y Ignacio)✅
@@ -46,7 +45,6 @@
 -Añadir reglas @media en CSS para que se vea bien en movil❌
 -Reorganización de carpetas (Óscar)✅
 
------------------------------------------------- Rutas y correccion de la P2 ------------------------------------------------
 -Likes ✅
 -Posts ✅
 -Respuestas ✅
@@ -55,8 +53,6 @@
 -Quitar las etiquetas style de la pagina (Alonso)✅
 -Usar etiquetas en lugar de clases ✅
 
-
------------------------------------------------------------ Ideas -----------------------------------------------------------
 -ScrollBar en el desplegable de géneros musicales (SignUpHelper.php)✅
 -Respuestas sean desplegables ✅
 -Respuestas, eliminaciones y modificaciones en cada mensaje ✅
@@ -69,7 +65,6 @@
 -En lugar de tener muchos parametros en constructores podemos utilizar un array de posiciones (Óscar)✅
 
 
---------------------------------------------------------CSS--------------------------------
 -Logotipo a la izquierda del todo y el login/logout arriba (Ignacio)✅
 -El sidebar que ocupe toda la columna ✅
 -Mantener la posición del sidebar independientemente del lugar ✅
@@ -80,7 +75,6 @@
 -Las opciones del perfil, que sean desplegables❌
 -Quitar <br> en PostHelper.php (creacionPostHTML, responder)
 
------------------------------------------------------------ ULTIMOS CAMBIOS -----------------------------------------------------------
 -Botones de vistas en perfil (Óscar)✅
 -Boton tienda del perfil muestra datos✅
 -Boton pedidos del perfil muestra datos✅
