@@ -93,7 +93,6 @@ class Usuario{
         $karma =  $parametros['karma'];
         $artist = $parametros['isArtist'];
         $birth = $parametros['birthdate'];
-        $foto= $parametros['pefil_img']; 
 
         $artist_members = $parametros['artist_members'];
         $profile_image = $parametros['profile_image'];

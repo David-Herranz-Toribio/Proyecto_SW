@@ -49,10 +49,12 @@ class Pedido{
         $query = sprintf("SELECT * FROM pedido P WHERE P.id_user = '%s' AND P.estado = 'Procesado'" ,  $id_user);
         $rs = $conection->query($query);
         
+        $result= NULL; 
         while($fila = $rs->fetch_assoc()){
             $result[]= self::crearPedido($fila['id_pedido'], $fila['id_user'], $fila['estado'],
                                         $fila['total'], $fila['fecha']); 
         }
+
         $rs->free();
         
         return $result; 
