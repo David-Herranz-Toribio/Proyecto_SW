@@ -55,7 +55,13 @@ $form_modificar= <<<EOS
     </section> 
 EOS; 
 
-$cambio_modo= <<<EOS
+
+
+ 
+/*
+    A implementar en la practica 3 
+
+$<cambio_modo= <<<EOS
 <section class= 'botonesEstilo'> 
 <button type= "button" onclick= "toClaro()"> Modo claro </button> 
 <button type= "button" onclick= "toOscuro()"> Modo oscuro </button> 
@@ -63,6 +69,7 @@ $cambio_modo= <<<EOS
 <p></p>
 </section> 
 EOS; 
+*/
 
 
 $profile_image_path = IMG_PATH . '/profileImages/' . $image;

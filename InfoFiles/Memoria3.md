@@ -3,18 +3,50 @@
 ## Funcionalidades implementadas
 
 ### Practica 2
-* Foro
+* Foro: Se puede publicar solo si estas logeado.
+        Modificar y eliminar tus post 
+        Responder y dar me gusta a post
+        Funcionalidad de karma (que sirve como 'moneda' en la tienda) que se va acumulando al participar en el foro 
+
+* Perfil: Podemos registrarnos e iniciar sesion.
+
+* Menu de navegacion en la parte izquierda 
 
 ### Practica 3
+* Sumadas a las de la practica 2  
 
-* Perfil
-* Tienda
+* Perfil: 
+          Hay una pagina unica por cada usuario registrado, en ella se encuentra 
+          -Datos personales como su nickname, username, descripcion etc... 
+          -Menu dentro del perfil donde se podran ver
+             -Sus post publicados 
+             -Los post a los que ha dado me gusta 
+             -Si es artista, podemos ver sus productos de la tienda.
+             -Si es tu perfil, puedes ver el historial de pedidos que ya has realizado. 
+             -Si es tu perfil, hay un boton que te lleva a una pagina de ajustes donde podras modificar tu perfil 
+             -Si es artista, puedes ver la musica que ha publicado (Todavia sin hacer).
 
+          -Puedes seguir a gente y que otra gente te siga. 
+
+
+* Tienda: Se puede comprar productos
+          Añadir productos, modificarlos o eliminarlos si estas registrado como artista 
+          Funcionalidad de carrito donde se van añadiendo los productos que compras en la tienda
+            -Si no tienes corcheas (otro nombre para el karma) no puedes comprar los productos que has añadido
+            -Aunque puedes ir eliminando productos del carro para reducir ese precio 
+
+
+
+          
+* Barra de busqueda en el foro donde puedes buscar un usuario especifico para el que quieras ver sus post  
+* En la tienda esta la misma barra, solo que se usa para buscar determinados productos (Ej: camiseta, poster etc...)
 
 ## Funcionalidad en proceso
 
-* Tercera
-
+* Ajustes: Cambiar la apariencia de la pagina 
+* Musica: Toda la funcionalidad 
+* Añadir a la Tienda entradas de eventos (ej: conciertos)
+* Suscripciones 
 
 ## Scripts de vistas
 
@@ -26,11 +58,11 @@
     * CrearPost.php
     * Foro.php
     * ModificarVista.php
-    * ResouestasForo.php
+    * RespuestasForo.php
 
 * Layout
     * Cabecera.php
-    * Footer.php
+    * Footer.php 
     * Layout.php
     * Sidebar.php
 
@@ -41,7 +73,7 @@
     * SignUpUser.php
 
 * Musica
-    * Musica.php
+    * Musica.php (Solo es un prototipo, aun no tiene funcionalidad)
 
 * Perfil
     * AjustePerfil.php
@@ -49,8 +81,8 @@
 
 * Tienda
     * Carrito.php
-    * Entradas.php
     * Merch.php
+    * MiTiendaVista.php
     * ProductoVista.php
 
 ## Scripts adicionales
@@ -63,17 +95,22 @@
     * BD.php
 
 * Helpers
-    * LoginHelper.php
-    * PostHelper.php
-    * SignUpHelper.php
-    * CabeceraSesion.php
-    * PostHelper.php
-    * CrearPostVista.php
-    * ProcesarLogin.php
-    * ProcesarRegistro.php
-    * ProcesarLike.php
-    * ProcesarModificacion.php
-    * ProcesarEliminar.php
+    * REFERENTES AL PERFIL
+       -LoginHelper.php
+       -SignUpHelper.php
+       -ProcesarLogin.php
+       -ProcesarRegistro.php
+
+    * REFERENTES AL FORO 
+      -PostHelper.php
+      -PostHelper.php
+      -CrearPostVista.php
+      -ProcesarLike.php
+      -ProcesarModificacion.php
+      -ProcesarEliminar.php
+    
+    * REFERENTES A LA CABECERA
+      -CabeceraSesion.php
 
 * Navegación
     * Config.php
@@ -83,19 +120,32 @@
     * Datos BD : 2melodyDatos.sql
 
 
-### Practica 3
+### Practica 3 
 
 * Clases
     * Pedido.php
     * Producto.php
+    * Aplicacion.php (La que en la Practica 2 era BD.php)
     
 * Helpers
-    * ModificarPerfilHelper.php
-    * PostHelper.php
-    * ProcesarProducto.php
-    * ProcesarCompra.php
-    * TiendaHelper.php
-    * ProcesarSeguimiento.php
+    * REFERENTES AL PERFIL
+      -ModificarPerfilHelper.php
+      -ProcesarSeguimiento.php
+      -ProcesarEliminarUsuario.php
+
+    * REFERENTES AL FORO 
+      -PostHelper.php
+
+    * REFERENTES A LA TIENDA  
+      -ElimCarrito.php
+      -ProcesarProducto.php
+      -ProcesarCompra.php
+      -TiendaHelper.php
+      -ProcesarTienda.php
+      -ProcesarElimProd.php
+
+    * REFERENTES A LA MUSICA
+      -MusicaHelper (Es un prototipo, aun no se termino de implementarse)
 
 
 ## Usuarios en la base de datos
@@ -139,12 +189,6 @@
 
 ### Practica 3
 
-- **evento** (`id_evento`, `id_artista`, `nombre`, `descripcion`, `fecha`)
-  - Esta tabla guarda información sobre los eventos organizados por los artistas, incluyendo el nombre, la descripción y la fecha del evento.
-
-- **evento_prod** (`id_evento`, `id_prod`)
-  - Relaciona los eventos con los productos relacionados con dichos eventos.
-
 - **seguidores** (`id_user`, `id_seguidor`)
   - Tabla de seguimiento que relaciona los usuarios con los demás usuarios que siguen.
 
@@ -156,6 +200,12 @@
 
 - **pedido_prod** (`id_pedido`, `id_prod`, `cantidad`)
   - Relación entre los pedidos y los productos que contienen, junto con la cantidad de cada producto en el pedido.
+
+
+
+
+
+
 
 ## Parte de actividades por Participante
 - por rellenar por cada Participante
