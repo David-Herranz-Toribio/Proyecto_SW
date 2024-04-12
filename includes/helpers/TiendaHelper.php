@@ -467,4 +467,3 @@ function addProd($yo, $id_prod){
 
     return $content;
 }
-}
