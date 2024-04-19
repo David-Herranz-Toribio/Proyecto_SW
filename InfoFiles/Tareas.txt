@@ -6,24 +6,26 @@
 -User admin (puede borrar todos los post, canciones etc...) 
 -Barra de busqueda que funcione en el perfil (Ignacio) ✅
 
--JS
+-JS (Alonso)
     1)Validacion de FORMULARIOS
     2)Limites de caracteres 
 
--Perfil: 
-    1)Ver lista de seguidores y lista de seguidos 
+-Perfil:
+    1)Ver lista de seguidores y lista de seguidos (Ignacio)
 
--Suscripciones 
+-Suscripciones (David y Hugo)
     1)Varias cuotas: mensual y anual
     2)Descuentos en la tienda
     3)No interrupcion mientras escuchas musica 
     4)Iconito especial en tu cuenta 
+    5)Pagina a parte para subscribirte
 
--Foro: 
+-Foro: (Ignacio)
     1)Opcion de ver post de los seguidores 
 
 -Musica (URGENTE)
-    1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG)
+    1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio)ç
+    2)Que funcione lo de escuchar (Alonso)
     2)Listas de reproduccion hechas por los usuarios 
     3)En el perfil de un artista, pestaña de Musica con todas sus canciones 
     4)Sidebar izquierdo 2 opciones 
@@ -33,15 +35,16 @@
 
 -CSS
     1)Quitar reglas "redundantes"
-    1)Cambiar modo oscuro y modo claro
-    2)Cambiar la fuente  
-    3)@media queries
-
+    1)Cambiar modo oscuro y modo claro (Alonso)
+    2)Cambiar la fuente (Alonso)
+    3)@media queries 
+ 
 -Pulir mas lo del karma
     1)Que al hacer autolike no aumente tu karma 
     2)Escuchar musica aumenta tu karma 
 
 -Actualizar BD 
+    1)Añadir campo arcihvado (bool) para musica, produtos etc. Si es 0 no está 'borrado', si es 1 si lo esta 
 
 -Arreglar errores Practica 3 (URGENTE)
 
