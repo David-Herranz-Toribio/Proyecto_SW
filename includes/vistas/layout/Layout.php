@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= CSS_PATH ?>/estilos.css">
+    <link id= "estilo" rel="stylesheet" href="<?= CSS_PATH ?>/estiloOscuro.css">
     <link rel="shortcut icon" href="<?=IMG_PATH ?>/2MelodyLogo.png" />
     <title> 2Music </title>
 </head>
@@ -22,8 +23,8 @@
 
     <!-- Incluir footer proximamente = reproductor de música -->
 
-    <script>
-    </script>
+    <script type= "text/javascript" src= "<?= JS_PATH ?>/cambioModo.js">  </script>
+    
 
 </body>
 </html>

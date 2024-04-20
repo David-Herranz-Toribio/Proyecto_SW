@@ -4,6 +4,7 @@ require_once 'classes/Aplicacion.php';
 
 // Rutas de archivos
 define('PROJECT_PATH', '/Proyecto_SW');
+define('JS_PATH', PROJECT_PATH . '/js'); 
 define('CSS_PATH' , PROJECT_PATH . '/css');
 define('IMG_PATH' , PROJECT_PATH . '/img');
 define('INCLUDES_PATH', PROJECT_PATH . '/includes');

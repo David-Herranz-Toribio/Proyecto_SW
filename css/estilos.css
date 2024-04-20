@@ -4,8 +4,6 @@ body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: lightgray;
-	color: #e1e1e1;
 }
 
 
@@ -26,7 +24,6 @@ div.container{
 .header {
 	height: 10%;
 	text-align: right;
-    background-color: #000000;
 	align-items: center;
 	justify-content: space-between;
 	display: flex;
@@ -56,7 +53,6 @@ header div.contenedor_texto {
 /*Estilos del menu de navegacion*/ 
 
 nav.sidebar {
-	background-color: #120118;
 	border: solid 2px #230058;
 	min-width: 100px;
 	width: 10%; 
@@ -111,7 +107,6 @@ ul.opciones{
 
 
 #content {
-	background-color: #1a1a1a;
 	grid-area: contenido;
 	display: grid;
 	grid-template-columns: 15% 65% 20% ; 
