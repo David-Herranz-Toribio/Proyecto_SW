@@ -4,6 +4,9 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
 
 
+$rutaEstiloClaro=  CSS_PATH .'/estiloClaro.css'; 
+$rutaEstiloOscuro= CSS_PATH .'/estiloOscuro.css'; 
+
 $perfil = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
 
 
@@ -58,18 +61,15 @@ EOS;
 
 
  
-/*
-    A implementar en la practica 3 
+/*  A implementar en la practica 3 */  
 
-$<cambio_modo= <<<EOS
+$cambio_modo= <<<EOS
 <section class= 'botonesEstilo'> 
-<button type= "button" onclick= "toClaro()"> Modo claro </button> 
-<button type= "button" onclick= "toOscuro()"> Modo oscuro </button> 
-<p></p> 
-<p></p>
+<button type= "button" onclick= "toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
+<button type= "button" onclick= "toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
 </section> 
 EOS; 
-*/
+
 
 
 $profile_image_path = IMG_PATH . '/profileImages/' . $image;
@@ -112,6 +112,7 @@ $content= <<<EOS
     $FotoPerfil
     $funcion_eliminar
     $form_modificar
+    $cambio_modo
 EOS; 
 
 
