@@ -22,7 +22,7 @@ function generateFormulary(){
             <label> Password </label>
             <input type="password" name="password">
 
-            <button type="submit"> Log in </button>
+            <button id= 'sendLogin' type="submit"> Log in </button>
         </form>
         <p> ¿No tienes cuenta? <a href="$registerPath"> Regístrate </a></p>
     </fieldset>
