@@ -197,6 +197,23 @@ class Usuario{
         return $result; 
     }
 
+    public function obtenerListaSeguidos() {
+        $usuario = $this->getUsername(); 
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT id_user FROM seguidores WHERE id_seguidor = '%s';", $usuario);
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+            return false;
+        }
+        $listaSeguidos = [];
+        while($row = $result->fetch_assoc()) {
+            $listaSeguidos[] = $row['id_user'];
+        }
+        $result->free();
+        return $listaSeguidos;
+    }
+
     public function estaSiguiendo ($user){
         
         $result = true; 
@@ -232,9 +249,6 @@ class Usuario{
         }
 
         return $result; 
-
-
-
     }
 
     public static function login($username, $password) {

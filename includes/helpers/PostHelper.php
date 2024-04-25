@@ -122,6 +122,70 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     return $html;
 }
 
+function showMainPosts($user, $opcion){
+    // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
+    $html = displayExplorerButton();
+    // Mostrar contenido
+    $html .= displayFollowedButton();
+
+    $html .= displayContentMain($user, $opcion);
+    return $html;
+}
+
+function displayContentMain($user, $opcion){
+
+    $html = '';
+    switch($opcion) {
+
+        case NULL:
+        case 'EXPLORER':
+            $html = showTestPosts($user);
+            break; 
+        
+        case 'FOLLOWED':
+            $html = showFollowedPeoplePosts($user); 
+            break; 
+
+        default:
+            $html = 'VISTA NO RECONOCIDA';
+            break;
+    }
+    return $html;
+}
+
+function displayExplorerButton(){
+    $view_path = VIEWS_PATH . '/foro/Foro.php';
+    $value = 'EXPLORER';
+
+    $html =<<<EOS
+    <div class='opcion_posts'>
+    <form action=$view_path method='get'>
+        <input type='hidden' name='opcion' value='$value'>
+        <button type='submit'> Explorar </button>
+    </form>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayFollowedButton(){
+    $view_path = VIEWS_PATH . '/foro/Foro.php';
+    $value = 'FOLLOWED';
+
+    $html =<<<EOS
+    <div class='opcion_posts'>
+    <form action=$view_path method='get'>
+        <input type='hidden' name='opcion' value='$value'>
+        <button type='submit'> Contenido (seguidos)  </button>
+    </form>
+    </div>
+    EOS;
+    return $html;
+}
+
+
+
 function showResp($id_post, $yoYYoMismo){
 
     $rutaNoLog = VIEWS_PATH . '/log/Login.php';
@@ -190,6 +254,40 @@ function showTestPosts($yoYYoMismo){
 
     return $content;
 }
+
+function showFollowedPeoplePosts($yoYYoMismo){
+    $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
+    $content = "<h1 class = 'texto_infor'> Posts (Personas que sigues) </h1>";
+
+    if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 
+        $content .= <<< EOS
+        <form class= 'boton_publicar' action = $rutaPublicar method = "post">
+        <button type = "submit">Publicar</button>
+        </form>
+        EOS; 
+    }
+    $content .= "<section class = 'listaPost'>";
+    $user = es\ucm\fdi\aw\Usuario::buscaUsuario($yoYYoMismo);
+    $lista_seguidos = $user->obtenerListaSeguidos();
+    $posts = [];
+    foreach($lista_seguidos as $seguido){
+        $postsSeguido = es\ucm\fdi\aw\Post::obtenerPostsDeUsuario($seguido);
+        $posts = array_merge($posts, $postsSeguido);
+    }
+    if(!empty($posts)){
+        if (isset($_GET['query'])) {
+            $textoBusqueda = $_GET['query'];
+            $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+        }   
+    }
+    foreach($posts as $post){
+        $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
+                                     $post->getTexto(), $post->getId(), $yoYYoMismo);   
+    }
+    $content .= "</section>";
+    return $content;
+}
+
 
 function modificatePost($postText, $postId){
 

@@ -151,7 +151,10 @@ function displayPosts($user){
 
         return $html;
     }
-
+    else if (isset($_GET['query'])) {
+        $textoBusqueda = $_GET['query'];
+        $lista_posts = es\ucm\fdi\aw\Post::LupaDescripcionPostExistentes($lista_posts, $textoBusqueda);
+    }
     foreach($lista_posts as $post){
         $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(), 
                                   $post->getTexto(), $post->getId(), $_SESSION['username']);
@@ -166,17 +169,14 @@ function displayFavoritePost ($user){
 
     $html = ''; 
     $posts = es\ucm\fdi\aw\Post::obtenerPostsFavPorUser($user->getUsername());
-
+    $html .= "<section class='publicaciones_perfil'>";
     if(empty($posts)){
         $html .= "<section class='publicaciones_perfil'><h3> No has dado Like (&#10084) a ningún post</h3></section>";
         return $html;
     }
-
-    $html .= "<section class='publicaciones_perfil'>";
-    if (isset($_GET['query'])) {
-
+    else if (isset($_GET['query'])) {
         $textoBusqueda = $_GET['query'];
-        $posts = es\ucm\fdi\aw\Post::LupaDescripcionPostExistentes($posts, $textoBusqueda);
+        $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
     }
     
     foreach($posts as $post){

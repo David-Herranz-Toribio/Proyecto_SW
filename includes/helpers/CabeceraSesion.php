@@ -4,21 +4,18 @@ function generateStaticHeader($currentPage) {
 
   $iconImage = IMG_PATH . '/2MelodyLogo.png';
   $linkIndex = PROJECT_PATH . '/index.php';
-  $favs = 0;
   $placeholderText = "Ej. usuario: Robert09";
-  $user = $_GET["user"] ?? NULL;
-  
-  if (isset($_GET['user'])) {
-    $user = $_GET['user']; 
-  }
-  if (isset($_GET['favs']) && $_GET['favs'] == 1) {
-    $favs = $_GET['favs']; 
-  }
-  else if (strpos($currentPage, "/vistas/perfil/Perfil.php") !== false) {
+  $user = $_GET["user"] ?? $_SESSION['username'];
+  $opcion = $_GET["opcion"] ?? NULL;
+
+  if ($opcion !== 'FAVS' && strpos($currentPage, "/vistas/perfil/Perfil.php") !== false) {
     $placeholderText = "Ej. texto: Buena foto";
   }
-  else if (strpos($currentPage, "/vistas/tienda/Merch.php") !== false) {
+  if ($opcion == 'PRODUCTS' || strpos($currentPage, "/vistas/tienda/Merch.php") !== false) {
     $placeholderText = "Ej. producto: Camiseta";
+  }
+  else if ($opcion == 'ORDERS') {
+    $placeholderText = "Ej. fecha: yyyy-mm-dd";
   }
 
   if (!islogged()) {
@@ -35,31 +32,37 @@ function generateStaticHeader($currentPage) {
   }
 
   $html = <<<EOS
-  <header class= 'header'>
-    <a href="$linkIndex">
-      <img src = '$iconImage' alt="Logo App" height="50" width="75">
-    </a>
-    <p>
-      <form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
-        <input type="text" name="query" placeholder="$placeholderText">
-        <input type="hidden" name="favs" value="$favs">
-        <input type="hidden" name="user" value="$user">
-        <button type="submit">&#128269</button>
-      </form>
-    </p>
+<header class= 'header'>
+  <a href="$linkIndex">
+    <img src = '$iconImage' alt="Logo App" height="50" width="75">
+  </a>
+EOS;
 
+if (strpos($currentPage, "/vistas/perfil/AjustePerfil.php") === false && strpos($currentPage, "/vistas/foro/RespuestasForo.php") === false) {
+  $html .= <<<EOS
+  <p>
+    <form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
+      <input type="text" name="query" placeholder="$placeholderText">
+      <input type="hidden" name="user" value="$user">
+      <input type="hidden" name="opcion" value="$opcion">
+      <button type="submit">&#128269</button>
+    </form>
+  </p>
+EOS;
+}
 
-    <div class= 'info_session'> 
-      <div class= 'contenedor_texto'> 
-        <p> $texto <p>
-      </div> 
-
-      <div class= 'contenedor_imagen'> 
-        <p><a href="$link"><img src="$loginImage" height="30" width="30" alt="$altText"></a><p> 
-      </div> 
+$html .= <<<EOS
+  <div class= 'info_session'> 
+    <div class= 'contenedor_texto'> 
+      <p> $texto <p>
     </div> 
-  </header>
-  EOS;
+
+    <div class= 'contenedor_imagen'> 
+      <p><a href="$link"><img src="$loginImage" height="30" width="30" alt="$altText"></a><p> 
+    </div> 
+  </div> 
+</header>
+EOS;
 
   return $html;
 }
