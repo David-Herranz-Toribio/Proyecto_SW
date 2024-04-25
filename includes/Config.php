@@ -4,14 +4,14 @@ require_once 'classes/Aplicacion.php';
 
 // Rutas de archivos
 define('PROJECT_PATH', '/Proyecto_SW');
-define('JS_PATH', PROJECT_PATH . '/js'); 
 define('CSS_PATH' , PROJECT_PATH . '/css');
 define('IMG_PATH' , PROJECT_PATH . '/img');
 define('INCLUDES_PATH', PROJECT_PATH . '/includes');
-define('CLASSES_PATH', INCLUDES_PATH . '/classes');
-define('HELPERS_PATH', INCLUDES_PATH . '/helpers');
-define('VIEWS_PATH', INCLUDES_PATH . '/vistas');
-define('LAYOUT_PATH' , VIEWS_PATH . '/layout/Layout.php');
+    define('CLASSES_PATH', INCLUDES_PATH . '/classes');
+    define('HELPERS_PATH', INCLUDES_PATH . '/helpers');
+    define('VIEWS_PATH', INCLUDES_PATH . '/vistas');
+        define('LAYOUT_PATH' , VIEWS_PATH . '/layout/Layout.php');
+define('JS_PATH', PROJECT_PATH . '/js');
 define('BD_PATH', PROJECT_PATH . '/mysql');
 
 // URLs

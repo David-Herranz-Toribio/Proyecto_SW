@@ -460,3 +460,110 @@ button:hover  {
 	font-size: 16px;
 	color: white;
 }
+
+
+/* -------- ESTILO DEL APARTADO DE MÚSICA -------- */
+
+/* Lista de playlists */
+.musicHeader{
+	grid-column: 2;
+    height: 5em;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-block: 5px;
+    margin-inline: 10px;
+}
+
+.musicButtons{
+	grid-column: 2;
+}
+
+.musicList{
+	grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.music_playlist{
+	display: grid;
+	grid-template-columns: 10% 60%;
+    background-color: #BE16CC;
+    border: 2px solid white;
+    width: 80%;
+    margin-block: 10px;
+}
+
+.music_playlist_image{
+    display: inline-block;
+    height: 95px;
+}
+.music_playlist_image img{
+    width: 90px;
+    height: 90px;
+}
+
+.music_playlist_info{
+    display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: baseline;
+}
+.music_playlist_info p{
+	margin-inline: 10px;
+}
+.music_playlist_info a{
+	color: white;
+	text-decoration: none;
+}
+.music_playlist_info a:hover{
+	text-decoration: underline;
+}
+
+/* Lista de canciones de una playlist */
+.playlist_header{
+	display: grid;
+	grid-template-columns: 20% 60% 20%;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	margin-inline: 8px;
+	margin-bottom: 10px;
+	border: 2px solid lightgray;
+}
+
+.playlist_image{
+	display: flex;
+	justify-content: flex-start;
+	object-fit: contain;
+}
+
+.playlist_info{
+	display: flex;
+	flex-direction: column;
+}
+.playlist_extra_info{
+	display: grid;
+	grid-template-columns: 25% 25%;
+	align-content: center;
+	justify-content: center;
+	justify-items: stretch;
+	height: 100%;
+}
+.playlist_username{
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+.playlist_extra_info p{
+	margin-inline: 6px;
+}
+
+.songlist{
+	display: flex;
+	flex-direction: column;
+	grid-column: 2;
+	width: 100%;
+	margin-top: 1%;
+	margin-inline: 8px;
+	border: 2px solid lightgray;
+}
