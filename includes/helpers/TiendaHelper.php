@@ -298,7 +298,10 @@ function showHistorialPedidos($id_user){
 
     else {
         $lista= ''; 
-
+        if (isset($_GET['query'])) {
+            $textoBusqueda = $_GET['query'];
+            $pedidos = es\ucm\fdi\aw\Pedido::LupaFechaHistorialPedidos($pedidos, $textoBusqueda);
+        }
         foreach($pedidos as $pedido){
             $lista.= "<article class= 'estiloPed'>";
             $id_ped= $pedido->getId(); 
