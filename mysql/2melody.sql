@@ -59,7 +59,8 @@ CREATE TABLE `ajustes` (
 DROP TABLE IF EXISTS `artista`;
 CREATE TABLE `artista` (
   `id_artista` varchar(63) NOT NULL,
-  `integrantes` tinytext DEFAULT NULL
+  `integrantes` tinytext DEFAULT NULL,
+  `archivado` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -155,6 +156,54 @@ CREATE TABLE `pedido_prod` (
 
 
 --
+-- Estructura de tabla para la tabla `cancion y playlist`
+--
+
+DROP TABLE IF EXISTS `cancion`;
+CREATE TABLE `cancion` (
+  `id_cancion` int(11) NOT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `id_artista` int(11) DEFAULT NULL,
+  `likes` int(11) DEFAULT NULL,
+  `ruta` varchar(255) DEFAULT NULL,
+  `duracion` int(11) DEFAULT NULL,
+  `tags` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `playlist`;
+CREATE TABLE `playlist` (
+  `id_playlist` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `duracion_total` int(11) DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `play_cancion`;
+CREATE TABLE `play_cancion` (
+  `id_playlist` int(11) NOT NULL,
+  `id_cancion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Estructura de tabla para la tabla `subcripciones`
+--
+
+DROP TABLE IF EXISTS `subcripcion`;
+CREATE TABLE `subcripcion` (
+  `id_user` varchar(63) NOT NULL,
+  `tipo` varchar(63) DEFAULT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `archivado` int(1) DEFAULT 0
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -227,6 +276,25 @@ ALTER TABLE `seguidores`
   ADD PRIMARY KEY (`id_user`,`id_seguidor`),
   ADD KEY `id_seguidor` (`id_seguidor`);
 
+
+ALTER TABLE `cancion`
+  ADD PRIMARY KEY (`id_cancion`),
+  ADD KEY `id_artista` (`id_artista`);
+
+
+ALTER TABLE `playlist`
+  ADD PRIMARY KEY (`id_playlist`),
+  ADD KEY `id_user` (`id_user`);
+
+ALTER TABLE `play_cancion`
+  ADD PRIMARY KEY (`id_playlist`,`id_cancion`),
+  ADD KEY `id_playlist` (`id_playlist`)
+  ADD KEY `id_cancion` (`id_cancion`);
+
+ALTER TABLE `subcripcion`
+  ADD PRIMARY KEY (`id_user`);,
+  ADD KEY `id_user` (`id_user`);
+
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
@@ -236,6 +304,14 @@ ALTER TABLE `seguidores`
 --
 ALTER TABLE `post`
   MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT;
+
+
+  ALTER TABLE `cancion`
+  MODIFY `id_cancion` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `playlist`
+  MODIFY `id_playlist` int(11) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- Restricciones para tablas volcadas
@@ -251,7 +327,7 @@ ALTER TABLE `ajustes`
 -- Filtros para la tabla `artista`
 --
 ALTER TABLE `artista`
-  ADD CONSTRAINT `artista_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE;
+  ADD CONSTRAINT `artista_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `usuario` (`id_user`);
 
 --
 -- Filtros para la tabla `evento`
@@ -291,7 +367,24 @@ ALTER TABLE `postfav`
   ADD CONSTRAINT `postfav_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE,
   ADD CONSTRAINT `postfav_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE;
 
+--
+-- Filtros para la tabla `cancion y playlist`
+--
+  ALTER TABLE `cancion`
+  ADD CONSTRAINT `cancion_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `artista` (`id_artista`) ON DELETE CASCADE;
 
+ALTER TABLE `playlist`
+  ADD CONSTRAINT `playlist_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE;
+
+ALTER TABLE `play_cancion`
+  ADD CONSTRAINT `play_cancion_ibfk_1` FOREIGN KEY (`id_playlist`) REFERENCES `playlist` (`id_playlist`)  ON DELETE CASCADE,
+  ADD CONSTRAINT `play_cancion_ibfk_2` FOREIGN KEY (`id_cancion`) REFERENCES `cancion` (`id_cancion`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `subcripcion`
+--
+ALTER TABLE `subcripcion`
+  ADD CONSTRAINT `subcripcion_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`);
 
 SET FOREIGN_KEY_CHECKS=1;
 

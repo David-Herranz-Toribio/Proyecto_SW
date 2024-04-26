@@ -26,11 +26,13 @@
 -Musica (URGENTE)
     1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio)ç
     2)Que funcione lo de escuchar (Alonso)
-    2)Listas de reproduccion hechas por los usuarios 
+    2)Listas de reproduccion hechas por los usuarios
+        2.*)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo]
     3)En el perfil de un artista, pestaña de Musica con todas sus canciones 
     4)Sidebar izquierdo 2 opciones 
         4.1)Muestra toda la musica publicada (puedes filtrarla)
-        4.2)Tu musica favorita
+        4.2)Tu musica favorita (que sea la playlist default  "Tus Canciones Favoritas" [sugerencia Hugo])
+            4.2.1)Al darle me gusta a cancion añadir a playlist default  "Tus Canciones Favoritas" [sugerencia Hugo]
     5)Vista de playlists (Óscar)
 
 
@@ -44,8 +46,9 @@
     1)Que al hacer autolike no aumente tu karma 
     2)Escuchar musica aumenta tu karma 
 
--Actualizar BD 
-    1)Añadir campo arcihvado (bool) para musica, produtos etc. Si es 0 no está 'borrado', si es 1 si lo esta 
+-Actualizar BD (Hugo, como no...)
+    1)Añadir campo archivado (bool) para musica, produtos etc. Si es 0 no está 'borrado', si es 1 si lo esta
+    2)Añadir musica, eventos y subscribciones
 
 -Arreglar errores Practica 3 (URGENTE)
 

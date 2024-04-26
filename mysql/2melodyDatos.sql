@@ -50,14 +50,16 @@ INSERT INTO `ajustes` ( `id_user`, `fuente`, `fontSize`, `temas`, `paginaPrincip
 --
 TRUNCATE TABLE `artista`;
 INSERT INTO `artista` (`id_artista`, `integrantes`) VALUES
-('user2', 'John Doe, Jane Smith');
+('user2', 'John Doe, Jane Smith'),
+('user7', 'Usuario Borrado y Billy Jean is not My Lover');
+
 
 
 TRUNCATE TABLE `seguidores`;
 
 -- Ejemplo de inserción de datos en la tabla seguidores
 INSERT INTO `seguidores` (`id_user`, `id_seguidor`) VALUES
-('user1', 'user2'),
+('user1', 'user3'),
 ('user2', 'user3'),
 ('user3', 'user1');
 
@@ -140,6 +142,39 @@ INSERT INTO `postfav` (`id_post`, `id_user`) VALUES
 (8, 'user2'),
 (9, 'user3');
 
+--
+-- Volcado de datos para la tabla `canciones y playlist`
+--
+TRUNCATE TABLE `cancion`;
+INSERT INTO `cancion` (`id_cancion`, `titulo`, `imagen`, `fecha`, `id_artista`, `likes`, `ruta`, `duracion`, `tags`) VALUES
+(1, 'Canción 1', 'imagen1.jpg', '2024-03-08', 1, 100, '/canciones/cancion1.mp3', 240, 'pop, dance'),
+(2, 'Canción 2', 'imagen2.jpg', '2024-03-09', 2, 85, '/canciones/cancion2.mp3', 180, 'rock'),
+(3, 'Canción 3', 'imagen3.jpg', '2024-03-10', 3, 120, '/canciones/cancion3.mp3', 300, 'electrónica');
+
+
+TRUNCATE TABLE `playlist`;-- la duracion esta en segundos
+INSERT INTO `playlist` (`id_playlist`, `id_user`, `duracion_total`, `imagen`, `nombre`, `fecha`) VALUES
+(1, 1, 200, 'playlist1.jpg', 'Mis Favoritas', '2024-03-08'),
+(2, 2, 300, 'playlist2.jpg', 'Descubrimientos', '2024-03-09'),
+(3, 3, 120, 'playlist3.jpg', 'Relax Total', '2024-03-10');
+
+TRUNCATE TABLE `play_cancion`;
+INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 3),
+(3, 2),
+(3, 3);
+
+
+--
+-- Volcado de datos para la tabla `subs`
+--
+INSERT INTO `subscripcion` (`id_user`, `tipo`, `fecha_fin`, `archivado` ) VALUES
+('user1', 'Mensual', '2024-12-31','0'),
+('user2', 'Anual', '2025-06-15','0'),
+('user3', 'Diario', '2024-03-20','1');
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
