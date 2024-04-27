@@ -171,7 +171,7 @@ INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
 --
 -- Volcado de datos para la tabla `subs`
 --
-INSERT INTO `subscripcion` (`id_user`, `tipo`, `fecha_fin`, `archivado` ) VALUES
+INSERT INTO `suscripcion` (`id_user`, `tipo`, `fecha_fin`, `archivado` ) VALUES
 ('user1', 'Mensual', '2024-12-31','0'),
 ('user2', 'Anual', '2025-06-15','0'),
 ('user3', 'Diario', '2024-03-20','1');
