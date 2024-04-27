@@ -1,5 +1,20 @@
 <?php
+require_once '../../Config.php';
+require_once CLASSES_URL .'/FormularioRegistro.php'; 
 
+$form= new FormularioRegistro();  
+
+$htmlform= $form->gestiona(); 
+
+$content=<<<EOS
+<section class= "formulario_style"> 
+$htmlform
+</section> 
+EOS; 
+
+require_once LAYOUT_URL; 
+
+/*
 require_once '../../Config.php';
 require_once HELPERS_URL . '/SignUpHelper.php';
 
@@ -13,5 +28,4 @@ $content =<<<EOS
     $artist_link
     </section> 
 EOS; 
-
-require_once LAYOUT_URL; 
+*/
