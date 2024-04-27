@@ -165,7 +165,7 @@ CREATE TABLE `cancion` (
   `titulo` varchar(255) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
-  `id_artista` int(11) DEFAULT NULL,
+  `id_artista` varchar(63) DEFAULT NULL,
   `likes` int(11) DEFAULT NULL,
   `ruta` varchar(255) DEFAULT NULL,
   `duracion` int(11) DEFAULT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE `cancion` (
 DROP TABLE IF EXISTS `playlist`;
 CREATE TABLE `playlist` (
   `id_playlist` int(11) NOT NULL,
-  `id_user` int(11) DEFAULT NULL,
+  `id_user` varchar(63) DEFAULT NULL,
   `duracion_total` int(11) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
@@ -191,11 +191,11 @@ CREATE TABLE `play_cancion` (
 
 
 --
--- Estructura de tabla para la tabla `subcripciones`
+-- Estructura de tabla para la tabla `suscripciones`
 --
 
-DROP TABLE IF EXISTS `subcripcion`;
-CREATE TABLE `subcripcion` (
+DROP TABLE IF EXISTS `suscripcion`;
+CREATE TABLE `suscripcion` (
   `id_user` varchar(63) NOT NULL,
   `tipo` varchar(63) DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
@@ -288,11 +288,11 @@ ALTER TABLE `playlist`
 
 ALTER TABLE `play_cancion`
   ADD PRIMARY KEY (`id_playlist`,`id_cancion`),
-  ADD KEY `id_playlist` (`id_playlist`)
+  ADD KEY `id_playlist` (`id_playlist`),
   ADD KEY `id_cancion` (`id_cancion`);
 
-ALTER TABLE `subcripcion`
-  ADD PRIMARY KEY (`id_user`);,
+ALTER TABLE `suscripcion`
+  ADD PRIMARY KEY (`id_user`),
   ADD KEY `id_user` (`id_user`);
 
 --
@@ -381,10 +381,10 @@ ALTER TABLE `play_cancion`
   ADD CONSTRAINT `play_cancion_ibfk_2` FOREIGN KEY (`id_cancion`) REFERENCES `cancion` (`id_cancion`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `subcripcion`
+-- Filtros para la tabla `suscripcion`
 --
-ALTER TABLE `subcripcion`
-  ADD CONSTRAINT `subcripcion_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`);
+ALTER TABLE `suscripcion`
+  ADD CONSTRAINT `suscripcion_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`);
 
 SET FOREIGN_KEY_CHECKS=1;
 
