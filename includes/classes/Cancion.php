@@ -16,7 +16,18 @@ class Cancion{
 
 
     public function __construct($parameters){
-        return;
+
+        $this->id_cancion = 'id';
+        $this->id_artista = 'fg';
+        $this->titulo = 'sdfg';
+        $this->imagen = 'sdfg';
+        $this->fecha = 'sdfg';
+        $this->duracion = 'sfg';
+        $this->likes = 'sdfgf';
+        $this->ruta = 'sdfhh';
+        $this->tags = 'sfhfgh';
+
+        /*
         $this->id_cancion = $parameters['id_cancion'];
         $this->id_artista = $parameters['id_artista'];
         $this->titulo = $parameters['titulo'];
@@ -26,6 +37,7 @@ class Cancion{
         $this->likes = $parameters['likes'];
         $this->ruta = $parameters['ruta'];
         $this->tags = $parameters['tags'];
+        */
     }
 
 
@@ -38,31 +50,31 @@ class Cancion{
         return $this->id_artista;
     }
 
-    public function getTitulo(){
+    public function getCancionTitulo(){
         return $this->titulo;
     }
 
-    public function getImagen(){
+    public function getCancionImagen(){
         return $this->imagen;
     }
 
-    public function getFecha(){
+    public function getCancionFecha(){
         return $this->fecha;
     }
 
-    public function getDuracion(){
+    public function getCancionDuracion(){
         return $this->duracion;
     }
 
-    public function getLikes(){
+    public function getCancionLikes(){
         return $this->likes;
     }
 
-    public function getRuta(){
+    public function getCancionRuta(){
         return $this->ruta;
     }
 
-    public function getTags(){
+    public function getCancionTags(){
         return $this->tags;
     }
 

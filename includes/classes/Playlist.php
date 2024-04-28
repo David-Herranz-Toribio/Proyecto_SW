@@ -20,8 +20,8 @@ class Playlist{
         $this->duracion = $parameters['duracion'];
         $this->imagen = $parameters['imagen'];
         $this->nombre = $parameters['nombre'];
-        $this->creationDate = $parameters['fechaCreacion'];
-        $this->songList = $parameters['canciones'];
+        $this->creationDate = $parameters['creationDate'];
+        $this->songList = $parameters['songList'];
     }
 
     public static function obtenerPlaylistsBD($username){
@@ -31,10 +31,21 @@ class Playlist{
         $query = sprintf( "SELECT * FROM playlist P WHERE P.id_user = '%s' ORDER BY P.fecha DESC", $username);
         $rs = $conection->query($query);
         
+        if(!$rs)
+            return NULL;
+
         while($fila = $rs->fetch_assoc()){
+
             $parameters = [];
-            
-            $playlists[] = new Cancion($parameters);
+            $parameters['id_playlist'] = $fila['id_playlist'];
+            $parameters['id_usuario'] = $fila['id_user'];
+            $parameters['duracion'] = $fila['duracion_total'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['nombre'] = $fila['nombre'];
+            $parameters['creationDate'] = $fila['fecha'];
+            $parameters['songList'] = NULL;
+
+            $playlists[] = new Playlist($parameters);
         }
         $rs->free();
 
@@ -49,23 +60,23 @@ class Playlist{
         return $this->id_usuario;
     }
 
-    public function getDuracion(){
+    public function getPlaylistDuracion(){
         return $this->duracion;
     }
 
-    public function gtImagen(){
+    public function getPlaylistImagen(){
         return $this->imagen;
     }
 
-    public function getNombre(){
+    public function getPlaylistNombre(){
         return $this->nombre;
     }
 
-    public function getCreationDate(){
+    public function getPlaylistCreationDate(){
         return $this->creationDate;
     }
 
-    public function getSongList(){
+    public function getPlaylistSongList(){
         return $this->songList;
     }
 

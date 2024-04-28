@@ -4,14 +4,6 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Playlist.php';
 require_once CLASSES_URL . '/Cancion.php';
 
-function showViewToNotLogged(){
-    
-    $html =<<<EOS
-    <h1 class="texto_infor"> No estas loguead@ </h1>
-    EOS;
-
-    return $html;
-}
 
 function showPlaylists($username){
     
@@ -19,95 +11,21 @@ function showPlaylists($username){
     $playlists = SW\classes\Playlist::obtenerPlaylistsBD($username);
 
     // Mostrar header de las playlists
-    $html = showHeader();
+    $html = displayHeader();
 
-    if(1){
-        $html .= TEST();
+    // Mostrar botones
+    $html .= displayButtons();
 
-        return $html;
-    }
-
-    // Mostrar todas las playlists
-    foreach($playlists as $list){
-        $html .= showPlaylist($list);
-    }
+    // Mostrar playlists
+    $html .= displayPlaylists($playlists);
 
     // Mostrar artistas que sigues
-    $html .= showFollowingArtists($username);
+    $html .= displayFollowingArtists($username);
 
     return $html;
 }
 
-function TEST(){
-
-    // Boton para crear playlists
-    $html =<<<EOS
-    <div class="musicButtons">
-        <form action="PlaylistView.php" method="get">
-            <button> Crear playlist </button>
-        </form>
-    </div>
-    EOS;
-
-    // Mostrar todas las playlists del usuario
-    $html .=<<<EOS
-    <section class="musicList">
-
-        <!-- Playlist 1 -->
-        <article class="music_playlist">
-            <div class="music_playlist_image">
-                <img src="../../../img/songImages/portada1.jpg" alt="Portada de la playlist">
-            </div>
-
-            <div class="music_playlist_info">
-                <a href="PlaylistView.php"><h2> Nombre de la playlist 1 </h2></a>
-                <p> Número de canciones </p>
-            </div>
-        </article>
-
-        <!-- Playlist 2 -->
-        <article class="music_playlist">
-            <div class="music_playlist_image">
-                <img src="../../../img/songImages/portada1.jpg" alt="Portada de la playlist">
-            </div>
-
-            <div class="music_playlist_info">
-                <a href="PlaylistView.php"><h2> Nombre de la playlist 2 </h2></a>
-                <p> Número de canciones </p>
-            </div>
-        </article>
-
-        <!-- Playlist 3 -->
-        <article class="music_playlist">
-            <div class="music_playlist_image">
-                <img src="../../../img/songImages/portada1.jpg" alt="Portada de la playlist">
-            </div>
-
-            <div class="music_playlist_info">
-                <a href="PlaylistView.php"><h2> Nombre de la playlist 3 </h2></a>
-                <p> Número de canciones </p>
-            </div>
-        </article>
-
-        <!-- Playlist 4 -->
-        <article class="music_playlist">
-            <div class="music_playlist_image">
-                <img src="../../../img/songImages/portada1.jpg" alt="Portada de la playlist">
-            </div>
-
-            <div class="music_playlist_info">
-                <a href="PlaylistView.php"><h2> Nombre de la playlist 4 </h2></a>
-                <p> Número de canciones </p>
-            </div>
-        </article>
-
-    </section>
-    EOS;
-
-    return $html;
-}
-
-function showHeader(){
+function displayHeader(){
 
     $html =<<<EOS
     <div class="musicHeader">
@@ -118,43 +36,79 @@ function showHeader(){
     return $html;
 }
 
-function showPlaylist($playlist){
+function displayButtons(){
 
+    $crearPlaylistView = VIEWS_PATH . '/musica/CrearPlaylist.php';
+
+    // Boton para crear playlists
     $html =<<<EOS
-    <div class="playlist">
-        <div class="music_playlist_image">
-            <img src="../../../img/songImages/portada1.jpg" alt="Portada de la playlist">
-        </div>
-
-        <div class="music_playlist_info">
-            <div>
-                <p> Nombre de la playlist1 </p>
-                <p> Información de la playlist </p>
-            </div>
-
-            <div>
-                <p> Número de canciones </p>
-                <p> Duración total de la playlist </p>
-            </div>
-        </div>
+    <div class="musicButtons">
+        <form action=$crearPlaylistView method="get">
+            <button> Crear playlist </button>
+        </form>
     </div>
     EOS;
 
     return $html;
 }
 
-function showFollowingArtists($username){
+function displayPlaylists($playlists){
+
+    $html = '<section class="musicList">';
+
+    // Mostrar todas las playlists
+    foreach($playlists as $p){
+        $html .= display_a_playlist($p);
+    }
+
+    $html .= '</section>';
+
+    return $html;
+}
+
+function display_a_playlist($playlist){
+
+    $image = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
+    $nombre = $playlist->getPlaylistNombre();
+    $duracionTotal = $playlist->getPlaylistDuracion();
+
+    $html =<<<EOS
+    <article class="music_playlist">
+        <div class="music_playlist_image">
+            <img src="$image" alt="Portada de la playlist">
+        </div>
+
+        <div class="music_playlist_info">
+            <a href="PlaylistView.php"><h2> $nombre </h2></a>
+            <p> Duración total: $duracionTotal </p>
+        </div>
+    </article>
+    EOS;
+
+    return $html;
+}
+
+function displayFollowingArtists($username){
 
     // Mostrar los artistas a los que el usuario sigue
     // Imagen del artista, nombre y link a su perfil
 }
 
-function showFooter(){
+function displayFooter(){
 
     $html =<<<EOS
     <div class="footer">
 
     </div>
+    EOS;
+
+    return $html;
+}
+
+function displayViewToNotLogged(){
+    
+    $html =<<<EOS
+    <h1 class="texto_infor"> No estas loguead@ </h1>
     EOS;
 
     return $html;

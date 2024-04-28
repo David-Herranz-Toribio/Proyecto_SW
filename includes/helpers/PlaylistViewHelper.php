@@ -15,7 +15,7 @@ function displayPlaylist($id){
 
 function displayPlaylistHeader($id){
 
-    $playlistImage = IMG_PATH . '/songImages/portada1.jpg';
+    $playlistImage = IMG_PATH . '/songImages/playlist1.jpg';
 
     $html =<<<EOS
     <div class="playlist_header">
@@ -57,7 +57,7 @@ function displayPlaylistSongs($id){
 
 function displaySong($indice){
 
-    $songImagePath = IMG_PATH . "/songImages/portada1.jpg";
+    $songImagePath = IMG_PATH . "/songImages/playlist1.jpg";
 
     $html =<<<EOS
     <div class="playlistSong">

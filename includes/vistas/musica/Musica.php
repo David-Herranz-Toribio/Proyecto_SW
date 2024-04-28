@@ -8,6 +8,6 @@ $content = '';
 if(isset($_SESSION['username']))
     $content = showPlaylists($username_id);
 else
-    $content = showViewToNotLogged();
+    $content = displayViewToNotLogged();
 
 require_once LAYOUT_URL;
