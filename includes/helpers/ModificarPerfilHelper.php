@@ -10,7 +10,7 @@ $password_length = strlen($_POST['modify_password']);
 $password = $_POST['modify_password'];
 
 
-$usu_mod= es\ucm\fdi\aw\Usuario::buscaUsuario($id_user); 
+$usu_mod= SW\classes\Usuario::buscaUsuario($id_user); 
 
 if ($_FILES['image']['name'] != ''){
     $archivo_nombre = $_FILES['image']['name'];
@@ -33,7 +33,7 @@ if ($_FILES['image']['name'] != ''){
 $isArtist = 0;
 
 if($usu_mod->getEmail() != $email) {
-    $errors = es\ucm\fdi\aw\Usuario::checkEmail($email);
+    $errors = SW\classes\Usuario::checkEmail($email);
     if( !empty($errors) ) {
         $_SESSION['error'] = $errors;
         header('Location: ' . VIEWS_PATH . '/perfil/AjustePerfil.php');
@@ -42,7 +42,7 @@ if($usu_mod->getEmail() != $email) {
 }
 
 if($password_length > 0) {
-    $errors = es\ucm\fdi\aw\Usuario::checkPassword($password_length);
+    $errors = SW\classes\Usuario::checkPassword($password_length);
     if( !empty($errors) ) {
         $_SESSION['error'] = $errors;
         header('Location: ' . VIEWS_PATH . '/perfil/AjustePerfil.php');

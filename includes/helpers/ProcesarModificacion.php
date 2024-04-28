@@ -7,7 +7,7 @@ require_once CLASSES_URL . '/Usuario.php';
 $id = $_POST['id'];
 $tx = htmlspecialchars($_POST['postText']);
 
-$post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
+$post = SW\classes\Post::buscarPostPorID($id);
 $post->setTexto($tx);
 if ($_FILES['image']['name'] != ''){
 
@@ -33,7 +33,7 @@ if ($_FILES['image']['name'] != ''){
     $post->setImagen($post_image);
 }
 
-es\ucm\fdi\aw\Post::actualizar($post);
+SW\classes\Post::actualizar($post);
 
 header('Location:'. VIEWS_PATH .'/foro/Foro.php');
 exit();

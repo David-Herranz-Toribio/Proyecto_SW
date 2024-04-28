@@ -30,7 +30,7 @@ else
 if($_POST['id_padre'] != "") $post_father= $_POST['id_padre']; 
 else $post_father = 'NULL'; 
 
-$user = es\ucm\fdi\aw\Usuario::buscaUsuario($username);
+$user = SW\classes\Usuario::buscaUsuario($username);
 $post = $user->publicarPost($post_text, $post_image, $post_father);
 
 header('Location:'. VIEWS_PATH .'/foro/Foro.php'); 

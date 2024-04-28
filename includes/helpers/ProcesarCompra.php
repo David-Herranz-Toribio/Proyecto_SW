@@ -7,14 +7,14 @@ $id_user= $_POST['id_user'];
 $karma= $_POST['nuevo_karma']; 
 $total= $_POST['precio_total']; 
 
-$usu_mod= es\ucm\fdi\aw\Usuario::buscaUsuario($id_user); 
+$usu_mod= SW\classes\Usuario::buscaUsuario($id_user); 
 $usu_mod->setKarma($karma);
 $usu_mod->actualiza(); 
 
-$pedido = es\ucm\fdi\aw\Pedido::buscarPedidoPorUser($id_user);
+$pedido = SW\classes\Pedido::buscarPedidoPorUser($id_user);
 $pedido->setEstado("Procesado");
 $pedido->setTotal($total);
-es\ucm\fdi\aw\Pedido::actualiza($pedido);
+SW\classes\Pedido::actualiza($pedido);
 $_SESSION['notif_prod'] = 0;
  
 header('Location: ' . VIEWS_PATH . '/tienda/Merch.php'); 

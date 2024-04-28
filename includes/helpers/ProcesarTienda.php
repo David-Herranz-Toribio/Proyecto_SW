@@ -36,7 +36,7 @@ if ($_FILES['Imagen']['name'] != ''){
 }
 
 
-$producto = es\ucm\fdi\aw\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
+$producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
 $producto->guarda();
 
 header('Location:'. VIEWS_PATH .'/tienda/MiTiendaVista.php'); 

@@ -26,7 +26,7 @@ function showNotLogged(){
 function showProfile($user, $opcion){
 
     $isSelfProfile = $_SESSION['username'] == $user->getUsername();
-    $isArtist = es\ucm\fdi\aw\Usuario::esArtista($user->getUsername());
+    $isArtist = SW\classes\Usuario::esArtista($user->getUsername());
 
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
     $html = displayProfileHeader($user, $isArtist, $isSelfProfile);
@@ -59,7 +59,7 @@ function displayProfileHeader($user, $isArtist, $isSelfProfile){
     if(!$isSelfProfile){
 
         // Obtenemos el objeto Usuario que corresponde al cliente
-        $me = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
+        $me = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 
         //Comprobamos si seguimos al usuario del perfil a visualizar
         $following = $me->estaSiguiendo($user->getUsername());
@@ -141,7 +141,7 @@ function displayContent($user, $opcion){
 
 function displayPosts($user){
 
-    $lista_posts = es\ucm\fdi\aw\Post::obtenerPostsDeUsuario($user->getUsername());
+    $lista_posts = SW\classes\Post::obtenerPostsDeUsuario($user->getUsername());
     $html = "<section class='publicaciones_perfil'>";
 
     if(!$lista_posts){
@@ -153,7 +153,7 @@ function displayPosts($user){
     }
     else if (isset($_GET['query'])) {
         $textoBusqueda = $_GET['query'];
-        $lista_posts = es\ucm\fdi\aw\Post::LupaDescripcionPostExistentes($lista_posts, $textoBusqueda);
+        $lista_posts = SW\classes\Post::LupaDescripcionPostExistentes($lista_posts, $textoBusqueda);
     }
     foreach($lista_posts as $post){
         $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(), 
@@ -168,7 +168,7 @@ function displayPosts($user){
 function displayFavoritePost ($user){
 
     $html = ''; 
-    $posts = es\ucm\fdi\aw\Post::obtenerPostsFavPorUser($user->getUsername());
+    $posts = SW\classes\Post::obtenerPostsFavPorUser($user->getUsername());
     $html .= "<section class='publicaciones_perfil'>";
     if(empty($posts)){
         $html .= "<section class='publicaciones_perfil'><h3> No has dado Like (&#10084) a ningún post</h3></section>";
@@ -176,7 +176,7 @@ function displayFavoritePost ($user){
     }
     else if (isset($_GET['query'])) {
         $textoBusqueda = $_GET['query'];
-        $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+        $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
     }
     
     foreach($posts as $post){

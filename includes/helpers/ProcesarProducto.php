@@ -15,25 +15,25 @@ if(isset($_SESSION['username']))
 if($user){
     //obtener producto y actualizar stock
 
-    $producto = es\ucm\fdi\aw\Producto::buscarProductoPorID($id);
+    $producto = SW\classes\Producto::buscarProductoPorID($id);
     $producto->setStock($producto->getStock() - $cant);
-    es\ucm\fdi\aw\Producto::actualiza($producto);
-    $pedido = es\ucm\fdi\aw\Pedido::buscarPedidoPorUser($user);
+    SW\classes\Producto::actualiza($producto);
+    $pedido = SW\classes\Pedido::buscarPedidoPorUser($user);
 
     if(!$pedido){
-        $pedido = es\ucm\fdi\aw\Pedido::crearPedido(NULL, $user, 'En proceso', $producto->getPrecio() * $cant, NULL);
-        $pedido = es\ucm\fdi\aw\Pedido::inserta($pedido);
+        $pedido = SW\classes\Pedido::crearPedido(NULL, $user, 'En proceso', $producto->getPrecio() * $cant, NULL);
+        $pedido = SW\classes\Pedido::inserta($pedido);
     }else{
         $pedido->setTotal($pedido->getTotal() + ($producto->getPrecio() * $cant) );
-        $pedido = es\ucm\fdi\aw\Pedido::actualiza($pedido);
+        $pedido = SW\classes\Pedido::actualiza($pedido);
     }
     //Comprobar si mi producto esta asignado a mi pedido
     //if (true){cant++} else{insertarPP} 
-    $cantPP = es\ucm\fdi\aw\Pedido::consultaPP($pedido->getId(), $id);
+    $cantPP = SW\classes\Pedido::consultaPP($pedido->getId(), $id);
     if($cantPP)
-        es\ucm\fdi\aw\Pedido::actualizaPP($pedido->getId(), $id, $cantPP + $cant);
+        SW\classes\Pedido::actualizaPP($pedido->getId(), $id, $cantPP + $cant);
     else{
-        es\ucm\fdi\aw\Pedido::insertaPP($pedido->getId(), $id, $cant);
+        SW\classes\Pedido::insertaPP($pedido->getId(), $id, $cant);
         
         if($_SESSION['notif_prod'] >= 1)
             $_SESSION['notif_prod'] = $_SESSION['notif_prod'] + 1;

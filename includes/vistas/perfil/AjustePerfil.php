@@ -7,7 +7,7 @@ require_once CLASSES_URL . '/Usuario.php';
 $rutaEstiloClaro=  CSS_PATH .'/estiloClaro.css'; 
 $rutaEstiloOscuro= CSS_PATH .'/estiloOscuro.css'; 
 
-$perfil = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
+$perfil = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 
 
 $act_nickname = $perfil->getNickname(); 

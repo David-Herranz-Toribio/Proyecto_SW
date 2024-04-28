@@ -1,8 +1,6 @@
 <?php
-namespace es\ucm\fdi\aw;
 
-require_once 'Aplicacion.php';
-require_once 'Usuario.php';
+namespace SW\classes;
 require_once HELPERS_URL . '/PostHelper.php';
 
 class Post{

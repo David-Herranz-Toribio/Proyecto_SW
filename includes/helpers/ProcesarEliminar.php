@@ -10,7 +10,7 @@ if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
 if($user){
-    $post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
+    $post = SW\classes\Post::buscarPostPorID($id);
     $post->borrarPost();
 }
 

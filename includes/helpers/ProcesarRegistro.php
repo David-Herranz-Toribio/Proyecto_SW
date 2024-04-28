@@ -35,7 +35,7 @@ else
     $profile_image = 'FotoPerfil.png';
 
 // Comprobar datos de usuario
-$errors = es\ucm\fdi\aw\Usuario::checkUserData($username, $password_length, $email, $birthdate, $isArtist);
+$errors = SW\classes\Usuario::checkUserData($username, $password_length, $email, $birthdate, $isArtist);
 
 if ($_FILES['image']['name'] != ''){
     $archivo_nombre = $_FILES['image']['name'];
@@ -81,7 +81,7 @@ else{
     $_SESSION['isArtist'] = true;
 }
 
-$num = es\ucm\fdi\aw\Pedido::numProdporUserPP($username);
+$num = SW\classes\Pedido::numProdporUserPP($username);
 if($num)
     $_SESSION['notif_prod'] = $num;
 
@@ -98,7 +98,7 @@ $parametros['profile_image'] = $profile_image;
 $parametros['karma']= 0; 
 
 // Crear usuario
-$usuario = es\ucm\fdi\aw\Usuario::createUser($parametros);
+$usuario = SW\classes\Usuario::createUser($parametros);
 
 // Redirigir al cliente
 $_SESSION['username'] = $username; 

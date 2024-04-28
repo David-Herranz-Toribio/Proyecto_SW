@@ -1,8 +1,6 @@
 <?php
-namespace es\ucm\fdi\aw;
 
-require_once 'Aplicacion.php';
-require_once 'Post.php';
+namespace SW\classes;
 
 class Usuario{
 

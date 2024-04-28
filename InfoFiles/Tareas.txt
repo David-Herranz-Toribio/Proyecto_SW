@@ -26,8 +26,8 @@
 -Musica (URGENTE)
     1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio)ç
     2)Que funcione lo de escuchar (Alonso)
-    2)Listas de reproduccion hechas por los usuarios
-        2.*)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo]
+    2)Listas de reproduccion hechas por los usuarios (Óscar)
+        2.*)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar)
     3)En el perfil de un artista, pestaña de Musica con todas sus canciones 
     4)Sidebar izquierdo 2 opciones 
         4.1)Muestra toda la musica publicada (puedes filtrarla)

@@ -8,7 +8,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     $rutaPerfil = VIEWS_PATH . '/perfil/Perfil.php';
 
     //Imagen de usuario junto a su username
-    $user = es\ucm\fdi\aw\Usuario::buscaUsuario($autor);
+    $user = SW\classes\Usuario::buscaUsuario($autor);
     $rutaPFP = IMG_PATH . '/profileImages/'.$user->getPhoto();
     
     $user_info= <<<EOS
@@ -193,7 +193,7 @@ function showResp($id_post, $yoYYoMismo){
     if (!isset($_SESSION['username']))
         $html= "<p class = 'texto_infor'> No estas logead@,  <a href = $rutaNoLog> <strong>  pulsa aqui para iniciar sesion </strong> </a> </p>";
     else{
-        $post_aux = es\ucm\fdi\aw\Post::buscarPostPorID($id_post); 
+        $post_aux = SW\classes\Post::buscarPostPorID($id_post); 
 
         $html = "<h1 class = 'texto_infor'> Respuestas a @".$post_aux->getAutor(). "</h1>";
         $html .= "<section class = 'listaPost' id='respuestas'>";
@@ -203,11 +203,11 @@ function showResp($id_post, $yoYYoMismo){
                                   $post_aux->getTexto(), $post_aux->getId(), $yoYYoMismo);
         $html .= "</div>";
 
-        $posts = es\ucm\fdi\aw\Post::obtenerListaDePosts($id_post); 
+        $posts = SW\classes\Post::obtenerListaDePosts($id_post); 
         if(!empty($posts)){
             if (isset($_GET['query'])) {
                 $textoBusqueda = $_GET['query'];
-                $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+                $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
             }   
         }
 
@@ -239,11 +239,11 @@ function showTestPosts($yoYYoMismo){
     }
 
     $content .= "<section class = 'listaPost'>";
-    $posts = es\ucm\fdi\aw\Post::obtenerListaDePosts();
+    $posts = SW\classes\Post::obtenerListaDePosts();
     if(!empty($posts)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+            $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
         }   
     }
     foreach($posts as $post){
@@ -267,17 +267,17 @@ function showFollowedPeoplePosts($yoYYoMismo){
         EOS; 
     }
     $content .= "<section class = 'listaPost'>";
-    $user = es\ucm\fdi\aw\Usuario::buscaUsuario($yoYYoMismo);
+    $user = SW\classes\Usuario::buscaUsuario($yoYYoMismo);
     $lista_seguidos = $user->obtenerListaSeguidos();
     $posts = [];
     foreach($lista_seguidos as $seguido){
-        $postsSeguido = es\ucm\fdi\aw\Post::obtenerPostsDeUsuario($seguido);
+        $postsSeguido = SW\classes\Post::obtenerPostsDeUsuario($seguido);
         $posts = array_merge($posts, $postsSeguido);
     }
     if(!empty($posts)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $posts = es\ucm\fdi\aw\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
+            $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
         }   
     }
     foreach($posts as $post){

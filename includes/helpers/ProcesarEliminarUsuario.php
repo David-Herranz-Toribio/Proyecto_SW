@@ -10,6 +10,6 @@ if(isset($_SESSION['username']))
 $isValid = true;
 
 if($isValid && $user){
-    es\ucm\fdi\aw\Usuario::deleteUser($user);
+    SW\classes\Usuario::deleteUser($user);
 }
 header('Location:'. VIEWS_PATH .'/log/Logout.php');

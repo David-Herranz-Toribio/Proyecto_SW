@@ -17,13 +17,13 @@ define('BD_PATH', PROJECT_PATH . '/mysql');
 // URLs
 define('ROOT_PATH', dirname(__DIR__) . '/../Proyecto_SW');
 define('CSS_URL' , ROOT_PATH . '/css');
-define('JS_URL', ROOT_PATH . '/js'); 
 define('IMG_URL' , ROOT_PATH . '/img');
 define('INCLUDES_URL', ROOT_PATH . '/includes');
-define('CLASSES_URL', INCLUDES_URL . '/classes');
-define('HELPERS_URL', INCLUDES_URL . '/helpers');
-define('VIEWS_URL', INCLUDES_URL . '/vistas');
-define('LAYOUT_URL' , VIEWS_URL . '/layout/Layout.php');
+    define('CLASSES_URL', INCLUDES_URL . '/classes');
+    define('HELPERS_URL', INCLUDES_URL . '/helpers');
+    define('VIEWS_URL', INCLUDES_URL . '/vistas');
+        define('LAYOUT_URL' , VIEWS_URL . '/layout/Layout.php');
+define('JS_URL', ROOT_PATH . '/js'); 
 define('BD_URL', ROOT_PATH . '/mysql');
 
 //  Parámetros BD
@@ -46,7 +46,7 @@ date_default_timezone_set('Europe/Madrid');
 spl_autoload_register(function ($class) {
     
     // project-specific namespace prefix
-    $prefix = 'es\\ucm\\fdi\\aw\\';
+    $prefix = 'SW\\classes';
     
     // base directory for the namespace prefix
     $base_dir = __DIR__ . '/';
@@ -75,5 +75,5 @@ spl_autoload_register(function ($class) {
 session_start();
 
 // Inicialización de la base de datos
-$app = es\ucm\fdi\aw\Aplicacion::getInstance();
+$app = SW\classes\Aplicacion::getInstance();
 $app->init(['host'=> BD_HOST, 'user'=> BD_USER, 'pass'=> BD_PASS, 'database'=> BD_NAME]);

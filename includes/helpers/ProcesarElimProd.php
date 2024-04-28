@@ -11,7 +11,7 @@ if(isset($_SESSION['username']))
 
 
 if($user){
-    $prod = es\ucm\fdi\aw\Producto::buscarProductoPorID($id);
+    $prod = SW\classes\Producto::buscarProductoPorID($id);
     $prod->borrarProducto();
 }
 

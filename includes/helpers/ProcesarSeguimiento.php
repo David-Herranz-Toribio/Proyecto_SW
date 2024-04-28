@@ -8,7 +8,7 @@ $accion_a_tomar = boolval($_POST['no_seguir/seguir']);
 $retorno = $_POST["return"]; 
 
 
-$usuario_seguidor = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
+$usuario_seguidor = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 $username = $usuario_seguidor->getUsername(); 
 
 if($accion_a_tomar){ //Dejar de seguir 

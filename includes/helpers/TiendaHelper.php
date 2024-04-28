@@ -143,7 +143,7 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
 
 function showProduct($yoYYoMismo, $id){
-    $prod = es\ucm\fdi\aw\Producto::obtenerProductoporId($id);
+    $prod = SW\classes\Producto::obtenerProductoporId($id);
 
     // Por si hay que hacer alguna busqueda mas tarde
 
@@ -173,11 +173,11 @@ function showProduct($yoYYoMismo, $id){
 function showProducts($yoYYoMismo){
     
     $content = "<section class = 'listaArticulos'>";
-    $productos = es\ucm\fdi\aw\Producto::obtenerListaDeProductos();
+    $productos = SW\classes\Producto::obtenerListaDeProductos();
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $productos = es\ucm\fdi\aw\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
+            $productos = SW\classes\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
     foreach($productos as $prod){
@@ -192,11 +192,11 @@ function showProducts($yoYYoMismo){
 function showProductsArtista($yoYYoMismo){
     
     $content = "<section class = 'listaArticulos'>";
-    $productos = es\ucm\fdi\aw\Producto::obtenerProductosDeArtista($yoYYoMismo);
+    $productos = SW\classes\Producto::obtenerProductosDeArtista($yoYYoMismo);
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $productos = es\ucm\fdi\aw\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
+            $productos = SW\classes\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
     foreach($productos as $prod){
@@ -218,13 +218,13 @@ function showCarrito($user){
     $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
     $seccion =  "<section class = 'listaArticulos'>";
 
-    $pedido = es\ucm\fdi\aw\Pedido::buscarPedidoPorUser($user);
+    $pedido = SW\classes\Pedido::buscarPedidoPorUser($user);
 
     if(empty($pedido)){
         $seccion .=  "<h1>No tienes ningun pedido activo</h1>";
     }else{
         $id_pedido = $pedido->getId();
-        $productos = es\ucm\fdi\aw\Producto::obtenerProductosDePedido($id_pedido);
+        $productos = SW\classes\Producto::obtenerProductosDePedido($id_pedido);
 
         if(empty($productos))
             $seccion .=  "<h1>No tienes ningun producto en tu carrito</h1>";
@@ -247,7 +247,7 @@ function showCarrito($user){
                                                 $prod->getImagen(), $prod->getStock(), $precio, $id_pedido, $cantidad, $user);   
             }
             
-            $user = es\ucm\fdi\aw\Usuario::buscaUsuario($user);
+            $user = SW\classes\Usuario::buscaUsuario($user);
 
             $karma = $user->getKarma();
             $user = $user->getUsername();
@@ -292,7 +292,7 @@ function showHistorialPedidos($id_user){
     /*Sacar de la BD los pedidos ya procesados */ 
 
 
-    if(($pedidos= es\ucm\fdi\aw\Pedido:: buscarHistorialPedidos($id_user))==NULL){
+    if(($pedidos= SW\classes\Pedido:: buscarHistorialPedidos($id_user))==NULL){
         $lista= "<h3> Ningun pedido realizado todavía </h3>"; 
     }  
 
@@ -300,12 +300,12 @@ function showHistorialPedidos($id_user){
         $lista= ''; 
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $pedidos = es\ucm\fdi\aw\Pedido::LupaFechaHistorialPedidos($pedidos, $textoBusqueda);
+            $pedidos = SW\classes\Pedido::LupaFechaHistorialPedidos($pedidos, $textoBusqueda);
         }
         foreach($pedidos as $pedido){
             $lista.= "<article class= 'estiloPed'>";
             $id_ped= $pedido->getId(); 
-            $productos=  es\ucm\fdi\aw\Producto::obtenerProductosDePedido($id_ped);
+            $productos=  SW\classes\Producto::obtenerProductosDePedido($id_ped);
             $lista.= "<div class='prod_info'>
                         <h3> Ident. Pedido:". $id_ped ."</h3>
                         <h3> Fecha: ".$pedido->getFecha()."</h3>
@@ -371,7 +371,7 @@ function addProd($yo, $id_prod){
     
 
     if(!is_null($id_prod)){
-        $prod = es\ucm\fdi\aw\Producto::obtenerProductoporId($id_prod);
+        $prod = SW\classes\Producto::obtenerProductoporId($id_prod);
   
         $nombre = $prod->getNombre();
         $descripcion = $prod->getDescripcion();

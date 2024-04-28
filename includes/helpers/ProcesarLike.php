@@ -13,19 +13,19 @@ if(isset($_SESSION['username']))
 if($user){
     //añadir like BD
     $aux = 1;
-    $post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
+    $post = SW\classes\Post::buscarPostPorID($id);
     
-    if(es\ucm\fdi\aw\Post::likeAsignado($id,$user)){
+    if(SW\classes\Post::likeAsignado($id,$user)){
         $aux = -1;
-        es\ucm\fdi\aw\Post::borraFav($post, $user);
+        SW\classes\Post::borraFav($post, $user);
     }else
-    es\ucm\fdi\aw\Post::insertaFav($post, $user);
+    SW\classes\Post::insertaFav($post, $user);
     
-    $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($post->getAutor());
+    $usuario = SW\classes\Usuario::buscaUsuario($post->getAutor());
     $usuario->aumentaKarma($aux);
     $usuario->actualiza();
     $post->aumentaLikes($aux);
-    es\ucm\fdi\aw\Post::actualizar($post);
+    SW\classes\Post::actualizar($post);
 }
 
 header('Location: ' . VIEWS_PATH . '/foro/Foro.php');

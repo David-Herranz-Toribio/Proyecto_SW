@@ -1,5 +1,8 @@
 <?php
+
 require_once '../../Config.php';
+require_once CLASSES_URL . '/Playlist.php';
+require_once CLASSES_URL . '/Cancion.php';
 
 function showViewToNotLogged(){
     
@@ -13,8 +16,7 @@ function showViewToNotLogged(){
 function showPlaylists($username){
     
     // Obtener las playlists del usuario
-    if(0)
-        $playlists = \es\ucm\fdi\aw\Playlist::obtenerPlaylistsBD($username);
+    $playlists = SW\classes\Playlist::obtenerPlaylistsBD($username);
 
     // Mostrar header de las playlists
     $html = showHeader();

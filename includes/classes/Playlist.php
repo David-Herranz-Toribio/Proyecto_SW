@@ -1,53 +1,72 @@
 <?php
 
-namespace es\ucm\fdi\aw;
-
-require_once 'Aplicacion.php';
+namespace SW\classes;
 
 class Playlist{
 
-    private $name;
-    private $autor;
-    private $songList;
-    private $totalLenght;
+    private $id_playlist;
+    private $id_usuario;
+    private $duracion;
+    private $imagen;
+    private $nombre;
     private $creationDate;
+    private $songList;
 
-    public function __construct($parameters){
+    
+    private function __construct($parameters){
 
-        $this->name = $parameters['name'];
-        $this->autor = $parameters['autor'];
-        $this->songList = [];
-        $this->totalLenght = 0;
-        $this->creationDate = $parameters['creationDate'];
+        $this->id_playlist = $parameters['id_playlist'];
+        $this->id_usuario = $parameters['id_usuario'];
+        $this->duracion = $parameters['duracion'];
+        $this->imagen = $parameters['imagen'];
+        $this->nombre = $parameters['nombre'];
+        $this->creationDate = $parameters['fechaCreacion'];
+        $this->songList = $parameters['canciones'];
     }
 
     public static function obtenerPlaylistsBD($username){
 
         $playlists = [];
-
-        // Obtener las playlists del usuario de la base de datos
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM playlist P WHERE P.id_user = '%s' ORDER BY P.fecha DESC", $username);
+        $rs = $conection->query($query);
+        
+        while($fila = $rs->fetch_assoc()){
+            $parameters = [];
+            
+            $playlists[] = new Cancion($parameters);
+        }
+        $rs->free();
 
         return $playlists;
     }
 
-    public function getName(){
-        return $this->name;
+    public function getIdPlaylist(){
+        return $this->id_playlist;
     }
 
-    public function getAutor(){
-        return $this->autor;
+    public function getIdUsuario(){
+        return $this->id_usuario;
     }
 
-    public function getSongList(){
-        return $this->songList;
+    public function getDuracion(){
+        return $this->duracion;
     }
 
-    public function getTotalLenght(){
-        return $this->totalLenght;
+    public function gtImagen(){
+        return $this->imagen;
+    }
+
+    public function getNombre(){
+        return $this->nombre;
     }
 
     public function getCreationDate(){
         return $this->creationDate;
+    }
+
+    public function getSongList(){
+        return $this->songList;
     }
 
 }
