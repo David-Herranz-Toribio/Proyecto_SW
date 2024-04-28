@@ -7,7 +7,8 @@ function showCreatePlaylistView(){
     $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
     $procesarPath = HELPERS_PATH . '/CrearPlaylist.php';
 
-    $html =<<<EOS
+    $html = "<section class='default'>";
+    $html .=<<<EOS
     <section class="createPlaylistForm">
     <fieldset>
     <legend> Crear Playlist </legend>

@@ -4,7 +4,7 @@ require_once '../../Config.php';
 require_once HELPERS_URL . '/PlaylistViewHelper.php';
 require_once CLASSES_URL . '/Playlist.php';
 
-$content = '';
+$content = "<section class='default'>";
 
 // Obtener el id de la playlist seleccionada por el usuario
 $playlist_id = isset($_GET['id']) ? $_GET['id'] : NULL;
@@ -13,11 +13,11 @@ $playlist_id = isset($_GET['id']) ? $_GET['id'] : NULL;
 $playlist = SW\classes\Playlist::obtenerPlaylistByID($playlist_id);
 
 if(!$playlist){
-    $content = 'La lista esta vacia';
+    $content .= 'La lista esta vacia';
 }
 else{
     // Mostrar el contenido de la playlist
-    $content = displayPlaylist($playlist);
+    $content .= displayPlaylist($playlist);
 }
 
 require_once LAYOUT_URL;
