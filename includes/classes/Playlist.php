@@ -1,6 +1,7 @@
 <?php
 
 namespace SW\classes;
+require_once 'Cancion.php';
 
 class Playlist{
 
@@ -11,6 +12,7 @@ class Playlist{
     private $nombre;
     private $creationDate;
     private $songList;
+    private $numCanciones;
 
     
     private function __construct($parameters){
@@ -43,13 +45,41 @@ class Playlist{
             $parameters['imagen'] = $fila['imagen'];
             $parameters['nombre'] = $fila['nombre'];
             $parameters['creationDate'] = $fila['fecha'];
-            $parameters['songList'] = NULL;
+            $parameters['songList'] = Cancion::getSongsWithID();
 
             $playlists[] = new Playlist($parameters);
         }
         $rs->free();
 
         return $playlists;
+    }
+
+    public static function obtenerPlaylistByID($id){
+
+        $playlist = '';
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM playlist P WHERE P.id_playlist = '%s' ORDER BY P.fecha DESC", $id);
+        $rs = $conection->query($query);
+        
+        if(!$rs)
+            return NULL;
+
+        while($fila = $rs->fetch_assoc()){
+
+            $parameters = [];
+            $parameters['id_playlist'] = $fila['id_playlist'];
+            $parameters['id_usuario'] = $fila['id_user'];
+            $parameters['duracion'] = $fila['duracion_total'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['nombre'] = $fila['nombre'];
+            $parameters['creationDate'] = $fila['fecha'];
+            $parameters['songList'] = Cancion::getSongsWithID();
+
+            $playlist = new Playlist($parameters);
+        }
+        $rs->free();
+
+        return $playlist;
     }
 
     public function getIdPlaylist(){
@@ -78,6 +108,10 @@ class Playlist{
 
     public function getPlaylistSongList(){
         return $this->songList;
+    }
+
+    public function getPlaylistNumSongs(){
+        return $this->numCanciones;
     }
 
 }

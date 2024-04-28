@@ -46,7 +46,7 @@ date_default_timezone_set('Europe/Madrid');
 spl_autoload_register(function ($class) {
     
     // project-specific namespace prefix
-    $prefix = 'SW\\classes';
+    $prefix = 'SW\classes';
     
     // base directory for the namespace prefix
     $base_dir = __DIR__ . '/';

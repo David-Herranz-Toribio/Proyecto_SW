@@ -618,6 +618,12 @@ button:hover  {
 	align-items: flex-start;
 }
 
+/* Botón para seleccionar privacidad de la playlist */
+.createPlaylistPrivacy{
+	display: flex;
+	flex-direction: row;
+}
+
 /* Cancion de una playlist */
 .playlistSong{
 	display: grid;

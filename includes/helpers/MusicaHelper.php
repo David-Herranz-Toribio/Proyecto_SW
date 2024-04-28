@@ -54,6 +54,17 @@ function displayButtons(){
 
 function displayPlaylists($playlists){
 
+    if(!$playlists){
+
+        $html =<<<EOS
+        <section class="emptyMusicList">
+        <p> La playlist está vacía </p>
+        </section>
+        EOS;
+
+        return $html;
+    }
+
     $html = '<section class="musicList">';
 
     // Mostrar todas las playlists
@@ -68,6 +79,7 @@ function displayPlaylists($playlists){
 
 function display_a_playlist($playlist){
 
+    $id = $playlist->getIdPlaylist();
     $image = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
     $nombre = $playlist->getPlaylistNombre();
     $duracionTotal = $playlist->getPlaylistDuracion();
@@ -79,7 +91,7 @@ function display_a_playlist($playlist){
         </div>
 
         <div class="music_playlist_info">
-            <a href="PlaylistView.php"><h2> $nombre </h2></a>
+            <a href="PlaylistView.php?id=$id"><h2> $nombre </h2></a>
             <p> Duración total: $duracionTotal </p>
         </div>
     </article>

@@ -2,20 +2,23 @@
 
 require_once '../../Config.php';
 
-function displayPlaylist($id){
+function displayPlaylist($playlist){
 
     // Mostrar el header de la página -> info de la playlist, imagen, botones, etc...
-    $html = displayPlaylistHeader($id);
+    $html = displayPlaylistHeader($playlist);
 
     // Mostrar lista de canciones
-    $html .= displayPlaylistSongs($id);
+    $html .= displayPlaylistSongs($playlist);
 
     return $html;
 }
 
-function displayPlaylistHeader($id){
+function displayPlaylistHeader($playlist){
 
-    $playlistImage = IMG_PATH . '/songImages/playlist1.jpg';
+    $playlistImage = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
+    $playlistName = $playlist->getPlaylistNombre();
+    $duracion = $playlist->getPlaylistDuracion();
+    $fecha = $playlist->getPlaylistCreationDate();
 
     $html =<<<EOS
     <div class="playlist_header">
@@ -24,12 +27,12 @@ function displayPlaylistHeader($id){
         </div>
 
         <div class="playlist_info">
-            <h1> Nombre de la playlist </h1>
+            <h1> $playlistName </h1>
             
             <div class="playlist_extra_info">
                 <div class="playlist_username"> @username </div>
-                <p> Duración: 2h 45min </p>
-                <p> Creada: DD/MM/YYYY </p>
+                <p> Duración: $duracion </p>
+                <p> Creada: $fecha </p>
                 <button> Modificar </button>
                 <button> Eliminar </button>
             </div>
@@ -40,14 +43,26 @@ function displayPlaylistHeader($id){
     return $html;
 }
 
-function displayPlaylistSongs($id){
+function displayPlaylistSongs($playlist){
+
+    $all = $playlist->getPlaylistSongList();
+
+    // Si no hay canciones, mostramos un mensaje
+    if(!$all){
+
+        $html =<<<EOS
+        No hay ninguna cancion en la playlist
+        EOS;
+
+        return $html;
+    }
 
     $html =<<<EOS
     <div class="songlist">
     EOS;
 
-    for($i = 0; $i < 20; $i++){
-        $html .= displaySong($i);
+    foreach($all as $song){
+        $html .= displaySong($song);
     }
 
     $html .= "</div>";
@@ -55,17 +70,21 @@ function displayPlaylistSongs($id){
     return $html;
 }
 
-function displaySong($indice){
+function displaySong($song){
 
-    $songImagePath = IMG_PATH . "/songImages/playlist1.jpg";
+    $songImagePath = $song->getCancionImagen();
+    $nombre = $song->getCancionTitulo();
+    $artista = $song->getIdArtista();
+    $fecha = $song->getCancionFecha();
+    $duracion = $song->getCancionDuracion();
 
     $html =<<<EOS
     <div class="playlistSong">
         <img src="$songImagePath">
         <div class="songInfo">
             <div class="songNameAndArtist">
-                <p> Cancion $indice </p>
-                <p> Artista </p>
+                <p> $nombre </p>
+                <p> $artista </p>
             </div>
 
             <div class="songAlbum">
@@ -73,11 +92,11 @@ function displaySong($indice){
             </div>
 
             <div class="songDate">
-                <p> dd/mm/yyyy </p>
+                <p> $fecha </p>
             </div>
 
             <div class="songLenght">
-                <p> mm:ss </p>
+                <p> $duracion </p>
             </div>
         </div>
     </div>

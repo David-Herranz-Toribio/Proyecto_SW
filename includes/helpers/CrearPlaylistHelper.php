@@ -1,15 +1,20 @@
 <?php
 
+require_once '../../Config.php';
+
 function showCreatePlaylistView(){
+
+    $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
+    $procesarPath = HELPERS_PATH . '/CrearPlaylist.php';
 
     $html =<<<EOS
     <section class="createPlaylistForm">
     <fieldset>
     <legend> Crear Playlist </legend>
-    <form>
+    <form action=$procesarPath method="post">
 
         <div class="createPlaylistImage">
-            <img src="../../../img/songImages/playlist1.jpg" alt="Imagen de la playlist">
+            <img src=$defaulImage alt="Imagen de la playlist">
 
             <div class="createPlaylistImageInput">
                 <label> Imagen </label>
@@ -20,15 +25,15 @@ function showCreatePlaylistView(){
         <div class="createPlaylistConfig">
             <div class="createPlaylistName">
                 <label> Nombre </label>
-                <input type="text">
+                <input type="text" required>
             </div>
 
             <div class="createPlaylistPrivacy">
-                <label> Publica/Privada </label>
-                <input type="text">
+                <label> Playlist privada: </label>
+                <input type="checkbox">
             </div>
         </div>
-        
+
         <div>
             <button type="submit"> Crear </button>
         </div>
