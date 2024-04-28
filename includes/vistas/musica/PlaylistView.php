@@ -13,7 +13,7 @@ $playlist_id = isset($_GET['id']) ? $_GET['id'] : NULL;
 $playlist = SW\classes\Playlist::obtenerPlaylistByID($playlist_id);
 
 if(!$playlist){
-    $content .= 'La lista esta vacia';
+    $content = displayErrorMessage();
 }
 else{
     // Mostrar el contenido de la playlist

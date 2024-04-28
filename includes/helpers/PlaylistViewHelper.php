@@ -15,7 +15,7 @@ function displayPlaylist($playlist){
 
 function displayPlaylistHeader($playlist){
 
-    $playlistImage = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
+    $playlistImage = $playlist->getPlaylistImagen();
     $playlistName = $playlist->getPlaylistNombre();
     $duracion = $playlist->getPlaylistDuracion();
     $fecha = $playlist->getPlaylistCreationDate();
@@ -51,7 +51,9 @@ function displayPlaylistSongs($playlist){
     if(!$all){
 
         $html =<<<EOS
-        No hay ninguna cancion en la playlist
+        <div class="emptyPlaylists">
+            <h2> No hay ninguna cancion en la playlist </h2>
+        </div>
         EOS;
 
         return $html;
@@ -99,6 +101,17 @@ function displaySong($song){
                 <p> $duracion </p>
             </div>
         </div>
+    </div>
+    EOS;
+
+    return $html;
+}
+
+function displayErrorMessage(){
+
+    $html =<<<EOS
+    <div class="playlistNotFound">
+        <h2> Error: Playlist no encontrada </h2>
     </div>
     EOS;
 

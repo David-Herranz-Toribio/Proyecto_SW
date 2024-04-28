@@ -19,19 +19,14 @@ function showCreatePlaylistView(){
 
             <div class="createPlaylistImageInput">
                 <label> Imagen </label>
-                <input type="file">
+                <input name="imagen" type="file">
             </div>
         </div>
 
         <div class="createPlaylistConfig">
             <div class="createPlaylistName">
                 <label> Nombre </label>
-                <input type="text" required>
-            </div>
-
-            <div class="createPlaylistPrivacy">
-                <label> Playlist privada: </label>
-                <input type="checkbox">
+                <input name="nombre" type="text" required>
             </div>
         </div>
 

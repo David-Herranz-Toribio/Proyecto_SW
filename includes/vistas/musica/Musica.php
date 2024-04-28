@@ -3,10 +3,11 @@
 require_once '../../Config.php';
 require_once HELPERS_URL . '/MusicaHelper.php';
 
-$username_id = 1;
-$content = "<section class='default'>";
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+$content = '';
+
 if(isset($_SESSION['username']))
-    $content .= showPlaylists($username_id);
+    $content = showPlaylists($username);
 else
     $content .= displayViewToNotLogged();
 

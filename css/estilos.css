@@ -558,6 +558,18 @@ button:hover  {
 	text-decoration: underline;
 }
 
+.playlistNotFound{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-column-start: 2;
+	grid-column-end: 3;
+}
+.emptyPlaylists,
+.creatingPlaylistError{
+	grid-column-start: 2;
+}
+
 /* Lista de canciones de una playlist */
 .playlist_header{
 	display: grid;
@@ -573,6 +585,8 @@ button:hover  {
 	display: flex;
 	justify-content: flex-start;
 	object-fit: contain;
+	width: 120px;
+	height: 120px;
 }
 
 .playlist_info{
@@ -626,10 +640,6 @@ button:hover  {
 }
 
 /* Botón para seleccionar privacidad de la playlist */
-.createPlaylistPrivacy{
-	display: flex;
-	flex-direction: row;
-}
 
 /* Cancion de una playlist */
 .playlistSong{

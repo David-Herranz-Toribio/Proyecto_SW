@@ -82,6 +82,16 @@ class Playlist{
         return $playlist;
     }
 
+    public static function crearPlaylistBD($autor, $nombre, $imagen, $creationDate){
+
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("INSERT INTO playlist (id_user, duracion_total, imagen, nombre, fecha) 
+        VALUES ('%s', '%d', '%s', '%s', '%s')", $autor, 0, $imagen, $nombre, $creationDate);
+        $rs = $conection->query($query);
+        
+        return $rs;
+    }
+
     public function getIdPlaylist(){
         return $this->id_playlist;
     }
