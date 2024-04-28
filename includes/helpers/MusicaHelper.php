@@ -1,6 +1,15 @@
 <?php
 require_once '../../Config.php';
 
+function showViewToNotLogged(){
+    
+    $html =<<<EOS
+    <h1 class="texto_infor"> No estas loguead@ </h1>
+    EOS;
+
+    return $html;
+}
+
 function showPlaylists($username){
     
     // Obtener las playlists del usuario

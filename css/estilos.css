@@ -42,7 +42,6 @@ header div.info_session{
 	font-size: 20px;
 	display: inline-flex;
 	text-align: center;
-	
 }
 
 header div.contenedor_texto {
@@ -597,6 +596,29 @@ button:hover  {
 	margin-top: 1%;
 	margin-inline: 8px;
 	border: 2px solid lightgray;
+}
+
+/* Cancion de una playlist */
+.playlistSong{
+	display: grid;
+	grid-template-columns: 15% auto;
+}
+.playlistSong img{
+	width: 80px;
+	height: 80px;
+	margin: 5px;
+}
+
+.songInfo {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	align-content: center;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.songNameAndArtist p{
+	margin: 0px;
 }
 
 /*Estilo reproductor */

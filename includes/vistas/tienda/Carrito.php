@@ -5,7 +5,8 @@ require_once HELPERS_URL . '/TiendaHelper.php';
 
 $user = null;
 
-$content = "<h2>No estas registrado</h2>";
+$content = "<h1 class='texto_infor'> No estas loguead@ </h1>";
+
 
 if(isset($_SESSION['username'])){
     $user = $_SESSION['username'];

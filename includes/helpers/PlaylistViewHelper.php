@@ -44,26 +44,42 @@ function displayPlaylistSongs($id){
 
     $html =<<<EOS
     <div class="songlist">
-        <p> Cancion 1 </p>
-        <p> Cancion 2 </p>
-        <p> Cancion 3 </p>
-        <p> Cancion 4 </p>
-        <p> Cancion 5 </p>
-        <p> Cancion 6 </p>
-        <p> Cancion 7 </p>
-        <p> Cancion 8 </p>
-        <p> Cancion 9 </p>
-        <p> Cancion 10 </p>
-        <p> Cancion 11 </p>
-        <p> Cancion 12 </p>
-        <p> Cancion 13 </p>
-        <p> Cancion 14 </p>
-        <p> Cancion 15 </p>
-        <p> Cancion 16 </p>
-        <p> Cancion 17 </p>
-        <p> Cancion 18 </p>
-        <p> Cancion 19 </p>
-        <p> Cancion 20 </p>
+    EOS;
+
+    for($i = 0; $i < 20; $i++){
+        $html .= displaySong($i);
+    }
+
+    $html .= "</div>";
+
+    return $html;
+}
+
+function displaySong($indice){
+
+    $songImagePath = IMG_PATH . "/songImages/portada1.jpg";
+
+    $html =<<<EOS
+    <div class="playlistSong">
+        <img src="$songImagePath">
+        <div class="songInfo">
+            <div class="songNameAndArtist">
+                <p> Cancion $indice </p>
+                <p> Artista </p>
+            </div>
+
+            <div class="songAlbum">
+                <p> Album </p>
+            </div>
+
+            <div class="songDate">
+                <p> dd/mm/yyyy </p>
+            </div>
+
+            <div class="songLenght">
+                <p> mm:ss </p>
+            </div>
+        </div>
     </div>
     EOS;
 

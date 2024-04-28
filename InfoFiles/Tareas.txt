@@ -51,4 +51,3 @@
     2)Añadir musica, eventos y subscribciones
 
 -Arreglar errores Practica 3 (URGENTE)
-
