@@ -9,7 +9,8 @@ $message = generateHeader();
 $formulario = generateFormulary();
 $errores = generateErrorMessages();
 
-$content =<<<EOS
+$content = "<section class='default'>";
+$content .=<<<EOS
     <section class='formulario_style'> 
     $message
     $formulario

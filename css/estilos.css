@@ -234,6 +234,13 @@ div.post_info {
 	width: 75%; 
 }
 
+/*Estilo sin iniciar sesión*/
+
+section.default {
+	text-align: center;
+	min-height: 92vh;
+}
+
 /*Estilo de la pagina de perfil del usuario*/
 
 section.datos_perfil {
@@ -653,7 +660,7 @@ button:hover  {
 	list-style: none;
 }
 #playlist li a{
-	color:black;
+	color:rgb(255, 255, 255);
 	text-decoration: none;
 }
 #playlist .current-song a{
