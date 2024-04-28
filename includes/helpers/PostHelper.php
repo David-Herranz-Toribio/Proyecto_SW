@@ -126,7 +126,8 @@ function showMainPosts($user, $opcion){
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
     $html = displayExplorerButton();
     // Mostrar contenido
-    $html .= displayFollowedButton();
+    if(isset($_SESSION['username']))
+        $html .= displayFollowedButton();
 
     $html .= displayContentMain($user, $opcion);
     return $html;

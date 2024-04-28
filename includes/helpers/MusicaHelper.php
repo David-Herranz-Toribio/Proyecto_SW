@@ -118,9 +118,9 @@ function displayFooter(){
 }
 
 function displayViewToNotLogged(){
-    
-    $html =<<<EOS
-    <h1 class="texto_infor"> No estas loguead@ </h1>
+    $html = "<section class='default'>";
+    $html .=<<<EOS
+    <h1 class="texto_infor"> No estas loguead@ para ver tu música</h1>
     EOS;
 
     return $html;

@@ -9,7 +9,11 @@ if($yo){
     $content = "<h1 class='texto_infor'> Productos </h1>";
     $content .= showProducts($yo);
 }
-else
-    $content = "<h1 class='texto_infor'> No estas loguead@ </h1>";
+else {
+    $content = "<section class='default'>";
+    $content .=<<<EOS
+    <h1 class='texto_infor'> No estas loguead@ para ver la tienda</h1>
+    EOS;
+}
 
 require_once LAYOUT_URL;

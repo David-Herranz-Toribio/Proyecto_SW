@@ -15,9 +15,9 @@ define('MUSIC_VIEW', 'MUSIC');
 
 
 function showNotLogged(){
-
-    $html =<<<EOS
-    <h1 class='texto_infor'> No estas logead@ </h1>
+    $html = "<section class='default'>";
+    $html .=<<<EOS
+    <h1 class='texto_infor'> No estas loguead@ para ver el perfil </h1>
     EOS;
 
     return $html;
