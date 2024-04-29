@@ -124,7 +124,8 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
 function showMainPosts($user, $opcion){
     // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
-    $html = displayExplorerButton();
+    $html = "<section class='default'>";
+    $html .= displayExplorerButton();
     // Mostrar contenido
     if(isset($_SESSION['username']))
         $html .= displayFollowedButton();

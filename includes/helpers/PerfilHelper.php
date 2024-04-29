@@ -213,8 +213,8 @@ function displayProducts($user){
 function displayMusic($user){
 
     $username = $user->getUsername();
-    
-    $html =<<<EOS
+    $html = "<section class='default'>";
+    $html .=<<<EOS
     <div class='lista_musica'>
         MUSICA DEL ARTISTA $username
     </div>

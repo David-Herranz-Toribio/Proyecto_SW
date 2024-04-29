@@ -23,12 +23,14 @@ function generateStaticHeader($currentPage) {
     $altText = 'Foto de login';
     $link = VIEWS_PATH . '/log/Login.php';
     $texto = "Iniciar sesión";
+    $onclick = "location.assign('$link');";
   } else {
     $loginImage = IMG_PATH . '/FotoLogoutUser.png';
     $altText = 'Foto de logout';
     $link = VIEWS_PATH . '/log/Logout.php';
     $username = $_SESSION['username'];
     $texto = "Bienvenido " . $username; 
+    $onclick = "comprobar();";
   }
 
   $html = <<<EOS
@@ -52,17 +54,28 @@ EOS;
 }
 
 $html .= <<<EOS
-  <div class= 'info_session'> 
-    <div class= 'contenedor_texto'> 
-      <p> $texto <p>
-    </div> 
+<script>
+function comprobar() {
+  var ok = window.confirm("¿Quieres cerrar sesión, $username?");
+  if (ok)
+    location.assign("$link");
+}
+</script>
+</head>
+<body>
 
-    <div class= 'contenedor_imagen'> 
-      <p><a href="$link"><img src="$loginImage" height="30" width="30" alt="$altText"></a><p> 
-    </div> 
+<div class= 'info_session'> 
+  <div class= 'contenedor_texto'> 
+    <p> $texto </p>
   </div> 
+
+  <div class= 'contenedor_imagen'> 
+    <p><a href="#" onclick="$onclick"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
+  </div> 
+</div> 
 </header>
 EOS;
+
 
   return $html;
 }

@@ -26,8 +26,8 @@ function showPlaylists($username){
 }
 
 function displayHeader(){
-
-    $html =<<<EOS
+    $html = "<section class='default'>";
+    $html .=<<<EOS
     <div class="musicHeader">
         <h1> Tu música </h1>
     </div>

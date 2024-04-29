@@ -91,7 +91,7 @@ EOS;
 
 
 $funcion_eliminar = <<<EOS
-<form action= $rutaDel method="post2">
+<form action= $rutaDel method="post2" onsubmit="return confirmarEliminacion();">
 <div class= 'info_session'> 
         <div class= 'contenedor_texto'> 
         <p>
@@ -106,9 +106,15 @@ $funcion_eliminar = <<<EOS
     </div> 
 </form>
 
-EOS; 
-
-$content= <<<EOS
+<script>
+function confirmarEliminacion() {
+    var ok = window.confirm("¿Estás seguro de que quieres eliminar tu usuario?");
+    return ok;
+}
+</script>
+EOS;
+$content = "<section class='default'>";
+$content .= <<<EOS
     $FotoPerfil
     $funcion_eliminar
     $form_modificar

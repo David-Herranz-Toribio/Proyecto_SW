@@ -5,8 +5,8 @@ require_once '../../Config.php';
 function generatePostPublicationHTML($id_padre = 'NULL'){
 
     $ruta = VIEWS_PATH . '/foro/AddForo.php';
-
-    $html =<<<EOS
+    $html = "<section class='default'>";
+    $html .=<<<EOS
     <fieldset>
         <legend ><strong> Nueva Publicación </strong></legend>
         <form name = "datos_post" action = $ruta method = "post" enctype = "multipart/form-data">
