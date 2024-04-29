@@ -6,8 +6,11 @@ require_once 'Pedido.php';
 
 class FormularioRegistro extends Formulario {
 
-    public function __construct() {
+    private $isArtist; 
+
+    public function __construct($isArtist) {
         parent::__construct('formRegistro', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php']);
+        $this->isArtist= $isArtist;
     }
 
     protected function generaCamposFormulario(&$datos){
@@ -20,12 +23,48 @@ class FormularioRegistro extends Formulario {
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'email', 'birthdate'], $this->errores, 'span', array('class' => 'error'));
 
+
+        $opciones_de_artista= ''; 
+        $link_a_artista= ''; 
+
+        if($this->isArtist== true){
+            $opciones_de_artista = <<<EOS
+            <label> Musical genre: </label>
+            <select name="artist_members" size = "6">
+                <option> ----</option>
+                <option value="Pop"> Pop </option>
+                <option value="Rock"> Rock </option>
+                <option value="Rap"> Rap </option>
+                <option value="Hip Hop"> Hip Hop </option>
+                <option value="Latino"> Latino </option>
+                <option value="Jazz"> Jazz </option>
+                <option value="R&B"> R&B </option>
+                <option value="K-Pop"> K-Pop </option>
+                <option value="J-Pop"> J-Pop </option>
+                <option value="Dubstep"> Dubstep </option>
+                <option value="Clásica"> Clásica </option>
+                <option value="Disco"> Disco </option>
+                <option value="Funk"> Funk </option>
+                <option value="Jazz"> Jazz </option>
+                <option value="Reggae"> Reggae </option>
+                <option value="Metal"> Metal </option>
+            </select>
+            EOS; 
+        }
+
+        else {
+            $enlace = VIEWS_PATH . '/log/SignUpArtist.php';
+            $link_a_artista= <<<EOS
+            <p> Eres un artista? <a href= $enlace> Crea tu cuenta aquí </a></p>
+            EOS; 
+
+        }
+
         $camposForm= <<<EOF
             $htmlErroresGlobales
             <fieldset class="formRegistro">
             <legend> Registra tu nueva cuenta de usuario </legend> 
-            <input hidden name="isArtist" value="0"/> 
-
+    
             <label> Nickname </label>
             <div> 
             <input required type="text" name= "nickname" value= "$nickName"/>
@@ -56,11 +95,15 @@ class FormularioRegistro extends Formulario {
             {$erroresCampos['birthdate']}
             </div> 
             
+            $opciones_de_artista 
+
             <label> Foto de perfil </label>
             <p></p>
                 <input type = "file" name = "image" accept = "image/*">
             <button type="submit" name="register_button" > Sign In </button>
             </field> 
+
+            $link_a_artista
         EOF; 
 
         return $camposForm;
@@ -75,7 +118,6 @@ class FormularioRegistro extends Formulario {
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $password_length = strlen($datos['password']);
         $birthdate = $datos['birthdate'];
-        $isArtist = boolval($datos['isArtist']);
 
         // La contraseña no tiene al menos 8 caracteres
         if( $password_length < 8 )
@@ -99,7 +141,7 @@ class FormularioRegistro extends Formulario {
         $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
 
         // La fecha es anterior al día actual
-        if( $isArtist ){
+        if( $this->isArtist ){
 
             if( $fecha_actual->diff($birthdate)->d < 1 )
                 $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
@@ -126,12 +168,14 @@ class FormularioRegistro extends Formulario {
                     $_SESSION['notif_prod'] = $num;
 
                 $datos['karma']= 0;
+
+                if($this->isArtist== true) $_SESSION['isArtist']= true; 
+
                 $datos['artist_members']= NULL; 
                 $datos['profile_image']= NULL; 
                 $datos['desc']= '';
-
-
-
+                $datos['isArtist']= $this->isArtist; 
+                
                 $usuario= es\ucm\fdi\aw\Usuario:: createUser($datos); 
                 $_SESSION['username'] = $username; 
             }

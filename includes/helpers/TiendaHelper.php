@@ -160,9 +160,6 @@ function showProduct($yoYYoMismo, $id){
     // MIRAR LOS BOCETOS PARA HACER ALGO MAS ESPECIFICO PARA PRODUCTO INDIVIDUAL Y PONER POST AQUI TAMBIEN POR EJEMPLO
     $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                          $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
-
-
-
                                        
     $content .= "</section>";
 

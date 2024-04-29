@@ -1,17 +1,22 @@
 <?php
 
 require_once '../../Config.php';
-require_once HELPERS_URL . '/CrearPostVista.php';
+require_once CLASSES_URL. '/FormularioPublicacion.php'; 
+
 
 if(isset($_POST['id_padre'])) 
     $id_padre = $_POST['id_padre']; 
 else 
     $id_padre = NULL; 
 
-$content = generatePostPublicationHTML($id_padre);
+
+$form= new FormularioPublicacion($id_padre); 
+$htmlform= $form->gestiona(); 
+
+$content= <<<EOS
+<section class= 'formulario_style'> 
+$htmlform
+</section> 
+EOS; 
 
 require_once LAYOUT_URL;  
-
-
-
-

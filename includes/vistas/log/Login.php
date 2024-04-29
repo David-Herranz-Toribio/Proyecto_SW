@@ -4,7 +4,7 @@ require_once '../../Config.php';
 require_once CLASSES_URL .'/FormularioLogin.php'; 
 
 $top_message=<<<EOS
-'<p> 2Music ¡Música sin limites para perder el tiempo! </p>';
+<p> 2Music ¡Música sin limites para perder el tiempo! </p>
 EOS; 
 
 $form= new FormularioLogin(); 

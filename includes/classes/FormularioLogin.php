@@ -68,7 +68,7 @@ class FormularioLogin extends Formulario
             $usuario = es\ucm\fdi\aw\Usuario::login($username, $password);
         
             if (!$usuario) {
-                $this->errores[] = "El usuario o el password no coinciden";
+                $this->errores[] = "¡El usuario o la contraseña no coinciden!";
             } 
             else {
                 $_SESSION['login'] = true;
