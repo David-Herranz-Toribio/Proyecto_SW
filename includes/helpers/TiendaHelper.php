@@ -3,6 +3,7 @@
 require_once CLASSES_URL . '/Producto.php';
 require_once CLASSES_URL . '/Pedido.php';
 require_once CLASSES_URL . '/Usuario.php';
+require_once CLASSES_URL . '/FormularioProducto.php'; 
 
 function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 
@@ -354,57 +355,14 @@ function showHistorialPedidos($id_user){
 }
 
 function addProd($yo, $id_prod){
-    $rutaAddProd = HELPERS_PATH . '/ProcesarTienda.php';
-
-    $nombre = "";
-    $descripcion = "";
-    $stock = "";
-    $precio = "";
-    $imagen = 'FotoMerch.png';  
-    $imagen_html = "";
-    
-
-    if(!is_null($id_prod)){
-        $prod = es\ucm\fdi\aw\Producto::obtenerProductoporId($id_prod);
-  
-        $nombre = $prod->getNombre();
-        $descripcion = $prod->getDescripcion();
-        $stock = $prod->getStock();
-        $precio = $prod->getPrecio();
-
-        $imagen = $prod->getImagen();  
-
-        $imagen_html = "<img src='".IMG_PATH . '/prodImages/'. $imagen."' width = '70' heigth = '70'>";
-    }
+    $form= new FormularioProducto($id_prod, $yo); 
+    $htmlform= $form->gestiona(); 
 
     $content =<<<EOS
     <h1 class = 'texto_infor'> Tus productos </h1>
     <section class = 'formulario_style'>
-        <form action = '$rutaAddProd' method = 'post' enctype = 'multipart/form-data'>
-            <input type = "hidden" name = "Autor" value = "$yo">
-            <input type = "hidden" name = "Id" value = $id_prod>
-            <input type = "hidden" name = "Imagen_antigua" value = $imagen>
-
-            <label>Nombre</label>
-            <input type="text" name="Nombre" value="$nombre">
-
-            <label>Imagen</label>
-            <input type = "file" name = "Imagen" accept = "image/*">
-            $imagen_html
-
-            <label>Descripcion</label>
-            <textarea name = "Descripcion">$descripcion</textarea>
-
-            <label>Stock</label>
-            <input type="number" name="Stock" value="$stock" min="1" max='9999'/>
-
-            <label>Precio</label>
-            <input type="number" name="Precio" value="$precio" min="1" max='9999'/>
-
-            <button type = "submit">Crear producto</button>
-        </form>
+       $htmlform
     </section>
-
     EOS;
 
     return $content;

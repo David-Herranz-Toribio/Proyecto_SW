@@ -31,54 +31,6 @@ class Usuario{
     }
 
 
-    public static function checkUserData($username, $password_length, $email, $birthdate, $isArtist){
-
-        // Lista de errores
-        $errores = [];
-
-        // El usuario ya existe
-        if( self::buscaUsuario($username) )
-            $errores['username_usado'] = 'El usuario ya existe';
-
-        // La contraseña no tiene al menos 8 caracteres
-        if( $password_length < 8 )
-            $errores['short_password'] = 'La contraseña debe tener al menos 8 caracteres';
-        
-        // El email no es válido
-        if( !filter_var($email, FILTER_VALIDATE_EMAIL) )
-            $errores['email_invalido'] = 'El email no es válido';
-
-        // El email ya está en uso
-        else if( self::buscaEmailBD($email) )
-            $errores['email_en_uso'] = 'El email ya está en uso';
-        
-        
-        // Obtener fecha actual
-        $fecha_actual = new \DateTime();
-        $birthdate = new \DateTime($birthdate);
-
-        // Obtener un entero a partir de la fecha
-        $fecha_num = intval(date("Ymd", strtotime($fecha_actual->format('Y-m-d'))));
-        $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
-
-        // La fecha es anterior al día actual
-        if( $isArtist ){
-
-            if( $fecha_actual->diff($birthdate)->d < 1 )
-                $errores['fecha_anterior'] = 'La fecha debe ser anterior al dia actual';
-        }
-        else{
-
-            if( $fecha_actual->diff($birthdate)->y < 18 )
-                $errores['fecha_mayor_edad'] = 'Debes ser mayor de 18 años';
-
-            if( $birth_num > $fecha_num )
-                $errores['fecha_anterior'] = 'La fecha debe ser anterior al dia actual';
-        }
-
-        return $errores;
-    }
-
     /*
         Registra un nuevo usuario en la Base de Datos
         Devolvemos el objeto Usuario y por el parametro errors[] los mensajes de error que se hayan generado(usuario ya existe, contraseña débil, etc...)
@@ -103,7 +55,7 @@ class Usuario{
         $query = "INSERT INTO usuario (id_user, nickname, password, foto, descripcion, karma, fecha, correo) VALUES ";
         $values = "('$username', '$nickname', '$password', '$profile_image', '$nullv', $karma, '$birth', '$email'); ";
         $query .= $values;
-        $conection->query($query);
+        $conection->query($query); 
 
         if($conection) {
             if($artist) {
@@ -232,8 +184,6 @@ class Usuario{
         }
 
         return $result; 
-
-
 
     }
 
@@ -375,23 +325,6 @@ class Usuario{
 
         return false;
     }
-
-    public static function checkEmail($email){
-        $errores = [];
-        if( !filter_var($email, FILTER_VALIDATE_EMAIL) )
-            $errores['email_invalido'] = 'El email no es válido';
-        else if( self::buscaEmailBD($email) )
-            $errores['email_en_uso'] = 'El email ya está en uso';
-        return $errores;
-    }
-
-    public static function checkPassword($password_length){
-        $errores = [];
-        if( $password_length < 8 )
-            $errores['short_password'] = 'La contraseña debe tener al menos 8 caracteres';
-        return $errores;
-    }
-    
 
     public function aumentaKarma($num){
         $this->karma = $this->karma + $num;

@@ -4,12 +4,12 @@ require_once 'Formulario.php';
 require_once 'Usuario.php'; 
 require_once 'Post.php';
 
-class FormularioPublicacion extends Formulario
+class FormularioRespuesta extends Formulario
 {
     private $id_padre; 
 
     public function __construct($id_padre) {
-        parent::__construct('formPublicaPost', ['urlRedireccion' => VIEWS_PATH .'/foro/Foro.php']);
+        parent::__construct('formRespuestaPost', ['urlRedireccion' => VIEWS_PATH .'/foro/Foro.php']);
         $this->id_padre= $id_padre; 
     }
     
@@ -18,14 +18,15 @@ class FormularioPublicacion extends Formulario
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
-        <fieldset>
-        <legend ><strong> Nueva Publicación </strong></legend>
-            <input type = "hidden" name = "id_padre" value = "$this->id_padre">
-            Mensaje: <textarea name = "post_text" required style = "resize: none; "></textarea><br><br>
-            Imagen:<input type = "file" name = "image" accept = "image/*">
-            <br><br><br>
-            <button type="submit"> Publicar </button>
-        </fieldset>
+        <div class='responder'>
+        <input type = "hidden" name = "id_padre" value = "$this->id_padre">
+        <details>
+            <summary>Responder &#10149; </summary>
+            <label>Respuesta:<input type = "text" name = "post_text" required></label><br>
+            <label>Imagen:<input type = "file" name = "image" accept = "image/*"></label><br>
+            <button type = "submit">Enviar respuesta</button>
+        </details>
+        </div> 
         EOF;
 
         return $html;

@@ -253,9 +253,9 @@ class Post{
         $query = sprintf(
             "UPDATE post SET texto = '%s', imagen = '%s', likes = %d, tags = '%s', fecha = '%s' WHERE id_post = %d",
             $conn->real_escape_string($post->texto),
-            $conn->real_escape_string($post->imagen),
+            is_null($post->imagen) ? 'NULL' : $conn->real_escape_string($post->imagen),
             $post->num_likes,
-            $conn->real_escape_string($post->tags), 
+            $post->tags, 
             Post::generatePostDate(),
             $post->id
         );

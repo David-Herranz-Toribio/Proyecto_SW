@@ -18,19 +18,3 @@ $content =<<<EOS
 EOS; 
 
 require_once LAYOUT_URL;
-
-/*
-global $isArtist;
-
-$message = generateHeader();
-$formulario = generateFormulary();
-$errores = generateErrorMessages();
-
-$content =<<<EOS
-    <section class='formulario_style'> 
-    $message
-    $formulario
-    $errores
-    </section> 
-EOS;
-*/
