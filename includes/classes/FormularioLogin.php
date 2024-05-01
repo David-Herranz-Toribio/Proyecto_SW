@@ -65,7 +65,7 @@ class FormularioLogin extends Formulario
         }
         
         if (count($this->errores) === 0) {
-            $usuario = es\ucm\fdi\aw\Usuario::login($username, $password);
+            $usuario = SW\classes\Usuario::login($username, $password);
         
             if (!$usuario) {
                 $this->errores[] = "¡El usuario o la contraseña no coinciden!";
@@ -73,11 +73,11 @@ class FormularioLogin extends Formulario
             else {
                 $_SESSION['login'] = true;
                 $_SESSION['username'] = $usuario->getUsername();
-                $num = es\ucm\fdi\aw\Pedido::numProdporUserPP($username);
+                $num = SW\classes\Pedido::numProdporUserPP($username);
                 if($num){
                     $_SESSION['notif_prod'] = $num;
                 }
-                $_SESSION['isArtist'] =  es\ucm\fdi\aw\Usuario::esArtista($username); 
+                $_SESSION['isArtist'] =  SW\classes\Usuario::esArtista($username); 
             }
         }
     }

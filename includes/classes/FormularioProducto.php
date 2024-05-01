@@ -18,7 +18,7 @@ class FormularioProducto extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         if(!is_null($this->id_product)){
-            $prod = es\ucm\fdi\aw\Producto::obtenerProductoporId($this->id_product);
+            $prod = SW\classes\Producto::obtenerProductoporId($this->id_product);
       
             $nombre = $prod->getNombre();
             $descripcion = $prod->getDescripcion();
@@ -84,7 +84,7 @@ class FormularioProducto extends Formulario
         /*Procesar imagen*/ 
 
 
-        $producto = es\ucm\fdi\aw\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
+        $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
         $producto->guarda();
     }
 }

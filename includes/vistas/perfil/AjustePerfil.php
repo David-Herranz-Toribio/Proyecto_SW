@@ -7,7 +7,7 @@ require_once CLASSES_URL . '/FormularioModificacion.php';
 $rutaEstiloClaro=  CSS_PATH .'/estiloClaro.css'; 
 $rutaEstiloOscuro= CSS_PATH .'/estiloOscuro.css'; 
 
-$perfil = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
+$perfil = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 $image = $perfil->getPhoto();  
 $rutaDel = HELPERS_PATH . '/ProcesarEliminarUsuario.php'; 
 $RemoveImage = IMG_PATH . '/remove_user_.png';
@@ -38,7 +38,7 @@ EOS;
 /*Boton para eliminar la cuenta*/ 
 
 $funcion_eliminar = <<<EOS
-<form action= $rutaDel method="post2">
+<form action= $rutaDel method="post2" >
 <div class= 'info_session'> 
         <div class= 'contenedor_texto'> 
         <p>
@@ -73,49 +73,3 @@ EOS;
 require_once LAYOUT_URL; 
 
 
-/*
-$act_nickname = $perfil->getNickname(); 
-$act_username = $perfil->getUsername(); 
-$act_descr = $perfil->getDescrip(); 
-$act_email = $perfil->getEmail();
-$act_password = $perfil->getPassword();  
-$rutaMod = HELPERS_PATH . '/ModificarPerfilHelper.php'; 
-$link = VIEWS_PATH . '/log/Logout.php';
-
-$altText = 'Foto de eliminacion de cuenta';
-$texto = "Eliminar Cuenta "; 
-//Primero comprobar si es artista 
-
-$form_modificar= <<<EOS
-    <section class= "formulario_style">
-    <fieldset class= "formRegistro">
-    <legend> Modifica tu cuenta </legend> 
-        <form action= $rutaMod method="post"enctype = "multipart/form-data">
-            <input hidden name="id_user" value= "$act_username">
-             
-            <input hidden name="isArtist" value="0"> 
-            <label> Nickname </label>
-             
-            <input type="text" name= "modify_nickname" value= "$act_nickname">
-
-            <label> Descripcion </label> 
-         
-            <input type="text" name= "modify_descrip" value= "$act_descr">
-
-            <label> Email </label>
-            
-            <input type="text" name="modify_email" value= "$act_email">
-      
-
-            <label> Password </label>
-            
-            <input type="password" name="modify_password">
-
-            <label> Modificar foto de perfil </label>
-                <input type = "file" name = "image" accept = "image/*">
-                
-            <button type="submit" name="register_button" > Modificar </button>
-        </form>
-    </fieldset>
-    </section> 
-EOS; 

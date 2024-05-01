@@ -42,7 +42,7 @@ class FormularioRespuesta extends Formulario
         if($datos['id_padre'] != "") $post_father= $datos['id_padre']; 
         else $post_father = 'NULL'; 
 
-        $user=  es\ucm\fdi\aw\Usuario::buscaUsuario($username);
+        $user=  SW\classes\Usuario::buscaUsuario($username);
         $post = $user->publicarPost($post_text, $post_image, $post_father);
     }
 }

@@ -11,7 +11,7 @@ class FormularioModificacion extends Formulario {
     }
 
     protected function generaCamposFormulario(&$datos){
-        $user= es\ucm\fdi\aw\Usuario:: buscaUsuario($_SESSION['username']);  
+        $user= SW\classes\Usuario:: buscaUsuario($_SESSION['username']);  
 
         $userName= $user->getUsername(); 
         $nickName= $user->getNickname();  
@@ -77,7 +77,7 @@ class FormularioModificacion extends Formulario {
 
 
         /*TODO comprobar errores en los datos*/
-        $usu_mod= es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['username']); 
+        $usu_mod= SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 
         if($nickname) $usu_mod->setNickname($nickname);
 
@@ -87,7 +87,7 @@ class FormularioModificacion extends Formulario {
             if( !filter_var($email, FILTER_VALIDATE_EMAIL) )
                 $this->errores['email'] = 'El email no es válido';
 
-            else if( es\ucm\fdi\aw\Usuario::buscaEmailBD($email))
+            else if( SW\classes\Usuario::buscaEmailBD($email))
                 if($email!=$usu_mod->getEmail()) $this->errores['email'] = 'El email ya está en uso';
                 
             else  $usu_mod->setEmail($email);

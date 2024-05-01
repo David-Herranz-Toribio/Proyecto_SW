@@ -15,7 +15,7 @@ class FormularioModificacionPost extends Formulario {
 
     protected function generaCamposFormulario(&$datos){
 
-        $post = es\ucm\fdi\aw\Post::buscarPostPorID($this->id_post);
+        $post = SW\classes\Post::buscarPostPorID($this->id_post);
         $postText= $post->getTexto(); 
 
         $camposForm= <<<EOF
@@ -38,11 +38,11 @@ class FormularioModificacionPost extends Formulario {
         $id = $datos['id'];
         $tx = htmlspecialchars($datos['postText']);
 
-        $post = es\ucm\fdi\aw\Post::buscarPostPorID($id);
+        $post = SW\classes\Post::buscarPostPorID($id);
         $post->setTexto($tx);
 
         /*TODO Procesar imagen*/ 
 
-        es\ucm\fdi\aw\Post::actualizar($post);
+        SW\classes\Post::actualizar($post);
     }   
 }

@@ -128,7 +128,7 @@ class FormularioRegistro extends Formulario {
             $this->errores['email'] = 'El email no es válido';
 
         // El email ya está en uso
-        else if( es\ucm\fdi\aw\Usuario::buscaEmailBD($email) )
+        else if( SW\classes\Usuario::buscaEmailBD($email) )
             $this->errores['email'] = 'El email ya está en uso';
         
         
@@ -156,14 +156,14 @@ class FormularioRegistro extends Formulario {
         }
 
         if(count($this->errores)===0){
-            $usuario= es\ucm\fdi\aw\Usuario:: buscaUsuario($username); 
+            $usuario= SW\classes\Usuario:: buscaUsuario($username); 
 
             if($usuario){ //El username esta cogido 
                 $this->errores[] = 'El usuario ya existe';
             }
 
             else { //El username esta libre 
-                $num = es\ucm\fdi\aw\Pedido::numProdporUserPP($username);
+                $num = SW\classes\Pedido::numProdporUserPP($username);
                 if($num)
                     $_SESSION['notif_prod'] = $num;
 
@@ -176,7 +176,7 @@ class FormularioRegistro extends Formulario {
                 $datos['desc']= '';
                 $datos['isArtist']= $this->isArtist; 
                 
-                $usuario= es\ucm\fdi\aw\Usuario:: createUser($datos); 
+                $usuario= SW\classes\Usuario:: createUser($datos); 
                 $_SESSION['username'] = $username; 
             }
         }
