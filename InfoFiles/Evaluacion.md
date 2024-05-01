@@ -1,93 +1,40 @@
-# Feedback de la P3
+# Proyecto final
 
-## Funcionalidades implementadas
+## Criterios de evaluación
 
-1. 
-2. 
-3.
+La evaluación del proyecto contempla distintos apartados, todos ellos con distintos pesos. Son los siguientes:
 
-## Calificación: 10 / 10
+- Memoria descriptiva y recursos de prueba (25%): Se valorará la calidad general de la memoria, incluyendo su estructura, claridad y nivel de descripción del proyecto. Se valorará muy especialmente la calidad de la documentación y manuales.
 
-## Memoria (hasta 1,5 puntos) (1,5 / 1,5)
+- Implementación (75%): Es el apartado de mayor peso, y se divide en subapartados:
+    - Arquitectura: organización general del proyecto. Separación en capas (vistas y otros), uso de objetos, organización del código, etc. El criterio mínimo para puntuar por encima del 5 es dividir los scripts que generan HTML de los que acceden a la base de datos.
+    - Uso de HTML y CSS: Calidad general del HTML generado y su formato mediante hojas de estilo. Se valorará la complejidad, pero sobre todo la claridad y estructura adecuada. Deben usarse las etiquetas y atributos con buen criterio.
+    - Uso de JavaScript: Se valorará el uso de efectos donde sea necesario (e.g. validar formularios antes de enviar) y su uso en conjunto con AJAX.
+    - Calidad del Backend: Calidad del código PHP.
+    - Seguridad: Todos los datos recibidos deben sanearse y escaparse debidamente. No se deben guardar contraseñas en texto claro en la base de datos. Para alcanzar la máxima calificación, debe usarse un Hash con sal para almacenar las contraseñas.
+    - Alcance: Alcance general del proyecto y nivel de complejidad del desarrollo. Este apartado tiene muy en cuenta el número de componentes de cada grupo.
+    - Funcionamiento libre de errores en el servidor (VPS de laboratorios)
 
-- [ ] Los listados de los scripts NO han sido actualizados respecto a los de la P2 (0 puntos)
-- [ ] Los listados de los scripts han sido actualizados respecto a los de la P2 (0,5 puntos)
+Todos los apartados se valoran de 0 a 10.
 
-- [ ] El diagrama de base de datos NO ha sido actualizado respecto al de la P2 (0 puntos)
-- [ ] El diagrama de base de datos ha sido actualizado respecto al de la P2 (0.5 puntos)
+## Sistemas Web 2023/2024
 
-- [ ] La memoria incluye el parte de actividades detallado por cada integrante del grupo de prácticas (0.5 puntos)
+### Descripción del proyecto final Página 2
 
-Contenido:
-- [ ] Listado de scripts para las vistas
-- [ ] Listado de scripts adicionales
-- [ ] Estructura de la base de datos
-- [ ] Listado del juego de usuarios de pruebas.
-- [ ] Parte de actividades.
+## Mejoras opcionales
 
-### Comentarios sobre la memoria
+Se considerarán las siguientes mejoras opcionales de cara a subir nota, pero no son necesarias para conseguir la máxima calificación:
 
-#### Listado de scripts de vista
+- Usos avanzados de patrones de seguridad o de abstracción de la base de datos.
+- Uso de servicios web con JSON.
+- Interacción basada en AJAX.
+- Arquitectura basada en servicios web y/o AJAX.
 
-#### Listado de otros scripts
+El uso de frameworks o librerías adicionales, ya sea en el cliente o servidor, está permitido, pero no se valora como extra. En cambio, hacer un uso no justificado o inadecuado de este tipo de herramientas puede suponer una penalización.
 
-#### Estructura de la BD
+## Ajuste de la nota
 
-## HTML (hasta 1 puntos) (1 / 1)
+Junto con el proyecto, todos los miembros del equipo deben rellenar un cuestionario online individual y confidencial, en el que describen su grado de implicación en el proyecto y la aportación relativa de todos los miembros del equipo.
 
-- [ ] Hay errores graves en el HTML (0 puntos)
-- [ ] Hay bastantes errores en el HTML (0.5 puntos)
-- [ ] Hay algunos errores en el HTML (0.75 puntos)
-- [ ] Se hace un uso adecuado de las etiquetas (1 punto)
+Estos cuestionarios se emplean para ajustar la nota individual de cada alumno, tomando como base la calificación inicial del proyecto. No se publicará la nota del proyecto hasta que todos los miembros hayan realizado el formulario.
 
-## CSS (hasta 1 puntos) (1 / 1)
-
-- [ ] No se incluyen CSS o son las mismas que se proporcionan en los ejercicios 2 o 3. (0 puntos)
-- [ ] Estilos mínimos o modificaciones mínimas sobre las CSS proporcionadas en el ejercicio 2 o 3 (0,25 puntos)
-- [ ] Añaden nuevas reglas tanto para modificar el aspecto de elementos de las páginas como para organizar la aplicación (0,5 puntos)
-- [ ] Se hace un uso intensivo de CSS, en particular se usan CSS Flexbox y/o CSS Grid para organizar las páginas (1 puntos)
-
-## Prototipo del Proyecto (hasta 6 puntos) (6,5 / 6,5)
-
-### Funcionalidades implementadas (hasta 4 puntos) (4 / 4)
-
-
-#### Primera
-
-Pruebas:
-- [ ] Al probar la funcionalidad implementada no funciona o tiene bastantes errores (0 puntos)
-- [ ] Al probar la funcionalidad implementada falla en algunos casos (1 punto)
-- [ ] Al probar la funcionalidad implementada funciona correctamente (2 puntos)
-
-Grado de madurez:
-- [ ] La funcionalidad está completada por debajo del 25% (0 puntos)
-- [ ] La funcionalidad está completada entre el 25%-50% (1 punto)
-- [ ] La funcionalidad está completada entre el 50%-75% (2 puntos)
-- [ ] La funcionalidad está completada entre el 75%-100% (3 puntos)
-
-#### Segunda
-...
-
-### Calidad del código (hasta 2,5 puntos) (2,5 / 2,5)
-
-- [ ] No existe una separación clara entre scripts de vista y scripts de lógica (0 puntos)
-- [ ] Existe una separación clara entre scripts de vista y scripts de lógica (0,25 puntos)
-- [ ] Existe una separación clara entre scripts de vista y scripts de lógica. Además la lógica en los scripts de vista es concentrada al comienzo del script y se utilizan funciones de apoyo para simplificar la generación y el mantenimiento del HTML de las páginas. (0,5 puntos)
-
-- [ ] El código contiene bastantes errores comunes o de otro tipo (0 puntos)
-- [ ] El código contiene algunos errores comunes o de otro tipo (0,25 puntos)
-- [ ] El código no contiene errores apreciables  (0,5 puntos)
-
-- [ ] Sigue la estructura del ejercicio 3 / estructura-proyecto o similar (0,5 puntos)
-
-- [ ] La solución utiliza orientación a objetos al menos para las clases de entidad de la aplicación (0,5 puntos)
-
-- [ ] Las clases de entidad se encargan de la gestión de acceso a la base de datos (o bien se aplica otro patrón más avanzado como el DAO) (0,5 puntos)
-
-Algunos errores comunes encontrados:
-- [ ] No se liberan recursos $rs->free() cuando se lanza una consulta SELECT.
-- [ ] Las operaciones de base de datos no escapan ($conn->real_escape_string()) los parámetros del usuario.
-- [ ] No se utiliza HTTP POST cuando la operación modifica el estado del servidor.
-- [ ] Los datos que provienen del usuario no se validan adecuadamente.
-- [ ] Las clases de entidad (e.g. Usuario, Mensaje, etc.) generan HTML. Las clases de entidad no deben de tener esa responsabilidad.
-- [ ] Las operaciones de BD devuelven arrays cuyo contenido son directamente las filas que se obtienen de la base de datos y no instancias de la clase correspondiente.

@@ -36,7 +36,8 @@ CREATE TABLE `usuario` (
   `descripcion` tinytext DEFAULT NULL,
   `karma` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
-  `correo` varchar(255) NOT NULL
+  `correo` varchar(255) NOT NULL,
+  `admin` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -49,7 +50,7 @@ CREATE TABLE `ajustes` (
   `fontSize` int(11) DEFAULT NULL,
   `temas` varchar(255) DEFAULT NULL,
   `paginaPrincipal` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
