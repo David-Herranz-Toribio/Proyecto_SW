@@ -520,6 +520,19 @@ button:hover  {
 .musicButtons{
 	grid-column: 2;
 }
+.musicButtons button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.musicButtons button a:hover {
+    color: inherit;
+}
+
+.musicButtons button a:visited {
+    color: inherit;
+}
+
 
 .musicList{
 	grid-column: 2;
@@ -630,7 +643,6 @@ button:hover  {
 	flex-direction: column;
     align-items: center;
     justify-content: center;
-	grid-column: 2;
 }
 .createPlaylistImage img{
 	width: 120px;

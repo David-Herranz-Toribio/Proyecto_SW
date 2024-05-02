@@ -11,7 +11,7 @@ $form= new FormularioLogin();
 $htmlform= $form->gestiona(); 
 
 $content =<<<EOS
-    <section class= 'formulario_style'> 
+    <section class='formulario_style'> 
     $top_message
     $htmlform
     </section> 

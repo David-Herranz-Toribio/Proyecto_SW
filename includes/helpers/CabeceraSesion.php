@@ -7,6 +7,7 @@ function generateStaticHeader($currentPage) {
   $placeholderText = "Ej. usuario: Robert09";
   $user = $_GET["user"] ?? isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
   $opcion = $_GET["opcion"] ?? NULL;
+  $username = '';
 
   if ($opcion !== 'FAVS' && strpos($currentPage, "/vistas/perfil/Perfil.php") !== false) {
     $placeholderText = "Ej. texto: Buena foto";
