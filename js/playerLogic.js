@@ -3,6 +3,9 @@ function playerLogic () {
     var playing = true;
     $("#player")[0].src = $("#playlist li a")[0].href;
     $("#player")[0].play();
+    $("#playlist li:eq("+currentSong+")").addClass("current-song");
+    showNameSong(); 
+
 
     $("#playlist li a").click(function(e){
         e.preventDefault(); 
@@ -47,6 +50,19 @@ function playerLogic () {
         $("#playlist li").removeClass("current-song");
         $("#playlist li:eq("+currentSong+")").addClass("current-song");
         $("#player")[0].src = $("#playlist li a")[currentSong].href;
+        showNameSong(); 
         $("#player")[0].play();
     }
+
+
+    /*Esconder todas las canciones menos la actual*/ 
+   function showNameSong(){ 
+    $("#playlist li ").each(function (index) {
+        if($(this).hasClass("current-song")){
+            $(this).show(); 
+        }
+        else $(this).hide();
+        }); 
+    }
+
 }

@@ -23,7 +23,7 @@
         <?= $content ?>
     </main>
     <?php require_once 'Sidebar.php'; ?>
-    
+    <?php require_once 'Footer.php'; ?> 
     </div> 
 
     <script type= "text/javascript" src= "<?= JS_PATH ?>/cambioModo.js">  </script> <!-- Script para el cambio de modo --> 
