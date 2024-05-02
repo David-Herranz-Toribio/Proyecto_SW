@@ -1,16 +1,16 @@
 
 <?php
-require_once 'Formulario.php'; 
+require_once 'FormularioMultimedia.php'; 
 require_once 'Usuario.php'; 
 require_once 'Producto.php';
 
-class FormularioProducto extends Formulario
+class FormularioProducto extends FormularioMultimedia
 {
     private $id_product; 
     private $publicador;
 
     public function __construct($id_product, $publicador) {
-        parent::__construct('formPublicaPost', ['urlRedireccion' =>  VIEWS_PATH .'/tienda/MiTiendaVista.php']);
+        parent::__construct('formPublicaPost', ['urlRedireccion' =>  VIEWS_PATH .'/tienda/MiTiendaVista.php', 'enctype' => 'multipart/form-data']);
         $this->id_product= $id_product; 
         $this->publicador= $publicador; 
     }
@@ -82,7 +82,7 @@ class FormularioProducto extends Formulario
         $imagen_ant = $datos['Imagen_antigua'];
         
         /*Procesar imagen*/ 
-
+        $imagen= self::procesaFichero('Imagen', '/prodImages/'); 
 
         $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
         $producto->guarda();

@@ -1,15 +1,15 @@
 <?php
-require_once 'Formulario.php'; 
+require_once 'FormularioMultimedia.php'; 
 require_once 'Usuario.php'; 
 require_once 'Pedido.php';
 
 
-class FormularioRegistro extends Formulario {
+class FormularioRegistro extends FormularioMultimedia {
 
     private $isArtist; 
 
     public function __construct($isArtist) {
-        parent::__construct('formRegistro', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php']);
+        parent::__construct('formRegistro', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php', 'enctype' => 'multipart/form-data']);
         $this->isArtist= $isArtist;
     }
 
@@ -172,7 +172,10 @@ class FormularioRegistro extends Formulario {
                 if($this->isArtist== true) $_SESSION['isArtist']= true; 
 
                 $datos['artist_members']= NULL; 
-                $datos['profile_image']= NULL; 
+                if(($datos['profile_image']= self::procesaFichero('image', '/profileImages/'))==NULL){
+                    $datos['profile_image']= 'FotoPerfil.png'; 
+                } 
+                 
                 $datos['desc']= '';
                 $datos['isArtist']= $this->isArtist; 
                 

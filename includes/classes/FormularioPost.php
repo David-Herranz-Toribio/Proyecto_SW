@@ -1,14 +1,14 @@
 <?php
-require_once 'Formulario.php'; 
+require_once 'FormularioMultimedia.php'; 
 require_once 'Usuario.php'; 
 require_once 'Post.php';
 
-class FormularioPost extends Formulario
+class FormularioPost extends FormularioMultimedia
 {
     private $id_padre; 
 
     public function __construct($id_padre) {
-        parent::__construct('formPublicaPost', ['urlRedireccion' => VIEWS_PATH .'/foro/Foro.php']);
+        parent::__construct('formPublicaPost', ['urlRedireccion' => VIEWS_PATH .'/foro/Foro.php', 'enctype' => 'multipart/form-data']);
         $this->id_padre= $id_padre; 
     }
     
@@ -36,6 +36,7 @@ class FormularioPost extends Formulario
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
 
         /*TODO Procesar imagen*/ 
+        $post_image= self:: procesaFichero("image", '/postImages/'); 
 
         if($datos['id_padre'] != "") $post_father= $datos['id_padre']; 
         else $post_father = 'NULL'; 
