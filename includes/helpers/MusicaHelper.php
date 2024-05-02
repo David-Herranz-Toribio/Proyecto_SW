@@ -106,6 +106,7 @@ function displayFollowingArtists($username){
 }
 
 function displayViewToNotLogged(){
+    
     $html = "<section class='default'>";
     $html .=<<<EOS
     <h1 class="texto_infor"> No estas loguead@ para ver tu música</h1>

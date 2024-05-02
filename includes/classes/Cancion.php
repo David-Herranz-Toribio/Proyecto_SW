@@ -17,26 +17,79 @@ class Cancion{
 
     private function __construct($parameters){
 
-        $this->id_cancion = $parameters['id'];
-        $this->id_artista = $parameters['fg'];
-        $this->titulo = $parameters['sdfg'];
-        $this->imagen = $parameters['sdfg'];
-        $this->fecha = $parameters['sdfg'];
-        $this->duracion = $parameters['sfg'];
-        $this->likes = $parameters['sdfgf'];
-        $this->ruta = $parameters['sdfhh'];
-        $this->tags = $parameters['sfhfgh'];
+        $this->id_cancion = $parameters['id_cancion'];
+        $this->id_artista = $parameters['id_artista'];
+        $this->titulo = $parameters['titulo'];
+        $this->imagen = $parameters['imagen'];
+        $this->fecha = $parameters['fecha'];
+        $this->duracion = $parameters['duracion'];
+        $this->likes = $parameters['likes'];
+        $this->ruta = $parameters['ruta'];
+        $this->tags = $parameters['tags'];
     }
 
-    public static function createSong(){
-
-        $parameters = [];
+    public static function crearCancion($parameters){
         return new Cancion($parameters);
     }
 
-    public static function getSongsWithID(){
+    public static function getSongsFromPlaylistID($id_playlist){
 
         $canciones = [];
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM play_cancion P JOIN cancion C ON P.id_cancion = C.id_cancion WHERE P.id_playlist = '%s';", $id_playlist);
+        $rs = $conection->query($query);
+
+        if(!$rs){
+            return false;
+        }
+
+        while($fila = $rs->fetch_assoc()){
+
+            $parameters = [];
+            $parameters['id_cancion'] = $fila['id_cancion'];
+            $parameters['titulo'] = $fila['titulo'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['fecha'] = $fila['fecha'];
+            $parameters['id_artista'] = $fila['id_artista'];
+            $parameters['likes'] = $fila['likes'];
+            $parameters['ruta'] = $fila['ruta'];
+            $parameters['duracion'] = $fila['duracion'];
+            $parameters['tags'] = $fila['tags'];
+
+            $canciones[] = Cancion::crearCancion($parameters);
+        }
+        $rs->free();
+
+        return $canciones;
+    }
+
+    public static function obtenerCancionesDeArtista($id_artista){
+        
+        $canciones = [];
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM cancion C WHERE C.id_artista = '%s'", $id_artista);
+        $rs = $conection->query($query);
+        
+        if(!$rs)
+            return false;
+
+        while($fila = $rs->fetch_assoc()){
+
+            $parameters = [];
+            $parameters['id_cancion'] = $fila['id_cancion'];
+            $parameters['titulo'] = $fila['titulo'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['fecha'] = $fila['fecha'];
+            $parameters['id_artista'] = $fila['id_artista'];
+            $parameters['likes'] = $fila['likes'];
+            $parameters['ruta'] = $fila['ruta'];
+            $parameters['duracion'] = $fila['duracion'];
+            $parameters['tags'] = $fila['tags'];
+
+            $canciones[] = Cancion::crearCancion($parameters);
+        }
+        $rs->free();
+
         return $canciones;
     }
 

@@ -112,14 +112,9 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 }
 
 function showMainPosts($user, $opcion){
-    // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
-    $html = "<section class='default'>";
-    $html .= displayExplorerButton();
-    // Mostrar contenido
-    if(isset($_SESSION['username']))
-        $html .= displayFollowedButton();
 
-    $html .= displayContentMain($user, $opcion);
+    // Mostrar el header del perfil -> imagen, fecha de nacimiento, nickname, username, boton de follow, descripcion + [opciones]
+    $html = displayContentMain($user, $opcion);
     return $html;
 }
 
@@ -221,7 +216,12 @@ function showTestPosts($yoYYoMismo){
     $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
     $content = "<h1 class = 'texto_infor'> Posts </h1>";
 
-    if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 
+    $content .= "<section class='default'>";
+    $content .= displayExplorerButton();   
+
+    if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar
+
+        $content .= displayFollowedButton();
         $content .= <<< EOS
         <form class= 'boton_publicar' action = $rutaPublicar method = "post">
         <button type = "submit">Publicar</button>
@@ -247,10 +247,16 @@ function showTestPosts($yoYYoMismo){
 }
 
 function showFollowedPeoplePosts($yoYYoMismo){
+
     $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
     $content = "<h1 class = 'texto_infor'> Posts (Personas que sigues) </h1>";
 
+    $content .= "<section class='default'>";
+    $content .= displayExplorerButton();
+
     if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 
+
+        $content .= displayFollowedButton();
         $content .= <<< EOS
         <form class= 'boton_publicar' action = $rutaPublicar method = "post">
         <button type = "submit">Publicar</button>

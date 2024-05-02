@@ -45,28 +45,17 @@ function displayPlaylistHeader($playlist){
 
 function displayPlaylistSongs($playlist){
 
-    $all = $playlist->getPlaylistSongList();
+    $all = SW\classes\Cancion::getSongsFromPlaylistID($playlist->getIdPlaylist());
 
     // Si no hay canciones, mostramos un mensaje
-    if(!$all){
+    if(!$all)
+        return displayErrorMessage("No hay canciones en esta playlist");
 
-        $html =<<<EOS
-        <div class="emptyPlaylists">
-            <h2> No hay ninguna cancion en la playlist </h2>
-        </div>
-        EOS;
-
-        return $html;
-    }
-
-    $html =<<<EOS
-    <div class="songlist">
-    EOS;
-
+    
+    $html = '<div class="songlist">';
     foreach($all as $song){
         $html .= displaySong($song);
     }
-
     $html .= "</div>";
 
     return $html;
@@ -107,11 +96,11 @@ function displaySong($song){
     return $html;
 }
 
-function displayErrorMessage(){
+function displayErrorMessage($message){
 
     $html =<<<EOS
     <div class="playlistNotFound">
-        <h2> Error: Playlist no encontrada </h2>
+        <h2> $message </h2>
     </div>
     EOS;
 

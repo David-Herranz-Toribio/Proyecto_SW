@@ -1,6 +1,9 @@
 <?php
 
 namespace SW\classes;
+
+use ReflectionFunction;
+
 require_once 'Cancion.php';
 
 class Playlist{
@@ -11,7 +14,6 @@ class Playlist{
     private $imagen;
     private $nombre;
     private $creationDate;
-    private $songList;
     private $numCanciones;
 
     
@@ -23,7 +25,6 @@ class Playlist{
         $this->imagen = $parameters['imagen'];
         $this->nombre = $parameters['nombre'];
         $this->creationDate = $parameters['creationDate'];
-        $this->songList = $parameters['songList'];
     }
 
     public static function obtenerPlaylistsBD($username){
@@ -45,7 +46,6 @@ class Playlist{
             $parameters['imagen'] = $fila['imagen'];
             $parameters['nombre'] = $fila['nombre'];
             $parameters['creationDate'] = $fila['fecha'];
-            $parameters['songList'] = Cancion::getSongsWithID();
 
             $playlists[] = new Playlist($parameters);
         }
@@ -62,7 +62,7 @@ class Playlist{
         $rs = $conection->query($query);
         
         if(!$rs)
-            return NULL;
+            return false;
 
         while($fila = $rs->fetch_assoc()){
 
@@ -73,7 +73,6 @@ class Playlist{
             $parameters['imagen'] = $fila['imagen'];
             $parameters['nombre'] = $fila['nombre'];
             $parameters['creationDate'] = $fila['fecha'];
-            $parameters['songList'] = Cancion::getSongsWithID();
 
             $playlist = new Playlist($parameters);
         }
@@ -89,6 +88,16 @@ class Playlist{
         VALUES ('%s', '%d', '%s', '%s', '%s')", $autor, 0, $imagen, $nombre, $creationDate);
         $rs = $conection->query($query);
         
+        return $rs;
+    }
+    
+
+    public function quitarCancion($id_cancion){
+
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM play_cancion WHERE id_playlist = '%s' AND id_cancion = '%s'", $this->id_playlist, $id_cancion);
+        $rs = $conection->query($query);
+
         return $rs;
     }
 
@@ -114,10 +123,6 @@ class Playlist{
 
     public function getPlaylistCreationDate(){
         return $this->creationDate;
-    }
-
-    public function getPlaylistSongList(){
-        return $this->songList;
     }
 
     public function getPlaylistNumSongs(){

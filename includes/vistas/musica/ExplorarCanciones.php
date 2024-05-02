@@ -1,8 +1,9 @@
 <?php
 
 require_once '../../Config.php';
-require_once HELPERS_PATH . '/ExplorarCancionesHelper.php';
+require_once HELPERS_URL . '/ExplorarCancionesHelper.php';
 
-$content = '';
+$id_user = 'user2';
+$content = displaySongsFromArtist($id_user);
 
 require_once LAYOUT_URL;

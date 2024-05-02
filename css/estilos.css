@@ -590,6 +590,7 @@ button:hover  {
 	grid-column-start: 2;
 	grid-column-end: 3;
 }
+.songsNotFound,
 .emptyPlaylists,
 .creatingPlaylistError{
 	grid-column-start: 2;

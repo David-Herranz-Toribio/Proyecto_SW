@@ -13,7 +13,7 @@ $playlist_id = isset($_GET['id']) ? $_GET['id'] : NULL;
 $playlist = SW\classes\Playlist::obtenerPlaylistByID($playlist_id);
 
 if(!$playlist){
-    $content = displayErrorMessage();
+    $content = displayErrorMessage("Error: Playlist no encontrada");
 }
 else{
     // Mostrar el contenido de la playlist
