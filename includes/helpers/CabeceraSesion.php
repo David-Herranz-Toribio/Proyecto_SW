@@ -35,47 +35,48 @@ function generateStaticHeader($currentPage) {
   }
 
   $html = <<<EOS
-<header class= 'header'>
-  <a href="$linkIndex">
-    <img src = '$iconImage' alt="Logo App" height="50" width="75">
-  </a>
-EOS;
+  <header class= 'header'>
+    <a href="$linkIndex">
+      <img src = '$iconImage' alt="Logo App" height="50" width="75">
+    </a>
+  EOS;
 
-if (strpos($currentPage, "/vistas/perfil/AjustePerfil.php") === false && strpos($currentPage, "/vistas/foro/RespuestasForo.php") === false) {
-  $html .= <<<EOS
-  <p>
+  if (strpos($currentPage, "/vistas/perfil/AjustePerfil.php") === false && strpos($currentPage, "/vistas/foro/RespuestasForo.php") === false) {
+
+    $html .= <<<EOS
+    <p>
     <form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
       <input type="text" name="query" placeholder="$placeholderText">
       <input type="hidden" name="user" value="$user">
       <input type="hidden" name="opcion" value="$opcion">
-      <button type="submit">&#128269</button>
+      <button type="submit"> &#128269 </button>
     </form>
-  </p>
-EOS;
-}
+    </p>
+    EOS;
+  }
 
-$html .= <<<EOS
-<script>
-function comprobar() {
-  var ok = window.confirm("¿Quieres cerrar sesión, $username?");
-  if (ok)
-    location.assign("$link");
-}
-</script>
-</head>
-<body>
+  $html .= <<<EOS
+    <script>
+    function comprobar() {
+      var ok = window.confirm("¿Quieres cerrar sesión, $username?");
+      if (ok)
+      location.assign("$link");
+    }
+    </script>
+    </head>
+    <body>
 
-<div class= 'info_session'> 
-  <div class= 'contenedor_texto'> 
-    <p> $texto </p>
-  </div> 
+    <div class= 'info_session'> 
+      <div class= 'contenedor_texto'> 
+        <p> $texto </p>
+      </div> 
 
-  <div class= 'contenedor_imagen'> 
-    <p><a href="#" onclick="$onclick"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
-  </div> 
-</div> 
-</header>
-EOS;
+      <div class= 'contenedor_imagen'> 
+        <p><a href="#" onclick="$onclick"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
+      </div> 
+    </div> 
+    </header>
+  EOS;
 
 
   return $html;
