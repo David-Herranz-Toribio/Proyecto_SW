@@ -180,6 +180,18 @@ article.estiloPost div.botones_mensaje {
 	display: flex;
 	padding: 1%;
 }
+
+article.estiloUsers{
+	background-color: #081c31;
+	border: solid 2px #230058;
+	width: 80%; 
+	margin: auto;
+	z-index: 100;
+}
+article.estiloUsers div.botones_mensaje {
+	display: flex;
+	padding-right: 20%;
+}
 .estiloPed{
     justify-content: space-around;
 }
@@ -392,25 +404,20 @@ button  {
 }
 
 button:hover  {
-	background-color: #6f14ca;
+	background-color: #9338ef;
 }
 
-.player-button {
-    background: transparent;
+.InfoFoll-button {
+	background-color: #a25df1; 
     border: none;
+    width: 100px;
+    height: 30px; 
 }
 
-.player-button:hover {
-    background: transparent;
+.InfoFoll-button:hover {
+	background-color: #00bfd8; 
 }
 
-.player-button img {
-    transition: transform 0.3s ease;
-}
-
-.player-button:hover img {
-    transform: scale(1.3);
-}
 
 
 #resumen_carrito{
@@ -693,4 +700,27 @@ button:hover  {
 #playlist .current-song a{
 	color:blue;
 	border: 1px solid red;
+}
+
+.player-button {
+    background: transparent;
+    border: none;
+}
+
+.player-button:hover {
+    background: transparent;
+}
+
+.player-button img {
+    transition: transform 0.3s ease;
+}
+
+.player-button:hover img {
+    transform: scale(1.3);
+}
+
+
+/* Estilo hipervinculos */
+a[name="user"] {
+    color: #15d1ce; 
 }

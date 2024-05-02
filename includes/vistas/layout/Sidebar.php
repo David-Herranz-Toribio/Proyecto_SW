@@ -17,7 +17,7 @@
                 <img src="<?=IMG_PATH?>/FotoMusica.png" height="40" width="50" alt="Foto de musica">
             </a>
             <ul class="desplegable">
-                <li>Opt 1</li>
+                <li><a href="<?= VIEWS_PATH ?>/musica/ExplorarCanciones.php"> Explorar canciones </a></li>
                 <li>Opt 2</li>
             </ul>
         </li>
