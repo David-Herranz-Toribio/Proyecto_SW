@@ -340,7 +340,6 @@ function displaySettingsOption(){
 }
 
 function displayFollowersAndFollowed($user){
-
     $seguidores = displayFollowers($user);
     $seguidos = displayFollowing($user);
 
@@ -360,24 +359,35 @@ function displayFollowersAndFollowed($user){
 }
 
 function displayFollowers($user){
-
-    $num_followers = 1; // Obtener numero de seguidores
-
+    $lista_seguidores = $user->obtenerListaSeguidores();
+    $username = $user->getUsername();
+    $num_followers = count($lista_seguidores); 
+    $url = VIEWS_PATH . '/perfil/ListaSeguidosSeguidores.php';
+    $opcion = 'FOLLOWERS';
     $html =<<<EOS
-    <p> $num_followers seguidores </p>
+    <form action="$url" method="GET">
+        <input type="hidden" name="opcion" value="$opcion">
+        <input type="hidden" name="user" value="$username">
+        <p> $num_followers <button class="InfoFoll-button" type="submit">Seguidores</button> </p>
+    </form>
     EOS;
-
     return $html;
 }
 
+
 function displayFollowing($user){
-
-    $num_following = 1; // Obtener numero de seguidos
-
+    $lista_seguidos = $user->obtenerListaSeguidos();
+    $num_following = count($lista_seguidos); 
+    $username = $user->getUsername();
+    $url = VIEWS_PATH . '/perfil/ListaSeguidosSeguidores.php';
+    $opcion = 'FOLLOWED';
     $html =<<<EOS
-    <p> $num_following siguiendo </p>
+    <form action="$url" method="GET">
+        <input type="hidden" name="opcion" value="$opcion">
+        <input type="hidden" name="user" value="$username">
+        <p> $num_following <button class="InfoFoll-button" type="submit">Seguidos</button> </p>
+    </form>
     EOS;
-
     return $html;
 }
 

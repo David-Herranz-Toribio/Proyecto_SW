@@ -11,7 +11,7 @@
     2)Limites de caracteres 
 
 -Perfil:
-    1)Ver lista de seguidores y lista de seguidos (Ignacio)
+    1)Ver lista de seguidores y lista de seguidos (Ignacio) ✅
 
 -Suscripciones (David y Hugo)
     1)Varias cuotas: mensual y anual
@@ -21,10 +21,10 @@
     5)Pagina a parte para subscribirte
 
 -Foro: (Ignacio)
-    1)Opcion de ver post de los seguidores 
+    1)Opcion de ver post de los seguidores  ✅
 
 -Musica (URGENTE)
-    1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio)ç
+    1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio) ✅
     2)Que funcione lo de escuchar (Alonso)
     2)Listas de reproduccion hechas por los usuarios (Óscar)
         2.*)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar)

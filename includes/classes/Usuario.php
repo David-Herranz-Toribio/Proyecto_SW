@@ -212,6 +212,23 @@ class Usuario{
         return $listaSeguidos;
     }
 
+    public function obtenerListaSeguidores() {
+        $usuario = $this->getUsername(); 
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT id_seguidor FROM seguidores WHERE id_user = '%s';", $usuario);
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+            return false;
+        }
+        $listaSeguidores = [];
+        while($row = $result->fetch_assoc()) {
+            $listaSeguidores[] = $row['id_seguidor'];
+        }
+        $result->free();
+        return $listaSeguidores;
+    }
+
     public function estaSiguiendo ($user){
         
         $result = true; 
@@ -355,6 +372,16 @@ class Usuario{
 
         return $result; 
     }
+
+    public static function LupaUsuariosCoincidentes($lista, $textoBusqueda) {
+        $result = [];
+        foreach ($lista as $usuario) {
+            if(stripos($usuario->getUsername(), $textoBusqueda) !== false) { 
+                $result[] = $usuario; 
+            }
+        }
+        return $result;
+    }    
 
     public static function buscaNicknameBD($nickname){
         
