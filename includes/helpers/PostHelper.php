@@ -2,6 +2,7 @@
 
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
+require_once CLASSES_URL . '/FormularioRespuesta.php'; 
 
 function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
@@ -29,7 +30,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
         $user_info .= <<<EOS2
         <div class='modElim'> 
         <form action=$rutaMod method="post">
-            <input type = "hidden" name = "ModificarID" value = "$id">
+            <input type = "hidden" name = "ModificarID" value = '$id'>
             <button type = "submit"> &#9998 </button>
         </form>
 
@@ -79,20 +80,8 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
     }
 
     else {
-        $responder =<<<EOS5
-        <div class='responder'>
-
-        <form action = $rutaAdd method = "post" enctype = "multipart/form-data">
-        <input type = "hidden" name = "id_padre" value = "$id">
-        <details>
-            <summary>Responder &#10149; </summary>
-            <label>Respuesta:<input type = "text" name = "post_text" required></label><br>
-            <label>Imagen:<input type = "file" name = "image" accept = "image/*"></label><br>
-            <button type = "submit">Enviar respuesta</button>
-        </details>
-        </form>
-        <div> 
-        EOS5; 
+        $form= new FormularioRespuesta($id);
+        $responder= $form->gestiona(); 
     }
 
     $botones = <<<EOS6

@@ -357,11 +357,10 @@ section.formulario_style{
 	justify-content: center;
 	padding: 1%;
 	border-radius: 25px;
-
 	min-width: 100px;
 }
 
-section.formulario_style  form {
+section.formulario_style  form fieldset {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -369,25 +368,32 @@ section.formulario_style  form {
 	width: 100%;
 }
 
-
-
-
-
 /*Todos los elementos dentro de form*/
-section.formulario_style form *{
+form fieldset *{
 	margin-top: 10px;
 	border-radius: 10px;
 	height: 20%;
 }
+
+.form-field-error {
+	display: block;
+}
+
 section.formulario_style form textarea{
 	width: 50%;
-	 
 }
 
 
 fieldset legend {
 	text-align: center;
 }
+
+
+fieldset div {
+	justify-content: center;
+	margin: 20px auto;
+}
+
 
 button  {
 	background-color: #D4ADFC;
@@ -521,6 +527,19 @@ button:hover  {
 .musicButtons{
 	grid-column: 2;
 }
+.musicButtons button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.musicButtons button a:hover {
+    color: inherit;
+}
+
+.musicButtons button a:visited {
+    color: inherit;
+}
+
 
 .musicList{
 	grid-column: 2;
@@ -631,7 +650,6 @@ button:hover  {
 	flex-direction: column;
     align-items: center;
     justify-content: center;
-	grid-column: 2;
 }
 .createPlaylistImage img{
 	width: 120px;

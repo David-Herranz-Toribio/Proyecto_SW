@@ -1,0 +1,90 @@
+
+<?php
+require_once 'Formulario.php'; 
+require_once 'Usuario.php'; 
+require_once 'Producto.php';
+
+class FormularioProducto extends Formulario
+{
+    private $id_product; 
+    private $publicador;
+
+    public function __construct($id_product, $publicador) {
+        parent::__construct('formPublicaPost', ['urlRedireccion' =>  VIEWS_PATH .'/tienda/MiTiendaVista.php']);
+        $this->id_product= $id_product; 
+        $this->publicador= $publicador; 
+    }
+    
+    protected function generaCamposFormulario(&$datos)
+    {
+        if(!is_null($this->id_product)){
+            $prod = SW\classes\Producto::obtenerProductoporId($this->id_product);
+      
+            $nombre = $prod->getNombre();
+            $descripcion = $prod->getDescripcion();
+            $stock = $prod->getStock();
+            $precio = $prod->getPrecio();
+    
+            $imagen = $prod->getImagen();  
+    
+            $imagen_html = "<img src='".IMG_PATH . '/prodImages/'. $imagen."' width = '70' heigth = '70'>";
+        }
+
+        else {
+            $prod= ''; 
+            $nombre= ''; 
+            $descripcion= ''; 
+            $stock= ''; 
+            $precio= ''; 
+            $imagen= 'FotoMerch.png'; 
+            $imagen_html= ''; 
+        }
+
+        // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
+        $html = <<<EOF
+            <fieldset> 
+            <input type = "hidden" name = "Autor" value = "$this->publicador">
+            <input type = "hidden" name = "Id" value = $this->id_product>
+            <input type = "hidden" name = "Imagen_antigua" value = $imagen>
+
+            <label>Nombre</label>
+            <input type="text" name="Nombre" value="$nombre">
+
+            <label>Imagen</label>
+            <input type = "file" name = "Imagen" accept = "image/*">
+            $imagen_html
+
+            <label>Descripcion</label>
+
+            <textarea name = "Descripcion">$descripcion</textarea>
+
+            <label>Stock</label>
+            <input type="number" name="Stock" value="$stock" min="1" max='9999'/>
+
+            <label>Precio</label>
+            <input type="number" name="Precio" value="$precio" min="1" max='9999'/>
+
+            <button type = "submit">Crear producto</button>
+            </fieldset> 
+        EOF;
+
+        return $html;
+    }
+
+    protected function procesaFormulario(&$datos)
+    {
+        $id = $datos['Id'];
+        $autor = $datos['Autor'];
+        $nombre = htmlspecialchars($datos['Nombre']);
+        $descripcion = isset($datos['Descripcion']) ? htmlspecialchars($datos['Descripcion']) : "$nombre de $autor"; 
+        $stock = $datos['Stock'];
+        $precio = $datos['Precio'];
+        $imagen_ant = $datos['Imagen_antigua'];
+        
+        /*Procesar imagen*/ 
+
+
+        $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
+        $producto->guarda();
+    }
+}

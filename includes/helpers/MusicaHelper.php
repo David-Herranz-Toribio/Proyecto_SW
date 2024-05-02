@@ -14,7 +14,7 @@ function showPlaylists($username){
     $html = displayHeader();
 
     // Mostrar botones
-    $html .= displayButtons();
+    $html .= displayButtons($username);
 
     // Mostrar playlists
     $html .= displayPlaylists($playlists);
@@ -26,6 +26,7 @@ function showPlaylists($username){
 }
 
 function displayHeader(){
+
     $html = "<section class='default'>";
     $html .=<<<EOS
     <div class="musicHeader">
@@ -36,16 +37,14 @@ function displayHeader(){
     return $html;
 }
 
-function displayButtons(){
+function displayButtons($username){
 
     $crearPlaylistView = VIEWS_PATH . '/musica/CrearPlaylist.php';
 
     // Boton para crear playlists
     $html =<<<EOS
     <div class="musicButtons">
-        <form action=$crearPlaylistView method="get">
-            <button> Crear playlist </button>
-        </form>
+        <button><a href="$crearPlaylistView?user=$username"> Crear playlist </a></button>
     </div>
     EOS;
 
@@ -58,7 +57,7 @@ function displayPlaylists($playlists){
 
         $html =<<<EOS
         <section class="emptyMusicList">
-        <p> La playlist está vacía </p>
+            <p> La playlist está vacía </p>
         </section>
         EOS;
 
@@ -104,17 +103,6 @@ function displayFollowingArtists($username){
 
     // Mostrar los artistas a los que el usuario sigue
     // Imagen del artista, nombre y link a su perfil
-}
-
-function displayFooter(){
-
-    $html =<<<EOS
-    <div class="footer">
-
-    </div>
-    EOS;
-
-    return $html;
 }
 
 function displayViewToNotLogged(){

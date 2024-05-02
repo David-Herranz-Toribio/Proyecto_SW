@@ -1,17 +1,15 @@
 <?php
-
 require_once '../../Config.php';
-require_once HELPERS_URL . '/SignUpHelper.php';
+require_once CLASSES_URL .'/FormularioRegistro.php'; 
 
-$errors = generateErrorMessages();
-$form = generateFormularyUser($errors);
-$artist_link = generateArtistAccountLink();
+$form= new FormularioRegistro(false);  
 
-$content =<<<EOS
-    <section class='formulario_style'> 
-    $form
-    $artist_link
-    </section> 
+$htmlform= $form->gestiona(); 
+
+$content=<<<EOS
+<section class= "formulario_style"> 
+$htmlform
+</section> 
 EOS; 
 
 require_once LAYOUT_URL; 

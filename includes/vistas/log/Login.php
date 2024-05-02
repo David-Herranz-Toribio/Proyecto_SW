@@ -1,21 +1,20 @@
 <?php 
 
 require_once '../../Config.php';
-require_once HELPERS_URL . '/LoginHelper.php';
+require_once CLASSES_URL .'/FormularioLogin.php'; 
 
-global $isArtist;
+$top_message=<<<EOS
+<p> 2Music ¡Música sin limites para perder el tiempo! </p>
+EOS; 
 
-$message = generateHeader();
-$formulario = generateFormulary();
-$errores = generateErrorMessages();
+$form= new FormularioLogin(); 
+$htmlform= $form->gestiona(); 
 
-$content = "<section class='default'>";
-$content .=<<<EOS
+$content =<<<EOS
     <section class='formulario_style'> 
-    $message
-    $formulario
-    $errores
+    $top_message
+    $htmlform
     </section> 
-EOS;
-    
+EOS; 
+
 require_once LAYOUT_URL;
