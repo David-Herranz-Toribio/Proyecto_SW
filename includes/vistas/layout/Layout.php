@@ -8,26 +8,24 @@
     <link rel="shortcut icon" href="<?=IMG_PATH ?>/2MelodyLogo.png" />
     <title> 2Music </title>
 
-    <script type= "text/javascript" src= "<?= JS_PATH?>/jquery-3.7.1.min.js"> </script> 
-    <script type= "text/javascript" src= "<?= JS_PATH?>/eventos.js"> </script> 
-    <script type= "text/javascript" src= "<?= JS_PATH?>/playerLogic.js"> </script> 
+    <script type="text/javascript" src="<?= JS_PATH?>/jquery-3.7.1.min.js"> </script> 
+    <script type="text/javascript" src="<?= JS_PATH?>/eventos.js"> </script> 
+    <script type="text/javascript" src="<?= JS_PATH?>/playerLogic.js"> </script> 
 </head>
 
 <body>
-    <div class = "container">
+    <div class="container">
 
     <?php require_once 'Cabecera.php'; ?>
-
-    
     <main id='content'>
         <?= $content ?>
     </main>
     <?php require_once 'Sidebar.php'; ?>
-    <?php require_once 'Footer.php'; ?> 
+     
     </div> 
 
-    <script type= "text/javascript" src= "<?= JS_PATH ?>/cambioModo.js">  </script> <!-- Script para el cambio de modo --> 
-    <script type= "text/javascript" src= "<?= JS_PATH ?>/validaciones.js"> </script>  <!-- Script para las validaciones de formularios -->
+    <script type="text/javascript" src="<?= JS_PATH ?>/cambioModo.js">  </script> <!-- Script para el cambio de modo --> 
+    <script type="text/javascript" src="<?= JS_PATH ?>/validaciones.js"> </script>  <!-- Script para las validaciones de formularios -->
 
 </body>
 </html>

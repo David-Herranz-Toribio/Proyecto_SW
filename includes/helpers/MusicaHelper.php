@@ -27,8 +27,8 @@ function showPlaylists($username){
 
 function displayHeader(){
 
-    $html = "<section class='default'>";
-    $html .=<<<EOS
+    //$html = "<section class='default'>";
+    $html =<<<EOS
     <div class="musicHeader">
         <h1> Tu música </h1>
     </div>
@@ -57,7 +57,7 @@ function displayPlaylists($playlists){
 
         $html =<<<EOS
         <section class="emptyMusicList">
-            <p> La playlist está vacía </p>
+            <p> No tienes ninguna playlist ¡Crea una ahora! </p>
         </section>
         EOS;
 

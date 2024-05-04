@@ -27,6 +27,13 @@ class Playlist{
         $this->creationDate = $parameters['creationDate'];
     }
 
+
+    public static function crearPlaylistPorDefecto($autor, $creationDate){
+
+        $defaultImage = 'defaultPlaylist.jpg';
+        return Playlist::crearPlaylistBD($autor, 'Favoritos', $defaultImage, $creationDate);
+    }
+
     public static function obtenerPlaylistsBD($username){
 
         $playlists = [];

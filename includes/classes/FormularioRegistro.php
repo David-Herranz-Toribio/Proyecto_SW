@@ -2,7 +2,7 @@
 require_once 'FormularioMultimedia.php'; 
 require_once 'Usuario.php'; 
 require_once 'Pedido.php';
-
+require_once 'Playlist.php';
 
 class FormularioRegistro extends FormularioMultimedia {
 
@@ -14,6 +14,7 @@ class FormularioRegistro extends FormularioMultimedia {
     }
 
     protected function generaCamposFormulario(&$datos){
+
         $userName= $datos['username'] ?? ''; 
         $nickName= $datos['nickname'] ?? ''; 
         $email= $datos['email'] ?? ''; 
@@ -60,7 +61,7 @@ class FormularioRegistro extends FormularioMultimedia {
 
         }
 
-        $camposForm= <<<EOF
+        $camposForm =<<<EOF
             $htmlErroresGlobales
             <fieldset class="formRegistro">
             <legend> Registra tu nueva cuenta de usuario </legend> 
@@ -110,6 +111,7 @@ class FormularioRegistro extends FormularioMultimedia {
     }
 
     protected function procesaFormulario(&$datos){
+
         $this->errores = [];
 
         $username =  htmlspecialchars($datos['username']);
@@ -155,33 +157,44 @@ class FormularioRegistro extends FormularioMultimedia {
                 $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
         }
 
-        if(count($this->errores)===0){
-            $usuario= SW\classes\Usuario:: buscaUsuario($username); 
 
-            if($usuario){ //El username esta cogido 
-                $this->errores[] = 'El usuario ya existe';
-            }
+        if(count($this->errores) !== 0){
+            // Errores en el formulario
+        }
 
-            else { //El username esta libre 
-                $num = SW\classes\Pedido::numProdporUserPP($username);
-                if($num)
-                    $_SESSION['notif_prod'] = $num;
 
-                $datos['karma']= 0;
+        $usuario = SW\classes\Usuario::buscaUsuario($username); 
+        if($usuario){ //El username ya está en uso
+            $this->errores[] = 'El usuario ya existe';
+        }
 
-                if($this->isArtist== true) $_SESSION['isArtist']= true; 
+        else { //El username esta libre 
 
-                $datos['artist_members']= NULL; 
-                if(($datos['profile_image']= self::procesaFichero('image', '/profileImages/'))==NULL){
-                    $datos['profile_image']= 'FotoPerfil.png'; 
-                } 
-                 
-                $datos['desc']= '';
-                $datos['isArtist']= $this->isArtist; 
-                
-                $usuario= SW\classes\Usuario:: createUser($datos); 
-                $_SESSION['username'] = $username; 
-            }
+            $num = SW\classes\Pedido::numProdporUserPP($username);
+            if($num)
+                $_SESSION['notif_prod'] = $num;
+
+            if($this->isArtist == true)
+                $_SESSION['isArtist'] = true; 
+
+            $datos['artist_members'] = NULL; 
+            if(($datos['profile_image'] = self::procesaFichero('image', '/profileImages/')) == NULL){
+                $datos['profile_image'] = 'FotoPerfil.png'; 
+            } 
+            
+            $datos['karma'] = 0;
+            $datos['desc'] = '';
+            $datos['isArtist'] = $this->isArtist; 
+            
+            // Crear usuario en la base de datos
+            $usuario = SW\classes\Usuario::createUser($datos);
+
+            // Crear playlist por defecto -> Favoritos
+            SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
+
+            // Iniciar sesión
+            $_SESSION['username'] = $username; 
         }
     }
+
 }

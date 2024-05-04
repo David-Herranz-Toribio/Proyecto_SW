@@ -15,6 +15,7 @@ define('MUSIC_VIEW', 'MUSIC');
 
 
 function showNotLogged(){
+    
     $html = "<section class='default'>";
     $html .=<<<EOS
     <h1 class='texto_infor'> No estas loguead@ para ver el perfil </h1>
@@ -190,7 +191,7 @@ function displayFavoritePost ($user){
 
 function displayOrders($user){
 
-    $lista_pedidos= showHistorialPedidos($user->getUsername());
+    $lista_pedidos = showHistorialPedidos($user->getUsername());
 
     $html =<<<EOS
     <section class= 'publicaciones_perfil'> 
@@ -202,7 +203,8 @@ function displayOrders($user){
 }
 
 function displayProducts($user){
-    $productos= showProductsArtista($user->getUsername()); 
+
+    $productos = showProductsArtista($user->getUsername()); 
     $html =<<<EOS
         $productos
     EOS; 
@@ -213,10 +215,19 @@ function displayProducts($user){
 function displayMusic($user){
 
     $username = $user->getUsername();
-    $html = "<section class='default'>";
+    $playlistsPath = VIEWS_PATH . '/musica/Musica.php';
+    $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
+
+    $html =<<<EOS
+    <div class='artistMusicButtons'>
+        <button><a href=$playlistsPath> Mi música </a></button>
+        <button><a href=$crearMusicaPath> Crear música </a></button>
+    </div>
+    EOS;
+
     $html .=<<<EOS
     <div class='lista_musica'>
-        MUSICA DEL ARTISTA $username
+        
     </div>
     EOS;
 
