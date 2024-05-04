@@ -1,22 +1,19 @@
 <?php
 
 require_once '../../Config.php';
-require_once CLASSES_URL . '/Cancion.php';
+require_once CLASSES_URL . '/FormularioExplorarCanciones.php';
 
 
-function displaySongsFromArtist($id_user){
+function displayAllMusicTypes(){
 
-    $songs = SW\classes\Cancion::obtenerCancionesDeArtista($id_user);
-    if(!$songs)
-        return displayErrorMessage("El artista @" . $id_user . " no tiene canciones");
+    $form = new FormularioExplorarCanciones();
 
-
-    // Mostrar canciones del artista
-    $html = "<div class='songlist'>";
-    foreach($songs as $song){
-        $html .= display_a_song($song);
-    }
-    $html .= "</div>";
+    $html =<<<EOS
+    <h1 class='texto_infor'> Explora la música que más te gusta </h1>
+    <section class='explorarCanciones'>
+    EOS;
+    $html .= $form->gestiona();
+    $html .= "</section>";
 
     return $html;
 }

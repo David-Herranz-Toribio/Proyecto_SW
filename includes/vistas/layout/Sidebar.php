@@ -18,7 +18,6 @@
             </a>
             <ul class="desplegable">
                 <li><a href="<?= VIEWS_PATH ?>/musica/ExplorarCanciones.php"> Explorar canciones </a></li>
-                <li>Opt 2</li>
             </ul>
         </li>
 

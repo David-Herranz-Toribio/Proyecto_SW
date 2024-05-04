@@ -12,6 +12,8 @@
 
 -Perfil:
     1)Ver lista de seguidores y lista de seguidos (Ignacio) ✅
+    2)Posibilidad de ver toda la discografía de un artista
+    3)Formulario para subir canciones
 
 -Suscripciones (David y Hugo)
     1)Varias cuotas: mensual y anual
@@ -27,7 +29,7 @@
     1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio) ✅
     2)Que funcione lo de escuchar (Alonso)
     2)Listas de reproduccion hechas por los usuarios (Óscar)
-        2.*)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar)
+        2.1)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar) ✅
     3)En el perfil de un artista, pestaña de Musica con todas sus canciones 
     4)Sidebar izquierdo 2 opciones
         4.1)Muestra toda la musica publicada (puedes filtrarla)
