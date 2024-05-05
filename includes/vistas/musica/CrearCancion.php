@@ -12,7 +12,7 @@ else{
 
     // Formulario para poder subir una canción
     $form = new FormularioCrearCancion();
-    $content = $form->gestiona();
+    $content = displayFormulario($form->gestiona());
 }
 
 

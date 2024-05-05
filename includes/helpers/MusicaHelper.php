@@ -3,6 +3,7 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Playlist.php';
 require_once CLASSES_URL . '/Cancion.php';
+require_once CLASSES_URL . '/Usuario.php';
 
 
 function showPlaylists($username){
@@ -27,7 +28,6 @@ function showPlaylists($username){
 
 function displayHeader(){
 
-    //$html = "<section class='default'>";
     $html =<<<EOS
     <div class="musicHeader">
         <h1> Tu música </h1>
@@ -39,12 +39,21 @@ function displayHeader(){
 
 function displayButtons($username){
 
-    $crearPlaylistView = VIEWS_PATH . '/musica/CrearPlaylist.php';
+    // Boton para crear playlist
+    $viewPath = VIEWS_PATH . '/musica/CrearPlaylist.php';
+    $buttonText = 'Crear playlist';
 
-    // Boton para crear playlists
+    // Si el usuario es artista -> Crear album en lugar de playlist
+    if(SW\classes\Usuario::esArtista($username)){
+
+        $viewPath = VIEWS_PATH . '/musica/CrearAlbum.php';
+        $buttonText = 'Crear album';
+    }
+
+    // Mostrar boton
     $html =<<<EOS
     <div class="musicButtons">
-        <button><a href="$crearPlaylistView?user=$username"> Crear playlist </a></button>
+        <button><a href="$viewPath?user=$username"> $buttonText </a></button>
     </div>
     EOS;
 
