@@ -4,16 +4,34 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/FormularioExplorarCanciones.php';
 
 
+function displaySongsWithGenre($genre){
+
+    // Mostrar una serie de canciones del genero musical 'genre'
+}
+
 function displayAllMusicTypes(){
 
-    $form = new FormularioExplorarCanciones();
+    $viewPath = VIEWS_PATH . '/musica/ExplorarCanciones.php';
+    $generosMusicales = ['Pop', 'Rock', 'Rap', 'Hip Hop', 'Latino', 'Jazz', 'R&B', 'K-Pop',
+                        'J-Pop', 'Dubstep', 'Clásica', 'Disco', 'Funk', 'Jazz', 'Reggae', 'Metal'];
 
     $html =<<<EOS
-    <h1 class='texto_infor'> Explora la música que más te gusta </h1>
-    <section class='explorarCanciones'>
+    <div class='tablaGeneros'>
     EOS;
-    $html .= $form->gestiona();
-    $html .= "</section>";
+
+    foreach($generosMusicales as $genero){
+        $html.=<<<EOS
+        <a href=$viewPath?genre=$genero>
+        <div class='musicalGenre'>
+            $genero
+        </div>
+        </a>
+        EOS;
+    }
+
+    $html.=<<<EOS
+    </div>
+    EOS;
 
     return $html;
 }

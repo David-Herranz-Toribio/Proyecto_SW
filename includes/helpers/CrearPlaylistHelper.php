@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../Config.php';
-require_once FORMS_URL . '/FormularioCrearPlaylist.php';
+require_once CLASSES_URL . '/FormularioCrearPlaylist.php';
 
 function displayFormulario($username){
 

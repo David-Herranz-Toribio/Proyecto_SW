@@ -223,8 +223,8 @@ function displayMusic($user){
     $html =<<<EOS
     <div class='artistMusicButtons'>
         <button><a href=$playlistsPath> Mi música </a></button>
-        <button><a href=$crearAlbumPath> Crear album </a></button>
-        <button><a href=$crearMusicaPath> Crear canción </a></button>
+        <button><a href=$crearAlbumPath?user=$username> Crear album </a></button>
+        <button><a href=$crearMusicaPath?user=$username> Crear canción </a></button>
     </div>
     EOS;
 

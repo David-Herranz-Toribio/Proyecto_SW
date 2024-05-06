@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../Config.php';
-require_once FORMS_URL . '/FormularioCrearAlbum.php';
+require_once CLASSES_URL . '/FormularioCrearAlbum.php';
 
 function displayFormulario($username){
 

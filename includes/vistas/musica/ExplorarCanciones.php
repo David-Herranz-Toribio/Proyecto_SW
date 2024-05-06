@@ -8,7 +8,8 @@ $content = '';
 
 // Mostrar canciones del género seleccionado
 if(isset($_GET['genre'])){
-
+    $genero = htmlspecialchars($_GET['genre'], ENT_QUOTES);
+    $content = displaySongsWithGenre($genero);
 }
 
 // Mostrar todos los generos musicales
@@ -20,6 +21,5 @@ else{
         $content = displayAllMusicTypes();
     }
 }
-
 
 require_once LAYOUT_URL;

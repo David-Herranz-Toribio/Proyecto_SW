@@ -89,9 +89,6 @@ class FormularioCrearPlaylist extends Formulario{
 
             return $html;
         }
-
-        header('Location: ' . VIEWS_PATH . '/musica/Musica.php');
-        exit();
     }
 
 }
