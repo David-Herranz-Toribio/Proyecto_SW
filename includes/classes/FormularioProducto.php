@@ -40,6 +40,9 @@ class FormularioProducto extends FormularioMultimedia
             $imagen_html= ''; 
         }
 
+        $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
+        $erroresCampos= self::generaErroresCampos(['imagen'], $this->errores, 'span', array('class' => 'error'));
+
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
             <fieldset> 
@@ -51,8 +54,11 @@ class FormularioProducto extends FormularioMultimedia
             <input type="text" name="Nombre" value="$nombre">
 
             <label>Imagen</label>
+            <div> 
             <input type = "file" name = "Imagen" accept = "image/*">
+            {$erroresCampos['imagen']}
             $imagen_html
+            </div> 
 
             <label>Descripcion</label>
 
@@ -73,6 +79,8 @@ class FormularioProducto extends FormularioMultimedia
 
     protected function procesaFormulario(&$datos)
     {
+        $this->errores= []; 
+
         $id = $datos['Id'];
         $autor = $datos['Autor'];
         $nombre = htmlspecialchars($datos['Nombre']);
@@ -84,7 +92,10 @@ class FormularioProducto extends FormularioMultimedia
         /*Procesar imagen*/ 
         $imagen= self::procesaFichero('Imagen', '/prodImages/'); 
 
-        $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
-        $producto->guarda();
+        if(count($this->errores)===0){
+            $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
+            $producto->guarda();
+        }
+        
     }
 }

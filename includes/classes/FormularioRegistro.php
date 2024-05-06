@@ -22,7 +22,7 @@ class FormularioRegistro extends FormularioMultimedia {
 
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'email', 'birthdate'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'email', 'birthdate', 'imagen'], $this->errores, 'span', array('class' => 'error'));
 
 
         $opciones_de_artista= ''; 
@@ -99,8 +99,10 @@ class FormularioRegistro extends FormularioMultimedia {
             $opciones_de_artista 
 
             <label> Foto de perfil </label>
-            <p></p>
+            <div> 
                 <input type = "file" name = "image" accept = "image/*">
+                {$erroresCampos['imagen']}
+            </div> 
             <button type="submit" name="register_button" > Sign In </button>
             </field> 
 
@@ -157,44 +159,46 @@ class FormularioRegistro extends FormularioMultimedia {
                 $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
         }
 
+        $datos['profile_image']= self::procesaFichero('image', '/profileImages/'); 
 
-        if(count($this->errores) !== 0){
-            // Errores en el formulario
+        if($datos['profile_image'] === NULL){ //No se ha subido foto de perfil 
+            $datos['profile_image'] = 'FotoPerfil.png'; //Se pone una foto de perfil por defecto
+        } 
+
+        if(count($this->errores) === 0){
+            $usuario = SW\classes\Usuario::buscaUsuario($username); 
+            if($usuario){ //El username ya está en uso
+                $this->errores[] = 'El usuario ya existe';
+            }
+    
+            else { //El username esta libre 
+    
+                $num = SW\classes\Pedido::numProdporUserPP($username);
+                if($num)
+                    $_SESSION['notif_prod'] = $num;
+    
+                if($this->isArtist == true)
+                    $_SESSION['isArtist'] = true; 
+    
+                $datos['artist_members'] = NULL; 
+                
+                $datos['karma'] = 0;
+                $datos['desc'] = '';
+                $datos['isArtist'] = $this->isArtist; 
+                
+                // Crear usuario en la base de datos
+                $usuario = SW\classes\Usuario::createUser($datos);
+    
+                // Crear playlist por defecto -> Favoritos
+                SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
+    
+                // Iniciar sesión
+                $_SESSION['username'] = $username; 
+            }
         }
 
 
-        $usuario = SW\classes\Usuario::buscaUsuario($username); 
-        if($usuario){ //El username ya está en uso
-            $this->errores[] = 'El usuario ya existe';
-        }
-
-        else { //El username esta libre 
-
-            $num = SW\classes\Pedido::numProdporUserPP($username);
-            if($num)
-                $_SESSION['notif_prod'] = $num;
-
-            if($this->isArtist == true)
-                $_SESSION['isArtist'] = true; 
-
-            $datos['artist_members'] = NULL; 
-            if(($datos['profile_image'] = self::procesaFichero('image', '/profileImages/')) == NULL){
-                $datos['profile_image'] = 'FotoPerfil.png'; 
-            } 
-            
-            $datos['karma'] = 0;
-            $datos['desc'] = '';
-            $datos['isArtist'] = $this->isArtist; 
-            
-            // Crear usuario en la base de datos
-            $usuario = SW\classes\Usuario::createUser($datos);
-
-            // Crear playlist por defecto -> Favoritos
-            SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
-
-            // Iniciar sesión
-            $_SESSION['username'] = $username; 
-        }
+       
     }
 
 }

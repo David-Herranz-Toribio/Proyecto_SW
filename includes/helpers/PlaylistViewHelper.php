@@ -18,6 +18,8 @@ function displayPlaylistHeader($playlist){
     $playlistImage = $playlist->getPlaylistImagen();
     $playlistName = $playlist->getPlaylistNombre();
     $duracion = $playlist->getPlaylistDuracion();
+    $creador= $playlist->getIdUsuario(); 
+    $rutaPerfilCreador= VIEWS_PATH . '/perfil/Perfil.php'; 
     $fecha = $playlist->getPlaylistCreationDate();
 
     $html =<<<EOS
@@ -30,7 +32,7 @@ function displayPlaylistHeader($playlist){
             <h1> $playlistName </h1>
             
             <div class="playlist_extra_info">
-                <div class="playlist_username"> @username </div>
+                <div class="playlist_username"> <a href= "$rutaPerfilCreador?user=$creador"> @$creador </a>  </div>
                 <p> Duración: $duracion </p>
                 <p> Creada: $fecha </p>
                 <button> Modificar </button>
