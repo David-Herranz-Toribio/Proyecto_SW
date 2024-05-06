@@ -17,6 +17,9 @@ class FormularioCrearPlaylist extends Formulario{
         $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
         $procesarPath = HELPERS_PATH . '/CrearPlaylist.php';
 
+        // Se generan los mensajes de error si existen
+        $erroresCampos = self::generaErroresCampos(['imagen', 'nombre'], $this->errores, 'span', array('class' => 'error'));
+
         $html =<<<EOS
         <fieldset>
         <legend> Crear Playlist </legend>
@@ -28,6 +31,7 @@ class FormularioCrearPlaylist extends Formulario{
                 <div class="createPlaylistImageInput">
                     <label> Imagen </label>
                     <input name="imagen" type="file">
+                    {$erroresCampos['imagen']}
                 </div>
             </div>
 
@@ -35,6 +39,7 @@ class FormularioCrearPlaylist extends Formulario{
                 <div class="createPlaylistName">
                     <label> Nombre </label>
                     <input name="nombre" type="text" required>
+                    {$erroresCampos['nombre']}
                 </div>
             </div>
 
@@ -50,10 +55,27 @@ class FormularioCrearPlaylist extends Formulario{
 
     protected function procesaFormulario(&$datos){
 
-        $imagen = isset($_POST['imagen']) && $_POST['imagen'] ? $_POST['imagen'] : IMG_PATH . '/profileImages/FotoPerfil.png';
-        $nombre = $_POST['nombre'];
+        // Recoger datos
+        $defaultImage = IMG_PATH . '/profileImages/FotoPerfil.png';
+        $imagen = isset($_POST['imagen']) && $_POST['imagen'] ? $_POST['imagen'] : $defaultImage;
+        $nombre = htmlspecialchars($_POST['nombre'], ENT_QUOTES);
         $creationDate = new DateTime();
         $creationDate = $creationDate->format('Y-m-d');
+        $id_usuario = $_SESSION['username'];
+
+        // Validar datos
+        $this->errores = [];
+
+        if(SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){
+            $this->errores['nombre'] = 'Ya existe una playlist con ese nombre';
+        }
+        // Verificar que la imagen es adecuada -> archivo imagen, peso máximo, etc...
+        if(1){
+
+        }
+        // Si hay errores, salimos
+        if(count($this->errores) != 0) {return;}
+
 
         // Crear playlist en la base de datos
         $done = SW\classes\Playlist::crearPlaylistBD($_SESSION['username'], $nombre, $imagen, $creationDate);

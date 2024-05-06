@@ -36,7 +36,7 @@ class Cancion{
 
         $canciones = [];
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf( "SELECT * FROM play_cancion P JOIN cancion C ON P.id_cancion = C.id_cancion WHERE P.id_playlist = '%s';", $id_playlist);
+        $query = sprintf( "SELECT * FROM play_cancion P JOIN cancion C ON P.id_cancion = C.id_cancion WHERE P.id_playlist = '%s'", $id_playlist);
         $rs = $conection->query($query);
 
         if(!$rs){
