@@ -1,11 +1,10 @@
-
 <?php
-require_once 'FormularioMultimedia.php'; 
-require_once 'Usuario.php'; 
-require_once 'Post.php';
 
-class FormularioRespuesta extends FormularioMultimedia
-{
+require_once 'Formulario.php';
+require_once 'FormularioMultimedia.php'; 
+
+class FormularioRespuesta extends FormularioMultimedia{
+    
     private $id_padre; 
 
     public function __construct($id_padre) {

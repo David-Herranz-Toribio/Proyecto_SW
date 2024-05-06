@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Formulario.php';
-require_once 'Playlist.php';
+
 
 class FormularioCrearPlaylist extends Formulario{
 

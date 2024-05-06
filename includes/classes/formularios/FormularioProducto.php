@@ -1,8 +1,8 @@
-
 <?php
+
+require_once 'Formulario.php';
 require_once 'FormularioMultimedia.php'; 
-require_once 'Usuario.php'; 
-require_once 'Producto.php';
+
 
 class FormularioProducto extends FormularioMultimedia
 {
