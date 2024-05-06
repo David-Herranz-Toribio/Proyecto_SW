@@ -18,6 +18,7 @@ define('BD_PATH', PROJECT_PATH . '/mysql');
 define('ROOT_PATH', dirname(__DIR__) . '/../Proyecto_SW');
 define('CSS_URL' , ROOT_PATH . '/css');
 define('IMG_URL' , ROOT_PATH . '/img');
+define('AUDIO_URL', ROOT_PATH . '/audio'); 
 define('INCLUDES_URL', ROOT_PATH . '/includes');
     define('CLASSES_URL', INCLUDES_URL . '/classes');
     define('HELPERS_URL', INCLUDES_URL . '/helpers');
