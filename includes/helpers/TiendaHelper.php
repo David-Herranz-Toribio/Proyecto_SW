@@ -3,7 +3,7 @@
 require_once CLASSES_URL . '/Producto.php';
 require_once CLASSES_URL . '/Pedido.php';
 require_once CLASSES_URL . '/Usuario.php';
-require_once CLASSES_URL . '/FormularioProducto.php'; 
+require_once FORMS_URL . '/FormularioProducto.php'; 
 
 function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 

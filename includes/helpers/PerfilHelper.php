@@ -3,7 +3,7 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
-require_once CLASSES_URL . '/FormularioCrearAlbum.php';
+require_once FORMS_URL . '/FormularioCrearAlbum.php';
 require_once 'PostHelper.php';
 require_once 'TiendaHelper.php'; 
 
@@ -223,8 +223,8 @@ function displayMusic($user){
     $html =<<<EOS
     <div class='artistMusicButtons'>
         <button><a href=$playlistsPath> Mi música </a></button>
-        <button><a href=$crearAlbumPath> Crear album </a></button>
-        <button><a href=$crearMusicaPath> Crear canción </a></button>
+        <button><a href=$crearAlbumPath?user=$username> Crear album </a></button>
+        <button><a href=$crearMusicaPath?user=$username> Crear canción </a></button>
     </div>
     EOS;
 

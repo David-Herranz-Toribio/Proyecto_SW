@@ -38,7 +38,7 @@ class Playlist{
 
         $playlists = [];
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf( "SELECT * FROM playlist P WHERE P.id_user = '%s' ORDER BY P.fecha DESC", $username);
+        $query = sprintf( "SELECT * FROM playlist P WHERE P.id_user = '%s' ORDER BY P.nombre ASC", $username);
         $rs = $conection->query($query);
         
         if(!$rs)
@@ -98,6 +98,21 @@ class Playlist{
         return $rs;
     }
     
+
+    public static function existeNombrePlaylist($id_user, $nombre_playlist){
+
+        $result = false;
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT nombre FROM playlist P WHERE P.id_user = '%s' AND P.nombre = '%s'", $id_user, $nombre_playlist);
+        $rs = $conection->query($query);
+
+        if($rs->fetch_assoc()){
+            $rs->free();
+            $result = true;
+        }
+
+        return $result;
+    }
 
     public function quitarCancion($id_cancion){
 

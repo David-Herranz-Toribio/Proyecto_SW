@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../Config.php';
-require_once CLASSES_URL . '/FormularioCrearCancion.php';
+require_once FORMS_URL . '/FormularioCrearCancion.php';
 require_once HELPERS_URL . '/CrearCancionHelper.php';
 
 $content = '';

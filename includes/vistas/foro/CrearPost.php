@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../Config.php';
-require_once CLASSES_URL. '/FormularioPost.php'; 
+require_once FORMS_URL . '/FormularioPost.php'; 
 
 
 if(isset($_POST['id_padre'])) 
@@ -10,10 +10,10 @@ else
     $id_padre = NULL; 
 
 
-$form= new FormularioPost($id_padre); 
-$htmlform= $form->gestiona(); 
+$form = new FormularioPost($id_padre); 
+$htmlform = $form->gestiona(); 
 
-$content= <<<EOS
+$content = <<<EOS
 <section class= 'formulario_style'> 
 $htmlform
 </section> 

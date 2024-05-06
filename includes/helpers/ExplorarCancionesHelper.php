@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../Config.php';
-require_once CLASSES_URL . '/FormularioExplorarCanciones.php';
+require_once FORMS_URL . '/FormularioExplorarCanciones.php';
 
 
 function displayAllMusicTypes(){
