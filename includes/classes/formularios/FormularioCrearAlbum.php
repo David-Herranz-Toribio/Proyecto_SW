@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Formulario.php';
+require_once 'Playlist.php';
 
 
 /*
