@@ -13,15 +13,20 @@ class FormularioPost extends FormularioMultimedia
     }
     
     protected function generaCamposFormulario(&$datos)
-    {
-
+    {   
+        
+        $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
+        $erroresCampos = self::generaErroresCampos(['imagen'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
+        $htmlErroresGlobales
         <fieldset>
         <legend ><strong> Nueva Publicación </strong></legend>
             <input type = "hidden" name = "id_padre" value = "$this->id_padre">
             Mensaje: <textarea name = "post_text" required style = "resize: none; "></textarea><br><br>
+
             Imagen:<input type = "file" name = "image" accept = "image/*">
+            {$erroresCampos['imagen']}
             <br><br><br>
             <button type="submit"> Publicar </button>
         </fieldset>
@@ -31,17 +36,21 @@ class FormularioPost extends FormularioMultimedia
     }
 
     protected function procesaFormulario(&$datos)
-    {
+    {   
+        $this->errores= []; 
         $username = $_SESSION['username']; 
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
 
         /*TODO Procesar imagen*/ 
         $post_image= self:: procesaFichero("image", '/postImages/'); 
 
-        if($datos['id_padre'] != "") $post_father= $datos['id_padre']; 
-        else $post_father = 'NULL'; 
 
-        $user=  SW\classes\Usuario::buscaUsuario($username);
-        $post = $user->publicarPost($post_text, $post_image, $post_father);
+        if(count($this->errores)===0){
+            if($datos['id_padre'] != "") $post_father= $datos['id_padre']; 
+            else $post_father = 'NULL'; 
+
+            $user=  SW\classes\Usuario::buscaUsuario($username);
+            $post = $user->publicarPost($post_text, $post_image, $post_father);
+        }
     }
 }

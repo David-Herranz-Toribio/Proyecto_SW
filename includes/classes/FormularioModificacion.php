@@ -1,13 +1,13 @@
 <?php
-require_once 'Formulario.php'; 
+require_once 'FormularioMultimedia.php'; 
 require_once 'Usuario.php'; 
 require_once 'Pedido.php';
 
 
-class FormularioModificacion extends Formulario {
+class FormularioModificacion extends FormularioMultimedia {
 
     public function __construct() {
-        parent::__construct('formModificar', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php']);
+        parent::__construct('formModificar', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php', 'enctype' => 'multipart/form-data']);
     }
 
     protected function generaCamposFormulario(&$datos){
@@ -20,7 +20,7 @@ class FormularioModificacion extends Formulario {
 
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'desc', 'email'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'desc', 'email','imagen'], $this->errores, 'span', array('class' => 'error'));
 
         $camposForm= <<<EOF
             $htmlErroresGlobales
@@ -104,7 +104,16 @@ class FormularioModificacion extends Formulario {
             }
         } 
 
+        $fotoPerfil= self::procesaFichero('image', '/profileImages/'); 
+
+        if($fotoPerfil === NULL){ //No se ha subido foto de perfil 
+            $fotoPerfil = 'FotoPerfil.png'; //Se pone una foto de perfil por defecto
+        } 
+
+
+
         if(count($this->errores)===0){
+            $usu_mod->setPhoto($fotoPerfil); 
             $usu_mod->actualiza(); 
         }
     }
