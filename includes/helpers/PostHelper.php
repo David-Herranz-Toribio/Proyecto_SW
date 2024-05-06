@@ -2,7 +2,7 @@
 
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
-require_once FORMS_URL . '/FormularioRespuesta.php'; 
+require_once CLASSES_URL . '/FormularioRespuesta.php'; 
 
 function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 

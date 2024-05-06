@@ -2,10 +2,10 @@
 
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
-require_once FORMS_URL . '/FormularioModificacion.php'; 
+require_once CLASSES_URL . '/FormularioModificacion.php'; 
 
-$rutaEstiloClaro = CSS_PATH .'/estiloClaro.css'; 
-$rutaEstiloOscuro = CSS_PATH .'/estiloOscuro.css'; 
+$rutaEstiloClaro=  CSS_PATH .'/estiloClaro.css'; 
+$rutaEstiloOscuro= CSS_PATH .'/estiloOscuro.css'; 
 
 $perfil = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 $image = $perfil->getPhoto();  
@@ -13,7 +13,7 @@ $rutaDel = HELPERS_PATH . '/ProcesarEliminarUsuario.php';
 $RemoveImage = IMG_PATH . '/remove_user_.png';
 
 /*Cambio modo claro/oscuro */ 
-$cambio_modo =<<<EOS
+$cambio_modo= <<<EOS
 <section class= 'botonesEstilo'> 
 <button type= "button" onclick= "toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
 <button type= "button" onclick= "toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
@@ -37,7 +37,7 @@ EOS;
 
 /*Boton para eliminar la cuenta*/ 
 
-$funcion_eliminar =<<<EOS
+$funcion_eliminar = <<<EOS
 <form action= $rutaDel method="post2" >
 <div class= 'info_session'> 
         <div class= 'contenedor_texto'> 
@@ -52,14 +52,15 @@ $funcion_eliminar =<<<EOS
         </div> 
     </div> 
 </form>
+
 EOS; 
 
-/* Crea el formulario de moficicacion */ 
-$form = new FormularioModificacion(); 
+/*Crea el formulario de moficicacion*/ 
+$form= new FormularioModificacion(); 
 
-$htmlform = $form->gestiona(); 
+$htmlform= $form->gestiona(); 
 
-$content =<<<EOS
+$content= <<<EOS
     $FotoPerfil
     $funcion_eliminar
     <section class= 'formulario_style'> 

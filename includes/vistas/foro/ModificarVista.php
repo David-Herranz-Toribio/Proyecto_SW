@@ -2,13 +2,13 @@
 
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
-require_once FORMS_URL . '/FormularioModificacionPost.php'; 
+require_once CLASSES_URL . '/FormularioModificacionPost.php'; 
 
-$form = new FormularioModificacionPost($_POST['ModificarID']); 
-$htmlform = $form->gestiona(); 
+$form= new FormularioModificacionPost($_POST['ModificarID']); 
+$htmlform= $form->gestiona(); 
 
 
-$content =<<<EOS
+$content= <<<EOS
     <section class= 'formulario_style'> 
     $htmlform
     </section> 

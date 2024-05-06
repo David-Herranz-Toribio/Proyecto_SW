@@ -1,7 +1,12 @@
 
------------------------------------------------------  PROYECTO FINAL -----------------------------------------------------
+-----------------------Proyecto Final---------------------------------------------------
 
--JS: (Alonso)
+
+
+-User admin (puede borrar todos los post, canciones etc...) 
+-Barra de busqueda que funcione en el perfil (Ignacio) ✅
+
+-JS (Alonso)
     1)Validacion de FORMULARIOS
     2)Limites de caracteres 
 
@@ -11,7 +16,7 @@
     3)Formulario para subir canciones
     4)Creación de albumes(playlists) para los artistas (Óscar) ✅
 
--Suscripciones: (David y Hugo)
+-Suscripciones (David y Hugo)
     1)Varias cuotas: mensual y anual
     2)Descuentos en la tienda
     3)No interrupcion mientras escuchas musica 
@@ -20,12 +25,9 @@
 
 -Foro: (Ignacio)
     1)Opcion de ver post de los seguidores  ✅
-    2)Funcionalidad de administrador
-        2.1)Posibilidad de modificar/borrar cualquier dato
-    3)Barra de busqueda funcional en el perfil (Ignacio) ✅
 
--Musica: (URGENTE)
-    1)Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio) ✅
+-Musica (URGENTE)
+    1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio) ✅
     2)Que funcione lo de escuchar (Alonso)
     2)Listas de reproduccion hechas por los usuarios (Óscar)
         2.1)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar) ✅
@@ -34,13 +36,9 @@
         4.1)Muestra toda la musica publicada (puedes filtrarla)
         4.2)Tu musica favorita (que sea la playlist default  "Tus Canciones Favoritas" [sugerencia Hugo])
             4.2.1)Al darle me gusta a cancion añadir a playlist default  "Tus Canciones Favoritas" [sugerencia Hugo]
-    5)Vista de playlists + clases Playlist y Canción (Óscar) ✅
-    6)Vista de canciones (Alonso)
+    5)Vista de playlists (Óscar) ✅
+    6)Vista de canciones (Óscar)
 
--Arreglos:
-    1)Limpiar el uso del namespace y Creación de clases (Óscar) 📌
-
------------------------------------------------------ SECUNDARIO -----------------------------------------------------
 
 -CSS
     1)Quitar reglas "redundantes"
@@ -52,7 +50,7 @@
     1)Que al hacer autolike no aumente tu karma 
     2)Escuchar musica aumenta tu karma 
 
--Actualizar BD (Hugo)
+-Actualizar BD (Hugo, como no...)
     1)Añadir campo archivado (bool) para musica, produtos etc. Si es 0 no está 'borrado', si es 1 si lo esta
     2)Añadir musica, eventos y subscribciones
 

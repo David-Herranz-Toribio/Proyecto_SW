@@ -1,22 +1,20 @@
 <?php
 
 require_once '../../Config.php';
-require_once HELPERS_URL . '/CrearPlaylistHelper.php';
+require_once CLASSES_URL . '/FormularioCrearPlaylist.php';
 
 $username = '';
-
-/*
-    Verificar que:
-        1- Tenemos el user del cliente
-        2- El cliente está logueado
-        3- El cliente es el mismo que el que está en la url
-*/
-if(!isset($_GET['user']) || !isset($_SESSION['username']) || $_GET['user'] !== $_SESSION['username']){
-    $content = displayMessage("No tienes permiso para realizar esta acción");
-}
-else{
+if(isset($_GET['user']) && isset($_SESSION['username']) && $_GET['user'] == $_SESSION['username'])
     $username = htmlspecialchars($_GET['user'], ENT_QUOTES);
-    $content = displayFormulario($username);
-}
+
+
+$form = new FormularioCrearPlaylist($username);
+$formHTML = $form->gestiona();
+
+$content =<<<EOS
+<section class="createPlaylistForm">
+    $formHTML
+</section>
+EOS;
 
 require_once LAYOUT_URL;

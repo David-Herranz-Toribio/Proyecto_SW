@@ -26,9 +26,6 @@ class FormularioCrearAlbum extends Formulario{
         $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
         $procesarPath = HELPERS_PATH . '/CrearPlaylist.php';
 
-        // Se generan los mensajes de error si existen
-        $erroresCampos = self::generaErroresCampos(['imagen', 'nombre', 'fecha'], $this->errores, 'span', array('class' => 'error'));
-        
         $html =<<<EOS
         <fieldset>
         <legend> Crear Album </legend>
@@ -40,7 +37,6 @@ class FormularioCrearAlbum extends Formulario{
                 <div class="createPlaylistImageInput">
                     <label> Imagen </label>
                     <input name="imagen" type="file">
-                    {$erroresCampos['imagen']}
                 </div>
             </div>
 
@@ -48,13 +44,11 @@ class FormularioCrearAlbum extends Formulario{
                 <div class="createPlaylistName">
                     <label> Nombre </label>
                     <input name="nombre" type="text" required>
-                    {$erroresCampos['nombre']}
                 </div>
 
                 <div class="createPlaylistYear">
                     <label> Fecha </label>
                     <input name="date" type="date" required>
-                    {$erroresCampos['fecha']}
                 </div>
             </div>
 
@@ -70,34 +64,12 @@ class FormularioCrearAlbum extends Formulario{
 
     protected function procesaFormulario(&$datos){
 
-        // Obtener datos
-        $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
-        $imagen = isset($_POST['imagen']) && $_POST['imagen'] ? $_POST['imagen'] : $defaulImage;
+        $imagen = isset($_POST['imagen']) && $_POST['imagen'] ? $_POST['imagen'] : IMG_PATH . '/profileImages/FotoPerfil.png';
         $nombre = htmlspecialchars($_POST['nombre']);
-        $id_usuario = $_SESSION['username'];
-        $creationDate = new \DateTime($_POST['date']);
-        $today = new \DateTime();
-        
+        $creationDate = $_POST['date'];
 
-        // Validar datos
-        $this->errores = [];
-        $today_num = intval(date("Ymd", strtotime($today->format('Y-m-d'))));
-        $date_num = intval(date("Ymd", strtotime($creationDate->format('Y-m-d'))));
-
-        if(SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){
-            $this->errores['nombre'] = 'Ya existe un album con ese nombre';
-        }
-        if($date_num > $today_num){
-            $this->errores['fecha'] = 'La fecha debe ser anterior al dia actual';
-        }
-        if(0){
-            $this->errores['imagen'] = 'La imagen no es válida';
-        }
-        if(count($this->errores) != 0) {return;}
-
-        
         // Crear album en la base de datos
-        $done = SW\classes\Playlist::crearPlaylistBD($_SESSION['username'], $nombre, $imagen, $creationDate->format('Y-m-d'));
+        $done = SW\classes\Playlist::crearPlaylistBD($_SESSION['username'], $nombre, $imagen, $creationDate);
         if(!$done){
 
             $html =<<<EOS

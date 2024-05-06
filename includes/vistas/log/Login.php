@@ -1,14 +1,14 @@
 <?php 
 
 require_once '../../Config.php';
-require_once FORMS_URL .'/FormularioLogin.php'; 
+require_once CLASSES_URL .'/FormularioLogin.php'; 
 
-$top_message =<<<EOS
+$top_message=<<<EOS
 <p> 2Music ¡Música sin limites para perder el tiempo! </p>
 EOS; 
 
-$form = new FormularioLogin(); 
-$htmlform = $form->gestiona(); 
+$form= new FormularioLogin(); 
+$htmlform= $form->gestiona(); 
 
 $content =<<<EOS
     <section class='formulario_style'> 

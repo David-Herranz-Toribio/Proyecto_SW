@@ -1,12 +1,12 @@
 <?php
 require_once '../../Config.php';
-require_once FORMS_URL .'/FormularioRegistro.php'; 
+require_once CLASSES_URL .'/FormularioRegistro.php'; 
 
-$form = new FormularioRegistro(false);  
+$form= new FormularioRegistro(false);  
 
-$htmlform = $form->gestiona(); 
+$htmlform= $form->gestiona(); 
 
-$content =<<<EOS
+$content=<<<EOS
 <section class= "formulario_style"> 
 $htmlform
 </section> 
