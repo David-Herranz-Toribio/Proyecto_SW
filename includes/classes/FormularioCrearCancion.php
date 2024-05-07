@@ -24,17 +24,19 @@ class FormularioCrearCancion extends FormularioMultimedia{
 
     protected function generaCamposFormulario(&$datos){
 
+        $erroresCampos = self::generaErroresCampos(['cancion','imagen'], $this->errores, 'span', array('class' => 'error'));
+
         $html =<<<EOS
             <fieldset>
             <input type= 'hidden' name= "id_artista" value= "$this->id_artista">  
             <div class='songImageInput'>
-                <label for='songImageInput'> Subir portada: </label>
+                <label for='songImageInput'> Portada: </label>
                 <input type='file' id='songImageInput' name='imagen'>
                 {$erroresCampos['imagen']}
             </div>
 
             <div class='songNameInput'>
-                <label for='songNameInput'> Nombre de la canción: </label>
+                <label for='songNameInput'> Título: </label>
                 <input type='text' id='songNameInput' name='titulo' required>
             </div>
             
@@ -44,7 +46,7 @@ class FormularioCrearCancion extends FormularioMultimedia{
             </div>
 
             <div class='songGenres'>
-                <label for="genres"> Choose genres: </label>
+                <label for="genres"> Géneros: </label>
                 <select id="genres" name="tags" multiple>
                     <option value="pop"> ... </option>
                     <option value="rock"> Rock </option>
@@ -55,15 +57,10 @@ class FormularioCrearCancion extends FormularioMultimedia{
                 </select>
             </div>
 
-            <div class='songLyrics'>
-                <label for='songLyrics'> Letra: </label>
-                <textarea id='songLyrics' name='songLyrics' rows='4' cols='50'></textarea>
-            </div>
-
             <div class='songAudioFile'>
-                <label for='songAudioFileInput'> Audio audio: </label>
+                <label for='songAudioFileInput'> Audio:  </label>
                 <input type='file' id='songAudioFileInput' name="ruta">
-                {$erroresCampos['musica']}
+                {$erroresCampos['cancion']}
             </div>
 
             <div class='submitSong'>
@@ -80,8 +77,10 @@ class FormularioCrearCancion extends FormularioMultimedia{
         
 
         /*La portada de la cancion pasa los filtros*/ 
-        $portada= self:: compruebaImagen('songImage', '/songImages/'); 
-        $cancion= self:: compruebaCancion('ruta', ''); 
+        $portada= self:: compruebaImagen('imagen', '/songImages/'); 
+        /*El archivo de audio de la cancion pasa los filtros*/ 
+        
+        $cancion= self:: compruebaMusica('ruta', '/'); 
         if(count($this->errores)===0){ //NO HAY ERRORES AL PROCESAR EL FORMULARIO
             $cancion= SW\classes\Cancion:: crearCancion($datos);
         }

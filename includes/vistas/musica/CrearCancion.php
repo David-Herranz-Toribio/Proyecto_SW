@@ -11,8 +11,22 @@ if(!isset($_SESSION['username'])){
 else{
 
     // Formulario para poder subir una canción
-    $form = new FormularioCrearCancion();
-    $content = displayFormulario($form->gestiona());
+    $form = new FormularioCrearCancion($_SESSION['username']);
+    $htmlform = $form->gestiona();
+
+    $head =<<<EOS
+    <div class='texto_infor'>
+        <h2> Subir canción </h2>
+    </div>
+    EOS;
+
+    $content =<<<EOS
+    $head
+    <section class='formulario_style'>
+    $htmlform
+    </section>
+    EOS;
+
 }
 
 

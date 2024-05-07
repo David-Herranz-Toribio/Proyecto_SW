@@ -65,7 +65,7 @@ class FormularioMultimedia extends Formulario {
 
             /*Comprobar que la extension está permitida*/ 
             $extension = pathinfo($archivo_nombre, PATHINFO_EXTENSION);
-            $ok= in_array($extension, self::EXTENSIONES_IMAGEN); 
+            $ok= in_array($extension, self::EXTENSIONES_SONIDO); 
 
 
             //Comprobar que el fichero es efectivamente uno de tipo audio
@@ -82,6 +82,9 @@ class FormularioMultimedia extends Formulario {
             if(count($this->errores) > 0){
                 return -1; 
             }
+
+            /*Comprobar el tamaño del archivo*/ 
+
 
             //Nombre con extension
             $cancion = uniqid() . '.' . $extension;
