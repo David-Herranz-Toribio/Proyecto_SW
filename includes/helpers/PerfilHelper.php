@@ -3,9 +3,12 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
+require_once CLASSES_URL . '/Playlist.php';
+require_once CLASSES_URL . '/Cancion.php';
 require_once CLASSES_URL . '/FormularioCrearAlbum.php';
 require_once 'PostHelper.php';
-require_once 'TiendaHelper.php'; 
+require_once 'TiendaHelper.php';
+
 
 // Constantes para navegar entre vistas
 define('POSTS_VIEW', 'POSTS');
@@ -218,21 +221,20 @@ function displayMusic($user){
     $username = $user->getUsername();
     $playlistsPath = VIEWS_PATH . '/musica/Musica.php';
     $crearAlbumPath = VIEWS_PATH . '/musica/CrearAlbum.php';
-    $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
 
-    $html =<<<EOS
-    <div class='artistMusicButtons'>
-        <button><a href=$playlistsPath> Mi música </a></button>
-        <button><a href=$crearAlbumPath?user=$username> Crear album </a></button>
-        <button><a href=$crearMusicaPath?user=$username> Crear canción </a></button>
-    </div>
-    EOS;
-
-    $html .=<<<EOS
-    <div class='lista_musica'>
-        
-    </div>
-    EOS;
+    $html = '';
+    if(isset($_SESSION['username']) && $username === $_SESSION['username']){
+        $html .=<<<EOS
+        <div class='artistMusicButtons'>
+            <button><a href=$playlistsPath> Mi música </a></button>
+            <button><a href=$crearAlbumPath?user=$username> Crear album </a></button>
+            
+        </div>
+        EOS;
+    }
+    else{
+        $html .= displayArtistMusic($username);
+    }
 
     return $html;
 }
@@ -354,6 +356,7 @@ function displaySettingsOption(){
 }
 
 function displayFollowersAndFollowed($user){
+
     $seguidores = displayFollowers($user);
     $seguidos = displayFollowing($user);
 
@@ -373,6 +376,7 @@ function displayFollowersAndFollowed($user){
 }
 
 function displayFollowers($user){
+
     $lista_seguidores = $user->obtenerListaSeguidores();
     $username = $user->getUsername();
     $num_followers = count($lista_seguidores); 
@@ -388,8 +392,8 @@ function displayFollowers($user){
     return $html;
 }
 
-
 function displayFollowing($user){
+
     $lista_seguidos = $user->obtenerListaSeguidos();
     $num_following = count($lista_seguidos); 
     $username = $user->getUsername();
@@ -402,6 +406,65 @@ function displayFollowing($user){
         <p> $num_following <button class="InfoFoll-button" type="submit">Seguidos</button> </p>
     </form>
     EOS;
+    return $html;
+}
+
+function displayArtistMusic($artist_username){
+
+    $albums = \SW\classes\Playlist::obtenerPlaylistsBD($artist_username);
+    if(!$albums){
+
+        $html =<<<EOS
+        <section class="emptyMusicList">
+            <p> Este artista no tiene música aún... </p>
+        </section>
+        EOS;
+
+        return $html;
+    }
+
+    $html = "<section class='artist_music'>";
+    // Mostrar todas las playlists
+    foreach($albums as $p){
+        $html .= displayArtistAlbum($p);
+        $html .= displayAlbumMusic($p);
+    }
+    $html .= "</section>";
+
+    return $html;
+}
+
+function displayArtistAlbum($playlist){
+
+    $html =<<<EOS
+    <article class="album_header">
+        <img src="{$playlist->getPlaylistImagen()}" alt="Portada del album">
+        <h2> {$playlist->getPlaylistNombre()} </h2>
+    </article>
+    EOS;
+
+    return $html;
+}
+
+function displayAlbumMusic($playlist){
+
+    $canciones = \SW\classes\Cancion::getSongsFromPlaylistID($playlist->getIdPlaylist());
+    if(!$canciones){
+
+        $html =<<<EOS
+        <section class="album_music">
+            <h3> No hay canciones en este album </h3>
+        </section>
+        EOS;
+
+        return $html;
+    }
+
+    $html = '';
+    foreach($canciones as $cancion){
+        
+    }
+
     return $html;
 }
 

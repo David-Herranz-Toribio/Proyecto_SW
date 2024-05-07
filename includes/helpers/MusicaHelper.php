@@ -20,9 +20,6 @@ function showPlaylists($username){
     // Mostrar playlists
     $html .= displayPlaylists($playlists);
 
-    // Mostrar artistas que sigues
-    $html .= displayFollowingArtists($username);
-
     return $html;
 }
 
@@ -108,16 +105,9 @@ function display_a_playlist($playlist){
     return $html;
 }
 
-function displayFollowingArtists($username){
-
-    // Mostrar los artistas a los que el usuario sigue
-    // Imagen del artista, nombre y link a su perfil
-}
-
 function displayViewToNotLogged(){
     
-    $html = "<section class='default'>";
-    $html .=<<<EOS
+    $html =<<<EOS
     <h1 class="texto_infor"> No estas loguead@ para ver tu música</h1>
     EOS;
 

@@ -626,11 +626,23 @@ button:hover  {
 	justify-content: center;
 	justify-items: stretch;
 	height: 100%;
+	padding-bottom: 8px;
 }
+
 .playlist_username{
 	grid-column-start: 1;
 	grid-column-end: 3;
 }
+.playlist_username a{
+	text-decoration: underline;
+	color: rgb(123, 175, 254);
+}
+
+.edit_playlist_buttons a{
+	text-decoration: none;
+	color: black;
+}
+
 .playlist_extra_info p{
 	margin-inline: 6px;
 }

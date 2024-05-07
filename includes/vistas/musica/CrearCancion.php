@@ -8,10 +8,14 @@ $content = '';
 if(!isset($_SESSION['username'])){
     $content = displayMessage("Debes estar logead@ para crear una canción");
 }
+else if(!isset($_GET['playlist'])){
+    $content = displayMessage("Ocurrió algún problema...");
+}
 else{
 
     // Formulario para poder subir una canción
-    $form = new FormularioCrearCancion($_SESSION['username']);
+    $playlist = htmlspecialchars($_GET['playlist'], ENT_QUOTES);
+    $form = new FormularioCrearCancion($_SESSION['username'], $playlist);
     $htmlform = $form->gestiona();
 
     $head =<<<EOS

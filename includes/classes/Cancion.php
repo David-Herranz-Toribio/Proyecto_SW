@@ -15,7 +15,7 @@ class Cancion{
     private $tags;
 
 
-    private function __construct($parameters){
+    public function __construct($parameters){
 
         $this->id_cancion = $parameters['id_cancion'];
         $this->id_artista = $parameters['id_artista'];
@@ -28,7 +28,10 @@ class Cancion{
         $this->tags = $parameters['tags'];
     }
 
-    public static function crearCancion($parameters){
+
+    public static function crearCancion($titulo, $imagen, $fecha, $ruta, $tags){
+
+        $parameters = [];
         return new Cancion($parameters);
     }
 
@@ -56,7 +59,7 @@ class Cancion{
             $parameters['duracion'] = $fila['duracion'];
             $parameters['tags'] = $fila['tags'];
 
-            $canciones[] = Cancion::crearCancion($parameters);
+            $canciones[] = new Cancion($parameters);
         }
         $rs->free();
 
@@ -86,11 +89,27 @@ class Cancion{
             $parameters['duracion'] = $fila['duracion'];
             $parameters['tags'] = $fila['tags'];
 
-            $canciones[] = Cancion::crearCancion($parameters);
+            $canciones[] = new Cancion($parameters);
         }
         $rs->free();
 
         return $canciones;
+    }
+
+    public function crearCancionBD(){
+
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO cancion (id_cancion, titulo, imagen, fecha, id_artista, likes, ruta, duracion, tags) 
+            VALUES ('%s','%s','%s','%d','%s','%s','%s', '%s', '%s')",);
+
+        $result = $conn->query($query);
+
+        if (!$result)
+            error_log($conn->error);          
+
+        return $result;
     }
 
     public function getIdCancion(){

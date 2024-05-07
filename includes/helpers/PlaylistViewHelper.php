@@ -17,10 +17,12 @@ function displayPlaylistHeader($playlist){
 
     $playlistImage = $playlist->getPlaylistImagen();
     $playlistName = $playlist->getPlaylistNombre();
+    $playlistID = $playlist->getIdPlaylist();
     $duracion = $playlist->getPlaylistDuracion();
-    $creador= $playlist->getIdUsuario(); 
-    $rutaPerfilCreador= VIEWS_PATH . '/perfil/Perfil.php'; 
+    $creador = $playlist->getIdUsuario(); 
+    $rutaPerfilCreador = VIEWS_PATH . '/perfil/Perfil.php'; 
     $fecha = $playlist->getPlaylistCreationDate();
+    $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
 
     $html =<<<EOS
     <div class="playlist_header">
@@ -32,11 +34,17 @@ function displayPlaylistHeader($playlist){
             <h1> $playlistName </h1>
             
             <div class="playlist_extra_info">
-                <div class="playlist_username"> <a href= "$rutaPerfilCreador?user=$creador"> @$creador </a>  </div>
+                <div class="playlist_username">
+                    <a href="$rutaPerfilCreador?user=$creador"> @$creador </a>
+                </div>
+                
                 <p> Duración: $duracion </p>
                 <p> Creada: $fecha </p>
-                <button> Modificar </button>
-                <button> Eliminar </button>
+
+                <button class='edit_playlist_buttons'><a href=$crearMusicaPath?playlist=$playlistID> Añadir canción </a></button>
+                <button class='edit_playlist_buttons'><a href=''> Modificar playlist </a></button>
+                <button class='edit_playlist_buttons'><a href=''> Eliminar canción </a></button>
+                <button class='edit_playlist_buttons'><a href=''> Eliminar playlist </a></button>
             </div>
         </div>
     </div>

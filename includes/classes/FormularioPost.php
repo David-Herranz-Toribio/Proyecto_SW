@@ -42,7 +42,7 @@ class FormularioPost extends FormularioMultimedia
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
 
         /*TODO Procesar imagen*/ 
-        $post_image= self:: procesaFichero("image", '/postImages/'); 
+        $post_image = self::procesaFichero("image", '/postImages/'); 
 
 
         if(count($this->errores)===0){

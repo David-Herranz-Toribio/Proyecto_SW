@@ -36,9 +36,7 @@
         4.1)Muestra toda la musica publicada (puedes filtrarla)
         4.2)Tu musica favorita (que sea la playlist default  "Tus Canciones Favoritas" [sugerencia Hugo])
             4.2.1)Al darle me gusta a cancion añadir a playlist default  "Tus Canciones Favoritas" [sugerencia Hugo]
-
-    5)Vista de playlists (Óscar) ❗ ✅ ❓= Crear playlist no deberia usar get, usa session y los formularios sobrea form en la CLASE especifica.
-    
+    5)Vista de playlists (Óscar)✅
     6)Vista de canciones (Óscar)
 
 
