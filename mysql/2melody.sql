@@ -199,7 +199,7 @@ DROP TABLE IF EXISTS `suscripcion`;
 CREATE TABLE `suscripcion` (
   `id_user` varchar(63) NOT NULL,
   `tipo` varchar(63) DEFAULT NULL,
-  `fecha_fin` date DEFAULT NULL,
+  `fecha_fin` date NOT NULL,
   `archivado` int(1) DEFAULT 0
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -293,8 +293,10 @@ ALTER TABLE `play_cancion`
   ADD KEY `id_cancion` (`id_cancion`);
 
 ALTER TABLE `suscripcion`
-  ADD PRIMARY KEY (`id_user`),
-  ADD KEY `id_user` (`id_user`);
+  ADD PRIMARY KEY (`id_user`, `fecha_fin`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `fecha_fin` (`fecha_fin`);
+  ;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

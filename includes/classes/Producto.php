@@ -31,7 +31,49 @@ class Producto{
         return new Producto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio, $cantidadPP);
     }
     
+    public function insertarSuscripcion($username, $tipo, $fecha){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
 
+        $fecha_fin = new DateTime($fecha);
+        if($tipo == 'mensual'){
+            $fecha_fin->add(new DateInterval('P1M'));
+        }else if($tipo == 'anual'){
+            $fecha_fin->add(new DateInterval('P1Y'));
+        }
+
+        $query = sprintf(
+            "INSERT INTO suscripcion (id_user, tipo, fecha_fin)
+                       VALUES ('%s','%s', '%s')",
+            $conn->real_escape_string($username),
+            $conn->real_escape_string($tipo),
+            $conn->real_escape_string($fecha_fin->format('Y-m-d'))
+        );
+
+        $result = $conn->query($query);
+
+        if (!$result)  
+            error_log($conn->error);
+
+        return $result;
+    }
+
+    public function archivarSuscripcion($username){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "UPDATE suscripcion SET archivado = 1 WHERE id_user = '%s'",
+            $conn->real_escape_string($username)
+        );
+
+        $result = $conn->query($query);
+
+        if (!$result)  
+            error_log($conn->error);
+
+        return $result;
+    }
     public static function obtenerProductosDeArtista($username){
 
         $result = [];

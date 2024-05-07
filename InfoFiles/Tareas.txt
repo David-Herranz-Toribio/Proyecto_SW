@@ -14,7 +14,7 @@
     1)Ver lista de seguidores y lista de seguidos (Ignacio) ✅
     2)Posibilidad de ver toda la discografía de un artista
     3)Formulario para subir canciones
-    4)Creación de albumes(playlists) para los artistas (Óscar) ✅
+    4)Creación de albumes(playlists) para los artistas (Óscar)  ❗ ✅ ❓ puedes crear cancion siendo no artista entrando al perfil de uno.
 
 -Suscripciones (David y Hugo)
     1)Varias cuotas: mensual y anual
@@ -36,7 +36,9 @@
         4.1)Muestra toda la musica publicada (puedes filtrarla)
         4.2)Tu musica favorita (que sea la playlist default  "Tus Canciones Favoritas" [sugerencia Hugo])
             4.2.1)Al darle me gusta a cancion añadir a playlist default  "Tus Canciones Favoritas" [sugerencia Hugo]
-    5)Vista de playlists (Óscar) ✅
+
+    5)Vista de playlists (Óscar) ❗ ✅ ❓= Crear playlist no deberia usar get, usa session y los formularios sobrea form en la CLASE especifica.
+    
     6)Vista de canciones (Óscar)
 
 
