@@ -55,7 +55,9 @@ class FormularioMultimedia extends Formulario {
 
 
     protected function compruebaMusica($id, $url){
-        if($_FILES[$id]['name']!= ''){
+
+        if($_FILES[$id]['name'] != ''){
+
             $archivo_nombre = $_FILES[$id]['name'];
             $archivo_tamaño = $_FILES[$id]['size'];
             $archivo_temporal = $_FILES[$id]['tmp_name'];
@@ -63,24 +65,24 @@ class FormularioMultimedia extends Formulario {
 
             $directorio_destino = AUDIO_URL . $url;
 
-            /*Comprobar que la extension está permitida*/ 
+            /* Comprobar que la extension está permitida */ 
             $extension = pathinfo($archivo_nombre, PATHINFO_EXTENSION);
             $ok= in_array($extension, self::EXTENSIONES_SONIDO); 
 
 
             //Comprobar que el fichero es efectivamente uno de tipo audio
-            $finfo= new finfo(FILEINFO_MIME); 
+            $finfo = new finfo(FILEINFO_MIME); 
             $type = $finfo->file($archivo_temporal); 
  
-            $ok= $ok && preg_match('/audio\/.+/', $type);
+            $ok = $ok && preg_match('/audio\/.+/', $type);
 
 
             if(!$ok){
-                $this->errores["cancion"]= "El archivo tiene un nombre o tipo inadecuado"; 
+                $this->errores["cancion"] = "El archivo tiene un nombre o tipo inadecuado"; 
             }
 
             if(count($this->errores) > 0){
-                return -1; 
+                return false; 
             }
 
             /*Comprobar el tamaño del archivo*/ 
@@ -97,8 +99,8 @@ class FormularioMultimedia extends Formulario {
         }
 
         else{
-            $this->errores["cancion"]= 'Se requiere un archivo válido (.mp3 o .wav)';
-            return -1; 
+            $this->errores["cancion"] = 'Se requiere un archivo válido (.mp3 o .wav)';
+            return false; 
         }
 
     }

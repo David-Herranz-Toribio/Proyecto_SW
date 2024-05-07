@@ -88,10 +88,6 @@ function displaySong($song){
                 <p> $artista </p>
             </div>
 
-            <div class="songAlbum">
-                <p> Album </p>
-            </div>
-
             <div class="songDate">
                 <p> $fecha </p>
             </div>

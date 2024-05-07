@@ -111,6 +111,24 @@ class Playlist{
         return $result;
     }
 
+    public static function eliminarPlaylist($id_playlist){
+
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM playlist WHERE id_playlist = '%s'", $id_playlist);
+        $rs = $conection->query($query);
+
+        return $rs;
+    }
+
+    public function addCancion($id_cancion){
+            
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("INSERT INTO play_cancion (id_playlist, id_cancion) VALUES ('%d', '%d')", $this->id_playlist, $id_cancion);
+        $rs = $conection->query($query);
+
+        return $rs;
+    }
+
     public function quitarCancion($id_cancion){
 
         $conection = Aplicacion::getInstance()->getConexionBd();

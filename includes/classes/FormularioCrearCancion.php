@@ -1,7 +1,8 @@
 <?php
 
 require_once 'FormularioMultimedia.php';
-require_once 'Cancion.php'; 
+require_once 'Cancion.php';
+require_once 'Playlist.php';
 
 /*
     Formulario para crear una canción
@@ -17,7 +18,7 @@ class FormularioCrearCancion extends FormularioMultimedia{
     private $id_playlist;
 
     public function __construct($id_artista, $id_playlist){
-        parent::__construct('formCrearCancion', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php', 'enctype' => 'multipart/form-data']);
+        parent::__construct('formCrearCancion', ['urlRedireccion' =>  VIEWS_PATH . "/musica/PlaylistView.php?id=$id_playlist", 'enctype' => 'multipart/form-data']);
         $this->id_artista = $id_artista;
         $this->id_playlist = $id_playlist;
     }
@@ -38,7 +39,7 @@ class FormularioCrearCancion extends FormularioMultimedia{
             </div>
             
             <div class='songYearInput'>
-                <label for='songYearInput'> Año: </label>
+                <label for='songYearInput'> Fecha: </label>
                 <input type='date' id='songYearInput' name="fecha">
                 {$erroresCampos['fecha']}
             </div>
@@ -76,22 +77,29 @@ class FormularioCrearCancion extends FormularioMultimedia{
         /* El nombre no existe ya dentro del album */
 
         /* El archivo de audio de la cancion pasa los filtros */ 
-        $cancion = self::compruebaMusica('ruta', '/');
+        if(0)
+            $cancion = self::compruebaMusica('ruta', '/');
 
-        if(count($this->errores) === 0){
+        if(count($this->errores) == 0){
 
             // Obtener parametros
             $titulo = $datos['titulo'];
             $fecha = $datos['fecha'];
             $ruta = 'cancionPrueba.mp3';
+            $duracion = 0;
             $tags = $datos['tags'];
-            $imagen = SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist)->getPlaylistImagen();
+            $playlist = SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist);
+            $imagen = $playlist->getPlaylistImagen();
 
             // Crear objeto en la base de datos
-            $cancion = SW\classes\Cancion::crearCancion($titulo, $imagen, $fecha, $ruta, $tags);
-            $cancion->crearCancionBD();
+            $cancion = SW\classes\Cancion::crearCancion($this->id_artista, $titulo, $imagen, $fecha, $duracion, $ruta, $tags);
+            $ok = $cancion->crearCancionBD();
 
-            // Relacionar playlist y cancion en la base de datos
+            // Relacionar playlist y cancion en la base de datos SOLO si se ha creado correctamente la cancion
+            if($ok){
+                $cancion = \SW\classes\Cancion::obtenerCancionPorNombre($this->id_artista, $titulo);
+                $playlist->addCancion($cancion->getIdCancion());
+            }
         }
     }
 }

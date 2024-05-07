@@ -462,7 +462,11 @@ function displayAlbumMusic($playlist){
 
     $html = '';
     foreach($canciones as $cancion){
-        
+        $html .=<<<EOS
+        <div class='album_songs'>
+            <p> {$cancion->getCancionTitulo()} </p>
+        </div>
+        EOS;
     }
 
     return $html;

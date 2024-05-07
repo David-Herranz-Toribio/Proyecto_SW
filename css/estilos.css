@@ -651,11 +651,21 @@ button:hover  {
 	display: flex;
 	flex-direction: column;
 	grid-column: 2;
-	width: 100%;
 	margin-top: 1%;
 	margin-inline: 8px;
 	border: 2px solid lightgray;
 }
+
+/*  ----------------- HACER ----------------- */
+/* Lista de canciones de un album */
+.emptyMusicList,
+.artist_music,
+.album_header,
+.album_music,
+.album_songs{
+	
+}
+
 
 /* Formulario de creación de playlist */
 .createPlaylistForm{

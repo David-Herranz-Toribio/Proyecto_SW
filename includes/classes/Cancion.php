@@ -29,9 +29,19 @@ class Cancion{
     }
 
 
-    public static function crearCancion($titulo, $imagen, $fecha, $ruta, $tags){
+    public static function crearCancion($id_artista, $titulo, $imagen, $fecha, $duracion, $ruta, $tags){
 
         $parameters = [];
+        $parameters['id_cancion'] = NULL;
+        $parameters['id_artista'] = $id_artista;
+        $parameters['titulo'] = $titulo;
+        $parameters['imagen'] = $imagen;
+        $parameters['fecha'] = $fecha;
+        $parameters['duracion'] = $duracion;
+        $parameters['likes'] = 0;
+        $parameters['ruta'] = $ruta;
+        $parameters['tags'] = $tags;
+
         return new Cancion($parameters);
     }
 
@@ -39,7 +49,7 @@ class Cancion{
 
         $canciones = [];
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf( "SELECT * FROM play_cancion P JOIN cancion C ON P.id_cancion = C.id_cancion WHERE P.id_playlist = '%s'", $id_playlist);
+        $query = sprintf( "SELECT * FROM cancion C JOIN play_cancion P ON C.id_cancion = P.id_cancion WHERE P.id_playlist = '%d'", $id_playlist);
         $rs = $conection->query($query);
 
         if(!$rs){
@@ -96,20 +106,62 @@ class Cancion{
         return $canciones;
     }
 
+    public static function obtenerCancionPorNombre($id_artista, $nombre){
+            
+        $cancion = false;
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM cancion C WHERE C.id_artista = '%s' AND C.titulo = '%s'", $id_artista, $nombre);
+        $rs = $conection->query($query);
+        
+        if(!$rs)
+            return false;
+
+        if($fila = $rs->fetch_assoc()){
+
+            $parameters = [];
+            $parameters['id_cancion'] = $fila['id_cancion'];
+            $parameters['titulo'] = $fila['titulo'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['fecha'] = $fila['fecha'];
+            $parameters['id_artista'] = $fila['id_artista'];
+            $parameters['likes'] = $fila['likes'];
+            $parameters['ruta'] = $fila['ruta'];
+            $parameters['duracion'] = $fila['duracion'];
+            $parameters['tags'] = $fila['tags'];
+
+            $cancion = new Cancion($parameters);
+        }
+        $rs->free();
+
+        return $cancion;
+    }
+
     public function crearCancionBD(){
 
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO cancion (id_cancion, titulo, imagen, fecha, id_artista, likes, ruta, duracion, tags) 
-            VALUES ('%s','%s','%s','%d','%s','%s','%s', '%s', '%s')",);
+            "INSERT INTO cancion (titulo, imagen, fecha, id_artista, likes, ruta, duracion, tags) 
+            VALUES ('%s','%s','%s','%s','%s','%s', '%s', '%s')",
+            $this->titulo, $this->imagen, $this->fecha, $this->id_artista, $this->likes, $this->ruta, $this->duracion, $this->tags);
 
         $result = $conn->query($query);
 
         if (!$result)
-            error_log($conn->error);          
+            return false;
 
-        return $result;
+        return true;
+    }
+
+    /* Pasar la duracion de la canción de, por ejemplo, 137 segundos a 2:17 */
+    public function transformDuration(){
+
+        $minutes = intdiv($this->duracion, 60);
+        $seconds = $this->duracion - (60 * $minutes);
+        if($seconds < 10)
+            $seconds = '0' . $seconds;
+
+        return $minutes . ':' . $seconds;
     }
 
     public function getIdCancion(){
