@@ -4,7 +4,7 @@ require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
 require_once CLASSES_URL . '/FormularioRespuesta.php'; 
 
-function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYoMismo){
+function creacionPostHTML($autor, $image, $likes, $texto, $id, $yoYYoMismo){
 
     $rutaPerfil = VIEWS_PATH . '/perfil/Perfil.php';
 
@@ -30,8 +30,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
         $user_info .= <<<EOS2
         <div class='modElim'> 
         <form action=$rutaMod method="post">
-            <input type = "hidden" name = "idPadre" value= '$id_padre'>
-            <input type = "hidden" name = "idPost" value = '$id'>
+            <input type = "hidden" name = "ModificarID" value = '$id'>
             <button type = "submit"> &#9998 </button>
         </form>
 
@@ -187,7 +186,7 @@ function showResp($id_post, $yoYYoMismo){
         $html .= "<section  id='respuestas'>";
         $html .= "<div id = 'headPost'>";
         $html .= creacionPostHTML($post_aux->getAutor(), $post_aux->getImagen(), $post_aux->getLikes(),
-                                  $post_aux->getTexto(), $post_aux->getId(), $post_aux->getPadre(), $yoYYoMismo);
+                                  $post_aux->getTexto(), $post_aux->getId(), $yoYYoMismo);
         $html .= "</div>";
 
         $posts = SW\classes\Post::obtenerListaDePosts($id_post); 
@@ -203,7 +202,7 @@ function showResp($id_post, $yoYYoMismo){
 
         foreach($posts as $post){
             $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                      $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo);
+                                      $post->getTexto(), $post->getId(), $yoYYoMismo);
         }
         $html.= "</div>"; 
         $html.= "</section> ";
@@ -240,7 +239,7 @@ function showTestPosts($yoYYoMismo){
     }
     foreach($posts as $post){
         $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                     $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo);   
+                                     $post->getTexto(), $post->getId(), $yoYYoMismo);   
     }
     $content .= "</section>";
 
@@ -280,7 +279,7 @@ function showFollowedPeoplePosts($yoYYoMismo){
     }
     foreach($posts as $post){
         $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                     $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo);   
+                                     $post->getTexto(), $post->getId(), $yoYYoMismo);   
     }
     $content .= "</section>";
     return $content;

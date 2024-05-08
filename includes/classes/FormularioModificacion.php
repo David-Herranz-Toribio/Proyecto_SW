@@ -104,7 +104,7 @@ class FormularioModificacion extends FormularioMultimedia {
             }
         } 
 
-        $fotoPerfil= self::compruebaImagen('image', '/profileImages/'); 
+        $fotoPerfil= self::procesaFichero('image', '/profileImages/'); 
 
         if($fotoPerfil === NULL){ //No se ha subido foto de perfil 
             $fotoPerfil = 'FotoPerfil.png'; //Se pone una foto de perfil por defecto

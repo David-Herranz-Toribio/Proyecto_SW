@@ -10,7 +10,7 @@ else
     $id_padre = NULL; 
 
 
-$form= new FormularioPost($id_padre, null); 
+$form= new FormularioPost($id_padre); 
 $htmlform= $form->gestiona(); 
 
 $content= <<<EOS
