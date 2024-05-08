@@ -40,6 +40,8 @@ class Producto{
             $fecha_fin->add(new \DateInterval('P1M'));
         }else if($tipo == 'anual'){
             $fecha_fin->add(new \DateInterval('P1Y'));
+        }else{
+            $fecha_fin->add(new \DateInterval('PT30S'));//Prueba de 1 segundo
         }
 
         $query = sprintf(
@@ -47,7 +49,7 @@ class Producto{
                        VALUES ('%s','%s', '%s')",
             $conn->real_escape_string($username),
             $conn->real_escape_string($tipo),
-            $conn->real_escape_string($fecha_fin->format('Y-m-d'))
+            $conn->real_escape_string($fecha_fin->format('Y-m-d H:i:s'))
         );
 
         $result = $conn->query($query);
@@ -58,7 +60,24 @@ class Producto{
         return $result;
     }
 
-    public static function archivarSuscripcion($username){
+    public static function getFechaExpiracion($username){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        $query = sprintf(
+            "SELECT fecha_fin FROM suscripcion WHERE id_user = '%s'",
+            $conn->real_escape_string($username)
+        );
+
+        $result = $conn->query($query);
+
+        if (!$result)  
+            error_log($conn->error);
+
+        return $result->fetch_assoc()['fecha_fin'];
+    }
+
+    public static function eliminarSuscripcion($username){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
 

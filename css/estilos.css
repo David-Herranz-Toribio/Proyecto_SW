@@ -930,3 +930,6 @@ a[name="user"] {
 	box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); /* Añade esta línea */
 	animation: none;
 }
+.simboloSuscrito{
+vertical-align: middle;
+}

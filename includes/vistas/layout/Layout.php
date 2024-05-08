@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <script>peticionAjaxSus("<?= HELPERS_PATH?>/ComprobarSuscripcion.php", {});</script>
     <div class="container">
 
     <?php require_once 'Cabecera.php'; ?>

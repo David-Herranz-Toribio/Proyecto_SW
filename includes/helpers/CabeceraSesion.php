@@ -31,6 +31,13 @@ function generateStaticHeader($currentPage) {
     $link = VIEWS_PATH . '/log/Logout.php';
     $username = $_SESSION['username'];
     $texto = "Bienvenido " . $username; 
+    if($_SESSION['isSub']){
+    $susImg = IMG_PATH . '/FotoSuscrito.png';
+
+      $texto .= <<<EOS2
+          <img src='$susImg' alt='Simbolo Suscrito' height='25' width='30' class='simboloSuscrito'>
+      EOS2;
+    }
     $onclick = "comprobar();";
   }
 

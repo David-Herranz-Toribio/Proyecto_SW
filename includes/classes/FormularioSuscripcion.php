@@ -32,9 +32,9 @@ class FormularioSuscripcion extends Formulario{
         $html =<<<EOS
         <div id="suscripciones">
             <div class="tipo_suscripcion">
-                <h3> Prueba (Testing) </h3>
+                <h3> Prueba (30 seg) </h3>
                 <div>
-                    <button type="button" name="tipo_suscripcion" value="prueba"> Crear </button>
+                    <button type="submit" name="tipo_suscripcion" value="prueba"> Crear </button>
                 </div>
             </div>
             <div class="tipo_suscripcion">
@@ -51,10 +51,10 @@ class FormularioSuscripcion extends Formulario{
             </div>
         </div>
         EOS;
-        if($this->modo == 'archivarSuscripcion'){
+        if($this->modo == 'eliminarSuscripcion'){
             $html = <<<EOS
             <div>
-                <button type="submit" name="archivar" value="archivar"> Archivar </button>
+                <button id="botonEliminarSus" type="submit" name="eliminar" value="eliminar"> Eliminar </button>
             </div>
             EOS;
         }
@@ -64,23 +64,24 @@ class FormularioSuscripcion extends Formulario{
     protected function procesaFormulario(&$datos){
 
         // Obtener datos
-        if($this->modo == 'archivarSuscripcion'){
-            $archivar = isset($datos['archivar']) ?? htmlspecialchars($datos['archivar']);
-            if($archivar == 'archivar'){
-                $done = SW\classes\Producto::archivarSuscripcion($_SESSION['username']);
-                $_SESSION['suscripcion'] = null;
+        if($this->modo == 'eliminarSuscripcion'){
+            $eliminar = isset($datos['eliminar']) ?? htmlspecialchars($datos['eliminar']);
+            if($eliminar == 'eliminar'){
+                $done = SW\classes\Producto::eliminarSuscripcion($_SESSION['username']);
+                $_SESSION['isSub'] = null;
             }
         }else if($this->modo == 'añadirSuscripcion'){
-            $tipo = isset($datos['tipo_suscripcion']) ?? htmlspecialchars($datos['tipo_suscripcion']);
+            $tipo = isset($datos['tipo_suscripcion']) ? htmlspecialchars($datos['tipo_suscripcion']) : null;
             $id_usuario = $_SESSION['username'];
             $today = new DateTime();
             
 
             // Comprobar que el tipo de suscripcion es correcto
-            if( $tipo == 'mensual' || $tipo == 'anual'){
-                $done = SW\classes\Producto::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d'));
-                $_SESSION['suscripcion'] = $tipo;
+            if( $tipo == 'mensual' || $tipo == 'anual' || $tipo == 'prueba'){
+                $done = SW\classes\Producto::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
+                $_SESSION['isSub'] = $tipo;
             }
+
         }
 
     }

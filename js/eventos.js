@@ -50,3 +50,49 @@ $(document).ready(function() {
 	}
 }
 )
+
+function startTimer(diference) {
+    let diff = diference;
+
+    // Actualizar el contador cada segundo
+    const interval = setInterval(function() {
+        diff -= 1000;
+        const distance = diff;
+
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("time").innerHTML = days + "d " + hours + "h " +
+            minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(interval);
+            document.getElementById("time").innerHTML = "EXPIRED";
+            var botonEliminarSus = document.getElementById("botonEliminarSus");
+            botonEliminarSus.style.display = 'none';
+
+            setTimeout(function() {
+                botonEliminarSus.click();
+            }, 1500);            
+        }
+    }, 1000);
+}
+function peticionAjaxSus(url, data) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function(response) {
+            if (response == "OK") {
+                console.log("Suscripción realizada correctamente");
+                location.reload();
+            }
+            console.log(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error en la petición AJAX: ", textStatus, errorThrown);
+        }
+    });
+}

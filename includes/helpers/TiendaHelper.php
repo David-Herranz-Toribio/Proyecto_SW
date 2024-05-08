@@ -5,6 +5,54 @@ require_once CLASSES_URL . '/Pedido.php';
 require_once CLASSES_URL . '/Usuario.php';
 require_once CLASSES_URL . '/FormularioProducto.php'; 
 
+
+function suscripcionHTML($yo){
+    
+    $content = "<section class='default'>";
+    if(isset($_SESSION['isSub']) ){
+        $diadehoy = date('Y-m-d H:i:s');
+        $diadeexpiracion = SW\classes\Producto::getFechaExpiracion($yo);
+        $diferencia = strtotime($diadeexpiracion) - strtotime($diadehoy);
+        $diferencia = $diferencia * 1000;
+            $content .= <<<EOS2
+                    <h1>¡Ya tienes una suscripción activa!</h1>
+                    <p>Si deseas cambiar tu suscripción, primero cancela la actual</p>
+                    <p>Si deseas cancelar tu suscripción, ve a tu perfil</p> 
+
+                    <div class="timer" id="timer">
+                        Tiempo restante: <span id="time">00:00:00</span>
+                    </div>
+                    <script>startTimer($diferencia);</script>
+                    EOS2;
+
+        $form= new formularioSuscripcion($yo,'eliminarSuscripcion');
+
+    }else{
+
+        $content .= <<<EOS
+        <div>
+            <h1>2Melody Premium</h1>
+        </div>
+        <h2>Experiencia sin límites</h2>
+        <p>Con 2Melody Premium podrás disfrutar de todas tus canciones sin interrupciones, así como grandes
+        descuentos en los productos de tus artistas favoritos, personalización avanzada y mucho más</p>
+        
+        EOS;
+        
+        $form= new formularioSuscripcion($yo,'añadirSuscripcion');
+
+    }
+
+    $content .= $form->gestiona();
+
+
+    $content .= "</section>";
+
+
+    return $content;
+
+
+}
 function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 
     $rutaProdImg = IMG_PATH .  '/prodImages/'.$image;
