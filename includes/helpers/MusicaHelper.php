@@ -87,6 +87,7 @@ function display_a_playlist($playlist){
     $image = $playlist->getPlaylistImagen();
     $nombre = $playlist->getPlaylistNombre();
     $duracionTotal = $playlist->getPlaylistDuracion();
+    $view_path = VIEWS_PATH . '/musica/PlaylistView.php';
 
     $html =<<<EOS
     <article class="music_playlist">
@@ -95,7 +96,7 @@ function display_a_playlist($playlist){
         </div>
 
         <div class="music_playlist_info">
-            <a href="PlaylistView.php?id=$id"><h2> $nombre </h2></a>
+            <a href="$view_path?id=$id"><h2> $nombre </h2></a>
             <p> Duración total: $duracionTotal </p>
         </div>
     </article>
