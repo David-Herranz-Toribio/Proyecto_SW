@@ -13,21 +13,35 @@ require_once 'Cancion.php';
         - Letra (opcional)
         - Archivo de audio
 */
-class FormularioCrearCancion extends FormularioMultimedia{
+class FormularioCancion extends FormularioMultimedia{
 
     private $id_artista; 
+    private $id_cancion; 
 
-    public function __construct($id_artista){
+    public function __construct($id_artista, $id_cancion){
         parent::__construct('formCrearCancion', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php', 'enctype' => 'multipart/form-data']);
         $this->id_artista= $id_artista; 
+        $this->id_cancion= $id_cancion; 
     }
 
     protected function generaCamposFormulario(&$datos){
+
+        if(!is_null($this->id_cancion)){
+
+
+        }
+
+        else {
+
+        }
+
 
         $erroresCampos = self::generaErroresCampos(['cancion','imagen'], $this->errores, 'span', array('class' => 'error'));
 
         $html =<<<EOS
             <fieldset>
+            <legend> <strong> Nueva canción </strong> </legend> 
+            <input type= 'hidden' name= "id_cancion" value= "$this->id_cancion">  
             <input type= 'hidden' name= "id_artista" value= "$this->id_artista">  
             <div class='songImageInput'>
                 <label for='songImageInput'> Portada: </label>
@@ -74,7 +88,8 @@ class FormularioCrearCancion extends FormularioMultimedia{
 
     protected function procesaFormulario(&$datos){
         $this->errores= [];
-        
+        $id= $datos['id_cancion'];
+        $artista= $datos['id_artista']; 
 
         /*La portada de la cancion pasa los filtros*/ 
         $portada= self:: compruebaImagen('imagen', '/songImages/'); 

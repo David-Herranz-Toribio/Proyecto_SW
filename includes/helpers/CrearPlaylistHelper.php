@@ -1,11 +1,11 @@
 <?php
 
 require_once '../../Config.php';
-require_once CLASSES_URL . '/FormularioCrearPlaylist.php';
+require_once CLASSES_URL . '/FormularioPlaylist.php';
 
 function displayFormulario($username){
 
-    $form = new FormularioCrearPlaylist($username);
+    $form = new FormularioPlaylist($username);
     $formHTML = $form->gestiona();
 
     $html =<<<EOS
