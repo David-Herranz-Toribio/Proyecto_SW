@@ -679,8 +679,8 @@ button:hover  {
 .album_image{
 	display: inline-block;
 	margin-inline: 10px;
-	width: 90%;
-	height: 90%;
+	width: 80%;
+	height: 80%;
 }
 .album_image img{
 	width: 100%;
@@ -712,8 +712,32 @@ button:hover  {
 	justify-content: space-around;
 }
 
-.emptyMusicList{
+.songButtons{
+	display: grid;
+	grid-template-columns: 50% 50%;
+	align-content: center;
+	align-items: center;
+	justify-items: center;
+}
 
+.playButton{
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+.playButton img{
+	width: 30px;
+	height: 30px;
+}
+
+.optionsButton{
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+.optionsButton img{
+	width: 30px;
+	height: 30px;
 }
 
 
@@ -779,7 +803,7 @@ button:hover  {
 .tablaGeneros{
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
-	grid-column: 2;
+	grid-column-start: 2	;
 }
 .tablaGeneros a{
 	text-decoration: none;

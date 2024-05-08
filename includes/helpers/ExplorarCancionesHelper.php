@@ -15,16 +15,17 @@ function displayAllMusicTypes(){
                         'J-Pop', 'Dubstep', 'Clásica', 'Disco', 'Funk', 'Jazz', 'Reggae', 'Metal'];
 
     $html =<<<EOS
+    <h1 class='texto_infor'> Descubrir nueva música </h1>
     <div class='tablaGeneros'>
     EOS;
 
     foreach($generosMusicales as $genero){
         $html.=<<<EOS
-        <a href=$viewPath?genre=$genero>
         <div class='musicalGenre'>
-            $genero
+            <a href=$viewPath?genre=$genero>
+                $genero
+            </a>
         </div>
-        </a>
         EOS;
     }
 
