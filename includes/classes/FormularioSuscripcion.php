@@ -14,10 +14,13 @@ require_once 'Formulario.php';
 class FormularioSuscripcion extends Formulario{
 
     private $id_usuario;
+    private $modo;
 
-    public function __construct($id_usuario) {
-        parent::__construct('formSuscripcion',['urlRedireccion' => VIEWS_PATH .'/tienda/Suscripcion.php']);
+    public function __construct($id_usuario, $modo) {
+        parent::__construct('formSuscripcion',[ 'urlRedireccion' => VIEWS_PATH .'/tienda/Suscripcion.php']);
         $this->id_usuario = $id_usuario;
+        $this->modo = $modo;
+
     }
 
     protected function generaCamposFormulario(&$datos){
@@ -29,7 +32,7 @@ class FormularioSuscripcion extends Formulario{
         $html =<<<EOS
         <div id="suscripciones">
             <div class="tipo_suscripcion">
-                <h3> Prueba (Testeing del final) </h3>
+                <h3> Prueba (Testing) </h3>
                 <div>
                     <button type="button" name="tipo_suscripcion" value="prueba"> Crear </button>
                 </div>
@@ -41,33 +44,43 @@ class FormularioSuscripcion extends Formulario{
                 </div>
             </div>
             <div class="tipo_suscripcion">
-                <h3> Anual (1 Anyo) </h3>
+                <h3> Anual (1 Año) </h3>
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="anual"> Crear </button>
                 </div>
             </div>
         </div>
         EOS;
-
+        if($this->modo == 'archivarSuscripcion'){
+            $html = <<<EOS
+            <div>
+                <button type="submit" name="archivar" value="archivar"> Archivar </button>
+            </div>
+            EOS;
+        }
         return $html;
     }
 
     protected function procesaFormulario(&$datos){
 
         // Obtener datos
-        $tipo = htmlspecialchars($_POST['tipo_suscripcion']);
-        $id_usuario = $_SESSION['username'];
-        $today = new DateTime();
-        
+        if($this->modo == 'archivarSuscripcion'){
+            $archivar = isset($datos['archivar']) ?? htmlspecialchars($datos['archivar']);
+            if($archivar == 'archivar'){
+                $done = SW\classes\Producto::archivarSuscripcion($_SESSION['username']);
+                $_SESSION['suscripcion'] = null;
+            }
+        }else if($this->modo == 'añadirSuscripcion'){
+            $tipo = isset($datos['tipo_suscripcion']) ?? htmlspecialchars($datos['tipo_suscripcion']);
+            $id_usuario = $_SESSION['username'];
+            $today = new DateTime();
+            
 
-        // Validar datos
-        $this->errores = [];
-        $today_num = intval(date("Ymd", strtotime($today->format('Y-m-d'))));
-        $date_num = intval(date("Ymd", strtotime($creationDate->format('Y-m-d'))));
-
-        if( $tipo == 'mensual' || $tipo == 'anual'){
-            $done = SW\classes\Producto::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d'));
-            $_SESSION['suscripcion'] = $tipo;
+            // Comprobar que el tipo de suscripcion es correcto
+            if( $tipo == 'mensual' || $tipo == 'anual'){
+                $done = SW\classes\Producto::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d'));
+                $_SESSION['suscripcion'] = $tipo;
+            }
         }
 
     }
