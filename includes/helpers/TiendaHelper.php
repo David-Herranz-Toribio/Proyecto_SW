@@ -98,19 +98,11 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
         </form>
     </div>
     EOS2;
-
-    
-    //Likes, respuestas y responder
-    /*
-    if (soy admin){
-
-    }
-    */
     
     $botones = '';
     
     //Eliminar y modificar un producto
-    if ($yoYYoMismo == $autor){
+    if ($yoYYoMismo == $autor || (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true)){
         $rutaMod = VIEWS_PATH . '/tienda/MiTiendaVista.php';
         $rutaEliminar = HELPERS_PATH . '/ProcesarElimProd.php';
 
@@ -256,7 +248,14 @@ function showCarrito($user){
                     <h3>Cantidad: " .$acum_cantidad."</h3>
                     <h3>-</h3>
                     <h3>Tu Saldo (&#9834): ". $karma ."</h3>";
+
+            if ($_SESSION['isSub'] == true){
+                $descuento = intval($acum_precio * 0.1);
+                $acum_precio -= $descuento;
+                $resumen .="<h3 style='color:yellow;'>Descuento por suscriptor: ". $descuento."&#9834</h3>";
+            }                
             $diferencia = intval($karma - $acum_precio);
+            
             if ($diferencia  < 0) {
                 $comprable = false;
                 $resumen .="<h3 style='color:red;'>Nuevo saldo: ". $diferencia."&#9834</h3>";

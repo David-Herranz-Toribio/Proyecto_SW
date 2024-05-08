@@ -77,21 +77,22 @@ class FormularioRegistro extends FormularioMultimedia {
 
             <label> Username (Ej: paco03) </label>
             <div> 
-            <input required type="text" name="username" value=$userName>
-            {$erroresCampos['username']}
+            <input required type="text" name="username" id='campoUser' value=$userName>
+            <span id= 'validUser'> </span> 
             </div>
 
             <label> Email </label>
             <div> 
-            <input required type="text" name="email" value=$email>
-            {$erroresCampos['email']}
+            <input required type="text" name="email" id= 'campoEmail' value=$email>
+            <span id= 'validEmail'> </span> 
             </div> 
 
             <label> Password </label>
             <div> 
-            <input required type="password" name="password">
+            <input required type="password" id= 'campoPassword' name="password">
+            <span id= 'validPassword'> </span> 
             </div> 
-            {$erroresCampos['password']}
+          
             <label> Birthdate </label>
             <div> 
             <input required type="date" name="birthdate" value=$birthdate>
@@ -121,8 +122,9 @@ class FormularioRegistro extends FormularioMultimedia {
         $username =  htmlspecialchars($datos['username']);
         $nickname = htmlspecialchars($datos['nickname']);
         $email = htmlspecialchars($datos['email']);
-        $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $password_length = strlen($datos['password']);
+        $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
+        
         $birthdate = $datos['birthdate'];
         $imagen = isset($datos['imagen']) ? self::compruebaImagen('imagen', '/profileImages/') : 'FotoPerfil.png';
 
@@ -132,10 +134,6 @@ class FormularioRegistro extends FormularioMultimedia {
         if( $password_length < 8 )
             $this->errores['password'] = 'La contraseña debe tener al menos 8 caracteres';
         
-        // El email no es válido
-        if( !filter_var($email, FILTER_VALIDATE_EMAIL) )
-            $this->errores['email'] = 'El email no es válido';
-
         // El email ya está en uso
         else if( SW\classes\Usuario::buscaEmailBD($email) )
             $this->errores['email'] = 'El email ya está en uso';
@@ -167,32 +165,25 @@ class FormularioRegistro extends FormularioMultimedia {
         $datos['profile_image'] = $imagen; 
 
         if(count($this->errores) === 0){
-            $usuario = SW\classes\Usuario::buscaUsuario($username); 
-            if($usuario){ //El username ya está en uso
-                $this->errores[] = 'El usuario ya existe';
-            }
+            $num = SW\classes\Pedido::numProdporUserPP($username);
+            if($num)
+                $_SESSION['notif_prod'] = $num;
     
-            else { //El username esta libre 
+            if($this->isArtist == true)
+                $_SESSION['isArtist'] = true; 
     
-                $num = SW\classes\Pedido::numProdporUserPP($username);
-                if($num)
-                    $_SESSION['notif_prod'] = $num;
-    
-                if($this->isArtist == true)
-                    $_SESSION['isArtist'] = true; 
-    
-                $datos['artist_members'] = NULL; 
+            $datos['artist_members'] = NULL; 
                 
-                $datos['karma'] = 0;
-                $datos['desc'] = '';
-                $datos['isArtist'] = $this->isArtist; 
+            $datos['karma'] = 0;
+            $datos['desc'] = '';
+            $datos['isArtist'] = $this->isArtist; 
                 
-                // Crear usuario en la base de datos
-                $usuario = SW\classes\Usuario::createUser($datos);
+            // Crear usuario en la base de datos
+            $usuario = SW\classes\Usuario::createUser($datos);
     
-                // Crear playlist por defecto si es un usuario corriente -> Favoritos
-                if(!$_SESSION['isArtist'])
-                    SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
+            // Crear playlist por defecto si es un usuario corriente -> Favoritos
+            if(!$_SESSION['isArtist']){
+                SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
     
                 // Iniciar sesión
                 $_SESSION['username'] = $username; 

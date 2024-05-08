@@ -13,6 +13,8 @@ class Usuario{
     private $isArtist;
     private $birthdate;
     private $email;
+    private $isAdmin;
+
 
 
     function __construct(&$parameters){
@@ -252,6 +254,32 @@ class Usuario{
         else 
             return false;
     }
+    public static function esAdmin($id_u) {
+
+        $result = true;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuario WHERE id_user= '%s' AND admin = 1", $conn->real_escape_string($id_u)); 
+        $rs = $conn->query($query);  
+
+        if($rs->num_rows == 0)
+            $result = false;
+        
+        $rs->free();
+        return $result; 
+    }
+    public static function tieneSub($id_u) {
+
+        $result = true;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM suscripcion WHERE id_user= '%s' AND archivado = 0", $conn->real_escape_string($id_u)); 
+        $rs = $conn->query($query);  
+
+        if($rs->num_rows == 0)
+            $result = false;
+        
+        $rs->free();
+        return $result; 
+    }
 
     public static function compruebaUsuario($username, $correo){
 
@@ -385,6 +413,9 @@ class Usuario{
 
     public function isArtist(){
         return $this->isArtist;
+    }
+    public function isAdmin(){
+        return $this->isAdmin;
     }
 
     public function getDescrip(){

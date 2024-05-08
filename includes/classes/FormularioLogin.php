@@ -69,7 +69,7 @@ class FormularioLogin extends Formulario
         
             if (!$usuario) {
                 $this->errores[] = "¡El usuario o la contraseña no coinciden!";
-            } 
+            }
             else {
                 $_SESSION['login'] = true;
                 $_SESSION['username'] = $usuario->getUsername();
@@ -78,6 +78,8 @@ class FormularioLogin extends Formulario
                     $_SESSION['notif_prod'] = $num;
                 }
                 $_SESSION['isArtist'] =  SW\classes\Usuario::esArtista($username); 
+                $_SESSION['isAdmin'] =  SW\classes\Usuario::esAdmin($username); 
+                $_SESSION['isSub'] =  SW\classes\Usuario::tieneSub($username); 
             }
         }
     }
