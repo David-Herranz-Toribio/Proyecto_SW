@@ -23,7 +23,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     </div>
     EOS; 
 
-    if ($yoYYoMismo == $autor){
+    if ($yoYYoMismo == $autor || (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true)){
         $rutaMod = VIEWS_PATH . '/foro/ModificarVista.php';
         $rutaEliminar = HELPERS_PATH . '/ProcesarEliminar.php';
 
@@ -67,13 +67,6 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     $rutaLike = HELPERS_PATH . '/ProcesarLike.php';
     $rutaRespuestas = VIEWS_PATH . '/foro/RespuestasForo.php';
     $rutaAdd = VIEWS_PATH . '/foro/AddForo.php';
-    
-    //Likes, respuestas y responder
-    /*
-    if (soy admin){
-
-    }
-    */
 
 
     if(!$yoYYoMismo){
@@ -108,6 +101,18 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
             $botones
         </article>
     EOS7;
+
+    return $html;
+}
+function creacionPubliHTML(){
+    $html= <<<EOS
+    <article class = "estiloPost">
+        <div>
+            <p>¡Desbloquea todo un mundo de beneficios con nuestra suscripción premium!</p>
+            <p>Accede a contenido exclusivo, funciones avanzadas y una experiencia sin interrupciones. ¡Únete ahora y lleva tu experiencia al siguiente nivel!</p>
+        </div>
+    </article>
+    EOS; 
 
     return $html;
 }
@@ -238,9 +243,16 @@ function showTestPosts($yoYYoMismo){
             $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
         }   
     }
+    $contador = 1;
     foreach($posts as $post){
         $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                     $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo);   
+                                     $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo); 
+        if (!isset($_SESSION['isSub']) || $_SESSION['isSub'] == false){
+            if ($contador == 3){
+                $content .= creacionPubliHTML();
+            }
+            $contador++;
+        }  
     }
     $content .= "</section>";
 

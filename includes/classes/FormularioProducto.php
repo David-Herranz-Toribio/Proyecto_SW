@@ -90,7 +90,7 @@ class FormularioProducto extends FormularioMultimedia
         $imagen_ant = $datos['Imagen_antigua'];
         
         /*Procesar imagen*/ 
-        $imagen= self::procesaFichero('Imagen', '/prodImages/'); 
+        $imagen= self::compruebaImagen('Imagen', '/prodImages/'); 
 
         if(count($this->errores)===0){
             $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
