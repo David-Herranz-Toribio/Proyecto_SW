@@ -5,7 +5,7 @@ require_once CLASSES_URL . '/FormularioPlaylist.php';
 
 function displayFormulario($username){
 
-    $form = new FormularioPlaylist($username);
+    $form = new FormularioPlaylist($username, null);
     $formHTML = $form->gestiona();
 
     $html =<<<EOS

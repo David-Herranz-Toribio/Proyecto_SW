@@ -7,7 +7,7 @@ class FormularioPlaylist extends FormularioMultimedia{
 
     private $id_usuario;
 
-    public function __construct($id_usuario) {
+    public function __construct($id_usuario, $id_playlist) {
         parent::__construct('formCreatePlaylist', ['urlRedireccion' => VIEWS_PATH .'/musica/Musica.php']);
         $this->id_usuario = $id_usuario; 
     }

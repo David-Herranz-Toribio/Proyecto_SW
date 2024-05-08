@@ -214,7 +214,17 @@ function displayProducts($user){
 }
 
 function displayMusic($user){
+    $html =<<<EOS
+    <div class='lista_musica'>
+        
+    </div>
+    EOS;
 
+    return $html;
+}
+
+/* Esto tendria que estar en la pestaña Musica del sidebar
+function displayMusicOptions($user){
     $username = $user->getUsername();
     $playlistsPath = VIEWS_PATH . '/musica/Musica.php';
     $crearAlbumPath = VIEWS_PATH . '/musica/CrearAlbum.php';
@@ -227,15 +237,8 @@ function displayMusic($user){
         <button><a href=$crearMusicaPath?user=$username> Crear canción </a></button>
     </div>
     EOS;
-
-    $html .=<<<EOS
-    <div class='lista_musica'>
-        
-    </div>
-    EOS;
-
-    return $html;
 }
+*/
 
 function displayFollowButton($user, $text, $following){
 
