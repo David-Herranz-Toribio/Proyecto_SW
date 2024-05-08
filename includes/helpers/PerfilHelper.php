@@ -442,7 +442,7 @@ function displayArtistAlbum($playlist){
 
         <div class='album_info'>
             <h2> {$playlist->getPlaylistNombre()} </h2>
-            <button><img class='icono_flecha' src=$icono_flecha></button>
+            <button class='desplegable_canciones'><img class='icono_flecha' src=$icono_flecha></button>
         </div>
     </div>
     EOS;
@@ -452,6 +452,8 @@ function displayArtistAlbum($playlist){
 
 function displayAlbumMusic($playlist){
 
+    $playButton = IMG_PATH . '/play_button.png';
+    $optionsButton = IMG_PATH . '/options_button.png';
     $canciones = \SW\classes\Cancion::getSongsFromPlaylistID($playlist->getIdPlaylist());
     if(!$canciones){
 
@@ -477,11 +479,16 @@ function displayAlbumMusic($playlist){
             </div>
 
             <div class='songLikes'>
-                <p> {$cancion->getCancionLikes()} </p>
+                <p> {$cancion->getCancionLikes()} &#9834 </p>
             </div>
 
             <div class='songLenght'>
-                <p> {$cancion->getCancionDuracion()} </p>
+                <p> {$cancion->transformDuration()} </p>
+            </div>
+
+            <div class='songButtons'>
+                <button class='playButton'><img src=$playButton></button>
+                <button class='optionsButton'><img src=$optionsButton></button>
             </div>
         </div>
         EOS;
