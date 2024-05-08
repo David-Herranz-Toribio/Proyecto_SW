@@ -42,7 +42,6 @@ function displayButtons($username){
 
     // Si el usuario es artista -> Crear album en lugar de playlist
     if(SW\classes\Usuario::esArtista($username)){
-
         $viewPath = VIEWS_PATH . '/musica/CrearAlbum.php';
         $buttonText = 'Crear album';
     }

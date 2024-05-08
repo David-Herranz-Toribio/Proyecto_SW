@@ -658,12 +658,55 @@ button:hover  {
 
 /*  ----------------- HACER ----------------- */
 /* Lista de canciones de un album */
-.emptyMusicList,
-.artist_music,
-.album_header,
-.album_music,
+.artist_music{
+	display: flex;
+	flex-direction: column;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	margin: 1% 4% 4% 4%;
+}
+.album_header{
+	display: grid;
+	align-content: center;
+	justify-items: start;
+	grid-template-columns: 10% 90%;
+	height: 50px;
+	margin: 0;
+}
+
+.album_image{
+	display: inline-block;
+	margin-inline: 10px;
+}
+.album_image img{
+	width: 80%;
+	height: 80%;
+}
+
+.album_info{
+	display: flex;
+	flex-direction: row;
+	margin-inline: 10px;
+}
+.album_info button{
+	border: none;
+	background: none;
+}
+
+.icono_flecha{
+	width: 30px;
+	height: 30px;
+}
+
+.album_music{
+
+}
 .album_songs{
 	
+}
+
+.emptyMusicList{
+
 }
 
 

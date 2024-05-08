@@ -15,20 +15,20 @@ class FormularioRegistro extends FormularioMultimedia {
 
     protected function generaCamposFormulario(&$datos){
 
-        $userName= $datos['username'] ?? ''; 
-        $nickName= $datos['nickname'] ?? ''; 
-        $email= $datos['email'] ?? ''; 
-        $birthdate= $datos['birthdate'] ?? ''; 
-
+        $userName = $datos['username'] ?? ''; 
+        $nickName = $datos['nickname'] ?? ''; 
+        $email = $datos['email'] ?? ''; 
+        $birthdate = $datos['birthdate'] ?? ''; 
+        $title = 'usuario';
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'email', 'birthdate', 'imagen'], $this->errores, 'span', array('class' => 'error'));
 
 
-        $opciones_de_artista= ''; 
-        $link_a_artista= ''; 
+        $opciones_de_artista = ''; 
+        $link_a_artista = ''; 
 
-        if($this->isArtist== true){
+        if($this->isArtist == true){
             $opciones_de_artista = <<<EOS
             <label> Musical genre: </label>
             <select name="artist_members" size = "6">
@@ -50,7 +50,9 @@ class FormularioRegistro extends FormularioMultimedia {
                 <option value="Reggae"> Reggae </option>
                 <option value="Metal"> Metal </option>
             </select>
-            EOS; 
+            EOS;
+
+            $title = 'artista';
         }
 
         else {
@@ -64,35 +66,35 @@ class FormularioRegistro extends FormularioMultimedia {
         $camposForm =<<<EOF
             $htmlErroresGlobales
             <fieldset class="formRegistro">
-            <legend> Registra tu nueva cuenta de usuario </legend> 
+            <legend> Registra tu nueva cuenta de $title </legend> 
     
             <label> Nickname </label>
             <div> 
-            <input required type="text" name= "nickname" value= "$nickName"/>
+            <input required type="text" name= "nickname" value=$nickName>
             {$erroresCampos['nickname']}
             </div> 
 
 
             <label> Username (Ej: paco03) </label>
             <div> 
-            <input required type="text" name="username" value= "$userName"/>
+            <input required type="text" name="username" value=$userName>
             {$erroresCampos['username']}
             </div>
 
             <label> Email </label>
             <div> 
-            <input required type="text" name="email" value= "$email"/>
+            <input required type="text" name="email" value=$email>
             {$erroresCampos['email']}
             </div> 
 
             <label> Password </label>
             <div> 
-            <input required type="password" name="password"/>
+            <input required type="password" name="password">
             </div> 
             {$erroresCampos['password']}
             <label> Birthdate </label>
             <div> 
-            <input required type="date" name="birthdate" value= $birthdate>
+            <input required type="date" name="birthdate" value=$birthdate>
             {$erroresCampos['birthdate']}
             </div> 
             
@@ -100,7 +102,7 @@ class FormularioRegistro extends FormularioMultimedia {
 
             <label> Foto de perfil </label>
             <div> 
-                <input type = "file" name = "image" accept = "image/*">
+                <input type="file" name="image" accept="image/*">
                 {$erroresCampos['imagen']}
             </div> 
             <button type="submit" name="register_button" > Sign In </button>
@@ -122,6 +124,7 @@ class FormularioRegistro extends FormularioMultimedia {
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $password_length = strlen($datos['password']);
         $birthdate = $datos['birthdate'];
+        $imagen = isset($datos['imagen']) ? $datos['imagen'] : 'FotoPerfil.png';
 
         // La contraseña no tiene al menos 8 caracteres
         if( $password_length < 8 )
@@ -159,11 +162,7 @@ class FormularioRegistro extends FormularioMultimedia {
                 $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
         }
 
-        $datos['profile_image']= self::procesaFichero('image', '/profileImages/'); 
-
-        if($datos['profile_image'] === NULL){ //No se ha subido foto de perfil 
-            $datos['profile_image'] = 'FotoPerfil.png'; //Se pone una foto de perfil por defecto
-        } 
+        //$datos['profile_image'] = self::procesaFichero('image', '/profileImages/');
 
         if(count($this->errores) === 0){
             $usuario = SW\classes\Usuario::buscaUsuario($username); 
@@ -189,8 +188,9 @@ class FormularioRegistro extends FormularioMultimedia {
                 // Crear usuario en la base de datos
                 $usuario = SW\classes\Usuario::createUser($datos);
     
-                // Crear playlist por defecto -> Favoritos
-                SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
+                // Crear playlist por defecto si es un usuario corriente -> Favoritos
+                if(!$_SESSION['isArtist'])
+                    SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
     
                 // Iniciar sesión
                 $_SESSION['username'] = $username; 

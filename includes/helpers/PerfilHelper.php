@@ -8,6 +8,7 @@ require_once CLASSES_URL . '/Cancion.php';
 require_once CLASSES_URL . '/FormularioCrearAlbum.php';
 require_once 'PostHelper.php';
 require_once 'TiendaHelper.php';
+require_once 'MusicaHelper.php';
 
 
 // Constantes para navegar entre vistas
@@ -217,33 +218,18 @@ function displayProducts($user){
 }
 
 function displayMusic($user){
-    $html =<<<EOS
-    <div class='lista_musica'>
-        
-    </div>
-    EOS;
 
-    return $html;
-}
-
-
-function displayMusicOptions($user){
     $username = $user->getUsername();
-    $playlistsPath = VIEWS_PATH . '/musica/Musica.php';
-    $crearAlbumPath = VIEWS_PATH . '/musica/CrearAlbum.php';
-
     $html = '';
+
+    // Si el artista visita su pagina -> mostramos las playlist
     if(isset($_SESSION['username']) && $username === $_SESSION['username']){
-        $html .=<<<EOS
-        <div class='artistMusicButtons'>
-            <button><a href=$playlistsPath> Mi música </a></button>
-            <button><a href=$crearAlbumPath?user=$username> Crear album </a></button>
-            
-        </div>
-        EOS;
+        $html = showPlaylists($username);
     }
+
+    // Si el cliente visita la pagina de un artista -> mostramos como albumes
     else{
-        $html .= displayArtistMusic($username);
+        $html = displayArtistMusic($username);
     }
 
     return $html;
@@ -433,8 +419,8 @@ function displayArtistMusic($artist_username){
         return $html;
     }
 
-    $html = "<section class='artist_music'>";
     // Mostrar todas las playlists
+    $html = "<section class='artist_music'>";
     foreach($albums as $p){
         $html .= displayArtistAlbum($p);
         $html .= displayAlbumMusic($p);
@@ -446,10 +432,18 @@ function displayArtistMusic($artist_username){
 
 function displayArtistAlbum($playlist){
 
+    $icono_flecha = IMG_PATH . '/flecha_desp.jpg';
+
     $html =<<<EOS
-    <article class="album_header">
-        <img src="{$playlist->getPlaylistImagen()}" alt="Portada del album">
-        <h2> {$playlist->getPlaylistNombre()} </h2>
+    <article class='album_header'>
+        <div class='album_image'>
+            <img src="{$playlist->getPlaylistImagen()}" alt="Portada del album">
+        </div>
+
+        <div class='album_info'>
+            <h2> {$playlist->getPlaylistNombre()} </h2>
+            <button><img class='icono_flecha' src=$icono_flecha></button>
+        </div>
     </article>
     EOS;
 
