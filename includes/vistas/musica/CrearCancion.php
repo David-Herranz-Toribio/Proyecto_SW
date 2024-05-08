@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../Config.php';
-require_once CLASSES_URL . '/FormularioCancion.php';
+require_once CLASSES_URL . '/FormularioCrearCancion.php';
 require_once HELPERS_URL . '/CrearCancionHelper.php';
 
 $content = '';
@@ -15,10 +15,17 @@ else{
 
     // Formulario para poder subir una canción
     $playlist = htmlspecialchars($_GET['playlist'], ENT_QUOTES);
-    $form = new FormularioCancion($_SESSION['username'], null, $playlist);
+    $form = new FormularioCrearCancion($_SESSION['username'], $playlist);
     $htmlform = $form->gestiona();
 
+    $head =<<<EOS
+    <div class='texto_infor'>
+        <h2> Subir canción </h2>
+    </div>
+    EOS;
+
     $content =<<<EOS
+    $head
     <section class='formulario_style'>
     $htmlform
     </section>

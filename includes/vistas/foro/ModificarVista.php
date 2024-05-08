@@ -2,10 +2,9 @@
 
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
-require_once CLASSES_URL . '/FormularioPost.php'; 
+require_once CLASSES_URL . '/FormularioModificacionPost.php'; 
 
-
-$form= new FormularioPost($_POST['idPadre'], $_POST['idPost']); 
+$form= new FormularioModificacionPost($_POST['ModificarID']); 
 $htmlform= $form->gestiona(); 
 
 

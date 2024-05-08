@@ -163,7 +163,7 @@ function displayPosts($user){
     }
     foreach($lista_posts as $post){
         $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(), 
-                                  $post->getTexto(), $post->getId(), $post->getPadre(), $_SESSION['username']);
+                                  $post->getTexto(), $post->getId(), $_SESSION['username']);
     }
 
     $html .= "</section>";
@@ -187,7 +187,7 @@ function displayFavoritePost ($user){
     
     foreach($posts as $post){
         $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                  $post->getTexto(), $post->getId(), $post->getPadre(), $_SESSION['username']);
+                                  $post->getTexto(), $post->getId(), $_SESSION['username']);
     }
     $html .= "</section>";
 
