@@ -4,7 +4,7 @@ require_once 'Formulario.php';
 class FormularioMultimedia extends Formulario {
 
     const EXTENSIONES_IMAGEN = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
-    const EXTENSIONES_SONIDO = array('mp3', 'wav'); 
+    const EXTENSIONES_SONIDO = array('mp3', 'wav', 'ogg'); 
 
     public function __construct($id_form, $options= array()) {
         parent::__construct($id_form, $options);
@@ -16,7 +16,7 @@ class FormularioMultimedia extends Formulario {
         
         if ($_FILES[$id]['name'] != ''){
             $archivo_nombre = $_FILES[$id]['name'];
-            $archivo_tamaño = $_FILES[$id]['size'];
+            $archivo_tamaño = $_FILES[$id]['size']/1024;
             $archivo_temporal = $_FILES[$id]['tmp_name'];
         
             $directorio_destino = IMG_URL . $url;
@@ -59,7 +59,7 @@ class FormularioMultimedia extends Formulario {
         if($_FILES[$id]['name'] != ''){
 
             $archivo_nombre = $_FILES[$id]['name'];
-            $archivo_tamaño = $_FILES[$id]['size'];
+            $archivo_tamaño_mb = ($_FILES[$id]['size']/1024) /1024;
             $archivo_temporal = $_FILES[$id]['tmp_name'];
 
 
@@ -76,18 +76,21 @@ class FormularioMultimedia extends Formulario {
  
             $ok = $ok && preg_match('/audio\/.+/', $type);
 
-
             if(!$ok){
-                $this->errores["cancion"] = "El archivo tiene un nombre o tipo inadecuado"; 
+                $this->errores["audio"] = "El archivo tiene un nombre o tipo inadecuado"; 
+            }
+
+            else {
+                if($archivo_tamaño_mb>4){
+                    $this->errores["audio"]= "El archivo pesa demasiado"; 
+                }
             }
 
             if(count($this->errores) > 0){
                 return false; 
             }
 
-            /*Comprobar el tamaño del archivo*/ 
-
-
+          
             //Nombre con extension
             $cancion = uniqid() . '.' . $extension;
         
@@ -99,7 +102,7 @@ class FormularioMultimedia extends Formulario {
         }
 
         else{
-            $this->errores["cancion"] = 'Se requiere un archivo válido (.mp3 o .wav)';
+            $this->errores["audio"] = 'Se requiere un archivo válido (.mp3 o .wav)';
             return false; 
         }
 

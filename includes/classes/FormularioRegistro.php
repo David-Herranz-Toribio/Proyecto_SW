@@ -124,7 +124,9 @@ class FormularioRegistro extends FormularioMultimedia {
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $password_length = strlen($datos['password']);
         $birthdate = $datos['birthdate'];
-        $imagen = isset($datos['imagen']) ? $datos['imagen'] : 'FotoPerfil.png';
+        $imagen = isset($datos['imagen']) ? self::compruebaImagen('imagen', '/profileImages/') : 'FotoPerfil.png';
+
+
 
         // La contraseña no tiene al menos 8 caracteres
         if( $password_length < 8 )
@@ -162,7 +164,7 @@ class FormularioRegistro extends FormularioMultimedia {
                 $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
         }
 
-        //$datos['profile_image'] = self::procesaFichero('image', '/profileImages/');
+        $datos['profile_image'] = $imagen; 
 
         if(count($this->errores) === 0){
             $usuario = SW\classes\Usuario::buscaUsuario($username); 

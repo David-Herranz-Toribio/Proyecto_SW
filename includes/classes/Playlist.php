@@ -89,9 +89,12 @@ class Playlist{
 
         $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO playlist (id_user, duracion_total, imagen, nombre, fecha) 
-        VALUES ('%s', '%d', '%s', '%s', '%s')", $autor, 0, $imagen, $nombre, $creationDate);
+        VALUES ('%s', '%d', '%s', '%s', '%s')", $autor, 0, $conection->real_escape_string($imagen), $conection->real_escape_string($nombre), $creationDate);
         $rs = $conection->query($query);
         
+        if($rs){}
+        else error_log($conn->error); 
+
         return $rs;
     }
     

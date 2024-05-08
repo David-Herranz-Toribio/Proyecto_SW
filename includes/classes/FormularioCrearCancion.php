@@ -77,22 +77,21 @@ class FormularioCrearCancion extends FormularioMultimedia{
         /* El nombre no existe ya dentro del album */
 
         /* El archivo de audio de la cancion pasa los filtros */ 
-        if(0)
-            $cancion = self::compruebaMusica('ruta', '/');
+        
+        $audio = self::compruebaMusica('ruta', '/');
 
         if(count($this->errores) == 0){
 
             // Obtener parametros
             $titulo = $datos['titulo'];
             $fecha = $datos['fecha'];
-            $ruta = 'cancionPrueba.mp3';
             $duracion = 0;
             $tags = $datos['tags'];
             $playlist = SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist);
             $imagen = $playlist->getPlaylistImagen();
 
             // Crear objeto en la base de datos
-            $cancion = SW\classes\Cancion::crearCancion($this->id_artista, $titulo, $imagen, $fecha, $duracion, $ruta, $tags);
+            $cancion = SW\classes\Cancion::crearCancion($this->id_artista, $titulo, $imagen, $fecha, $duracion, $audio, $tags);
             $ok = $cancion->crearCancionBD();
 
             // Relacionar playlist y cancion en la base de datos SOLO si se ha creado correctamente la cancion
