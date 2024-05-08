@@ -74,8 +74,12 @@ class FormularioMultimedia extends Formulario {
             $finfo = new finfo(FILEINFO_MIME); 
             $type = $finfo->file($archivo_temporal); 
  
-            $ok = $ok && preg_match('/audio\/.+/', $type);
+            $ok= $ok && preg_match('/audio\/.+/', $type);
+            
 
+            /*Comprobar el tamaño del archivo*/ 
+
+            
 
             if(!$ok){
                 $this->errores["cancion"] = "El archivo tiene un nombre o tipo inadecuado"; 
@@ -85,8 +89,7 @@ class FormularioMultimedia extends Formulario {
                 return false; 
             }
 
-            /*Comprobar el tamaño del archivo*/ 
-
+            
 
             //Nombre con extension
             $cancion = uniqid() . '.' . $extension;
