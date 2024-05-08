@@ -226,7 +226,7 @@ function displayMusic($user){
     return $html;
 }
 
-/* Esto tendria que estar en la pestaña Musica del sidebar
+
 function displayMusicOptions($user){
     $username = $user->getUsername();
     $playlistsPath = VIEWS_PATH . '/musica/Musica.php';
