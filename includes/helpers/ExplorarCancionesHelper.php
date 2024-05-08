@@ -1,7 +1,6 @@
 <?php
 
 require_once '../../Config.php';
-require_once CLASSES_URL . '/FormularioExplorarCanciones.php';
 
 
 function displaySongsWithGenre($genre){

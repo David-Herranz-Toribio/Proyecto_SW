@@ -39,7 +39,7 @@ function displayPlaylistHeader($playlist){
                 </div>
                 
                 <p> Duración: $duracion </p>
-                <p> Creada: $fecha </p>
+                <p> Creada el $fecha </p>
 
                 <button class='edit_playlist_buttons'><a href=$crearMusicaPath?playlist=$playlistID> Añadir canción </a></button>
                 <button class='edit_playlist_buttons'><a href=''> Modificar playlist </a></button>

@@ -432,10 +432,10 @@ function displayArtistMusic($artist_username){
 
 function displayArtistAlbum($playlist){
 
-    $icono_flecha = IMG_PATH . '/flecha_desp.jpg';
+    $icono_flecha = IMG_PATH . '/flecha_desp.png';
 
     $html =<<<EOS
-    <article class='album_header'>
+    <div class='album_header'>
         <div class='album_image'>
             <img src="{$playlist->getPlaylistImagen()}" alt="Portada del album">
         </div>
@@ -444,7 +444,7 @@ function displayArtistAlbum($playlist){
             <h2> {$playlist->getPlaylistNombre()} </h2>
             <button><img class='icono_flecha' src=$icono_flecha></button>
         </div>
-    </article>
+    </div>
     EOS;
 
     return $html;
@@ -456,9 +456,9 @@ function displayAlbumMusic($playlist){
     if(!$canciones){
 
         $html =<<<EOS
-        <section class="album_music">
-            <h3> No hay canciones en este album </h3>
-        </section>
+        <div class="album_music">
+            <h3> Vacío </h3>
+        </div>
         EOS;
 
         return $html;
@@ -467,8 +467,22 @@ function displayAlbumMusic($playlist){
     $html = '';
     foreach($canciones as $cancion){
         $html .=<<<EOS
-        <div class='album_songs'>
-            <p> {$cancion->getCancionTitulo()} </p>
+        <div class='album_song'>
+            <div class='songName'>
+                <p> {$cancion->getCancionTitulo()} </p>
+            </div>
+
+            <div class='songDate'>
+                <p> {$cancion->getCancionFecha()} </p>
+            </div>
+
+            <div class='songLikes'>
+                <p> {$cancion->getCancionLikes()} </p>
+            </div>
+
+            <div class='songLenght'>
+                <p> {$cancion->getCancionDuracion()} </p>
+            </div>
         </div>
         EOS;
     }
