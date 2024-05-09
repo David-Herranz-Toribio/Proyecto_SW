@@ -4,9 +4,12 @@ require_once '../../Config.php';
 require_once HELPERS_URL . '/ExplorarCancionesHelper.php';
 
 
-$content = '';
+// Barra de búsqueda para usuarios seguidos y seguidores
+$topSearchBar = SW\classes\TopSearchBar::getInstance();
+$topSearchBar->buscarUsuario();
 
 // Mostrar canciones del género seleccionado
+$content = '';
 if(isset($_GET['genre'])){
     $genero = htmlspecialchars($_GET['genre'], ENT_QUOTES);
     $content = displaySongsWithGenre($genero);

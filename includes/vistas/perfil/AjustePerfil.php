@@ -4,15 +4,20 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
 require_once CLASSES_URL . '/FormularioModificacion.php'; 
 
-$rutaEstiloClaro=  CSS_PATH .'/estiloClaro.css'; 
-$rutaEstiloOscuro= CSS_PATH .'/estiloOscuro.css'; 
+
+// Barra de búsqueda para usuarios seguidos y seguidores
+$topSearchBar = SW\classes\TopSearchBar::getInstance();
+$topSearchBar->buscarUsuario();
+
+$rutaEstiloClaro =  CSS_PATH .'/estiloClaro.css'; 
+$rutaEstiloOscuro = CSS_PATH .'/estiloOscuro.css'; 
 
 $perfil = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 $image = $perfil->getPhoto();  
 $rutaDel = HELPERS_PATH . '/ProcesarEliminarUsuario.php'; 
 $RemoveImage = IMG_PATH . '/remove_user_.png';
 
-/*Cambio modo claro/oscuro */ 
+/* Cambio modo claro/oscuro */ 
 $cambio_modo= <<<EOS
 <section class= 'botonesEstilo'> 
 <button type= "button" onclick= "toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
@@ -56,7 +61,7 @@ $funcion_eliminar = <<<EOS
 EOS; 
 
 /*Crea el formulario de moficicacion*/ 
-$form= new FormularioModificacion(); 
+$form = new FormularioModificacion(); 
 
 $htmlform= $form->gestiona(); 
 

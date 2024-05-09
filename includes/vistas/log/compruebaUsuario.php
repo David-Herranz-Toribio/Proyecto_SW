@@ -1,13 +1,15 @@
 <?php
-    require_once "../../Config.php"; 
-    require_once CLASSES_URL . "/Usuario.php"; 
+require_once "../../Config.php"; 
+require_once CLASSES_URL . "/Usuario.php"; 
 
-    $user= $_GET['user']; 
 
-    if(SW\classes\Usuario::buscaUsuario($user)==false){
-        echo("disponible"); 
-    }
+// Barra de búsqueda para usuarios seguidos y seguidores
+$topSearchBar = SW\classes\TopSearchBar::getInstance();
+$topSearchBar->buscarUsuario();
 
-    else echo("existe"); 
+$user = $_GET['user']; 
+if(SW\classes\Usuario::buscaUsuario($user)==false){
+    echo("disponible"); 
+}
 
-?>
+else echo("existe"); 

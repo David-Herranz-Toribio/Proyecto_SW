@@ -6,7 +6,12 @@
 -User admin (puede borrar todos los post, canciones etc...) 
 -Barra de busqueda que funcione en el perfil (Ignacio)✅
 
--JS (Alonso)
+-SearchBar:
+    1)Colocar placeholders adecuados para cada vista
+    2)Crear consultas SQL para cada vista
+    3)Mostrar contenido en la vista SearchBarView.php al hacr click
+
+-JS: (Alonso)
     1)Validacion de FORMULARIOS
     2)Limites de caracteres
 
@@ -15,6 +20,8 @@
     2)Posibilidad de ver toda la discografía de un artista✅
     3)Formulario para subir canciones✅
     4)Creación de albumes(playlists) para los artistas (Óscar)✅
+    5)Crear AjustesPerfilHelper.php para la vista AjustePerfil.php ❗❗❗❗(URGENTE)❗❗❗❗
+    6)Si el artista ve sus productos, no mostrar los botones de compra
 
 -Suscripciones (David y Hugo)
     1)Varias cuotas: mensual y anual
@@ -28,7 +35,7 @@
 
 -Musica (URGENTE)
     1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio)✅
-    2)Que funcione lo de escuchar (Alonso)
+    2)Implementar funcionalidad para reproducir la música disponible (Alonso)
     2)Listas de reproduccion hechas por los usuarios (Óscar)✅
         2.1)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar)✅
     3)En el perfil de un artista, pestaña de Musica con todas sus canciones✅
@@ -50,8 +57,8 @@
     1)Que al hacer autolike no aumente tu karma 
     2)Escuchar musica aumenta tu karma 
 
--Actualizar BD (Hugo, como no...)
-    1)Añadir campo archivado (bool) para musica, produtos etc. Si es 0 no está 'borrado', si es 1 si lo esta
-    2)Añadir musica, eventos y subscribciones
+-Actualizar BD (Hugo)
+    1)Añadir campo archivado (bool) para musica, produtos etc. Si es 0 no está 'borrado', si es 1 si lo esta✅
+    2)Añadir musica, eventos y subscripciones
 
--Arreglar errores Practica 3 (URGENTE)
+-Arreglar errores Practica 3 ❗❗❗❗(URGENTE)❗❗❗❗

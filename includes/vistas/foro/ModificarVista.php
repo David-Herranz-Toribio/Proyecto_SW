@@ -4,11 +4,14 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/FormularioPost.php'; 
 
-$form= new FormularioPost( $_POST['idPadre'],$_POST['idPost']); 
-$htmlform= $form->gestiona(); 
 
+// Barra de búsqueda para usuarios seguidos y seguidores
+$topSearchBar = SW\classes\TopSearchBar::getInstance();
+$topSearchBar->buscarUsuario();
 
-$content= <<<EOS
+$form = new FormularioPost( $_POST['idPadre'],$_POST['idPost']); 
+$htmlform = $form->gestiona(); 
+$content = <<<EOS
     <section class= 'formulario_style'> 
     $htmlform
     </section> 

@@ -1,6 +1,7 @@
 <?php 
 
 require_once 'classes/Aplicacion.php';
+require_once 'classes/TopSearchBar.php';
 
 // Rutas de archivos
 define('PROJECT_PATH', '/Proyecto_SW');
@@ -78,3 +79,6 @@ session_start();
 // Inicialización de la base de datos
 $app = SW\classes\Aplicacion::getInstance();
 $app->init(['host'=> BD_HOST, 'user'=> BD_USER, 'pass'=> BD_PASS, 'database'=> BD_NAME]);
+
+// Instanciación de la clase TopSearchBar
+$topSearchBar = SW\classes\TopSearchBar::getInstance();

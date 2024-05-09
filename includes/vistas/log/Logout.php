@@ -2,6 +2,11 @@
 
 require_once '../../Config.php';
 
+
+// Barra de búsqueda para usuarios seguidos y seguidores
+$topSearchBar = SW\classes\TopSearchBar::getInstance();
+$topSearchBar->buscarUsuario();
+
 unset($_SESSION['username']);
 unset($_SESSION['login']);
 unset($_SESSION['isArtist']);

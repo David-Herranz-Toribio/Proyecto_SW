@@ -3,6 +3,11 @@
 require_once '../../Config.php';
 require_once HELPERS_URL . '/TiendaHelper.php';
 
+
+// Barra de búsqueda para usuarios seguidos y seguidores
+$topSearchBar = SW\classes\TopSearchBar::getInstance();
+$topSearchBar->buscarUsuario();
+
 $user = null;
 $content = "<section class='default'>";
 

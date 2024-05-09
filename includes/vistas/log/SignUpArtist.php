@@ -3,7 +3,12 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/FormularioRegistro.php'; 
 
-$form= new FormularioRegistro(true); 
+
+// Barra de búsqueda para usuarios seguidos y seguidores
+$topSearchBar = SW\classes\TopSearchBar::getInstance();
+$topSearchBar->buscarUsuario();
+
+$form = new FormularioRegistro(true); 
 $htmlform= $form->gestiona(); 
 
 $content= <<<EOS
