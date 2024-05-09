@@ -38,6 +38,14 @@ function playerLogic () {
         $("#player")[0].currentTime += 10;
     });
 
+    $("#playSong").click(function(){
+        var rutaCancion = "/Proyecto_SW/audio/663c814f3286e.mp3";
+        var nombreCancion= $("#playSong:eq(1)").parent().siblings("div.songName").children()[0].innerText; 
+        //rutaCancion+= $("#playSong").siblings("span")[0].innerText; 
+        
+        $("#player")[0].src=  rutaCancion; 
+    })
+
     function nextSong(){
         currentSong++;
         if(currentSong == $("#playlist li a").length){

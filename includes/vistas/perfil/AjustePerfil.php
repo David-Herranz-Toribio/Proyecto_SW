@@ -12,14 +12,6 @@ $image = $perfil->getPhoto();
 $rutaDel = HELPERS_PATH . '/ProcesarEliminarUsuario.php'; 
 $RemoveImage = IMG_PATH . '/remove_user_.png';
 
-/*Cambio modo claro/oscuro */ 
-$cambio_modo= <<<EOS
-<section class= 'botonesEstilo'> 
-<button type= "button" onclick= "toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
-<button type= "button" onclick= "toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
-</section> 
-EOS; 
-
 $profile_image_path = IMG_PATH . '/profileImages/' . $image;
 
 $titulo =<<<EOS
@@ -66,7 +58,6 @@ $content= <<<EOS
     <section class= 'formulario_style'> 
     $htmlform
     </section> 
-    $cambio_modo
 EOS; 
 
 

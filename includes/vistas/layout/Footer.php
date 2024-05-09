@@ -1,5 +1,9 @@
+
+
+
 <footer class="footer">
     <audio src="" controls id="player"></audio>
+
     <ul id="playlist">
         <li id= 'cancion1'><a href="https://upload.wikimedia.org/wikipedia/commons/9/9b/Queryen_-_DEMO_-_002_%281995%29_-_011_-_Flying_To_Tunis_%2830sec%29.ogg">Pista 1</a></li>
         <li id= 'cancion2'><a href="https://upload.wikimedia.org/wikipedia/en/7/79/Micromoog_Demo.ogg">Pista 2</a></li>
