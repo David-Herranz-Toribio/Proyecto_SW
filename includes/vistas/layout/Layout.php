@@ -8,22 +8,24 @@
     <link rel="shortcut icon" href="<?=IMG_PATH ?>/2MelodyLogo.png" />
     <title> 2Music </title>
 
-    <script type="text/javascript" src="<?= JS_PATH?>/jquery-3.7.1.min.js"> </script> 
-    <script type="text/javascript" src="<?= JS_PATH?>/eventos.js"> </script> 
-    <script type="text/javascript" src="<?= JS_PATH?>/playerLogic.js"> </script> 
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <?php
+        $scripts = $scripts ?? [];
+        foreach ($scripts as $script) {
+            echo "<script src=\"" . JS_PATH . "/$script\"></script>";
+        }
+    ?>
 </head>
 
 <body>
     <div class="container">
 
-    <?php require_once 'Cabecera.php'; ?>
-    <main id='content'>
-        <?= $content ?>
-    </main>
-    <?php require_once 'Sidebar.php'; ?>
-    <?php require_once 'Footer.php'; ?>
+        <?php require_once 'Cabecera.php'; ?>
+        <?php require_once 'Sidebar.php'; ?>
+        <main id='content'>
+            <?= $content ?>
+        </main>
+        <?php require_once 'Footer.php'; ?>
     </div> 
-    <script type="text/javascript" src="<?= JS_PATH ?>/validaciones.js"> </script>  <!-- Script para las validaciones de formularios -->
-
 </body>
 </html>

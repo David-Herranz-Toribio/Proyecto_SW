@@ -73,6 +73,7 @@ spl_autoload_register(function ($class) {
     }
 });
 
+
 // Crear una sesion
 session_start();
 
