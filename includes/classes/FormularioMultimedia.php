@@ -81,7 +81,7 @@ class FormularioMultimedia extends Formulario {
             }
 
             else {
-                if($archivo_tamaño_mb>4){
+                if($archivo_tamaño_mb>40){
                     $this->errores["audio"]= "El archivo pesa demasiado"; 
                 }
             }
