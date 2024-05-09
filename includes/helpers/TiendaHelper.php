@@ -8,7 +8,7 @@ require_once CLASSES_URL . '/FormularioProducto.php';
 
 function suscripcionHTML($yo){
     $content ="";
-    if(isset($_SESSION['isAdmin'])){
+    if(isset($_SESSION['isAdmin'] ) && ($_SESSION['isAdmin'] == true)){
         $rutaComprobar = HELPERS_PATH . '/ComprobarSuscripcion.php';
         $rutaSus = VIEWS_PATH . '/tienda/Suscripcion.php';
         $content .=  <<<EOS3

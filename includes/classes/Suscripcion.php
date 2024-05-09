@@ -34,7 +34,14 @@ class Suscripcion extends Comprable{
 
         if($rs->num_rows == 0)
             $result = false;
-        
+        else{
+            $fecha = $rs->fetch_assoc()['fecha_fin'];
+            if($fecha < date('Y-m-d H:i:s')){
+                $result = false;
+                self::eliminarSuscripcion($id_u);
+            }
+        }
+
         $rs->free();
         return $result; 
     }
