@@ -933,3 +933,12 @@ a[name="user"] {
 .simboloSuscrito{
 vertical-align: middle;
 }
+#actualizarAdmin{
+	grid-column-start: 1;
+	max-height: 150px;
+	margin: 10px;
+	margin-top: 55px;
+	background-color: #5b208b;
+	border-radius: 29px;
+	border:  solid 5px #230058;
+}

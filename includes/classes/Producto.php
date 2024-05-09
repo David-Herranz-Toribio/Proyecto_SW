@@ -1,98 +1,28 @@
 <?php
 
 namespace SW\classes;
+require_once 'Comprable.php';
 
-class Producto{
+class Producto extends Comprable{
 
-    private $id;
-    private $nombre;
-    private $descripcion;
+   
     private $imagen;
     private $autor;
     private $stock;
-    private $precio;
-    private $cantidadPP;//Cantidad de productos por pedido
 
 
-    private function __construct($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio, $cantidadPP){
-        
-        $this->id = $id;
-        $this->nombre = $nombre;
-        $this->descripcion = $descripcion;
+    private function __construct($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio){
+        parent::__construct($id, $nombre, $descripcion, $precio);
         $this->imagen = $imagen;
         $this->autor = $autor;
         $this->stock = $stock;
-        $this->precio = $precio;
-        $this->cantidadPP = $cantidadPP;
      
     }
 
-    public static function crearProducto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio, $cantidadPP = NULL){
-        return new Producto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio, $cantidadPP);
+    public static function crearProducto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio){
+        return new Producto($id, $nombre, $descripcion, $imagen, $autor, $stock, $precio);
     }
     
-    public static function insertarSuscripcion($username, $tipo, $fecha){
-        $result = false;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-
-        $fecha_fin = new \DateTime($fecha);
-        if($tipo == 'mensual'){
-            $fecha_fin->add(new \DateInterval('P1M'));
-        }else if($tipo == 'anual'){
-            $fecha_fin->add(new \DateInterval('P1Y'));
-        }else{
-            $fecha_fin->add(new \DateInterval('PT30S'));//Prueba de 1 segundo
-        }
-
-        $query = sprintf(
-            "INSERT INTO suscripcion (id_user, tipo, fecha_fin)
-                       VALUES ('%s','%s', '%s')",
-            $conn->real_escape_string($username),
-            $conn->real_escape_string($tipo),
-            $conn->real_escape_string($fecha_fin->format('Y-m-d H:i:s'))
-        );
-
-        $result = $conn->query($query);
-
-        if (!$result)  
-            error_log($conn->error);
-
-        return $result;
-    }
-
-    public static function getFechaExpiracion($username){
-        $result = false;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-
-        $query = sprintf(
-            "SELECT fecha_fin FROM suscripcion WHERE id_user = '%s'",
-            $conn->real_escape_string($username)
-        );
-
-        $result = $conn->query($query);
-
-        if (!$result)  
-            error_log($conn->error);
-
-        return $result->fetch_assoc()['fecha_fin'];
-    }
-
-    public static function eliminarSuscripcion($username){
-        $result = false;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-
-        $query = sprintf(
-            "DELETE FROM suscripcion WHERE id_user = '%s'",
-            $conn->real_escape_string($username)
-        );
-
-        $result = $conn->query($query);
-
-        if (!$result)  
-            error_log($conn->error);
-
-        return $result;
-    }
     public static function obtenerProductosDeArtista($username){
 
         $result = [];
@@ -145,10 +75,14 @@ class Producto{
         $query = sprintf( "SELECT * FROM producto P JOIN pedido_prod PP ON P.id_prod = PP.id_prod WHERE PP.id_pedido = %d", $id);
         $rs = $conection->query($query);
         
+        $prod_cant = new \stdClass();
         while($fila = $rs->fetch_assoc()){
-            $result[] = self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
-                                            $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio'], $fila['cantidad']);
+            $prod_cant->producto = self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
+                                            $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio']);
+            $prod_cant->cantidad = $fila['cantidad'];
+            $result[] = $prod_cant;
         }
+
         $rs->free();
 
         return $result;
@@ -267,18 +201,6 @@ class Producto{
         $this->stock = $valor;
     }
 
-    public function getId(){
-        return $this->id;
-    }
-
-    public function getNombre(){
-        return $this->nombre;
-    }
-
-    public function getDescripcion(){
-        return $this->descripcion;
-    }
-
     public function getImagen(){
         return $this->imagen;
     }
@@ -291,10 +213,5 @@ class Producto{
         return $this->stock;
     }
 
-    public function getPrecio(){
-        return $this->precio;
-    }
-    public function getCantidadPP(){
-        return $this->cantidadPP;
-    }
+
 }

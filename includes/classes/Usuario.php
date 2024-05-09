@@ -266,19 +266,6 @@ class Usuario{
         $rs->free();
         return $result; 
     }
-    public static function tieneSub($id_u) {
-
-        $result = true;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM suscripcion WHERE id_user= '%s' AND archivado = 0", $conn->real_escape_string($id_u)); 
-        $rs = $conn->query($query);  
-
-        if($rs->num_rows == 0)
-            $result = false;
-        
-        $rs->free();
-        return $result; 
-    }
 
     public static function compruebaUsuario($username, $correo){
 

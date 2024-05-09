@@ -3,6 +3,7 @@
 require_once 'Formulario.php'; 
 require_once 'Usuario.php'; 
 require_once 'Pedido.php';
+require_once 'Suscripcion.php';
 
 class FormularioLogin extends Formulario
 {
@@ -79,7 +80,7 @@ class FormularioLogin extends Formulario
                 }
                 $_SESSION['isArtist'] =  SW\classes\Usuario::esArtista($username); 
                 $_SESSION['isAdmin'] =  SW\classes\Usuario::esAdmin($username); 
-                $_SESSION['isSub'] =  SW\classes\Usuario::tieneSub($username); 
+                $_SESSION['isSub'] =  SW\classes\Suscripcion::tieneSub($username); 
             }
         }
     }

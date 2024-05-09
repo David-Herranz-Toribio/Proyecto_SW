@@ -1,16 +1,13 @@
 <?php
 require_once '../Config.php';
-require_once CLASSES_URL . '/Producto.php';
+require_once CLASSES_URL . '/Suscripcion.php';
 
-if (isset($_SESSION['username'])) {
-    if (isset($_SESSION['isSub'])) {
-        $fechaExpiracion =  SW\classes\Producto::getFechaExpiracion($_SESSION['username']);
-        $fechaActual = new \DateTime();
-        if ($fechaActual->format('Y-m-d H:i:s') > $fechaExpiracion) {
-            $done = SW\classes\Producto::eliminarSuscripcion($_SESSION['username']);
-            $_SESSION['isSub'] = null;
-            echo "OK";
-        }
-    }
+$ruta =isset($_POST['actualizar']) ? $_POST['actualizar'] : '../../index.php';
+if (isset($_SESSION['isAdmin'])) {
+    SW\classes\Suscripcion::actualizarSuscripcion(date('Y-m-d H:i:s')); 
+}else{
+    
 }
+header('Location: '. $ruta);
+exit();
 ?>

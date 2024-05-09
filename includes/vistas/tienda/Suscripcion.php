@@ -4,6 +4,7 @@ require_once '../../Config.php';
 require_once HELPERS_URL . '/TiendaHelper.php';
 require_once CLASSES_URL . '/FormularioSuscripcion.php';    
 require_once CLASSES_URL . '/Producto.php';
+require_once CLASSES_URL . '/Suscripcion.php';
 
 $yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 

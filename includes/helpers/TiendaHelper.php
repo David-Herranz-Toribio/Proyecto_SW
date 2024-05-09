@@ -7,11 +7,25 @@ require_once CLASSES_URL . '/FormularioProducto.php';
 
 
 function suscripcionHTML($yo){
-    
-    $content = "<section class='default'>";
+    $content ="";
+    if(isset($_SESSION['isAdmin'])){
+        $rutaComprobar = HELPERS_PATH . '/ComprobarSuscripcion.php';
+        $rutaSus = VIEWS_PATH . '/tienda/Suscripcion.php';
+        $content .=  <<<EOS3
+                <div id="actualizarAdmin">
+                    <h4>Panel Admin (Simular Script de Cron)</h4>
+                    <form action= "$rutaComprobar" method="post">
+                        <button type="submit" name="actualizar" value="$rutaSus"> Actualizar </button>
+                    </form>
+                </div>
+                EOS3;
+    }
+
+    $content .= "<section class='default'>";
+
     if(isset($_SESSION['isSub']) ){
         $diadehoy = date('Y-m-d H:i:s');
-        $diadeexpiracion = SW\classes\Producto::getFechaExpiracion($yo);
+        $diadeexpiracion = SW\classes\Suscripcion::getFechaExpiracion($yo);
         $diferencia = strtotime($diadeexpiracion) - strtotime($diadehoy);
         $diferencia = $diferencia * 1000;
             $content .= <<<EOS2
@@ -273,9 +287,10 @@ function showCarrito($user){
             $iter = 0;
             foreach($productos as $prod) {
                 $iter++;
-                $cantidad = $prod->getCantidadPP();
+                $cantidad = $prod->cantidad;
                 $acum_cantidad += $cantidad;
 
+                $prod = $prod->producto;
                 $precio = $prod->getPrecio();
                 $acum_precio += ($cantidad * $precio);
                 

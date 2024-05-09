@@ -54,7 +54,7 @@ class FormularioSuscripcion extends Formulario{
         if($this->modo == 'eliminarSuscripcion'){
             $html = <<<EOS
             <div>
-                <button id="botonEliminarSus" type="submit" name="eliminar" value="eliminar"> Eliminar </button>
+                <button id="botonEliminarSus" type="submit" name="eliminar" value="eliminar"> Cancelar Suscripcion </button>
             </div>
             EOS;
         }
@@ -67,7 +67,7 @@ class FormularioSuscripcion extends Formulario{
         if($this->modo == 'eliminarSuscripcion'){
             $eliminar = isset($datos['eliminar']) ?? htmlspecialchars($datos['eliminar']);
             if($eliminar == 'eliminar'){
-                $done = SW\classes\Producto::eliminarSuscripcion($_SESSION['username']);
+                $done = SW\classes\Suscripcion::eliminarSuscripcion($_SESSION['username']);
                 $_SESSION['isSub'] = null;
             }
         }else if($this->modo == 'añadirSuscripcion'){
@@ -78,7 +78,7 @@ class FormularioSuscripcion extends Formulario{
 
             // Comprobar que el tipo de suscripcion es correcto
             if( $tipo == 'mensual' || $tipo == 'anual' || $tipo == 'prueba'){
-                $done = SW\classes\Producto::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
+                $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
                 $_SESSION['isSub'] = $tipo;
             }
 

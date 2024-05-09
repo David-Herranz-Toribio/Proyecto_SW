@@ -84,10 +84,7 @@ function peticionAjaxSus(url, data) {
         url: url,
         data: data,
         success: function(response) {
-            if (response == "OK") {
-                console.log("Suscripción realizada correctamente");
-                location.reload();
-            }
+
             console.log(response);
         },
         error: function(jqXHR, textStatus, errorThrown) {
