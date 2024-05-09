@@ -599,8 +599,8 @@ button:hover  {
 .playlist_header{
 	display: grid;
 	grid-template-columns: 20% 60% 20%;
-	grid-column-start: 1;
-	grid-column-end: 4;
+	grid-column-start: 2;
+	grid-column-end: 3;
 	margin-inline: 8px;
 	margin-bottom: 10px;
 	border: 2px solid lightgray;

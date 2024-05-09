@@ -4,9 +4,9 @@ require_once '../../Config.php';
 require_once HELPERS_URL . '/MusicaHelper.php';
 
 
-// Barra de búsqueda para usuarios seguidos y seguidores
+// Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
+$topSearchBar->buscarPlaylists();
 
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $content = '';

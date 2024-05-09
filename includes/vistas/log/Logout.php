@@ -3,9 +3,9 @@
 require_once '../../Config.php';
 
 
-// Barra de búsqueda para usuarios seguidos y seguidores
+// Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
+$topSearchBar->logOut();
 
 unset($_SESSION['username']);
 unset($_SESSION['login']);

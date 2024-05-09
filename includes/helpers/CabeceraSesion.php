@@ -44,7 +44,8 @@ function generateStaticHeader($currentPage) {
 	</a>
 	EOS;
 
-	if (strpos($currentPage, "/vistas/perfil/AjustePerfil.php") === false && strpos($currentPage, "/vistas/foro/RespuestasForo.php") === false) {
+	// Vistas que no muestran la barra de búsqueda
+	if ($searchBar->getDisplaySearchBar()){
 
 		$html .= <<<EOS
 		<p>

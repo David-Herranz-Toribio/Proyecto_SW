@@ -4,9 +4,9 @@ require_once '../../Config.php';
 require_once HELPERS_URL . '/UsuariosHelper.php';
 
 
-// Barra de búsqueda para usuarios seguidos y seguidores
+// Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
+$topSearchBar->buscarSeguidoresSeguidos();
 
 $usuario = $_GET["user"] ?? $_SESSION['username'];
 $opcion = $_GET['opcion'] ?? NULL;

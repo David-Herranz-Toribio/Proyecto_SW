@@ -5,9 +5,9 @@ require_once HELPERS_URL . '/PlaylistViewHelper.php';
 require_once CLASSES_URL . '/Playlist.php';
 
 
-// Barra de búsqueda para usuarios seguidos y seguidores
+// Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
+$topSearchBar->buscarCancionEnPLaylist();
 
 // Obtener el id de la playlist seleccionada por el usuario
 $playlist_id = isset($_GET['id']) ? $_GET['id'] : NULL;

@@ -4,9 +4,9 @@ require_once '../../Config.php';
 require_once HELPERS_URL . '/TiendaHelper.php';
 
 
-// Barra de búsqueda para usuarios seguidos y seguidores
+// Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
+$topSearchBar->buscarProductos();
 
 $yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 $content = "<section class='default'>";

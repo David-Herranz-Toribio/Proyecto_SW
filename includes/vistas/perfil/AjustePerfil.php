@@ -5,9 +5,10 @@ require_once CLASSES_URL . '/Usuario.php';
 require_once CLASSES_URL . '/FormularioModificacion.php'; 
 
 
-// Barra de búsqueda para usuarios seguidos y seguidores
+// Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->buscarUsuario();
+$topSearchBar->notDisplaySearchBar();
 
 $rutaEstiloClaro =  CSS_PATH .'/estiloClaro.css'; 
 $rutaEstiloOscuro = CSS_PATH .'/estiloOscuro.css'; 
@@ -20,8 +21,8 @@ $RemoveImage = IMG_PATH . '/remove_user_.png';
 /* Cambio modo claro/oscuro */ 
 $cambio_modo= <<<EOS
 <section class= 'botonesEstilo'> 
-<button type= "button" onclick= "toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
-<button type= "button" onclick= "toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
+<button type="button" onclick="toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
+<button type="button" onclick="toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
 </section> 
 EOS; 
 

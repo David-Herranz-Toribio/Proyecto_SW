@@ -5,9 +5,10 @@ require_once CLASSES_URL . '/FormularioCrearCancion.php';
 require_once HELPERS_URL . '/CrearCancionHelper.php';
 
 
-// Barra de búsqueda para usuarios seguidos y seguidores
+// Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
+$topSearchBar->buscarCancion();
+$topSearchBar->notDisplaySearchBar();
 
 $content = '';
 if(!isset($_SESSION['username'])){
