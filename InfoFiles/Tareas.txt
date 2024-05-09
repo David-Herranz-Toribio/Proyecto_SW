@@ -52,7 +52,7 @@
     1)Quitar reglas "redundantes"
     1)Cambiar modo oscuro y modo claro (Alonso)
     2)Cambiar la fuente (Alonso)
-    3)@media queries 
+    3)Media queries (Òscar)
  
 -Pulir mas lo del karma
     1)Que al hacer autolike no aumente tu karma 
