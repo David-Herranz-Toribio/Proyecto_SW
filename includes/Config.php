@@ -15,9 +15,9 @@ define('JS_PATH', PROJECT_PATH . '/js');
 define('BD_PATH', PROJECT_PATH . '/mysql');
 
 // URLs
-define('ROOT_PATH', dirname(__DIR__) . '/../Proyecto_SW');
+define('ROOT_PATH', dirname(__DIR__));
 define('CSS_URL' , ROOT_PATH . '/css');
-define('IMG_URL' , ROOT_PATH . '/img');
+define('IMG_URL' , ROOT_PATH . '/img'); 
 define('AUDIO_URL', ROOT_PATH . '/audio'); 
 define('INCLUDES_URL', ROOT_PATH . '/includes');
     define('CLASSES_URL', INCLUDES_URL . '/classes');

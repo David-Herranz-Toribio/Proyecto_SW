@@ -59,10 +59,9 @@ class Usuario{
 
         if($conection) {
             if($artist) {
-                $query = "INSERT INTO artista (id_artista, integrantes) VALUES $values"; 
+                $query = "INSERT INTO artista (id_artista, integrantes) VALUES "; 
                 $values = "('$username', '$artist_members'); "; 
-                $query .= $values; 
-
+                $query .= $values;
                 $conection->query($query); 
 
                 if(!$conection) 

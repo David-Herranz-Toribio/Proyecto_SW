@@ -67,7 +67,7 @@ class FormularioRegistro extends FormularioMultimedia {
 
             <label> Email </label>
             <div> 
-            <input required type="email" name="email" id= 'campoEmail' value=$email>
+            <input required type="text" name="email" id= 'campoEmail' value=$email>
             <span id= 'validEmail'> </span> 
             </div> 
 
@@ -79,7 +79,7 @@ class FormularioRegistro extends FormularioMultimedia {
           
             <label> Birthdate </label>
             <div> 
-            <input required type="date" name="birthdate" id'campoBirthdate' value=$birthdate>
+            <input required type="date" name="birthdate" value=$birthdate>
             {$erroresCampos['birthdate']}
             </div> 
             
@@ -131,8 +131,10 @@ class FormularioRegistro extends FormularioMultimedia {
         $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
 
         // La fecha es anterior al día actual
-        if( $this->isArtist && $fecha_actual->diff($birthdate)->d < 1){
-            $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
+        if( $this->isArtist){
+            if($fecha_actual->diff($birthdate)->d < 1){
+                $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
+            }
         }
         else{
 
@@ -163,16 +165,13 @@ class FormularioRegistro extends FormularioMultimedia {
             $usuario = SW\classes\Usuario::createUser($datos);
     
             // Crear playlist por defecto si es un usuario corriente -> Favoritos
-            if(!$_SESSION['isArtist']){
+            if(!$_SESSION['isArtist'])
                 SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
     
-                // Iniciar sesión
-                $_SESSION['username'] = $username; 
-            }
+            // Iniciar sesión
+            $_SESSION['username'] = $username; 
+
         }
-
-
-       
     }
 
 }
