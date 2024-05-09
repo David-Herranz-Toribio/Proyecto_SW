@@ -50,6 +50,16 @@ function playerLogic () {
         /*Para las playlist, enviar una peticion post al Footer que contiene el id de dicha playlist*/ 
     }); 
 
+
+    /*Al hacer click en reproducir playlist/album*/ 
+    $('body').on('click', '#startPlaylist', function(){
+        var idPlayList= $(this).siblings("span")[0].innerText; 
+        $.post('../layout/Footer.php', {'idPlaylist': idPlayList.trim()}, function(data, status){
+
+        }); 
+    }); 
+
+
     function nextSong(){
         currentSong++;
         if(currentSong == $("#playlist li a").length){

@@ -19,4 +19,6 @@ else{
     $content = showNotLogged();
 }
 
+$scripts= ['playerLogic.js']; 
+
 require_once LAYOUT_URL;

@@ -16,5 +16,5 @@ $content=<<<EOS
 $htmlform
 </section> 
 EOS; 
-
+$scripts= ['eventos.js']; 
 require_once LAYOUT_URL; 

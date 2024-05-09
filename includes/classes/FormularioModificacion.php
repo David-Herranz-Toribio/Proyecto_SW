@@ -53,8 +53,9 @@ class FormularioModificacion extends FormularioMultimedia {
             <label> Password </label>
             
             <div> 
-            <input type="password" name="modify_password">
+            <input type="password" name="modify_password" id='campoPassword'>
             {$erroresCampos['password']}
+            <span id= 'validPassword'> </span> 
             </div> 
             <label> Modificar foto de perfil </label>
             <input type = "file" name = "image" accept = "image/*">

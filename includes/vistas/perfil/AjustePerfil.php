@@ -74,6 +74,7 @@ $content= <<<EOS
     </section> 
 EOS; 
 
+$scripts= ['eventos.js']; 
 
 require_once LAYOUT_URL; 
 

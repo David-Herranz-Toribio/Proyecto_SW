@@ -431,7 +431,7 @@ function displayArtistMusic($artist_username){
 }
 
 function displayArtistAlbum($playlist){
-
+    $playButton = IMG_PATH . '/play_button.png';
     $icono_flecha = IMG_PATH . '/flecha_desp.png';
 
     $html =<<<EOS
@@ -442,8 +442,14 @@ function displayArtistAlbum($playlist){
 
         <div class='album_info'>
             <h2> {$playlist->getPlaylistNombre()} </h2>
+            
             <button class='desplegable_canciones'><img class='icono_flecha' src=$icono_flecha></button>
         </div>
+
+        <div class= 'reproducir'>
+            <button class= 'playButton' id= 'startPlaylist'> <img src=$playButton></button>
+            <span hidden> {$playlist->getIdPlaylist()} </span> 
+        </div> 
     </div>
     EOS;
 

@@ -100,23 +100,26 @@ class FormularioRegistro extends FormularioMultimedia {
     }
 
     protected function procesaFormulario(&$datos){
-
         $this->errores = [];
 
         $username =  htmlspecialchars($datos['username']);
         $nickname = htmlspecialchars($datos['nickname']);
         $email = htmlspecialchars($datos['email']);
         $password_length = strlen($datos['password']);
-        $integrantes = isset($datos['integrantes']) ? htmlspecialchars($datos['integrantes']) : '';
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $birthdate = $datos['birthdate'];
         $imagen = isset($datos['imagen']) ? self::compruebaImagen('imagen', '/profileImages/') : 'FotoPerfil.png';
+
 
 
         // La contraseña no tiene al menos 8 caracteres
         if( $password_length < 8 )
             $this->errores['password'] = 'La contraseña debe tener al menos 8 caracteres';
         
+        // El email no es válido
+        if( !filter_var($email, FILTER_VALIDATE_EMAIL) )
+            $this->errores['email'] = 'El email no es válido';
+
         // El email ya está en uso
         else if( SW\classes\Usuario::buscaEmailBD($email) )
             $this->errores['email'] = 'El email ya está en uso';
@@ -131,10 +134,10 @@ class FormularioRegistro extends FormularioMultimedia {
         $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
 
         // La fecha es anterior al día actual
-        if( $this->isArtist){
-            if($fecha_actual->diff($birthdate)->d < 1){
+        if( $this->isArtist ){
+
+            if( $fecha_actual->diff($birthdate)->d < 1 )
                 $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
-            }
         }
         else{
 
@@ -148,30 +151,36 @@ class FormularioRegistro extends FormularioMultimedia {
         $datos['profile_image'] = $imagen; 
 
         if(count($this->errores) === 0){
-
-            $num = SW\classes\Pedido::numProdporUserPP($username);
-            if($num)
-                $_SESSION['notif_prod'] = $num;
+            $usuario = SW\classes\Usuario::buscaUsuario($username); 
+            if($usuario){ //El username ya está en uso
+                $this->errores[] = 'El usuario ya existe';
+            }
     
-            if($this->isArtist == true)
-                $_SESSION['isArtist'] = true; 
+            else { //El username esta libre 
     
-            $datos['artist_members'] = $integrantes; 
-            $datos['karma'] = 0;
-            $datos['desc'] = '';
-            $datos['isArtist'] = $this->isArtist;
+                $num = SW\classes\Pedido::numProdporUserPP($username);
+                if($num)
+                    $_SESSION['notif_prod'] = $num;
+    
+                if($this->isArtist == true)
+                    $_SESSION['isArtist'] = true; 
+    
+                $datos['artist_members'] = NULL; 
                 
-            // Crear usuario en la base de datos
-            $usuario = SW\classes\Usuario::createUser($datos);
+                $datos['karma'] = 0;
+                $datos['desc'] = '';
+                $datos['isArtist'] = $this->isArtist; 
+                
+                // Crear usuario en la base de datos
+                $usuario = SW\classes\Usuario::createUser($datos);
     
-            // Crear playlist por defecto si es un usuario corriente -> Favoritos
-            if(!$_SESSION['isArtist'])
-                SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
+                // Crear playlist por defecto si es un usuario corriente -> Favoritos
+                if(!$_SESSION['isArtist'])
+                    SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
     
-            // Iniciar sesión
-            $_SESSION['username'] = $username; 
-
+                // Iniciar sesión
+                $_SESSION['username'] = $username; 
+            }
         }
     }
-
 }
