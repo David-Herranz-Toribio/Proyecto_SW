@@ -1,6 +1,3 @@
-
-
-
 <footer class="footer">
     <audio src="" controls id="player"></audio>
 

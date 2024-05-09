@@ -31,7 +31,7 @@ function generateStaticHeader($currentPage) {
 		if(isset($_SESSION['isSub'])){
 			$susImg = IMG_PATH . '/FotoSuscrito.png';
 			$texto .= <<<EOS2
-				<img src='$susImg' alt='Simbolo Suscrito' height='25' width='30' class='simboloSuscrito'>
+				<img class='logoSubs' src='$susImg' alt='Simbolo Suscrito' height='25' width='30' class='simboloSuscrito'>
 			EOS2;
 		}
 		$onclick = "comprobar();";
@@ -39,7 +39,7 @@ function generateStaticHeader($currentPage) {
 
 	$html = <<<EOS
 	<header class= 'header'>
-	<a href="$linkIndex">
+	<a class='logoApp' href="$linkIndex">
 		<img src = '$iconImage' alt="Logo App" height="50" width="75">
 	</a>
 	EOS;
@@ -48,14 +48,14 @@ function generateStaticHeader($currentPage) {
 	if (isset($_SESSION['login']) && $searchBar->getDisplaySearchBar()){
 
 		$html .= <<<EOS
-		<p>
-		<form action="$currentPage" method="get"> <!-- Action igual a la página actual -->
-			<input type="text" name="query" placeholder="$placeholderText">
+		<form class='searchBar' action="$currentPage" method="get"> <!-- Action igual a la página actual -->
+		<div>	
+			<input class='searchInput' type="text" name="query" placeholder="$placeholderText">
 			<input type="hidden" name="user" value="$user">
 			<input type="hidden" name="opcion" value="$opcion">
 			<button type="submit"> &#128269 </button>
+		</div>
 		</form>
-		</p>
 		EOS;
 	}
 
@@ -70,15 +70,17 @@ function generateStaticHeader($currentPage) {
 	</head>
 	<body>
 
-	<div class= 'info_session'> 
-		<div class= 'contenedor_texto'> 
-			<p> $texto </p>
-		</div> 
+	<div class='session'>
+		<div class= 'info_session'> 
+			<div class= 'contenedor_texto'> 
+				<p> $texto </p>
+			</div> 
+		</div>
 
 		<div class= 'contenedor_imagen'> 
 			<p><a href="#" onclick="$onclick"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
-		</div> 
-	</div> 
+		</div>
+	</div>
 	</header>
 	EOS;
 
