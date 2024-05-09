@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../Config.php';
-
+require_once CLASSES_URL . '/ListaGenerosMusicales.php';
 
 function displaySongsWithGenre($genre){
 
@@ -11,15 +11,13 @@ function displaySongsWithGenre($genre){
 function displayAllMusicTypes(){
 
     $viewPath = VIEWS_PATH . '/musica/ExplorarCanciones.php';
-    $generosMusicales = ['Pop', 'Rock', 'Rap', 'Hip Hop', 'Latino', 'Jazz', 'R&B', 'K-Pop',
-                        'J-Pop', 'Dubstep', 'Clásica', 'Disco', 'Funk', 'Jazz', 'Reggae', 'Metal'];
 
     $html =<<<EOS
     <h1 class='texto_infor'> Descubrir nueva música </h1>
     <div class='tablaGeneros'>
     EOS;
 
-    foreach($generosMusicales as $genero){
+    foreach(ListaGenerosMusicales::getListaGenerosMusicales() as $genero){
         $html.=<<<EOS
         <div class='musicalGenre'>
             <a href=$viewPath?genre=$genero>

@@ -1,5 +1,5 @@
 <?php
-
+require_once 'ListaGenerosMusicales.php';
 require_once 'FormularioMultimedia.php';
 require_once 'Cancion.php';
 require_once 'Playlist.php';
@@ -26,6 +26,13 @@ class FormularioCrearCancion extends FormularioMultimedia{
     protected function generaCamposFormulario(&$datos){
 
         $erroresCampos = self::generaErroresCampos(['titulo', 'fecha', 'tags', 'audio'], $this->errores, 'span', array('class' => 'error'));
+        
+        $opciones_musica = '';
+        foreach(ListaGenerosMusicales::getListaGenerosMusicales() as $genero){
+            $opciones_musica .=<<<EOS
+            <option value=$genero> $genero </option>
+            EOS;
+        }
 
         $html =<<<EOS
         <fieldset>
@@ -47,12 +54,8 @@ class FormularioCrearCancion extends FormularioMultimedia{
             <div class='songGenres'>
                 <label for="genres"> Géneros: </label>
                 <select id="genres" name='tags' multiple>
-                    <option value="pop"> ... </option>
-                    <option value="rock"> Rock </option>
-                    <option value="pop"> Pop </option>
-                    <option value="jazz"> Jazz </option>
-                    <option value="hiphop"> Hip Hop </option>
-                    <option value="country"> Country </option>
+                    <option value="none"> ... </option>
+                    $opciones_musica
                 </select>
             </div>
 

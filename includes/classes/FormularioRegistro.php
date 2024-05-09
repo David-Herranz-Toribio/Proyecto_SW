@@ -1,8 +1,10 @@
 <?php
+
 require_once 'FormularioMultimedia.php'; 
 require_once 'Usuario.php'; 
 require_once 'Pedido.php';
 require_once 'Playlist.php';
+
 
 class FormularioRegistro extends FormularioMultimedia {
 
@@ -20,6 +22,7 @@ class FormularioRegistro extends FormularioMultimedia {
         $email = $datos['email'] ?? ''; 
         $birthdate = $datos['birthdate'] ?? ''; 
         $title = 'usuario';
+        $integrantes = $datos['integrantes'] ?? '';
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'email', 'birthdate', 'imagen'], $this->errores, 'span', array('class' => 'error'));
@@ -30,28 +33,9 @@ class FormularioRegistro extends FormularioMultimedia {
 
         if($this->isArtist == true){
             $opciones_de_artista = <<<EOS
-            <label> Musical genre: </label>
-            <select name="artist_members" size = "6">
-                <option> ----</option>
-                <option value="Pop"> Pop </option>
-                <option value="Rock"> Rock </option>
-                <option value="Rap"> Rap </option>
-                <option value="Hip Hop"> Hip Hop </option>
-                <option value="Latino"> Latino </option>
-                <option value="Jazz"> Jazz </option>
-                <option value="R&B"> R&B </option>
-                <option value="K-Pop"> K-Pop </option>
-                <option value="J-Pop"> J-Pop </option>
-                <option value="Dubstep"> Dubstep </option>
-                <option value="Clásica"> Clásica </option>
-                <option value="Disco"> Disco </option>
-                <option value="Funk"> Funk </option>
-                <option value="Jazz"> Jazz </option>
-                <option value="Reggae"> Reggae </option>
-                <option value="Metal"> Metal </option>
-            </select>
+            <label> Integrantes(user1,user2): </label>
+            <input type='text' name='integrantes' value=$integrantes>
             EOS;
-
             $title = 'artista';
         }
 
@@ -123,11 +107,10 @@ class FormularioRegistro extends FormularioMultimedia {
         $nickname = htmlspecialchars($datos['nickname']);
         $email = htmlspecialchars($datos['email']);
         $password_length = strlen($datos['password']);
+        $integrantes = isset($datos['integrantes']) ? htmlspecialchars($datos['integrantes']) : '';
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
-        
         $birthdate = $datos['birthdate'];
         $imagen = isset($datos['imagen']) ? self::compruebaImagen('imagen', '/profileImages/') : 'FotoPerfil.png';
-
 
 
         // La contraseña no tiene al menos 8 caracteres
@@ -148,10 +131,8 @@ class FormularioRegistro extends FormularioMultimedia {
         $birth_num = intval(date("Ymd", strtotime($birthdate->format('Y-m-d'))));
 
         // La fecha es anterior al día actual
-        if( $this->isArtist ){
-
-            if( $fecha_actual->diff($birthdate)->d < 1 )
-                $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
+        if( $this->isArtist && $fecha_actual->diff($birthdate)->d < 1){
+            $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
         }
         else{
 
@@ -165,6 +146,7 @@ class FormularioRegistro extends FormularioMultimedia {
         $datos['profile_image'] = $imagen; 
 
         if(count($this->errores) === 0){
+
             $num = SW\classes\Pedido::numProdporUserPP($username);
             if($num)
                 $_SESSION['notif_prod'] = $num;
@@ -172,11 +154,10 @@ class FormularioRegistro extends FormularioMultimedia {
             if($this->isArtist == true)
                 $_SESSION['isArtist'] = true; 
     
-            $datos['artist_members'] = NULL; 
-                
+            $datos['artist_members'] = $integrantes; 
             $datos['karma'] = 0;
             $datos['desc'] = '';
-            $datos['isArtist'] = $this->isArtist; 
+            $datos['isArtist'] = $this->isArtist;
                 
             // Crear usuario en la base de datos
             $usuario = SW\classes\Usuario::createUser($datos);

@@ -1,5 +1,4 @@
 <?php
-
 require_once 'FormularioMultimedia.php';
 require_once 'Playlist.php';
 
@@ -67,9 +66,10 @@ class FormularioCrearPlaylist extends FormularioMultimedia{
         }
         // Verificar que la imagen es adecuada -> archivo imagen, peso máximo, etc...
         if($datos['imagen']=== ''){
-            $imagen= 'playlist1.jpg'; 
+            $imagen = 'playlist1.jpg'; 
         }
-        else $imagen= self::compruebaImagen('imagen', '/songImages/'); 
+        else
+            $imagen = self::compruebaImagen('imagen', '/songImages/'); 
 
 
         // Si hay errores, salimos

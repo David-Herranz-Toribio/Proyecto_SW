@@ -8,12 +8,12 @@
 
 -JS (Alonso)
     1)Validacion de FORMULARIOS
-    2)Limites de caracteres 
+    2)Limites de caracteres
 
 -Perfil:
     1)Ver lista de seguidores y lista de seguidos (Ignacio)✅
-    2)Posibilidad de ver toda la discografía de un artista
-    3)Formulario para subir canciones
+    2)Posibilidad de ver toda la discografía de un artista✅
+    3)Formulario para subir canciones✅
     4)Creación de albumes(playlists) para los artistas (Óscar)✅
 
 -Suscripciones (David y Hugo)
@@ -31,10 +31,10 @@
     2)Que funcione lo de escuchar (Alonso)
     2)Listas de reproduccion hechas por los usuarios (Óscar)✅
         2.1)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar)✅
-    3)En el perfil de un artista, pestaña de Musica con todas sus canciones
+    3)En el perfil de un artista, pestaña de Musica con todas sus canciones✅
     4)Sidebar izquierdo 2 opciones
         4.1)Muestra toda la musica publicada (puedes filtrarla)
-        4.2)Tu musica favorita (que sea la playlist default  "Tus Canciones Favoritas" [sugerencia Hugo])
+        4.2)Tu musica favorita (que sea la playlist default "Tus Canciones Favoritas" [sugerencia Hugo])✅
             4.2.1)Al darle me gusta a cancion añadir a playlist default "Tus Canciones Favoritas" [sugerencia Hugo]
     5)Vista de playlists (Óscar)✅
     6)Vista de canciones (Óscar)✅
