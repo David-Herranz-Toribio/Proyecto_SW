@@ -3,7 +3,7 @@
 
 
 
--User admin (puede borrar todos los post, canciones etc...) 
+-User admin (puede borrar todos los post, canciones etc...)✅
 -Barra de busqueda que funcione en el perfil (Ignacio)✅
 
 -SearchBar:
@@ -14,6 +14,7 @@
 -JS: (Alonso)
     1)Validacion de FORMULARIOS
     2)Limites de caracteres
+    3)Evitar cargar todos los js en el layout(Óscar)
 
 -Perfil:
     1)Ver lista de seguidores y lista de seguidos (Ignacio)✅

@@ -45,7 +45,7 @@ function generateStaticHeader($currentPage) {
 	EOS;
 
 	// Vistas que no muestran la barra de búsqueda
-	if ($searchBar->getDisplaySearchBar()){
+	if (isset($_SESSION['login']) && $searchBar->getDisplaySearchBar()){
 
 		$html .= <<<EOS
 		<p>
