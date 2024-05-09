@@ -487,7 +487,8 @@ function displayAlbumMusic($playlist){
             </div>
 
             <div class='songButtons'>
-                <button class='playButton'><img src=$playButton></button>
+                <button class='playButton' id= 'playSong' ><img src=$playButton></button>
+                <span hidden> {$cancion->getCancionRuta()} </span> 
                 <button class='optionsButton'><img src=$optionsButton></button>
             </div>
         </div>
