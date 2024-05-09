@@ -38,13 +38,17 @@ function playerLogic () {
         $("#player")[0].currentTime += 10;
     });
 
-    $("#playSong").click(function(){
-        var rutaCancion = "/Proyecto_SW/audio/663c814f3286e.mp3";
-        var nombreCancion= $("#playSong:eq(1)").parent().siblings("div.songName").children()[0].innerText; 
-        //rutaCancion+= $("#playSong").siblings("span")[0].innerText; 
-        
+
+    /*Al hacer click en una cancion en el perfil de un artista*/ 
+    $('body').on('click', '#playSong' , function(){
+        var rutaCancion = "/Proyecto_SW/audio/";
+        rutaCancion+= $(this).siblings("span")[0].innerText; 
+        rutaCancion= rutaCancion.replace(/ /g, "");
         $("#player")[0].src=  rutaCancion; 
-    })
+        $("#player")[0].play();
+
+        /*Para las playlist, enviar una peticion post al Footer que contiene el id de dicha playlist*/ 
+    }); 
 
     function nextSong(){
         currentSong++;
