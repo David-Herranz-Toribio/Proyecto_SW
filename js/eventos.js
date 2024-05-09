@@ -11,7 +11,7 @@ $(document).ready(function() {
 		campo[0].setCustomValidity(""); 
 
 		const esCorreoValido = campo[0].checkValidity();
-		if (esCorreoValido && correoValidoUCM(campo.val())) {
+		if (esCorreoValido || correoValidoUCM(campo.val())) {
 			$("#validEmail").html( '&#x2714');  
 			campo[0].setCustomValidity("");
 		} else {			
@@ -21,11 +21,10 @@ $(document).ready(function() {
 		}
     })
 
-    $("#campoPassword").on("keydown",function(event){
-        event.preventDefault(); 
-        console.log($(this).length); 
-        if($(this).length<8){
-            $("#validPassword").html('&#x26a0 Faltan ' + 8 - ($(this).length)); 
+    $("#campoPassword").keyup(function(event){
+        var password= $('#campoPassword').val(); 
+        if(password.length<8){
+            $("#validPassword").html('&#x26a0 Mín 8 caracteres'); 
         }
         else $("#validPassword").html('&#x2714'); 
     })

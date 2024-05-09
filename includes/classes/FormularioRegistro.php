@@ -83,7 +83,7 @@ class FormularioRegistro extends FormularioMultimedia {
 
             <label> Email </label>
             <div> 
-            <input required type="text" name="email" id= 'campoEmail' value=$email>
+            <input required type="email" name="email" id= 'campoEmail' value=$email>
             <span id= 'validEmail'> </span> 
             </div> 
 
@@ -95,7 +95,7 @@ class FormularioRegistro extends FormularioMultimedia {
           
             <label> Birthdate </label>
             <div> 
-            <input required type="date" name="birthdate" value=$birthdate>
+            <input required type="date" name="birthdate" id'campoBirthdate' value=$birthdate>
             {$erroresCampos['birthdate']}
             </div> 
             
