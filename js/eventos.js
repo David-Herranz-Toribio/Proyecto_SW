@@ -11,7 +11,7 @@ $(document).ready(function() {
 		campo[0].setCustomValidity(""); 
 
 		const esCorreoValido = campo[0].checkValidity();
-		if (esCorreoValido || correoValidoUCM(campo.val())) {
+		if (esCorreoValido && correoValidoUCM(campo.val())) {
 			$("#validEmail").html( '&#x2714');  
 			campo[0].setCustomValidity("");
 		} else {			
@@ -43,9 +43,9 @@ $(document).ready(function() {
     }
 
 
-    function correoValidoUCM(correo) {
+    function correoValido(correo) {
 		// tu codigo aqui (devuelve true ó false)
-	    return correo.endsWith('@ucm.es'); 
+	    return correo.endsWith('@ucm.es') ; 
 	}
 }
 )

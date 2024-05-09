@@ -21,8 +21,8 @@ $RemoveImage = IMG_PATH . '/remove_user_.png';
 /* Cambio modo claro/oscuro */ 
 $cambio_modo= <<<EOS
 <section class= 'botonesEstilo'> 
-<button type="button" onclick="toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
-<button type="button" onclick="toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
+<button type= "button" onclick= "toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
+<button type= "button" onclick= "toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
 </section> 
 EOS; 
 
@@ -72,7 +72,6 @@ $content= <<<EOS
     <section class= 'formulario_style'> 
     $htmlform
     </section> 
-    $cambio_modo
 EOS; 
 
 
