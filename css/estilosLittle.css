@@ -3,11 +3,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #1a1a1a;
 }
 
 div.container{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     width: 100vw;
-    height: 100vh;
     background-color: #1a1a1a;
 }
 
@@ -74,8 +77,9 @@ div.container{
 /* Estilos del menu de navegacion - SIDEBAR */ 
 .sidebar {
     width: 100%;
-    position: fixed;
-    bottom: 0;
+    position: sticky;
+    bottom: 0px;
+    margin-top: auto;
 }
 
 .opciones {	
@@ -143,7 +147,7 @@ div#mensaje_bienvenida{
 }
 
 
-/*Estilo de Footer*/
+/* Estilo de Footer - FOOTER */
 
 footer.footer {
     height: 8%;
@@ -157,10 +161,11 @@ footer.footer {
     border-top: solid 3px #2685b1;
 }
 
-/*Estilo de los post*/ 
+/* Estilo de los post */ 
 
 section{
-    grid-column-start: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
     color: #cdcdcd;
     display: flex;
     flex-direction: column;
@@ -180,7 +185,22 @@ article {
     padding-top: 1%;
     margin-top: 1%;
     word-break: break-all;
+}
 
+.listaPost{
+    margin-inline: 5%;
+}
+
+.botonesPost{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-block: 5%;
+}
+
+form.boton_publicar{
+    margin: 0px;
 }
 
 article.estiloPost{
@@ -216,7 +236,6 @@ article.estiloUsers div.botones_mensaje {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
-
     position: relative;
     overflow-x:auto;
     max-width: 55%;
@@ -226,14 +245,18 @@ article.estiloUsers div.botones_mensaje {
     padding: 1%;
     margin: 1%;
 }
+
 .user_info{
     display: flex;
-
     position: relative;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
 }
+.user_image{
+    margin: 8px 8px 0 8px;
+}
+
 .modElim{
     margin-left: auto;
     position: absolute;
@@ -251,7 +274,6 @@ div.post_info {
     display: flex; 
 }
 
-
 #headPost article {
     border: solid 5px #230058;
 }
@@ -261,13 +283,13 @@ div.post_info {
     width: 75%; 
 }
 
-/*Estilo sin iniciar sesión*/
+/* Estilo sin iniciar sesión */
 
 section.default {
     min-height: 92vh;
 }
 
-/*Estilo de la pagina de perfil del usuario*/
+/* Estilo de la pagina de perfil del usuario */
 
 section.datos_perfil {
     width: 85%;
@@ -309,7 +331,7 @@ div.user_image img {
     border:3px solid white;
 }
 
-/*Estilo de la pagina de ajustes*/
+/* Estilo de la pagina de ajustes */
 
 section.botonesEstilo {
     display: flex;
@@ -317,7 +339,6 @@ section.botonesEstilo {
     grid-column-start: 3;
     grid-row-start: 2;
 }
-
 
 .settingsProfile {
     height: 10%;
@@ -345,7 +366,8 @@ section.botonesEstilo {
     word-break: keep-all;
 
 }
-/*Estilo de la pagina de tienda */
+
+/* Estilo de la pagina de tienda */
 .prod_info a{
     text-decoration: none;
     color: inherit;
@@ -382,7 +404,7 @@ section.formulario_style  form fieldset {
     width: 100%;
 }
 
-/*Todos los elementos dentro de form*/
+/* Todos los elementos dentro de form */
 form fieldset *{
     margin-top: 10px;
     border-radius: 10px;
@@ -408,13 +430,11 @@ fieldset div {
     margin: 20px auto;
 }
 
-
 button  {
     background-color: #D4ADFC;
     border-radius: 15px;
     transition: background-color 0.3s ease-in-out;
-    min-width: 30px;
-    min-height: 25px;
+    height: 40px;
 }
 
 button:hover  {
@@ -431,8 +451,6 @@ button:hover  {
 .InfoFoll-button:hover {
     background-color: #00bfd8; 
 }
-
-
 
 #resumen_carrito{
     background-color: #120118;

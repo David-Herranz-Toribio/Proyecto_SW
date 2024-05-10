@@ -104,7 +104,9 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
 
     return $html;
 }
+
 function creacionPubliHTML(){
+
     $html= <<<EOS
     <article class = "estiloPost">
         <div>
@@ -146,6 +148,7 @@ function displayContentMain($user, $opcion){
 }
 
 function displayExplorerButton(){
+
     $view_path = VIEWS_PATH . '/foro/Foro.php';
     $value = 'EXPLORER';
 
@@ -162,6 +165,7 @@ function displayExplorerButton(){
 }
 
 function displayFollowedButton(){
+
     $view_path = VIEWS_PATH . '/foro/Foro.php';
     $value = 'FOLLOWED';
 
@@ -222,7 +226,7 @@ function showTestPosts($yoYYoMismo){
     $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
     $content = "<h1 class = 'texto_infor'> Posts </h1>";
 
-    $content .= "<section class='default'>";
+    $content .= "<section class='botonesPost'>";
     $content .= displayExplorerButton();   
 
     if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar
@@ -234,6 +238,7 @@ function showTestPosts($yoYYoMismo){
         </form>
         EOS; 
     }
+    $content .= "</section>";
 
     $content .= "<section class = 'listaPost'>";
     $posts = SW\classes\Post::obtenerListaDePosts();
