@@ -19,8 +19,12 @@
 
 <body>
     <div class="container">
-        <?php require_once 'Cabecera.php'; ?>
+    <?php require_once 'Cabecera.php'; ?>
         <?php require_once 'Sidebar.php'; ?>
+        <main id='content'>
+            <?= $content ?>
+        </main>
+        <?php require_once 'Footer.php'; ?>
         
     </div> 
 </body>
