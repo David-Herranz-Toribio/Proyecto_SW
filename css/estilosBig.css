@@ -244,6 +244,49 @@ article.estiloUsers div.botones_mensaje {
 div.post_info {
     display: flex; 
 }
+div.responder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5%;
+    padding: 6%;
+    word-break:normal;
+    min-width: 100px;
+    border: solid 2px #230058;
+    border-radius: 25px;
+    background-color: #412d4e;
+    transition: background-color 2.5s ease-out;
+    transition: background-color 0.5s ease-out, transform 2.5s ease-out;
+}
+div.responder label {
+    margin: 10px; /* Ajusta este valor según tus necesidades */
+}
+
+div.responder input {
+    margin: 10px; /* Ajusta este valor según tus necesidades */
+}
+div.responder:hover{
+    scale: 1.001;
+    background-color: #230058;
+
+}
+.responder details > summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 0.7em; /* Ajusta este valor según tus necesidades */
+    font-weight: bold;
+
+}
+
+.responder details > summary::-webkit-details-marker {  /* Chrome, Safari, Edge */
+    display: none;
+}
+
+.responder details > summary::marker {  /* Firefox */
+    display: none;
+}
+
+
 
 
 #headPost article {

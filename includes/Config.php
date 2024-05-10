@@ -7,6 +7,7 @@ require_once 'classes/TopSearchBar.php';
 define('PROJECT_PATH', '/Proyecto_SW');
 define('CSS_PATH' , PROJECT_PATH . '/css');
 define('IMG_PATH' , PROJECT_PATH . '/img');
+define('AUDIO_PATH', PROJECT_PATH .'/audio'); 
 define('INCLUDES_PATH', PROJECT_PATH . '/includes');
     define('CLASSES_PATH', INCLUDES_PATH . '/classes');
     define('HELPERS_PATH', INCLUDES_PATH . '/helpers');

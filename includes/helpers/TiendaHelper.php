@@ -23,7 +23,7 @@ function suscripcionHTML($yo){
 
     $content .= "<section class='default'>";
 
-    if(isset($_SESSION['isSub']) ){
+    if(!is_null($_SESSION['isSub']) ){
         $diadehoy = date('Y-m-d H:i:s');
         $diadeexpiracion = SW\classes\Suscripcion::getFechaExpiracion($yo);
         $diferencia = strtotime($diadeexpiracion) - strtotime($diadehoy);
