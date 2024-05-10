@@ -7,5 +7,6 @@ $data = isset($_GET['data']) ? filter_var($_GET['data'], FILTER_SANITIZE_FULL_SP
 $table = $_GET['table'] ?? '';
 $filters = $_GET['filters'] ?? '';
 $content = searchQuery($table, $filters, $data);
+$content = '';
 
 require_once LAYOUT_URL;
