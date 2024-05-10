@@ -33,11 +33,11 @@ class Suscripcion extends Comprable{
         $rs = $conn->query($query);  
 
         if($rs->num_rows == 0)
-            $result = false;
+            $result = null;
         else{
             $fecha = $rs->fetch_assoc()['fecha_fin'];
             if($fecha < date('Y-m-d H:i:s')){
-                $result = false;
+                $result = null;
                 self::eliminarSuscripcion($id_u);
             }
         }
@@ -102,12 +102,12 @@ class Suscripcion extends Comprable{
             $conn->real_escape_string($username)
         );
 
-        $result = $conn->query($query);
+        $rs = $conn->query($query);
 
-        if (!$result)  
+        if (!$rs)  
             error_log($conn->error);
-
-        return $result->fetch_assoc()['fecha_fin'];
+        $result = $rs->fetch_assoc()['fecha_fin'];
+        return $result;
     }
 
     public static function eliminarSuscripcion($username){

@@ -17,6 +17,7 @@ if(!$yo){
     header('Location: ' . VIEWS_PATH . '/log/Login.php');
     exit();
 }
+$scripts = ['eventos.js'];
 $content = suscripcionHTML($yo);
 
 require_once LAYOUT_URL;
