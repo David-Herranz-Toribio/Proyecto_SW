@@ -386,7 +386,7 @@ class Usuario{
     }
 
     public function setKarma($num){
-        $this->karma =  $num;
+        $this->karma = $num;
     }
 
     public function getKarma(){

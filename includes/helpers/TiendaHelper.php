@@ -10,15 +10,21 @@ function suscripcionHTML($yo){
     $content ="";
     if(isset($_SESSION['isAdmin'] ) && ($_SESSION['isAdmin'] == true)){
         $rutaComprobar = HELPERS_PATH . '/ComprobarSuscripcion.php';
+        $rutaAumentarKarma = HELPERS_PATH . '/AumentarKarma.php';
         $rutaSus = VIEWS_PATH . '/tienda/Suscripcion.php';
         $content .=  <<<EOS3
-                <div id="actualizarAdmin">
-                    <h4>Panel Admin (Simular Script de Cron)</h4>
-                    <form action= "$rutaComprobar" method="post">
-                        <button type="submit" name="actualizar" value="$rutaSus"> Actualizar </button>
-                    </form>
-                </div>
-                EOS3;
+        <div id="actualizarAdmin">
+            <h4>Panel Admin (Simular Script de Cron)</h4>
+            <form action= "$rutaComprobar" method="post">
+                <button type="submit" name="actualizar" value="$rutaSus"> Actualizar </button>
+            </form>
+            <h4>Aumentar karma en 200</h4>
+            <form action= "$rutaAumentarKarma" method="post">
+                <input type="text" name="nombre" value="" placeholder="Ej: user2">
+                <button type="submit" name="karma" value="$rutaSus">Aumentar karma</button>
+            </form>
+        </div>
+        EOS3;
     }
 
     $content .= "<section class='default'>";
@@ -28,16 +34,16 @@ function suscripcionHTML($yo){
         $diadeexpiracion = SW\classes\Suscripcion::getFechaExpiracion($yo);
         $diferencia = strtotime($diadeexpiracion) - strtotime($diadehoy);
         $diferencia = $diferencia * 1000;
-            $content .= <<<EOS2
-                    <h1>¡Ya tienes una suscripción activa!</h1>
-                    <p>Si deseas cambiar tu suscripción, primero cancela la actual</p>
-                    <p>Si deseas cancelar tu suscripción, ve a tu perfil</p> 
+        $content .= <<<EOS2
+            <h1>¡Ya tienes una suscripción activa!</h1>
+            <p>Si deseas cambiar tu suscripción, primero cancela la actual</p>
+            <p>Si deseas cancelar tu suscripción, ve a tu perfil</p> 
 
-                    <div class="timer" id="timer">
-                        Tiempo restante: <span id="time">00:00:00</span>
-                    </div>
-                    <script>startTimer($diferencia);</script>
-                    EOS2;
+            <div class="timer" id="timer">
+                Tiempo restante: <span id="time">00:00:00</span>
+            </div>
+            <script>startTimer($diferencia);</script>
+        EOS2;
 
         $form= new formularioSuscripcion($yo,'eliminarSuscripcion');
 

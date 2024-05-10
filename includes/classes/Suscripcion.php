@@ -69,10 +69,18 @@ class Suscripcion extends Comprable{
         $conn = Aplicacion::getInstance()->getConexionBd();
 
         $fecha_fin = new \DateTime($fecha);
+        $user = Usuario::buscaUsuario($username);
+        
         if($nombre == 'mensual'){
-            $fecha_fin->add(new \DateInterval('P1M'));
+            if ($user->getKarma() >= 500){
+                $user->setKarma($user->getKarma() - 500);
+                $fecha_fin->add(new \DateInterval('P1M'));
+            }
         }else if($nombre == 'anual'){
-            $fecha_fin->add(new \DateInterval('P1Y'));
+            if ($user->getKarma() >= 1500){
+                $user->setKarma($user->getKarma() - 1500);
+                $fecha_fin->add(new \DateInterval('P1Y'));
+            }
         }else{
             $fecha_fin->add(new \DateInterval('PT30S'));
         }
