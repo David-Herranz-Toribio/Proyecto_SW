@@ -11,7 +11,7 @@ function generateStaticHeader($currentPage) {
 	$iconImage = IMG_PATH . '/2MelodyLogo.png';
 	$linkIndex = PROJECT_PATH . '/index.php';
 	$placeholderText = $searchBar->getPlaceHolderText();
-	$user = $_GET["user"] ?? isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+	$user = $_GET["user"] ?? (isset($_SESSION['username']) ? $_SESSION['username'] : NULL);
 	$opcion = $_GET["opcion"] ?? NULL;
 	$username = '';
 

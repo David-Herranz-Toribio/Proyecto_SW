@@ -133,11 +133,11 @@ function displayContentMain($user, $opcion){
 
         case NULL:
         case 'EXPLORER':
-            $html = showTestPosts($user);
+            $html = showTestPosts($user, true);
             break; 
         
         case 'FOLLOWED':
-            $html = showFollowedPeoplePosts($user); 
+            $html = showTestPosts($user, false);
             break; 
 
         default:
@@ -221,14 +221,13 @@ function showResp($id_post, $yoYYoMismo){
     return $html;
 }
 
-function showTestPosts($yoYYoMismo){
-
+function showTestPosts($yoYYoMismo, $isTest){
     $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
-    $content = "<h1 class = 'texto_infor'> Posts </h1>";
-
-    $content .= "<section class='botonesPost'>";
+    if($isTest) 
+        $content = "<h1 class = 'texto_infor'> Posts </h1>";
+    else 
+        $content = "<h1 class = 'texto_infor'> Posts (Personas que sigues) </h1>";
     $content .= displayExplorerButton();   
-
     if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar
 
         $content .= displayFollowedButton();
@@ -239,15 +238,24 @@ function showTestPosts($yoYYoMismo){
         EOS; 
     }
     $content .= "</section>";
-
     $content .= "<section class = 'listaPost'>";
-    $posts = SW\classes\Post::obtenerListaDePosts();
+    if(!$isTest) {
+        $user = SW\classes\Usuario::buscaUsuario($yoYYoMismo);
+        $lista_seguidos = $user->obtenerListaSeguidos();
+        $posts = [];
+        foreach($lista_seguidos as $seguido){
+            $postsSeguido = SW\classes\Post::obtenerPostsDeUsuario($seguido);
+            $posts = array_merge($posts, $postsSeguido);
+        }
+    }
+    else 
+        $posts = SW\classes\Post::obtenerListaDePosts();
     if(!empty($posts)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
             $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
-        }   
-    }
+        } 
+    }  
     $contador = 1;
     foreach($posts as $post){
         $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
@@ -263,47 +271,6 @@ function showTestPosts($yoYYoMismo){
 
     return $content;
 }
-
-function showFollowedPeoplePosts($yoYYoMismo){
-
-    $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
-    $content = "<h1 class = 'texto_infor'> Posts (Personas que sigues) </h1>";
-
-    $content .= "<section class='default'>";
-    $content .= displayExplorerButton();
-
-    if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 
-
-        $content .= displayFollowedButton();
-        $content .= <<< EOS
-        <form class= 'boton_publicar' action = $rutaPublicar method = "post">
-        <button type = "submit">Publicar</button>
-        </form>
-        EOS; 
-    }
-    $content .= "<section class = 'listaPost'>";
-    $user = SW\classes\Usuario::buscaUsuario($yoYYoMismo);
-    $lista_seguidos = $user->obtenerListaSeguidos();
-    $posts = [];
-    foreach($lista_seguidos as $seguido){
-        $postsSeguido = SW\classes\Post::obtenerPostsDeUsuario($seguido);
-        $posts = array_merge($posts, $postsSeguido);
-    }
-    if(!empty($posts)){
-        if (isset($_GET['query'])) {
-            $textoBusqueda = $_GET['query'];
-            $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
-        }   
-    }
-    foreach($posts as $post){
-        $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                     $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo);   
-    }
-    $content .= "</section>";
-    return $content;
-}
-
-
 function modificatePost($postText, $postId){
 
     $rutaMod = HELPERS_PATH . '/ProcesarModificacion.php';
