@@ -877,10 +877,14 @@ button:hover  {
     text-decoration: none;
 }
 #playlist .current-song a{
-    color:blue;
-    border: 1px solid red;
+    color:white;
+    animation: marquee 3s linear infinite;
 }
 
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
 .player-button {
     background: transparent;
     border: none;

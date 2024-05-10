@@ -16,11 +16,8 @@ abstract class Comprable{
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->precio = $precio;
-     
     }
     
-
-
     public function getId(){
         return $this->id;
     }
