@@ -148,7 +148,7 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
     EOS;
 
-    $compra = '<p>No queda stock</p>';
+    $compra = '<p> No queda stock </p>';
     if($stock != 0){
      
         $compra = '<button type = "submit" class = "botonCompra"> Comprar </button>

@@ -3,6 +3,14 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/TopSearchBar.php';
 
 
+function displayMessage($message){
+
+    $html =<<<EOS
+    <h2 class='texto_infor'> $message </h2>
+    EOS;
+
+    return $html;
+}
 
 function searchQuery($data, $option){
 
@@ -35,6 +43,7 @@ function generateHTML($data, $option){
         break;
     case \SW\classes\TopSearchBar::$NO_DISPLAY:
     default:
+        $html = false;
         break;
     }
 
@@ -63,64 +72,140 @@ function displayUsers($data){
 
 function displayPlaylists($data){
 
-    $html = '';
+    $view_path = VIEWS_PATH . '/musica/PlaylistView.php';
+    $html = '<section class="musicList">';
     foreach($data as $playlist){
-        $nombrePlaylist = $playlist['nombre'];
-        $fecha = $playlist['fecha'];
-        $photo = $playlist['imagen'];
+
+        // Variables
+        $id = $playlist['id_playlist'];
+        $image = $playlist['imagen'];
+        $nombre = $playlist['nombre'];
+        $duracionTotal = transformDuration($playlist['duracion_total']);
 
         $html .=<<<EOS
-        <div>  
-            <p> $nombrePlaylist </p>
-            <p> $fecha </p>
-            <p> $photo </p>
-        </div>
+        <article class="music_playlist">
+            <div class="music_playlist_image">
+                <img src="$image" alt="Portada de la playlist">
+            </div>
+
+            <div class="music_playlist_info">
+                <a href="$view_path?id=$id"><h2> $nombre </h2></a>
+                <p> Duración total: $duracionTotal </p>
+            </div>
+        </article>
         EOS;
     }
+    $html .= '</section>';
 
     return $html;
 }
 
+function transformDuration($duracion){
+
+    $minutes = intdiv($duracion, 60);
+    $seconds = $duracion - (60 * $minutes);
+    if($seconds < 10)
+        $seconds = '0' . $seconds;
+
+    return $minutes . ':' . $seconds;
+}
+
 function displayCanciones($data){
 
-    $html = '';
+    $playButton = IMG_PATH . '/play_button.png';
+    $optionsButton = IMG_PATH . '/options_button.png';
+
+    $html = "<div class='all_albumSongs'>";
     foreach($data as $cancion){
+
+        // Variables
         $titulo = $cancion['titulo'];
+        $fecha = $cancion['fecha'];
+        $likes = $cancion['likes'];
+        $duracion = transformDuration($cancion['duracion']);
         $artista = $cancion['id_artista'];
         $photo = $cancion['imagen'];
+        $ruta = $cancion['ruta'];
 
         $html .=<<<EOS
-        <div>  
-            <p> $titulo </p>
-            <p> $artista </p>
-            <p> $photo </p>
+        <div class='album_song'>
+            <div class='songName'>
+                <p> $titulo </p>
+            </div>
+
+            <div class='songDate'>
+                <p> $fecha </p>
+            </div>
+
+            <div class='songLikes'>
+                <p> $likes &#9834 </p>
+            </div>
+
+            <div class='songLenght'>
+                <p> $duracion </p>
+            </div>
+
+            <div class='songButtons'>
+                <button class='playButton' id= 'playSong' ><img src=$playButton></button>
+                <span hidden> $ruta </span> 
+                <button class='optionsButton'><img src=$optionsButton></button>
+            </div>
         </div>
         EOS;
     }
+    $html .= "</div>";
 
     return $html;
 }
 
 function displayProductos($data){
 
+    $rutaProducto = VIEWS_PATH . '/tienda/ProductoVista.php';
+    $rutaArtista = VIEWS_PATH . '/perfil/Perfil.php';
+
     $html = '';
     foreach($data as $producto){
-        $photo = $producto['imagen'];
+
+        // Variables
+        $photo = IMG_PATH .  '/prodImages/'. $producto['imagen'];
         $nombreProducto = $producto['nombre'];
         $nombreArtista = $producto['id_artista'];
         $descripcion = $producto['descripcion'];
         $precio = $producto['precio'];
+        $id = $producto['id_prod'];
+
+        // Descricion del producto
+        $prodDesc =<<<EOS2
+        <div class="prod_info">
+            <p>$descripcion</p>
+        </div>
+        EOS2;
+
+        // Informacion del producto
+        $prodInfo =<<<EOS
+        <div class="prod_info">
+            <a href="$rutaProducto?prod=$id" name= "prod" >
+                <img alt="prod_info" src=$photo width="70" heigth="70">
+                <p> $nombreProducto </p>
+                <p> $precio &#9834 </p>
+            </a>
+            <div>
+                <a href="$rutaArtista?user=$nombreArtista" name="prod" >
+                <p> Creador: @$nombreArtista </p>
+                </a>
+            </div>
+        </div>
+        EOS;
 
         $html .=<<<EOS
-        <div>  
-            <p> $photo </p>
-            <p> $nombreProducto </p>
-            <p> $nombreArtista </p>
-            <p> $descripcion </p>
-            <p> $precio </p>
+        <div>
+            $prodInfo
+            $prodDesc
         </div>
         EOS;
     }
+
+    
 
     return $html;
 }

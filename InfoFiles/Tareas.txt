@@ -6,15 +6,15 @@
 -User admin (puede borrar todos los post, canciones etc...)✅
 -Barra de busqueda que funcione en el perfil (Ignacio)✅
 
--SearchBar:
-    1)Colocar placeholders adecuados para cada vista
-    2)Crear consultas SQL para cada vista
-    3)Mostrar contenido en la vista SearchBarView.php al hacr click
+-SearchBar: (Óscar)✅
+    1)Colocar placeholders adecuados para cada vista✅
+    2)Crear consultas SQL para cada vista✅
+    3)Mostrar contenido en la vista SearchBarView.php al hacer click✅
 
 -JS: (Alonso)
     1)Validacion de FORMULARIOS
     2)Limites de caracteres
-    3)Evitar cargar todos los js en el layout(Óscar)
+    3)Evitar cargar todos los js en el layout (Óscar)✅
 
 -Perfil:
     1)Ver lista de seguidores y lista de seguidos (Ignacio)✅
@@ -52,7 +52,7 @@
     1)Quitar reglas "redundantes"
     1)Cambiar modo oscuro y modo claro (Alonso)
     2)Cambiar la fuente (Alonso)
-    3)Media queries (Òscar)
+    3)Media queries (Óscar)
  
 -Pulir mas lo del karma
     1)Que al hacer autolike no aumente tu karma 
