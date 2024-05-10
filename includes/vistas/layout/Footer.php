@@ -1,24 +1,22 @@
-
 <?php
 
     require_once '../../Config.php';
     require_once CLASSES_URL . '/Cancion.php';
 
-    $canciones= null; 
-    $idPlaylist= $_POST['idPlaylist']; 
+    $canciones = null; 
+    $idPlaylist = $_POST['idPlaylist'] ?? ''; 
     if(!is_null($idPlaylist)){
-        $canciones= SW\classes\Cancion::getSongsFromPlaylistID($idPlaylist); 
-        echo $canciones; 
+        $canciones = SW\classes\Cancion::getSongsFromPlaylistID($idPlaylist);  
     }
- ?>    
+?>    
 
 <footer class="footer">
     <audio src="" controls id="player"></audio>
 
     <ul id="playlist">
         <?php
-           
-            $i= 0; 
+
+            $i = 0; 
             if(!is_null($canciones)){
                 foreach($canciones as $cancion_act){
                     $rutaAudio= AUDIO_URL . '/' . $cancion_act->getCancionRuta(); 

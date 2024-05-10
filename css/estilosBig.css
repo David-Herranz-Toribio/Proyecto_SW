@@ -49,6 +49,7 @@ div.container{
 .session{
     display: flex;
     justify-content: flex-end;
+    margin-right: 1%;
 }
 
 .info_session{

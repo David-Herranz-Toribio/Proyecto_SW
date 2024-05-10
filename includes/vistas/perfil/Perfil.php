@@ -19,6 +19,6 @@ else{
     $content = showNotLogged();
 }
 
-$scripts= ['playerLogic.js']; 
+$scripts = ['playerLogic.js', 'desplegable.js']; 
 
 require_once LAYOUT_URL;

@@ -422,8 +422,10 @@ function displayArtistMusic($artist_username){
     // Mostrar todas las playlists
     $html = "<section class='artist_music'>";
     foreach($albums as $p){
+        $html .= "<div class='fullAlbum'>";
         $html .= displayArtistAlbum($p);
         $html .= displayAlbumMusic($p);
+        $html .= "</div>";
     }
     $html .= "</section>";
 
@@ -431,6 +433,7 @@ function displayArtistMusic($artist_username){
 }
 
 function displayArtistAlbum($playlist){
+
     $playButton = IMG_PATH . '/play_button.png';
     $icono_flecha = IMG_PATH . '/flecha_desp.png';
 
@@ -442,12 +445,11 @@ function displayArtistAlbum($playlist){
 
         <div class='album_info'>
             <h2> {$playlist->getPlaylistNombre()} </h2>
-            
             <button class='desplegable_canciones'><img class='icono_flecha' src=$icono_flecha></button>
         </div>
 
         <div class= 'reproducir'>
-            <button class= 'playButton' id= 'startPlaylist'> <img src=$playButton></button>
+            <button class='playButton' id='startPlaylist'> <img src=$playButton></button>
             <span hidden> {$playlist->getIdPlaylist()} </span> 
         </div> 
     </div>
@@ -464,7 +466,7 @@ function displayAlbumMusic($playlist){
     if(!$canciones){
 
         $html =<<<EOS
-        <div class="album_music">
+        <div class='all_albumSongs'>
             <h3> Vacío </h3>
         </div>
         EOS;
@@ -472,7 +474,7 @@ function displayAlbumMusic($playlist){
         return $html;
     }
 
-    $html = '';
+    $html = "<div class='all_albumSongs'>";
     foreach($canciones as $cancion){
         $html .=<<<EOS
         <div class='album_song'>
@@ -500,6 +502,7 @@ function displayAlbumMusic($playlist){
         </div>
         EOS;
     }
+    $html .= "</div>";
 
     return $html;
 }
