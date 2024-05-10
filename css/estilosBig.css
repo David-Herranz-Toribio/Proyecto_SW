@@ -898,9 +898,17 @@ button:hover  {
     color:rgb(255, 255, 255);
     text-decoration: none;
 }
-#playlist .current-song a{
-    color:blue;
-    border: 1px solid red;
+@keyframes blinkColor {
+    0%, 100% {
+        color: rgb(239, 255, 100);
+    }
+    50% {
+        color: rgb(255, 255, 255);
+    }
+}
+
+#playlist .current-song a {
+    animation: blinkColor 4s infinite;
 }
 
 .player-button {
