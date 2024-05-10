@@ -24,6 +24,7 @@
             <?= $content ?>
         </main>
         <?php require_once 'Sidebar.php'; ?>
+        <?php require_once 'Footer.php'; ?> 
     </div> 
 </body>
 </html>
