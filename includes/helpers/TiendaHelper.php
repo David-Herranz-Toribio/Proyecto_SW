@@ -372,15 +372,15 @@ function showHistorialPedidos($id_user){
                         <h3> Total: ".$pedido->getTotal()." &#9834</h3>
                         </div>";   
             $lista.= "<div class= 'estiloPedido'>";
-            foreach($productos as $producto) {
+            foreach($productos as $prod_cant) {
                 $lista .= "<div class= 'estiloProd'>"; 
-    
+                $producto= $prod_cant->producto;
                 $id_prod=  $producto->getId(); 
                 $name_prod= $producto->getNombre(); 
                 $desc_prod= $producto->getDescripcion(); 
                 $autor_prod= $producto->getAutor(); 
                 $img_prod= $producto->getImagen(); 
-                $cantidad_prod= $producto->getCantidadPP(); 
+                $cantidad_prod= $prod_cant->cantidad; 
                 $precio_prod=  $producto->getPrecio();                               
                 $total= $cantidad_prod * $precio_prod;
     

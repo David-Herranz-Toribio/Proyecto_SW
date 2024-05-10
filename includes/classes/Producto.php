@@ -75,8 +75,9 @@ class Producto extends Comprable{
         $query = sprintf( "SELECT * FROM producto P JOIN pedido_prod PP ON P.id_prod = PP.id_prod WHERE PP.id_pedido = %d", $id);
         $rs = $conection->query($query);
         
-        $prod_cant = new \stdClass();
         while($fila = $rs->fetch_assoc()){
+            $prod_cant = new \stdClass();
+
             $prod_cant->producto = self::crearProducto($fila['id_prod'],$fila['nombre'], $fila['descripcion'], 
                                             $fila['imagen'], $fila['id_artista'], $fila['stock'], $fila['precio']);
             $prod_cant->cantidad = $fila['cantidad'];
