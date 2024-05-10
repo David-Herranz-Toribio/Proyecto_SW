@@ -147,8 +147,8 @@ INSERT INTO `postfav` (`id_post`, `id_user`) VALUES
 TRUNCATE TABLE `cancion`;
 INSERT INTO `cancion` (`id_cancion`, `titulo`, `imagen`, `fecha`, `id_artista`, `likes`, `ruta`, `duracion`, `tags`) VALUES
 (1, 'Canción 1', 'imagen1.jpg', '2024-03-08', 'user2', 100, 'Cancion1.mp3', 240, 'pop, dance'),
-(2, 'Canción 2', 'imagen2.jpg', '2024-03-09', 2, 85, '/canciones/cancion2.mp3', 180, 'rock'),
-(3, 'Canción 3', 'imagen3.jpg', '2024-03-10', 3, 120, '/canciones/cancion3.mp3', 300, 'electrónica');
+(2, 'Canción 2', 'imagen2.jpg', '2024-03-09', 'user2', 85, 'Cancion2.mp3', 180, 'rock'),
+(3, 'Canción 3', 'imagen3.jpg', '2024-03-10', 'user2', 120, 'Cancion3.mp3', 300, 'electrónica');
 
 
 TRUNCATE TABLE `playlist`;-- la duracion esta en segundos
@@ -161,6 +161,7 @@ TRUNCATE TABLE `play_cancion`;
 INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
 (1, 1),
 (1, 2),
+(1, 3),
 (2, 1),
 (2, 3),
 (3, 2),
