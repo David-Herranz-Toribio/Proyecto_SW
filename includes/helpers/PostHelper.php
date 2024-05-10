@@ -72,7 +72,6 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     if(!$yoYYoMismo){
         $responder = ''; 
     }
-
     else {
         $form= new FormularioRespuesta($id);
         $responder= $form->gestiona(); 
@@ -86,7 +85,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     </form>
 
     <form action=$rutaRespuestas method = "post">
-        <input type = "hidden" name = "respuestasId" value = "$id">
+        <input type = "hidden" name = "id_padre" value = "$id">
         <button type = "submit">&#128172</button>
     </form>
     </div>
