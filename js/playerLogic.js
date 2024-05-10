@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    comenzarPlaylist(); 
+    var currentSong = 0;
+    logicaPlaylist(); 
 
     
     function changePlaylist(canciones){
@@ -8,27 +9,18 @@ $(document).ready(function(){
             var elemento = canciones[i];
             $('#playlist').append("<li id= 'cancion" + i + "'> <a href=" + elemento[0] + ">" + elemento[1] + "</a> </li>"); 
         }
-        comenzarPlaylist();
+        logicaPlaylist();
     }
 
 
-    function comenzarPlaylist(){
-        var currentSong = 0;
+    function logicaPlaylist(){
+     
         var playing = true;
-        $("#player")[0].src = $("#playlist li a")[0].href;
-        $("#player")[0].pause();
         $("#playlist li:eq("+currentSong+")").addClass("current-song");
+        $("#player")[0].src = $("#playlist li a")[currentSong].href;
+        $("#player")[0].play();
         showNameSong(); 
     }
-
-    /*$("#playlist li a").click(function(e){
-        e.preventDefault(); 
-        $("#player")[0].src = this;
-        $("#player")[0].pause();
-        $("#playlist li").removeClass("current-song");
-        currentSong = $(this).parent().index();
-        $(this).parent().addClass("current-song");
-    }); */
 
     $("#player")[0].addEventListener("ended", nextSong);
 
@@ -81,9 +73,10 @@ $(document).ready(function(){
     function changeSong(){
         $("#playlist li").removeClass("current-song");
         $("#playlist li:eq("+currentSong+")").addClass("current-song");
-        $("#player")[0].src = $("#playlist li a")[currentSong].href;
+        
         showNameSong(); 
-        $("#player")[0].play();
+       
+        logicaPlaylist();
     }
 
 
