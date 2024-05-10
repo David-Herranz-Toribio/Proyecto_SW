@@ -105,13 +105,15 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
 }
 
 function creacionPubliHTML(){
-
+    $rutaSus=VIEWS_PATH."/tienda/Suscripcion.php";
     $html= <<<EOS
     <article class = "estiloPost">
-        <div>
-            <p>¡Desbloquea todo un mundo de beneficios con nuestra suscripción premium!</p>
-            <p>Accede a contenido exclusivo, funciones avanzadas y una experiencia sin interrupciones. ¡Únete ahora y lleva tu experiencia al siguiente nivel!</p>
-        </div>
+        <a href="$rutaSus">
+            <div style="color : goldenrod">
+                <p>¡Desbloquea todo un mundo de beneficios con nuestra suscripción premium!</p>
+                <p>Accede a contenido exclusivo, funciones avanzadas y una experiencia sin interrupciones. ¡Únete ahora y lleva tu experiencia al siguiente nivel!</p>
+            </div>
+        </a>
     </article>
     EOS; 
 
@@ -262,6 +264,8 @@ function showTestPosts($yoYYoMismo, $isTest){
         if (!isset($_SESSION['isSub']) || $_SESSION['isSub'] == false){
             if ($contador == 3){
                 $content .= creacionPubliHTML();
+                $contador = 1;
+
             }
             $contador++;
         }  

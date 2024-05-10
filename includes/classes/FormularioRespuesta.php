@@ -22,7 +22,7 @@ class FormularioRespuesta extends FormularioMultimedia
         <input type = "hidden" name = "id_padre" value = "$this->id_padre">
         <details>
             <summary>Responder </summary>
-            <label>Respuesta:<input type = "text" name = "post_text" required></label><br>
+            <label><input type = "text" name = "post_text" required></label><br>
             <label>Imagen:<input type = "file" name = "image" accept = "image/*"></label>
             {$erroresCampos['imagen']}
             <br>
