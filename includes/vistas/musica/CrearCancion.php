@@ -36,7 +36,6 @@ else{
     $htmlform
     </section>
     EOS;
-
 }
 
 

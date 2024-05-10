@@ -2,7 +2,7 @@ $(document).ready(function(){
     var currentSong = 0;
     logicaPlaylist(); 
 
-    
+    //Pone en el footer la playlist que queremos escuchar
     function changePlaylist(canciones){
         $('#playlist').empty(); 
         for(let i= 0; i< canciones.length; i++){
