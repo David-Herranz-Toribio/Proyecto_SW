@@ -7,7 +7,7 @@ require_once CLASSES_URL . '/Playlist.php';
 
 // Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarCancionEnPLaylist();
+$topSearchBar->notDisplaySearchBar();
 
 // Obtener el id de la playlist seleccionada por el usuario
 $playlist_id = isset($_GET['id']) ? $_GET['id'] : NULL;

@@ -1,7 +1,7 @@
 <?php
-
 namespace SW\classes;
 require_once 'Comprable.php';
+
 
 class Producto extends Comprable{
 
@@ -40,6 +40,7 @@ class Producto extends Comprable{
     }
 
     public static function obtenerProductoporId($id){
+        
         $result = [];
         $conection = Aplicacion::getInstance()->getConexionBd();
         $query = "SELECT * FROM producto WHERE id_prod = ". $id;

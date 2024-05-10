@@ -4,11 +4,17 @@ require_once 'Aplicacion.php';
 
 class TopSearchBar {
 
+    public static $USUARIOS = 'USUARIOS';
+    public static $SEGUIDORES = 'SEGUIDORES';
+    public static $PLAYLISTS = 'PLAYLISTS';
+    public static $CANCIONES = 'CANCIONES';
+    public static $PRODUCTOS = 'PRODUCTOS';
+    public static $NO_DISPLAY = 'NO_DISPLAY';
+
     private static $instance = NULL;
     private static $placeHolderText = 'Inicia sesión para buscar';
-    private static $table;
-    private static $filters;
     private static $userQuery;
+    private static $opcion;
     private static $displaySearchBar = true;
 
     // Evitar la creación de múltiples instancias
@@ -26,18 +32,57 @@ class TopSearchBar {
         self::$instance = NULL;
     }
 
-    public static function searchQuery($table, $filters, $data){
+    public static function searchQuery($data, $opcion){
 
         // Construimos la consulta SQL
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = $table . " " . $filters . " '" . $data . "%'";
+        $query = self::buildQuery($data, $opcion);
+
+        // Consulta inválida
+        if(!$query)
+            return false;
+
+        // Ejecutamos la consulta
         $rs = $conection->query($query);
 
-        // Guardamos la consulta en un array
-        $datos = $rs->fetch_assoc();
+        // Guardamos la consulta en un array y cerramos la conexión
+        $datos = array();
+        while($row = $rs->fetch_assoc()) {
+            $datos[] = $row;
+        }
         $rs->free();
 
         return $datos;
+    }
+
+    // Construimos la consulta SQL
+    public static function buildQuery($data, $opcion){
+
+        $username = $_SESSION['username'];
+        $html = '';
+        switch($opcion){
+        case self::$USUARIOS:
+            $html = "SELECT * FROM usuario U WHERE U.id_user LIKE '%$data%'";
+            break;
+        case self::$SEGUIDORES:
+            $html = "SELECT id_user FROM seguidores WHERE id_seguidor LIKE '%$data%'";
+            break;
+        case self::$PLAYLISTS:
+            $html = "SELECT * FROM playlist P WHERE P.nombre LIKE '%$data%'";
+            break;
+        case self::$CANCIONES:
+            $html = "SELECT * FROM cancion C WHERE C.titulo LIKE '%$data%'";
+            break;
+        case self::$PRODUCTOS:
+            $html = "SELECT * FROM producto P WHERE P.nombre LIKE '%$data%'";
+            break;
+        case self::$NO_DISPLAY:
+        default:
+            $html = false;
+            break;
+        }
+
+        return $html;
     }
 
     public static function buscarUsuario(){
@@ -45,8 +90,7 @@ class TopSearchBar {
         if(!isset($_SESSION['login']))
             return;
         self::$placeHolderText = 'Buscar @usuario';
-        self::$table = "SELECT * FROM usuario U";
-        self::$filters = "WHERE U.id_user LIKE";
+        self::$opcion = TopSearchBar::$USUARIOS;
     }
 
     public static function buscarSeguidoresSeguidos(){
@@ -54,8 +98,7 @@ class TopSearchBar {
         if(!isset($_SESSION['login']))
             return;
         self::$placeHolderText = 'Buscar seguidores/seguidos';
-        self::$table = "SELECT * FROM seguidores S";
-        self::$filters = "WHERE S.usuario LIKE";
+        self::$opcion = TopSearchBar::$SEGUIDORES;
     }
 
     public static function buscarPlaylists(){
@@ -63,35 +106,16 @@ class TopSearchBar {
         if(!isset($_SESSION['login']))
             return;
         self::$placeHolderText = 'Buscar playlists';
-        self::$table = "SELECT * FROM playlist P";
-        self::$filters = "WHERE P.nombre LIKE";
+        self::$opcion = TopSearchBar::$PLAYLISTS;
     }
 
-    public static function buscarCancionEnPlaylist(){
-
-        if(!isset($_SESSION['login']))
-            return;
-        self::$placeHolderText = 'Buscar canción en playlist';
-        self::$table = "SELECT * FROM play_cancion C";
-        self::$filters = "WHERE C.nombre LIKE";
-    }
 
     public static function buscarCancion(){
 
         if(!isset($_SESSION['login']))
             return;
         self::$placeHolderText = 'Buscar canción';
-        self::$table = "SELECT * FROM cancion C";
-        self::$filters = "WHERE C.nombre LIKE";
-    }
-
-    public static function buscarPedidos(){
-
-        if(!isset($_SESSION['login']))
-            return;
-        self::$placeHolderText = 'Buscar pedidos';
-        self::$table = "SELECT * FROM pedido P";
-        self::$filters = "WHERE P.id LIKE";
+        self::$opcion = TopSearchBar::$CANCIONES;
     }
 
     public static function buscarProductos(){
@@ -99,8 +123,7 @@ class TopSearchBar {
         if(!isset($_SESSION['login']))
             return;
         self::$placeHolderText = 'Buscar productos';
-        self::$table = "SELECT * FROM producto P";
-        self::$filters = "WHERE P.nombre LIKE";
+        self::$opcion = TopSearchBar::$PRODUCTOS;
     }
 
     public static function notDisplaySearchBar(){
@@ -110,8 +133,7 @@ class TopSearchBar {
     // Getters
     public static function isInitialized(){ return self::$instance ? true : false; }
     public static function getPlaceHolderText(){ return self::$placeHolderText; }
-    public static function getTable(){ return self::$table; }
-    public static function getFilters(){ return self::$filters; }
     public static function getUserQuery(){ return self::$userQuery; }
+    public static function getOpcion(){ return self::$opcion; }
     public static function getDisplaySearchBar(){ return self::$displaySearchBar; }
 }

@@ -2,11 +2,11 @@
 require_once '../../Config.php';
 
 
+
 function generateStaticHeader($currentPage) {
 
 	// Obtener los datos de la barra de búsqueda
-	$table = \SW\classes\TopSearchBar::getTable();
-	$filters = \SW\classes\TopSearchBar::getFilters();
+	$searchOption = \SW\classes\TopSearchBar::getOpcion();
 
 	// Ruta pestaña de la searchbar
 	$searchbarPage = VIEWS_PATH . '/searchBar/SearchBarView.php';
@@ -54,8 +54,7 @@ function generateStaticHeader($currentPage) {
 		$html .= <<<EOS
 		<form class='searchBar' action='$searchbarPage' method='get'>	
 			<input class='searchInput' type="text" name="data" placeholder="$placeholderText">
-			<input type="hidden" name="table" value='$table'>
-			<input type="hidden" name="filters" value='$filters'>
+			<input type="hidden" name="searchOption" value='$searchOption'>
 			<button type="submit"> &#128269 </button>
 		</form>
 		EOS;

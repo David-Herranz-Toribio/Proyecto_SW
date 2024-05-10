@@ -93,7 +93,7 @@ class Playlist{
         $rs = $conection->query($query);
         
         if($rs){}
-        else error_log($conn->error); 
+        else error_log($conection->error); 
 
         return $rs;
     }

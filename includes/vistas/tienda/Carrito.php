@@ -6,7 +6,6 @@ require_once HELPERS_URL . '/TiendaHelper.php';
 
 // Selección de barra d búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarPedidos();
 $topSearchBar->notDisplaySearchBar();
 
 $user = null;
