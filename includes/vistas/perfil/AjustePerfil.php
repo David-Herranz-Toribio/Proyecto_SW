@@ -44,7 +44,7 @@ EOS;
 /*Boton para eliminar la cuenta*/ 
 
 $funcion_eliminar = <<<EOS
-<form action= $rutaDel method="post2" >
+<form action= $rutaDel method="post2" onsubmit="return confirmarEliminacion();">
 <div class= 'info_session'> 
         <div class= 'contenedor_texto'> 
         <p>
@@ -59,6 +59,12 @@ $funcion_eliminar = <<<EOS
     </div> 
 </form>
 
+<script>
+function confirmarEliminacion() {
+    var ok = window.confirm("¿Estás seguro de que quieres eliminar tu usuario?");
+    return ok;
+}
+</script>
 EOS; 
 
 /*Crea el formulario de moficicacion*/ 

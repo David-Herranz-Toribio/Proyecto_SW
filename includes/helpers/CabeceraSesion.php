@@ -4,14 +4,18 @@ require_once '../../Config.php';
 
 function generateStaticHeader($currentPage) {
 
-	// Texto de la barra de búsqueda vacío
-	$searchBar = SW\classes\TopSearchBar::getInstance();
+	// Obtener los datos de la barra de búsqueda
+	$table = \SW\classes\TopSearchBar::getTable();
+	$filters = \SW\classes\TopSearchBar::getFilters();
+
+	// Ruta pestaña de la searchbar
+	$searchbarPage = VIEWS_PATH . '/searchBar/SearchBarView.php';
 
 	// Resto de icones y textos
 	$iconImage = IMG_PATH . '/2MelodyLogo.png';
 	$linkIndex = PROJECT_PATH . '/index.php';
-	$placeholderText = $searchBar->getPlaceHolderText();
-	$user = $_GET["user"] ?? (isset($_SESSION['username']) ? $_SESSION['username'] : NULL);
+	$placeholderText = \SW\classes\TopSearchBar::getPlaceHolderText();
+	$user = $_GET["user"] ?? isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 	$opcion = $_GET["opcion"] ?? NULL;
 	$username = '';
 
@@ -45,16 +49,14 @@ function generateStaticHeader($currentPage) {
 	EOS;
 
 	// Vistas que no muestran la barra de búsqueda
-	if (isset($_SESSION['login']) && $searchBar->getDisplaySearchBar()){
+	if (isset($_SESSION['login']) && \SW\classes\TopSearchBar::getDisplaySearchBar()){
 
 		$html .= <<<EOS
-		<form class='searchBar' action="$currentPage" method="get"> <!-- Action igual a la página actual -->
-		<div>	
-			<input class='searchInput' type="text" name="query" placeholder="$placeholderText">
-			<input type="hidden" name="user" value="$user">
-			<input type="hidden" name="opcion" value="$opcion">
+		<form class='searchBar' action='$searchbarPage' method='get'>	
+			<input class='searchInput' type="text" name="data" placeholder="$placeholderText">
+			<input type="hidden" name="table" value='$table'>
+			<input type="hidden" name="filters" value='$filters'>
 			<button type="submit"> &#128269 </button>
-		</div>
 		</form>
 		EOS;
 	}

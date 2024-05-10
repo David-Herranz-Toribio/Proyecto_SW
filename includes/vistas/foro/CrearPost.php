@@ -18,8 +18,8 @@ else
 $form = new FormularioPost($id_padre, null); 
 $htmlform = $form->gestiona(); 
 
-$content= <<<EOS
-<section class= 'formulario_style'> 
+$content = <<<EOS
+<section class ='formulario_style'> 
 $htmlform
 </section> 
 EOS; 

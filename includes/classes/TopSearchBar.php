@@ -5,11 +5,13 @@ require_once 'Aplicacion.php';
 class TopSearchBar {
 
     private static $instance = NULL;
-    private $placeHolderText = 'Inicia sesión para buscar';
-    private $query = '';
-    private $displaySearchBar = true;
+    private static $placeHolderText = 'Inicia sesión para buscar';
+    private static $table;
+    private static $filters;
+    private static $userQuery;
+    private static $displaySearchBar = true;
 
-    // Evitar el creación de múltiples instancias
+    // Evitar la creación de múltiples instancias
     private function __construct(){}
 
 	public static function getInstance() {
@@ -20,72 +22,96 @@ class TopSearchBar {
 		return self::$instance;
     }
 
-    public function logOut(){
+    public static function logOut(){
         self::$instance = NULL;
     }
 
-    public function buscarUsuario(){
+    public static function searchQuery($table, $filters, $data){
+
+        // Construimos la consulta SQL
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = $table . " " . $filters . " '" . $data . "%'";
+        $rs = $conection->query($query);
+
+        // Guardamos la consulta en un array
+        $datos = $rs->fetch_assoc();
+        $rs->free();
+
+        return $datos;
+    }
+
+    public static function buscarUsuario(){
 
         if(!isset($_SESSION['login']))
             return;
-        $this->placeHolderText = 'Buscar @usuario';
-        $this->query = "";
+        self::$placeHolderText = 'Buscar @usuario';
+        self::$table = "SELECT * FROM usuario U";
+        self::$filters = "WHERE U.id_user LIKE";
     }
 
-    public function buscarSeguidoresSeguidos(){
+    public static function buscarSeguidoresSeguidos(){
 
         if(!isset($_SESSION['login']))
             return;
-        $this->placeHolderText = 'Buscar seguidores/seguidos';
-        $this->query = "";
+        self::$placeHolderText = 'Buscar seguidores/seguidos';
+        self::$table = "SELECT * FROM seguidores S";
+        self::$filters = "WHERE S.usuario LIKE";
     }
 
-    public function buscarPlaylists(){
+    public static function buscarPlaylists(){
 
         if(!isset($_SESSION['login']))
             return;
-        $this->placeHolderText = 'Buscar playlists';
-        $this->query = "";
+        self::$placeHolderText = 'Buscar playlists';
+        self::$table = "SELECT * FROM playlist P";
+        self::$filters = "WHERE P.nombre LIKE";
     }
 
-    public function buscarCancionEnPLaylist(){
+    public static function buscarCancionEnPlaylist(){
 
         if(!isset($_SESSION['login']))
             return;
-        $this->placeHolderText = 'Buscar canción en playlist';
-        $this->query = "";
+        self::$placeHolderText = 'Buscar canción en playlist';
+        self::$table = "SELECT * FROM play_cancion C";
+        self::$filters = "WHERE C.nombre LIKE";
     }
 
-    public function buscarCancion(){
+    public static function buscarCancion(){
 
         if(!isset($_SESSION['login']))
             return;
-        $this->placeHolderText = 'Buscar canción';
-        $this->query = "";
+        self::$placeHolderText = 'Buscar canción';
+        self::$table = "SELECT * FROM cancion C";
+        self::$filters = "WHERE C.nombre LIKE";
     }
 
-    public function buscarPedidos(){
+    public static function buscarPedidos(){
 
         if(!isset($_SESSION['login']))
             return;
-        $this->placeHolderText = 'Buscar pedidos';
-        $this->query = "";
+        self::$placeHolderText = 'Buscar pedidos';
+        self::$table = "SELECT * FROM pedido P";
+        self::$filters = "WHERE P.id LIKE";
     }
 
-    public function buscarProductos(){
+    public static function buscarProductos(){
 
         if(!isset($_SESSION['login']))
             return;
-        $this->placeHolderText = 'Buscar productos';
-        $this->query = "";
+        self::$placeHolderText = 'Buscar productos';
+        self::$table = "SELECT * FROM producto P";
+        self::$filters = "WHERE P.nombre LIKE";
     }
 
-    public function notDisplaySearchBar(){
-        $this->displaySearchBar = false;
+    public static function notDisplaySearchBar(){
+        self::$displaySearchBar = false;
     }
 
-    public function isInitialized(){ return $this->instance ? true : false; }
-    public function getPlaceHolderText(){ return $this->placeHolderText; }
-    public function getQuery(){ return $this->query; }
-    public function getDisplaySearchBar(){ return $this->displaySearchBar; }
+    // Getters
+    public static function isInitialized(){ return self::$instance ? true : false; }
+    public static function getPlaceHolderText(){ return self::$placeHolderText; }
+    public static function getTable(){ return self::$table; }
+    public static function getFilters(){ return self::$filters; }
+    public static function getUserQuery(){ return self::$userQuery; }
+    public static function getDisplaySearchBar(){ return self::$displaySearchBar; }
 }
