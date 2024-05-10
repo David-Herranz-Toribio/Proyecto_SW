@@ -200,7 +200,7 @@ CREATE TABLE `suscripcion` (
   `id_user` varchar(63) NOT NULL,
   `tipo` varchar(63) DEFAULT NULL,
   `fecha_fin` datetime NOT NULL,
-  `descripcion` tinytext DEFAULT NULL
+  `archivado` tinytext DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
