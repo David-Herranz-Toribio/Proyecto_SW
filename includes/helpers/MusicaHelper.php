@@ -84,7 +84,7 @@ function displayPlaylists($playlists){
 function display_a_playlist($playlist){
 
     $id = $playlist->getIdPlaylist();
-    $image = $playlist->getPlaylistImagen();
+    $image = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
     $nombre = $playlist->getPlaylistNombre();
     $duracionTotal = $playlist->getPlaylistDuracion();
     $view_path = VIEWS_PATH . '/musica/PlaylistView.php';

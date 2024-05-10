@@ -2,10 +2,29 @@
 
 require_once '../../Config.php';
 require_once CLASSES_URL . '/ListaGenerosMusicales.php';
+require_once CLASSES_URL . '/Cancion.php'; 
 
 function displaySongsWithGenre($genre){
 
     // Mostrar una serie de canciones del genero musical 'genre'
+    $canciones= SW\classes\Cancion::obtenerCancionesporGenero($genre);
+    
+    if($canciones==NULL){
+        $listaCanciones= displayErrorMessage("Sin resultados");  
+    }
+
+    else {
+        $listaCanciones= '<div class= "songlist">'; 
+        $listaCanciones .= <<<EOS
+        <p> Canciones de <strong> $genre </strong> </p> 
+        EOS; 
+        foreach($canciones as $cancion_act){
+            $listaCanciones .= display_a_song($cancion_act); 
+        }
+
+        $listaCanciones .= "</div>";
+    } 
+    return $listaCanciones; 
 }
 
 function displayAllMusicTypes(){

@@ -15,7 +15,7 @@ function displayPlaylist($playlist){
 
 function displayPlaylistHeader($playlist){
 
-    $playlistImage = $playlist->getPlaylistImagen();
+    $playlistImage = IMG_PATH . '/songImages/' .$playlist->getPlaylistImagen();
     $playlistName = $playlist->getPlaylistNombre();
     $playlistID = $playlist->getIdPlaylist();
     $duracion = $playlist->getPlaylistDuracion();

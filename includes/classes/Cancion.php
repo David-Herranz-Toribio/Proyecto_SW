@@ -76,6 +76,38 @@ class Cancion{
         return $canciones;
     }
 
+
+    public static function obtenerCancionesporGenero($genero){
+        $canciones = [];
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM cancion C  WHERE C.tags LIKE  '%s' ", "%" . $genero ."%");
+        $rs = $conection->query($query);
+
+        if(!$rs){
+            return false;
+        }
+
+        while($fila = $rs->fetch_assoc()){
+
+            $parameters = [];
+            $parameters['id_cancion'] = $fila['id_cancion'];
+            $parameters['titulo'] = $fila['titulo'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['fecha'] = $fila['fecha'];
+            $parameters['id_artista'] = $fila['id_artista'];
+            $parameters['likes'] = $fila['likes'];
+            $parameters['ruta'] = $fila['ruta'];
+            $parameters['duracion'] = $fila['duracion'];
+            $parameters['tags'] = $fila['tags'];
+
+            $canciones[] = new Cancion($parameters);
+        }
+        $rs->free();
+
+        return $canciones;
+    }
+
+
     public static function obtenerCancionesDeArtista($id_artista){
         
         $canciones = [];
