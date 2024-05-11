@@ -64,14 +64,12 @@ class FormularioPost extends FormularioMultimedia
     {   
         $this->errores= []; 
         $username = $_SESSION['username']; 
-        $id= $datos['id_post']; 
+        $id= filter_var($datos['id_post'], FILTER_VALIDATE_INT);  
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
         $imagen_ant= $datos['Imagen_antigua']; 
         /*TODO Procesar imagen*/ 
         $post_image= self:: compruebaImagen("image", '/postImages/'); 
 
-
-      
         if(count($this->errores)===0){
 
             if($datos['id_padre'] != "") $post_father= $datos['id_padre']; 
