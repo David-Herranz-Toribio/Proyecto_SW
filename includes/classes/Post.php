@@ -150,7 +150,7 @@ class Post{
 
 
     public static function buscarPostPorID($id){
-
+       
         $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM post P WHERE P.id_post = %d",  $id);
         $rs = $conection->query($query);
@@ -199,8 +199,13 @@ class Post{
 
         return $result;
     }
+
     public function borrarPost(){
 
+        if(file_exists(IMG_URL . '/postImages/' . $this->imagen)){
+            unlink(IMG_URL . '/postImages/' . $this->imagen); 
+        }
+        
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(

@@ -96,9 +96,12 @@ function displaySong($song){
 
     $songImagePath = $song->getCancionImagen();
     $nombre = $song->getCancionTitulo();
+    $id= $song->getIdCancion(); 
     $artista = $song->getIdArtista();
     $fecha = $song->getCancionFecha();
     $duracion = $song->getCancionDuracion();
+    $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarCancion.php';
+
 
     $html =<<<EOS
     <div class="playlistSong">
@@ -116,6 +119,13 @@ function displaySong($song){
             <div class="songLenght">
                 <p> $duracion </p>
             </div>
+
+            <div> 
+            <form action= $rutaBorrar method= "post"> 
+                <input type= "hidden" name= "idCancion" value= '$id'>
+                <button type= "submit"> &#10060 </button> 
+            </form> 
+            </div> 
         </div>
     </div>
     EOS;
