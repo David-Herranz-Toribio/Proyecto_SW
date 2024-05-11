@@ -14,13 +14,13 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     
     $user_info= <<<EOS
     <div class="user_info">
-    <div class= 'user_image'> 
-    <img alt="user_info" src=$rutaPFP width="50px" height="50px">
-    </div>
+        <div class='user_image'> 
+            <img alt="user_info" src=$rutaPFP width="50px" height="50px">
+        </div>
 
-    <div>
-    <a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> 
-    </div>
+        <div>
+        <a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> 
+        </div>
     EOS; 
 
     if ($yoYYoMismo == $autor || (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true)){
@@ -29,26 +29,25 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
 
         $user_info .= <<<EOS2
         <div class='modElim'> 
-        <form action=$rutaMod method="post">
-            <input type = "hidden" name = "idPadre" value= '$id_padre'>
-            <input type = "hidden" name = "idPost" value = '$id'>
-            <button type = "submit"> &#9998 </button>
-        </form>
+            <form action=$rutaMod method="post">
+                <input type = "hidden" name = "idPadre" value= '$id_padre'>
+                <input type = "hidden" name = "idPost" value = '$id'>
+                <button type = "submit"> &#9998 </button>
+            </form>
 
-        <form action= $rutaEliminar method="post">
-            <input type="hidden" name="EliminarID" value= '$id'>
-            <button type="submit"> &#10060</button>
-        </form>
+            <form action= $rutaEliminar method="post">
+                <input type="hidden" name="EliminarID" value= '$id'>
+                <button type="submit"> &#10060</button>
+            </form>
         </div> 
         EOS2;
     }
+    $user_info .= "</div>";
 
-
-    //Texto del post
+    // Texto del post
     $post_info =<<<EOS3
-    </div>
     <div class="post_info">
-        <p>$texto</p> 
+        <p> $texto </p> 
     </div>
     EOS3;
 
@@ -225,22 +224,26 @@ function showResp($id_post, $yoYYoMismo){
 }
 
 function showTestPosts($yoYYoMismo, $isTest){
+
     $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
     if($isTest) 
-        $content = "<h1 class = 'texto_infor'> Posts </h1>";
+        $content = "<h1 class='texto_infor'> Posts </h1>";
     else 
-        $content = "<h1 class = 'texto_infor'> Posts (Personas que sigues) </h1>";
-    $content .= displayExplorerButton();   
+        $content = "<h1 class='texto_infor'> Posts (Personas que sigues) </h1>";
+
+    
+    $content .= "<div class='botonesPost'>";
+    $content .= displayExplorerButton();
     if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar
 
         $content .= displayFollowedButton();
         $content .= <<< EOS
         <form class= 'boton_publicar' action = $rutaPublicar method = "post">
-        <button type = "submit">Publicar</button>
+            <button type = "submit">Publicar</button>
         </form>
         EOS; 
     }
-    $content .= "</section>";
+    $content .= "</div>";
     $content .= "<section class = 'listaPost'>";
     if(!$isTest) {
         $user = SW\classes\Usuario::buscaUsuario($yoYYoMismo);

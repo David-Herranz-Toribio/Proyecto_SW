@@ -192,6 +192,7 @@ article {
 }
 
 .botonesPost{
+    grid-column: 2;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -293,13 +294,12 @@ section.default {
 /* Estilo de la pagina de perfil del usuario */
 
 section.datos_perfil {
-    width: 85%;
     display: flex;
     border: solid 6px #1e688b;
     border-radius: 25px;
-    margin: 3% 5%; 
     padding-top: 5%;
     padding-right: 5%;
+    margin-inline: 3%;
     align-items: center;
     flex-direction: column;
     grid-row-start: 1;
@@ -315,12 +315,12 @@ section.datos_perfil div{
 }
 
 section.publicaciones_perfil{
-    grid-column-start: 2;
-    margin-top: 5%;
+    grid-column-start: 1;
     grid-row-start: 2;
+    margin-inline: 5%;
+    margin-top: 5%;
     margin-bottom: 10%;
 }
-
 
 section.datos_perfil button {
     width: 75px;
@@ -330,6 +330,11 @@ section.datos_perfil button {
 div.user_image img {
     border-radius:150px;
     border:3px solid white;
+}
+
+.lista_seguidores{
+    grid-column: 2;
+    grid-row: 2;
 }
 
 /* Estilo de la pagina de ajustes */
@@ -522,7 +527,7 @@ button:hover  {
 }
 
 
-/*Pruebas animaciones y notificacion */ 
+/* Pruebas animaciones y notificacion */ 
 #cantPedido {
     display: inline-block;
     position: absolute;
@@ -573,35 +578,34 @@ button:hover  {
 
 
 .musicList{
-    grid-column: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    grid-column-start: 1;
+    grid-column-end: 4;
 }
 
 .music_playlist{
-    display: grid;
-    grid-template-columns: 10% 60%;
+    grid-column-start: 1;
+    grid-column-end: 4;
     background-color: #BE16CC;
     border: 2px solid white;
-    width: 80%;
-    margin-block: 10px;
+    margin-block: 5px;
+    margin-inline: 3%;
 }
 
 .music_playlist_image{
-    display: inline-block;
-    height: 95px;
+   position: relative;
+   right: 10%;
 }
 .music_playlist_image img{
-    width: 90px;
-    height: 90px;
+    display: inline-block;
+    border-radius: 50%;
+    border: solid 2px white;
+    width: 80px;
+    height: 80px;
 }
 
 .music_playlist_info{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: baseline;
+    position: relative;
+    right: 11%;
 }
 .music_playlist_info p{
     margin-inline: 10px;

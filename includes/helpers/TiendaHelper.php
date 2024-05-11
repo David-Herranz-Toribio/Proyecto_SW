@@ -371,7 +371,7 @@ function showHistorialPedidos($id_user){
             $id_ped = $pedido->getId(); 
             $productos =  SW\classes\Producto::obtenerProductosDePedido($id_ped);
             $lista .= "<div class='prod_info'>
-                        <h3> Ident. Pedido:". $id_ped ."</h3>
+                        <h3> Ident. Pedido: ". $id_ped ."</h3>
                         <h3> Fecha: ".$pedido->getFecha()."</h3>
                         <h3> Total: ".$pedido->getTotal()." &#9834</h3>
                         </div>";   

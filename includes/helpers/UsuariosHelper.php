@@ -95,9 +95,11 @@ function showUsers($user, $opcion){
 
     }
     else {
-        $content .= "<div class='lista_musica'>
-        La lista está vacía
-        </div>";
+        $content .=<<<EOS
+        <div class='lista_seguidores'>
+            La lista está vacía
+        </div>
+        EOS;
     }
     return $content;
 }

@@ -70,7 +70,7 @@ nav.sidebar {
     min-width: 100px;
     width: 10%; 
     height: 100vh;
-    position:  fixed;
+    position: fixed;
     grid-area: navegacion;
 }
 
@@ -115,7 +115,7 @@ ul.opciones{
 }
 
 
-/*Contenido principal de la pagina*/
+/* Contenido principal de la pagina */
 
 
 #content {
