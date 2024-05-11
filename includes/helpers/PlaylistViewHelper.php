@@ -40,11 +40,10 @@ function displayPlaylistHeader($playlist){
                 
                 <p> Duración: $duracion </p>
                 <p> Creada el $fecha </p>
-
-                <button class='edit_playlist_buttons'><a href=$crearMusicaPath?playlist=$playlistID> Añadir canción </a></button>
+                
                 <button class='edit_playlist_buttons'><a href=''> Modificar playlist </a></button>
-                <button class='edit_playlist_buttons'><a href=''> Eliminar canción </a></button>
                 <button class='edit_playlist_buttons'><a href=''> Eliminar playlist </a></button>
+                <button class='edit_playlist_buttons'><a href=$crearMusicaPath?playlist=$playlistID> Añadir canción </a></button>
             </div>
         </div>
     </div>
@@ -75,9 +74,12 @@ function displaySong($song){
 
     $songImagePath = $song->getCancionImagen();
     $nombre = $song->getCancionTitulo();
+    $id= $song->getIdCancion(); 
     $artista = $song->getIdArtista();
     $fecha = $song->getCancionFecha();
     $duracion = $song->getCancionDuracion();
+    $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarCancion.php';
+
 
     $html =<<<EOS
     <div class="playlistSong">
@@ -95,6 +97,13 @@ function displaySong($song){
             <div class="songLenght">
                 <p> $duracion </p>
             </div>
+
+            <div> 
+            <form action= $rutaBorrar method= "post"> 
+                <input type= "hidden" name= "idCancion" value= '$id'>
+                <button type= "submit"> &#10060 </button> 
+            </form> 
+            </div> 
         </div>
     </div>
     EOS;
