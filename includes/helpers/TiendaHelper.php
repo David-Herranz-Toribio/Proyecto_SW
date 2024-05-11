@@ -13,6 +13,11 @@ function suscripcionHTML($yo){
         $rutaComprobar = HELPERS_PATH . '/ComprobarSuscripcion.php';
         $rutaAumentarKarma = HELPERS_PATH . '/AumentarKarma.php';
         $rutaSus = VIEWS_PATH . '/tienda/Suscripcion.php';
+        $listaUsuarios = SW\classes\Usuario::obtenerListaUsuarios();
+        $auxlista = '';
+        foreach($listaUsuarios as $user)
+            $auxlista .= "<option value='".$user->getUsername()."'>".$user->getUsername()."</option>";
+
         $content .=  <<<EOS3
         <div id="actualizarAdmin">
             <h4>Panel Admin (Simular Script de Cron)</h4>
@@ -21,8 +26,11 @@ function suscripcionHTML($yo){
             </form>
             <h4>Aumentar karma en 200</h4>
             <form action= "$rutaAumentarKarma" method="post">
-                <input type="text" name="nombre" value="" placeholder="Ej: user2">
-                <button type="submit" name="karma" value="$rutaSus">Aumentar karma</button>
+                <select name="nombre">
+                <option value="" disabled selected>Selecciona un usuario</option>
+                $auxlista
+                </select>
+                <button type="submit" name="ruta" value="$rutaSus">Aumentar karma</button>
             </form>
         </div>
         EOS3;
@@ -41,7 +49,7 @@ function suscripcionHTML($yo){
             <p>Si deseas cancelar tu suscripción, ve a tu perfil</p> 
 
             <div class="timer" id="timer">
-                Tiempo restante: <span id="time">00:00:00</span>
+                Tiempo restante: <span id="time">----Cargando----</span>
             </div>
             <script>startTimer($diferencia);</script>
         EOS2;

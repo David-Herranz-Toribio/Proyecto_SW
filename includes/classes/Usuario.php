@@ -147,7 +147,33 @@ class Usuario{
 
         return $result; 
     }
+    
+    public static function obtenerListaUsuarios(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = "SELECT * FROM usuario";
+        $result = $conn->query($query);
+        if(!$result){
+            error_log($conn->error);
+            return false;
+        }
+        $listaUsuarios = [];
+        while($row = $result->fetch_assoc()) {
+            $parameters = [];
+            $parameters['username'] = $row['id_user'];
+            $parameters['nickname'] = $row['nickname'];
+            $parameters['email'] = $row['correo'];
+            $parameters['password'] = $row['password'];
+            $parameters['profile_image'] = $row['foto'];
+            $parameters['desc'] = $row['descripcion'];
+            $parameters['karma'] = $row['karma'];
+            $parameters['isArtist'] = self::esArtista($row['id_user']);
+            $parameters['birthdate'] = $row['fecha'];
+            $listaUsuarios[] = new Usuario($parameters);
+        }
+        $result->free();
+        return $listaUsuarios;
 
+    }
     public function obtenerListaSeguidos() {
         $usuario = $this->getUsername(); 
         $conn = Aplicacion::getInstance()->getConexionBd();
