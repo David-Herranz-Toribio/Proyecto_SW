@@ -436,22 +436,21 @@ function displayArtistAlbum($playlist){
 
     $playButton = IMG_PATH . '/play_button.png';
     $icono_flecha = IMG_PATH . '/flecha_desp.png';
+    $portadaPlaylist= IMG_PATH .'/songImages/' . $playlist->getPlaylistImagen(); 
 
     $html =<<<EOS
     <div class='album_header'>
         <div class='album_image'>
-            <img src="{$playlist->getPlaylistImagen()}" alt="Portada del album">
+            <img src="{$portadaPlaylist}" alt="Portada del album">
         </div>
 
         <div class='album_info'>
             <h2> {$playlist->getPlaylistNombre()} </h2>
             <button class='desplegable_canciones'><img class='icono_flecha' src=$icono_flecha></button>
-        </div>
-
-        <div class= 'reproducir'>
             <button class='playButton' id='startPlaylist'> <img src=$playButton></button>
             <span hidden> {$playlist->getIdPlaylist()} </span> 
-        </div> 
+        </div>
+
     </div>
     EOS;
 
