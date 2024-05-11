@@ -57,7 +57,7 @@ function displayPlaylistHeader($playlist){
 }
 
 function displayButtons($playlistID, $crearMusicaPath){
-
+    $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarPlaylist.php'; 
     $addButton = '';
     if( isset($_SESSION['username']) && (isset($_SESSION['isArtist']) && $_SESSION['isArtist']) ){
         $addButton =<<<EOS
@@ -66,8 +66,12 @@ function displayButtons($playlistID, $crearMusicaPath){
     }
 
     $html =<<<EOS
-    <button class='remove_song_button'><a href=''> Eliminar canción </a></button>
-    <button class='remove_playlist_button'><a href=''> Eliminar playlist </a></button>
+    <button class='remove_song_button'><a href=''> Modificar playlist </a></button>
+
+    <form action= $rutaBorrar method= "post"> 
+    <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
+    <button type= "submit"> Eliminar playlist</button> 
+    </form> 
     $addButton
     EOS;
 
@@ -96,9 +100,12 @@ function displaySong($song){
 
     $songImagePath = $song->getCancionImagen();
     $nombre = $song->getCancionTitulo();
+    $id= $song->getIdCancion(); 
     $artista = $song->getIdArtista();
     $fecha = $song->getCancionFecha();
     $duracion = $song->getCancionDuracion();
+    $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarCancion.php';
+
 
     $html =<<<EOS
     <div class="playlistSong">
@@ -116,6 +123,13 @@ function displaySong($song){
             <div class="songLenght">
                 <p> $duracion </p>
             </div>
+
+            <div> 
+            <form action= $rutaBorrar method= "post"> 
+                <input type= "hidden" name= "idCancion" value= '$id'>
+                <button type= "submit"> &#10060 </button> 
+            </form> 
+            </div> 
         </div>
     </div>
     EOS;

@@ -1,7 +1,16 @@
 
+---------------------------------------------------- CAMBIOS FINALES ----------------------------------------------------
+
+-Vista explorar canciones
+-Media query (Óscar)🚩
+-CSS resultados de búsqueda (Óscar)
+-Validar TODOS los datos mandados por formularios
+-Verificar que todos los formularios POST se generan mediante una clase
+-CSS de los albumes (Óscar)
+-Correcciones de la práctica 3
+-Memoria
+
 --------------------------------------------------- Proyecto Final ---------------------------------------------------
-
-
 
 -User admin (puede borrar todos los post, canciones etc...)✅
 -Barra de busqueda que funcione en el perfil (Ignacio)✅

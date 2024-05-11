@@ -108,11 +108,15 @@ class Usuario{
         return $result;
     }
 
-    public static function deleteUser($username) {
+    public function deleteUser() {
+        if($this->fotopath!="FotoPerfil.png"){
+            unlink(IMG_URL . '/profileImages/' . $this->fotoPath);
+        } 
+
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         
-        $query = "DELETE FROM usuario WHERE id_user = '$username'";
+        $query = sprintf("DELETE FROM usuario WHERE id_user = '%s'", $this->username); 
         $result = $conn->query($query);
         
         if (!$result) {

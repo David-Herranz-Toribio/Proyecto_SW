@@ -43,7 +43,7 @@ $(document).ready(function() {
     }
 
 
-    function correoValido(correo) {
+    function correoValidoUCM(correo) {
 		// tu codigo aqui (devuelve true ó false)
 	    return correo.endsWith('@ucm.es') ; 
 	}

@@ -1,16 +1,5 @@
 <?php
 
-function displayTitulo(){
-
-    $html =<<<EOS
-    <div class='user_image'>
-        Ajuste de perfil
-    </div>
-    EOS;
-
-    return $html;
-}
-
 function displayBotonesTemas(){
 
     $rutaEstiloClaro =  CSS_PATH .'/estiloClaro.css'; 

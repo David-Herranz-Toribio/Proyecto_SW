@@ -168,6 +168,40 @@ class Cancion{
         return $cancion;
     }
 
+
+    public static function obtenerCancionPorID($id_cancion){
+            
+        $cancion = false;
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf( "SELECT * FROM cancion C WHERE C.id_cancion = '%d'", $id_cancion);
+        $rs = $conection->query($query);
+        
+        if(!$rs)
+            return false;
+
+        if($fila = $rs->fetch_assoc()){
+
+            $parameters = [];
+            $parameters['id_cancion'] = $fila['id_cancion'];
+            $parameters['titulo'] = $fila['titulo'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['fecha'] = $fila['fecha'];
+            $parameters['id_artista'] = $fila['id_artista'];
+            $parameters['likes'] = $fila['likes'];
+            $parameters['ruta'] = $fila['ruta'];
+            $parameters['duracion'] = $fila['duracion'];
+            $parameters['tags'] = $fila['tags'];
+
+            $cancion = new Cancion($parameters);
+        }
+        $rs->free();
+
+        return $cancion;
+    }
+
+
+
+
     public function crearCancionBD(){
 
         $result = false;
@@ -183,6 +217,21 @@ class Cancion{
             return false;
 
         return true;
+    }
+
+
+    public function borrarCancion(){
+        unlink(AUDIO_URL . '/' . $this->ruta); 
+        $result= false; 
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query= sprintf("DELETE FROM cancion WHERE id_cancion= %d", $this->id_cancion); 
+
+        $result= $conn->query($query); 
+
+        if(!$result)
+            error_log($conn->error); 
+
+        return $result; 
     }
 
     /* Pasar la duracion de la canción de, por ejemplo, 137 segundos a 2:17 */

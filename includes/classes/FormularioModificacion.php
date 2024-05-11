@@ -47,6 +47,7 @@ class FormularioModificacion extends FormularioMultimedia {
             <label> Email </label>
             <div> 
             <input type="text" name="modify_email" value= "$email">
+            <span id= 'validEmail'> </span> 
             {$erroresCampos['email']}
             </div> 
 
