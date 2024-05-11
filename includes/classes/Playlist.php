@@ -99,6 +99,24 @@ class Playlist{
 
         return $rs;
     }
+
+
+    public function borrarPlaylist(){
+        if($this->imagen!= 'playlist1.jpg'){
+            unlink(IMG_URL . '/songImages/'. $this->imagen); 
+        }
+
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM playlist WHERE id_playlist = %d", $this->id_playlist);
+
+        $result = $conn->query($query);
+
+        if (!$result)  
+            error_log($conn->error);
+
+        return $result;
+    }
     
     public static function existeNombrePlaylist($id_user, $nombre_playlist){
 
