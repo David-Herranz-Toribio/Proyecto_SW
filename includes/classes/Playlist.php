@@ -5,6 +5,8 @@ require_once 'Cancion.php';
 
 class Playlist{
 
+    public static $DEFAULT_PLAYLIST = 'Favoritos';
+
     private $id_playlist;
     private $id_usuario;
     private $duracion;
@@ -27,8 +29,8 @@ class Playlist{
 
     public static function crearPlaylistPorDefecto($autor, $creationDate){
 
-        $defaultImage = 'defaultPlaylist.jpg';
-        return Playlist::crearPlaylistBD($autor, 'Favoritos', $defaultImage, $creationDate);
+        $defaultImage = 'playlist_fav.png';
+        return Playlist::crearPlaylistBD($autor, Playlist::$DEFAULT_PLAYLIST, $defaultImage, $creationDate);
     }
 
     public static function obtenerPlaylistsBD($username){
@@ -98,7 +100,6 @@ class Playlist{
         return $rs;
     }
     
-
     public static function existeNombrePlaylist($id_user, $nombre_playlist){
 
         $result = false;

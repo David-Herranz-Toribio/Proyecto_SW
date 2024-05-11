@@ -5,7 +5,7 @@ require_once HELPERS_URL . '/PlaylistViewHelper.php';
 require_once CLASSES_URL . '/Playlist.php';
 
 
-// Selección de barra d búsqueda y visibilidad
+// Selección de barra de búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->notDisplaySearchBar();
 

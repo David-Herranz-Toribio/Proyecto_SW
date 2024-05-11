@@ -7,7 +7,8 @@ require_once CLASSES_URL . '/FormularioProducto.php';
 
 
 function suscripcionHTML($yo){
-    $content ="";
+
+    $content = "";
     if(isset($_SESSION['isAdmin'] ) && ($_SESSION['isAdmin'] == true)){
         $rutaComprobar = HELPERS_PATH . '/ComprobarSuscripcion.php';
         $rutaAumentarKarma = HELPERS_PATH . '/AumentarKarma.php';
@@ -59,20 +60,17 @@ function suscripcionHTML($yo){
         
         EOS;
         
-        $form= new formularioSuscripcion($yo,'añadirSuscripcion');
+        $form = new formularioSuscripcion($yo,'añadirSuscripcion');
 
     }
 
     $content .= $form->gestiona();
-
-
     $content .= "</section>";
 
 
     return $content;
-
-
 }
+
 function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 
     $rutaProdImg = IMG_PATH .  '/prodImages/'.$image;
@@ -126,7 +124,7 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
 }
 function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $yoYYoMismo){
 
-    $rutaProdImg = IMG_PATH .  '/prodImages/'.$image;
+    $rutaProdImg = IMG_PATH . '/prodImages/' . $image;
     $rutaProducto = VIEWS_PATH . '/tienda/ProductoVista.php';
     $rutaArtista = VIEWS_PATH . '/perfil/Perfil.php';
 
@@ -204,6 +202,7 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
 
 function showProduct($yoYYoMismo, $id){
+
     $prod = SW\classes\Producto::obtenerProductoporId($id);
 
     // Por si hay que hacer alguna busqueda mas tarde
@@ -267,6 +266,8 @@ function showProductsArtista($yoYYoMismo){
 }
 
 function showCarrito($user){
+
+    $pedido = SW\classes\Pedido::buscarPedidoPorUser($user);
     $rutaComprar = HELPERS_PATH . '/ProcesarCompra.php';
     $acum_precio = 0;
     $acum_cantidad = 0;
@@ -275,9 +276,6 @@ function showCarrito($user){
 
     $content = "<h1 class = 'texto_infor'> Tu Carrito </h1>";
     $seccion =  "<section class = 'listaArticulos'>";
-
-    $pedido = SW\classes\Pedido::buscarPedidoPorUser($user);
-
     if(empty($pedido)){
         $seccion .=  "<h1>No tienes ningun pedido activo</h1>";
     }else{
@@ -355,79 +353,75 @@ function showCarrito($user){
 
 function showHistorialPedidos($id_user){
     
-    /*Sacar de la BD los pedidos ya procesados */ 
+    /* Sacar de la BD los pedidos ya procesados */ 
 
 
     if(($pedidos= SW\classes\Pedido:: buscarHistorialPedidos($id_user))==NULL){
-        $lista= "<h3> Ningun pedido realizado todavía </h3>"; 
+        $lista = "<h3> Ningun pedido realizado todavía </h3>"; 
     }  
 
     else {
-        $lista= ''; 
+        $lista = ''; 
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
             $pedidos = SW\classes\Pedido::LupaFechaHistorialPedidos($pedidos, $textoBusqueda);
         }
         foreach($pedidos as $pedido){
-            $lista.= "<article class= 'estiloPed'>";
-            $id_ped= $pedido->getId(); 
-            $productos=  SW\classes\Producto::obtenerProductosDePedido($id_ped);
-            $lista.= "<div class='prod_info'>
+            $lista .= "<article class= 'estiloPed'>";
+            $id_ped = $pedido->getId(); 
+            $productos =  SW\classes\Producto::obtenerProductosDePedido($id_ped);
+            $lista .= "<div class='prod_info'>
                         <h3> Ident. Pedido:". $id_ped ."</h3>
                         <h3> Fecha: ".$pedido->getFecha()."</h3>
                         <h3> Total: ".$pedido->getTotal()." &#9834</h3>
                         </div>";   
-            $lista.= "<div class= 'estiloPedido'>";
+            $lista .= "<div class= 'estiloPedido'>";
             foreach($productos as $prod_cant) {
                 $lista .= "<div class= 'estiloProd'>"; 
-                $producto= $prod_cant->producto;
-                $id_prod=  $producto->getId(); 
-                $name_prod= $producto->getNombre(); 
-                $desc_prod= $producto->getDescripcion(); 
-                $autor_prod= $producto->getAutor(); 
-                $img_prod= $producto->getImagen(); 
-                $cantidad_prod= $prod_cant->cantidad; 
-                $precio_prod=  $producto->getPrecio();                               
-                $total= $cantidad_prod * $precio_prod;
+                $producto = $prod_cant->producto;
+                $id_prod =  $producto->getId(); 
+                $name_prod = $producto->getNombre(); 
+                $desc_prod = $producto->getDescripcion(); 
+                $autor_prod = $producto->getAutor(); 
+                $img_prod = $producto->getImagen(); 
+                $cantidad_prod = $prod_cant->cantidad; 
+                $precio_prod =  $producto->getPrecio();                               
+                $total = $cantidad_prod * $precio_prod;
     
                 $rutaProdImg = IMG_PATH .  '/prodImages/'.$img_prod;
                 $rutaProducto = VIEWS_PATH . '/tienda/ProductoVista.php';
                 $rutaArtista = VIEWS_PATH . '/perfil/Perfil.php';
     
     
-    
-                $lista.= <<<EOS
+                $lista .= <<<EOS
                 <img alt = "prod_info" src= $rutaProdImg width = "70" heigth = "70">
-                <p>$name_prod</p>
+                <p> $name_prod </p>
                 <div>
-                <a href= "$rutaArtista?user=$autor_prod" name= "prod" >
-                  <p>Creador: @$autor_prod</p>
-                </a>
-                 </div>
+                    <a href= "$rutaArtista?user=$autor_prod" name= "prod" >
+                    <p>Creador: @$autor_prod</p>
+                    </a>
+                </div>
     
-    
-                 <div class="prod_precio">
-                 <p> Cantidad: $cantidad_prod unidades</p>
-                 <p> Total: $total &#9834</p>
-                 </div>
+                <div class="prod_precio">
+                    <p> Cantidad: $cantidad_prod unidades</p>
+                    <p> Total: $total &#9834</p>
+                </div>
                 EOS; 
-    
                 $lista .= "</div>"; 
             }
-            $lista.= "</div>";
-    
+            $lista .= "</div>";
             $lista .= "</article>"; 
         }
-    
-        $lista.= "</section>";      
+        $lista .= "</section>";      
     }
    
     return $lista; 
 }
 
 function addProd($yo, $id_prod){
-    $form= new FormularioProducto($id_prod, $yo); 
-    $htmlform= $form->gestiona(); 
+
+    $form = new FormularioProducto($id_prod, $yo); 
+    $htmlform = $form->gestiona(); 
 
     $content =<<<EOS
     <h1 class = 'texto_infor'> Tus productos </h1>

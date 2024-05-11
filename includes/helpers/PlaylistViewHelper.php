@@ -15,15 +15,22 @@ function displayPlaylist($playlist){
 
 function displayPlaylistHeader($playlist){
 
-    $playlistImage = IMG_PATH . '/songImages/' .$playlist->getPlaylistImagen();
+    // Información de la playlist
+    $playlistImage = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
     $playlistName = $playlist->getPlaylistNombre();
     $playlistID = $playlist->getIdPlaylist();
     $duracion = $playlist->getPlaylistDuracion();
-    $creador = $playlist->getIdUsuario(); 
-    $rutaPerfilCreador = VIEWS_PATH . '/perfil/Perfil.php'; 
+    $creador = $playlist->getIdUsuario();
     $fecha = $playlist->getPlaylistCreationDate();
-    $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
 
+    // Rutas
+    $rutaPerfilCreador = VIEWS_PATH . '/perfil/Perfil.php';
+    $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
+    
+
+    $buttons = displayButtons($playlistID, $crearMusicaPath);
+
+    // Generar HTML
     $html =<<<EOS
     <div class="playlist_header">
         <div class="playlist_image">
@@ -32,7 +39,7 @@ function displayPlaylistHeader($playlist){
 
         <div class="playlist_info">
             <h1> $playlistName </h1>
-            
+
             <div class="playlist_extra_info">
                 <div class="playlist_username">
                     <a href="$rutaPerfilCreador?user=$creador"> @$creador </a>
@@ -40,14 +47,28 @@ function displayPlaylistHeader($playlist){
                 
                 <p> Duración: $duracion </p>
                 <p> Creada el $fecha </p>
-
-                <button class='edit_playlist_buttons'><a href=$crearMusicaPath?playlist=$playlistID> Añadir canción </a></button>
-                <button class='edit_playlist_buttons'><a href=''> Modificar playlist </a></button>
-                <button class='edit_playlist_buttons'><a href=''> Eliminar canción </a></button>
-                <button class='edit_playlist_buttons'><a href=''> Eliminar playlist </a></button>
+                $buttons
             </div>
         </div>
     </div>
+    EOS;
+
+    return $html;
+}
+
+function displayButtons($playlistID, $crearMusicaPath){
+
+    $addButton = '';
+    if( isset($_SESSION['username']) && (isset($_SESSION['isArtist']) && $_SESSION['isArtist']) ){
+        $addButton =<<<EOS
+        <button class='add_song_button'><a href=$crearMusicaPath?playlist=$playlistID> Añadir canción </a></button>
+        EOS;
+    }
+
+    $html =<<<EOS
+    <button class='remove_song_button'><a href=''> Eliminar canción </a></button>
+    <button class='remove_playlist_button'><a href=''> Eliminar playlist </a></button>
+    $addButton
     EOS;
 
     return $html;

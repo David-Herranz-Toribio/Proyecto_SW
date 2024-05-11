@@ -41,7 +41,7 @@ class FormularioRegistro extends FormularioMultimedia {
 
         else {
             $enlace = VIEWS_PATH . '/log/SignUpArtist.php';
-            $link_a_artista= <<<EOS
+            $link_a_artista =<<<EOS
             <p> Eres un artista? <a href= $enlace> Crea tu cuenta aquí </a></p>
             EOS; 
 
@@ -100,8 +100,8 @@ class FormularioRegistro extends FormularioMultimedia {
     }
 
     protected function procesaFormulario(&$datos){
-        $this->errores = [];
 
+        $this->errores = [];
         $username =  htmlspecialchars($datos['username']);
         $nickname = htmlspecialchars($datos['nickname']);
         $email = htmlspecialchars($datos['email']);
@@ -109,7 +109,6 @@ class FormularioRegistro extends FormularioMultimedia {
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $birthdate = $datos['birthdate'];
         $imagen = isset($datos['imagen']) ? self::compruebaImagen('imagen', '/profileImages/') : 'FotoPerfil.png';
-
 
 
         // La contraseña no tiene al menos 8 caracteres
@@ -177,7 +176,7 @@ class FormularioRegistro extends FormularioMultimedia {
                 // Crear playlist por defecto si es un usuario corriente -> Favoritos
                 if(!$_SESSION['isArtist'])
                     SW\classes\Playlist::crearPlaylistPorDefecto($username, $fecha_actual->format('Y-m-d'));
-    
+                    
                 // Iniciar sesión
                 $_SESSION['username'] = $username; 
             }

@@ -7,9 +7,8 @@ require_once CLASSES_URL . '/Producto.php';
 require_once CLASSES_URL . '/Suscripcion.php';
 
 
-// Selección de barra d búsqueda y visibilidad
+// Selección de barra de búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
 $topSearchBar->notDisplaySearchBar();
 
 $yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;

@@ -5,9 +5,8 @@ require_once CLASSES_URL . '/FormularioCrearCancion.php';
 require_once HELPERS_URL . '/CrearCancionHelper.php';
 
 
-// Selección de barra d búsqueda y visibilidad
+// Selección de barra de búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarCancion();
 $topSearchBar->notDisplaySearchBar();
 
 $content = '';

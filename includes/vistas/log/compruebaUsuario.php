@@ -3,7 +3,7 @@ require_once "../../Config.php";
 require_once CLASSES_URL . "/Usuario.php"; 
 
 
-// Selección de barra d búsqueda y visibilidad
+// Selección de barra dee búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->buscarUsuario();
 

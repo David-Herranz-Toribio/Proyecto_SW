@@ -4,9 +4,8 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/FormularioPost.php';
 
 
-// Selección de barra d búsqueda y visibilidad
+// Selección de barra de búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
 $topSearchBar->notDisplaySearchBar();
 
 if(isset($_POST['id_padre'])) 

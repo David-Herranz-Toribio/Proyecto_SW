@@ -3,7 +3,7 @@
 require_once '../../Config.php';
 
 
-// Selección de barra d búsqueda y visibilidad
+// Selección de barra de búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->logOut();
 

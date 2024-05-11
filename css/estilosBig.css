@@ -697,6 +697,11 @@ button:hover  {
     color: black;
 }
 
+.add_song_button{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
 .playlist_extra_info p{
     margin-inline: 6px;
 }

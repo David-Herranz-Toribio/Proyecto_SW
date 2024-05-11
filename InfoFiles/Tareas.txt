@@ -21,22 +21,22 @@
     2)Posibilidad de ver toda la discografía de un artista✅
     3)Formulario para subir canciones✅
     4)Creación de albumes(playlists) para los artistas (Óscar)✅
-    5)Crear AjustesPerfilHelper.php para la vista AjustePerfil.php ❗❗❗❗(URGENTE)❗❗❗❗
+    5)Crear AjustesPerfilHelper.php para la vista AjustePerfil.php (Óscar)✅
     6)Si el artista ve sus productos, no mostrar los botones de compra
 
 -Suscripciones (David y Hugo)
-    1)Varias cuotas: mensual y anual
+    1)Varias cuotas: prueba, mensual, anual ✅
     2)Descuentos en la tienda
     3)No interrupcion mientras escuchas musica 
-    4)Iconito especial en tu cuenta 
-    5)Pagina a parte para subscribirte
+    4)Icono especial en tu cuenta ✅
+    5)Pagina a parte para subscribirte ✅
 
 -Foro: (Ignacio)
     1)Opcion de ver post de los seguidores✅
 
 -Musica (URGENTE)
-    1)Footer -> Barra de reproduccion desplegable (REPRODUCIR, SIGUIENTE CANCION, ANTERIOR CANCION, ADELANTAR X SEG, RETRASAR X SEG) (Ignacio)✅
-    2)Implementar funcionalidad para reproducir la música disponible (Alonso)
+    1)Footer -> Barra de reproduccion desplegable (Ignacio)✅
+    2)Implementar funcionalidad para reproducir la música disponible (Alonso)✅
     2)Listas de reproduccion hechas por los usuarios (Óscar)✅
         2.1)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar)✅
     3)En el perfil de un artista, pestaña de Musica con todas sus canciones✅
