@@ -142,6 +142,11 @@ div#mensaje_bienvenida{
 }
 
 
+.botonesPost {
+    margin-top: 20px; 
+}
+
+
 /*Estilo de Footer*/
 
 footer.footer {
@@ -1023,4 +1028,5 @@ a[name="user"] {
     font-size: 30px;
     word-break: keep-all;
     background-color: #000;
+    border-radius: 25px;
 }

@@ -69,22 +69,7 @@ class Suscripcion extends Comprable{
         $conn = Aplicacion::getInstance()->getConexionBd();
 
         $fecha_fin = new \DateTime($fecha);
-        $user = Usuario::buscaUsuario($username);
         
-        if($nombre == 'mensual'){
-            if ($user->getKarma() >= 500){
-                $user->setKarma($user->getKarma() - 500);
-                $fecha_fin->add(new \DateInterval('P1M'));
-            }
-        }else if($nombre == 'anual'){
-            if ($user->getKarma() >= 1500){
-                $user->setKarma($user->getKarma() - 1500);
-                $fecha_fin->add(new \DateInterval('P1Y'));
-            }
-        }else{
-            $fecha_fin->add(new \DateInterval('PT30S'));
-        }
-
         $query = sprintf(
             "INSERT INTO suscripcion (id_user, tipo, fecha_fin)
                        VALUES ('%s','%s', '%s')",

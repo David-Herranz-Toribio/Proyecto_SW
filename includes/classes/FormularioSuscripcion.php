@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Formulario.php';
+require_once 'Usuario.php'; 
 
 
 /*
@@ -78,6 +79,26 @@ class FormularioSuscripcion extends Formulario{
 
             // Comprobar que el tipo de suscripcion es correcto
             if( $tipo == 'mensual' || $tipo == 'anual' || $tipo == 'prueba'){
+
+                $user = SW\classes\Usuario::buscaUsuario($_SESSION['username']);
+                if($tipo == 'mensual'){
+                    if ($user->getKarma() >= 500){
+                        $user->setKarma($user->getKarma() - 500);
+                        $today->add(new \DateInterval('P1M'));
+                    }
+                    else
+                        $this->errores["precio"]= "No tienes suficeintes corcheas"; 
+                }else if($tipo == 'anual'){
+                    if ($user->getKarma() >= 1500){
+                        $user->setKarma($user->getKarma() - 1500);
+                        $today->add(new \DateInterval('P1Y'));
+                    }
+                    else
+                        $this->errores["precio"]= "No tienes suficeintes corcheas";
+                }else{
+                    $today->add(new \DateInterval('PT30S'));
+                }
+                $user->actualiza();
                 $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
                 $_SESSION['isSub'] = $tipo;
             }
