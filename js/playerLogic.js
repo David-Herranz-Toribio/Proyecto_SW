@@ -67,7 +67,7 @@ $(document).ready(function(){
 
     /*Al hacer click en reproducir playlist/album*/ 
     $('body').on('click', '#startPlaylist', function(){
-        var idPlaylist= $(this).siblings("span")[0].innerText; 
+        var idPlaylist= $(this).siblings("span")[0].innerText.trim(); 
         $.get("../../helpers/obtenerCanciones.php?idPlaylist=" + idPlaylist, changePlaylist); 
     }); 
 

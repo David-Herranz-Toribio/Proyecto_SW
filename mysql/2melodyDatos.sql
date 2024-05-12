@@ -26,12 +26,12 @@ SET time_zone = "+00:00";
 -- Volcado de datos para la tabla `usuario`
 --
 INSERT INTO `usuario` (`id_user`, `nickname`, `password`, `foto`, `descripcion`, `karma`, `fecha`, `correo`, `admin`) VALUES
-('user1', 'User Uno', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', '¡Hola! Soy User Uno.', 100, '2001-03-09', 'user1@gmail.com', 1),
-('user2', 'User Dos', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', 'Bienvenido a mi perfil.', 80, '2003-03-09', 'user2@gmail.com', 0),
-('user3', 'User Tres', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', NULL, 'Descubre mi mundo.', 120, '2000-03-09', 'user3@gmail.com', 0),
+('user1', 'User Uno', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', '¡Hola! Soy User Uno.', 100, '2001-03-09', 'user1@gmail.com', 1),
+('user2', 'User Dos', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', 'Bienvenido a mi perfil.', 80, '2003-03-09', 'user2@gmail.com', 0),
+('user3', 'User Tres', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil3.jpg', 'Descubre mi mundo.', 120, '2000-03-09', 'user3@gmail.com', 0),
 ('user4', 'User Cuatro', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', '¡Hola! Soy User Cuatro.', 90, '2002-03-09', 'user4@gmail.com', 0),
 ('user5', 'User Cinco', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', '¡Hola! Soy User Cinco.', 110, '2004-03-09', 'user5@gmail.com', 0),
-('user6', 'User Seis', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', NULL, '¡Hola! Soy User Seis.', 70, '2005-03-09', 'user6@gmail.com', 0);
+('user6', 'User Seis', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil3.jpg', '¡Hola! Soy User Seis.', 70, '2005-03-09', 'user6@gmail.com', 0);
 
 
 --

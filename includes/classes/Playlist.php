@@ -64,7 +64,7 @@ class Playlist{
 
         $playlist = '';
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf( "SELECT * FROM playlist P WHERE P.id_playlist = '%s' ORDER BY P.fecha DESC", $id);
+        $query = sprintf( "SELECT * FROM playlist P WHERE P.id_playlist = %d ORDER BY P.fecha DESC", $id);
         $rs = $conection->query($query);
         
         if(!$rs)
@@ -86,6 +86,38 @@ class Playlist{
 
         return $playlist;
     }
+
+    public static function obtenerPlaylistFav($playlistName, $user){
+        $playlist = '';
+        $conection = Aplicacion::getInstance()->getConexionBd();
+
+        $query = sprintf( "SELECT * FROM playlist P  WHERE P.nombre = '%s' AND P.id_user= '%s' ORDER BY P.fecha DESC", 
+        $conection->real_escape_string($playlistName),
+        $conection->real_escape_string($user)
+        );
+        
+        $rs = $conection->query($query);
+        
+        if(!$rs)
+            return false;
+
+        while($fila = $rs->fetch_assoc()){
+
+            $parameters = [];
+            $parameters['id_playlist'] = $fila['id_playlist'];
+            $parameters['id_usuario'] = $fila['id_user'];
+            $parameters['duracion'] = $fila['duracion_total'];
+            $parameters['imagen'] = $fila['imagen'];
+            $parameters['nombre'] = $fila['nombre'];
+            $parameters['creationDate'] = $fila['fecha'];
+
+            $playlist = new Playlist($parameters);
+        }
+        $rs->free();
+
+        return $playlist;
+    }
+
 
     public static function crearPlaylistBD($autor, $nombre, $imagen, $creationDate){
 
@@ -169,7 +201,6 @@ class Playlist{
         $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO play_cancion (id_playlist, id_cancion) VALUES ('%d', '%d')", $this->id_playlist, $id_cancion);
         $rs = $conection->query($query);
-
         return $rs;
     }
 

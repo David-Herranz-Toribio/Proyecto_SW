@@ -188,7 +188,7 @@ class Cancion{
         return $result;
     }
 
-    public static function borraFav($post, $user){
+    public static function borraFav($cancion, $user){
 
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -260,6 +260,28 @@ class Cancion{
         return $cancion;
     }
 
+
+    public static function actualizar($cancion){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+    
+        $query = sprintf(
+            "UPDATE cancion SET titulo= '%s', imagen= '%s', likes= %d WHERE id_cancion = %d",
+            $conn->real_escape_string($cancion->titulo),
+            $conn->real_escape_string($cancion->imagen),
+            $cancion->likes,
+            $cancion->id_cancion
+        );
+    
+        $result = $conn->query($query);
+    
+        if (!$result) 
+            error_log($conn->error);
+        else if ($conn->affected_rows != 1) 
+            error_log("Se han actualizado '$conn->affected_rows' registros!");
+    
+        return $result;
+    }
 
 
 
