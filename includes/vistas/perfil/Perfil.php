@@ -16,6 +16,8 @@ if(isset($_SESSION['username'])){
     $content = showProfile($user, $opcion);
 }
 else{
+    header('Location:'. VIEWS_PATH . '/log/Login.php');
+    exit(); 
     $content = showNotLogged();
 }
 

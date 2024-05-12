@@ -51,24 +51,6 @@ CREATE TABLE `artista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
---
--- Estructura de tabla para la tabla `evento`
---
-DROP TABLE IF EXISTS `evento`;
-CREATE TABLE `evento` (
-  `id_evento` int(11) NOT NULL,
-  `id_artista` varchar(63) NOT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `descripcion` tinytext DEFAULT NULL,
-  `fecha` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-DROP TABLE IF EXISTS `evento_prod`;
-CREATE TABLE `evento_prod` (
-  `id_evento` int(11) NOT NULL,
-  `id_prod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 -- --------------------------------------------------------
 

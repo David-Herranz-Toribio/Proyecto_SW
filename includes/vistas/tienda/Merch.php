@@ -15,9 +15,8 @@ if($yo){
     $content .= showProducts($yo);
 }
 else {
-    $content .=<<<EOS
-    <h1 class='texto_infor'> No estas loguead@ para ver la tienda</h1>
-    EOS;
+    header('Location:'. VIEWS_PATH . '/log/Login.php');
+    exit(); 
 }
 
 require_once LAYOUT_URL;

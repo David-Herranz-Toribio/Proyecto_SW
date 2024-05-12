@@ -35,18 +35,24 @@ class FormularioSuscripcion extends Formulario{
         <div id="suscripciones">
             <div class="tipo_suscripcion">
                 <h3> Prueba (30 seg) </h3>
+                <h4> [Gratis] </h4>
+
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="prueba"> Crear </button>
                 </div>
             </div>
             <div class="tipo_suscripcion">
                 <h3> Mensual (1 Mes) </h3>
+                <h4> [500 &#9834] </h4>
+
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="mensual"> Crear </button>
                 </div>
             </div>
             <div class="tipo_suscripcion">
                 <h3> Anual (1 Año) </h3>
+                <h4> [1500 &#9834] </h4>
+
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="anual"> Crear </button>
                 </div>
