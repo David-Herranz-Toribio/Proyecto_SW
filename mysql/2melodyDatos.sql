@@ -26,24 +26,14 @@ SET time_zone = "+00:00";
 -- Volcado de datos para la tabla `usuario`
 --
 INSERT INTO `usuario` (`id_user`, `nickname`, `password`, `foto`, `descripcion`, `karma`, `fecha`, `correo`, `admin`) VALUES
-('user1', 'User Uno', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', '¡Hola! Soy User Uno.', 100, '2001-03-09', 'user1@gmail.com', 1),
-('user2', 'User Dos', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', 'Bienvenido a mi perfil.', 80, '2003-03-09', 'user2@gmail.com', 0),
-('user3', 'User Tres', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', NULL, 'Descubre mi mundo.', 120, '2000-03-09', 'user3@gmail.com', 0),
+('user1', 'User Uno', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', '¡Hola! Soy User Uno.', 100, '2001-03-09', 'user1@gmail.com', 1),
+('user2', 'User Dos', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', 'Bienvenido a mi perfil.', 80, '2003-03-09', 'user2@gmail.com', 0),
+('user3', 'User Tres', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil3.jpg', 'Descubre mi mundo.', 120, '2000-03-09', 'user3@gmail.com', 0),
 ('user4', 'User Cuatro', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', '¡Hola! Soy User Cuatro.', 90, '2002-03-09', 'user4@gmail.com', 0),
 ('user5', 'User Cinco', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', '¡Hola! Soy User Cinco.', 110, '2004-03-09', 'user5@gmail.com', 0),
-('user6', 'User Seis', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', NULL, '¡Hola! Soy User Seis.', 70, '2005-03-09', 'user6@gmail.com', 0);
+('user6', 'User Seis', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil3.jpg', '¡Hola! Soy User Seis.', 70, '2005-03-09', 'user6@gmail.com', 0);
 
 
---
--- Volcado de datos para la tabla `ajustes`
---
-
-
-TRUNCATE TABLE `ajustes`;
-INSERT INTO `ajustes` ( `id_user`, `fuente`, `fontSize`, `temas`, `paginaPrincipal`) VALUES
-('user1', 'Arial', 12, 'Claro', 'Inicio'),
-('user2', 'Times New Roman', 14, 'Oscuro', 'Foro.php'),
-('user3', 'Verdana', 16, 'Neón', 'Merch.php');
 --
 -- Volcado de datos para la tabla `artista`
 --
@@ -100,13 +90,6 @@ INSERT INTO `pedido_prod` (`id_pedido`, `id_prod`, `cantidad`)VALUES
 (3, 5, 2),
 (2, 6, 4);
 
-TRUNCATE TABLE `evento`;
-INSERT INTO `evento` (`id_artista`, `nombre`, `descripcion`, `fecha`) VALUES
-('user2', 'Concierto en vivo', '¡Únete a nosotros para una experiencia musical increíble!', '2024-04-15');
-
-TRUNCATE TABLE `evento_prod`;
-INSERT INTO `evento_prod` (`id_evento`, `id_prod`) VALUES
-(1, 1);
 --
 -- Volcado de datos para la tabla `post`
 --
@@ -153,9 +136,10 @@ INSERT INTO `cancion` (`id_cancion`, `titulo`, `imagen`, `fecha`, `id_artista`, 
 
 TRUNCATE TABLE `playlist`;-- la duracion esta en segundos
 INSERT INTO `playlist` (`id_playlist`, `id_user`, `duracion_total`, `imagen`, `nombre`, `fecha`) VALUES
-(1, 'user2', 200, 'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
-(2, 2, 300, 'playlist2.jpg', 'Descubrimientos', '2024-03-09'),
-(3, 3, 120, 'playlist3.jpg', 'Relax Total', '2024-03-10');
+(1, 'user1', 0, 'playlist_fav.png', 'Favoritos', '2024-03-07'),
+(2, 'user2', 200, 'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
+(3, 'user2', 0, 'playlist_fav.png', 'Favoritos', '2024-03-08'),
+(4, 'user3', 0, 'playlist_fav.png', 'Favoritos', '2024-03-09');
 
 TRUNCATE TABLE `play_cancion`;
 INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES

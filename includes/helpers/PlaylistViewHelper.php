@@ -3,6 +3,28 @@
 require_once '../../Config.php';
 require_once CLASSES_URL . '/FormularioPlaylist.php'; 
 
+function displayFavoriteSongPlaylist($playlist, $user){
+    $html = displayPlaylistHeader($playlist); 
+    
+    $all = SW\classes\Cancion::obtenerCancionesFav($user);
+
+    // Si no hay canciones, mostramos un mensaje
+    if(!$all)
+        return displayErrorMessage("No hay canciones en esta playlist");
+
+    
+    $html .= '<div class="songlist">';
+    foreach($all as $song){
+        $html .= displaySong($song);
+    }
+    $html .= "</div>";
+
+
+
+    return $html; 
+}
+
+
 function displayPlaylist($playlist){
 
     // Mostrar el header de la página -> info de la playlist, imagen, botones, etc...
@@ -29,7 +51,9 @@ function displayPlaylistHeader($playlist){
     $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
     
 
-    $buttons = displayButtons($playlistID, $crearMusicaPath, $creador);
+   
+    $buttons = displayButtons($playlistID, $crearMusicaPath, $creador, $playlistName);
+    
 
     // Generar HTML
     $html =<<<EOS
@@ -57,7 +81,7 @@ function displayPlaylistHeader($playlist){
     return $html;
 }
 
-function displayButtons($playlistID, $crearMusicaPath, $creador){
+function displayButtons($playlistID, $crearMusicaPath, $creador, $playlistName){
     $playButton = IMG_PATH . '/play_button.png';
     $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarPlaylist.php'; 
     $rutaModificar= VIEWS_PATH . '/musica/ModificarPlaylist.php';
@@ -69,7 +93,9 @@ function displayButtons($playlistID, $crearMusicaPath, $creador){
         EOS;
     }
 
-    $html =<<<EOS
+    if($playlistName!='Favoritos'){ //No se puede modificar la playlist de 'Favoritos' 
+
+    $modificar_eliminar= <<<EOS
     <form action= $rutaModificar method= "post"> 
     <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
     <input type= "hidden" name= "idCreador" value= '$creador'>  
@@ -80,7 +106,13 @@ function displayButtons($playlistID, $crearMusicaPath, $creador){
     <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
     <button type= "submit"> Eliminar playlist</button> 
     </form> 
+    EOS; 
+    }
 
+    else $modificar_eliminar= ''; 
+    $html =<<<EOS
+    
+    $modificar_eliminar
 
     <button class='playButton' id='startPlaylist'> <img src=$playButton></button>
     <span hidden> {$playlistID} </span> 
@@ -119,6 +151,18 @@ function displaySong($song){
     $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarCancion.php';
 
 
+     if ($_SESSION['username']==$artista || (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true)){
+        $user_info= <<<EOS
+        <div> 
+        <form action= $rutaBorrar method= "post"> 
+            <input type= "hidden" name= "idCancion" value= '$id'>
+            <button type= "submit"> &#10060 </button> 
+        </form> 
+        </div> 
+        EOS; 
+     }
+     else $user_info= ''; 
+
     $html =<<<EOS
     <div class="playlistSong">
         <img src="$songImagePath">
@@ -135,13 +179,8 @@ function displaySong($song){
             <div class="songLenght">
                 <p> $duracion </p>
             </div>
-
-            <div> 
-            <form action= $rutaBorrar method= "post"> 
-                <input type= "hidden" name= "idCancion" value= '$id'>
-                <button type= "submit"> &#10060 </button> 
-            </form> 
-            </div> 
+            $user_info
+           
         </div>
     </div>
     EOS;

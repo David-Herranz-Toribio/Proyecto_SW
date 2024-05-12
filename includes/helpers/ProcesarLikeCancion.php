@@ -3,6 +3,7 @@
 require_once "../Config.php";
 require_once CLASSES_URL . '/Cancion.php';
 require_once CLASSES_URL . '/Usuario.php';
+require_once CLASSES_URL . '/Playlist.php'; 
 
 $id = $_POST['likeId'];
 $user = null;
@@ -15,7 +16,10 @@ if($user){
     $aux = 1;
     $cancion = SW\classes\Cancion::obtenerCancionPorID($id);
     
-    if($cancion->likeAsignado($id,$user)){
+    $borrarLike= $cancion->likeAsignado($id,$user); 
+
+
+    if($borrarLike){
         $aux = -1;
         SW\classes\Cancion::borraFav($cancion, $user);
     }else
@@ -25,11 +29,15 @@ if($user){
     $autorCancion->aumentaKarma($aux);
     $autorCancion->actualiza();
     $cancion->aumentaLikes($aux);
-    //SW\classes\Post::actualizar($post);
+    SW\classes\Cancion::actualizar($cancion);
 
     //Insertar en la playlist de favs la cancion 
 
-
+    $playlist= SW\classes\Playlist::obtenerPlaylistFav("Favoritos", filter_var($_SESSION['username'])); 
+    if($borrarLike){
+        $playlist->quitarCancion($id); 
+    }
+    else $playlist->addCancion($id); 
 }
 
 header('Location: ' . VIEWS_PATH . '/foro/Foro.php');
