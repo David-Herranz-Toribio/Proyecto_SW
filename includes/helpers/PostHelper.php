@@ -55,7 +55,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     $rutaImagen = IMG_PATH . '/postImages/'.$image;
     $post_image = "";
 
-    if(!empty($image)){
+    if(file_exists(IMG_URL . '/postImages/' . $image)){
         $post_image =<<<EOS4
         <div class="post_image">
             <img alt = "post_image" src = $rutaImagen width = "70" heigth = "70">

@@ -1,8 +1,28 @@
 $(document).ready(function(){
     var currentSong = 0;
+    var countdown_publi= 3; 
+
     var isPlaying = false; // Variable para verificar si la canción está reproduciéndose
+    var audioPubli= "<li id= 'cancionPubli'> <a href= '../../../audio/audio_publicidad.mp3'> Publicidad </a> </li>"; 
+
+    var isPremium= user_premium(); 
 
     logicaPlaylist(); 
+
+
+    //Determina si el usuario es premium 
+    function user_premium(){
+        $.get("../../helpers/comprobarPremium.php" , function(data,status){
+            switch(data.trim()){
+                case 'si': 
+                    return true;
+
+                case 'no': 
+                    return false; 
+            }
+        }); 
+    }
+
 
     //Pone en el footer la playlist que queremos escuchar
     function changePlaylist(canciones){
@@ -34,15 +54,23 @@ $(document).ready(function(){
     });
 
     $("#next").click(function(){
-        nextSong();
+        if(countdown_publi>=0 || isPremium){ //No puedes cambiar de cancion hasta que se termine el anuncio 
+            nextSong();
+        }
     });
 
     $("#rewind").click(function(){
-        $("#player")[0].currentTime -= 10;
+        if(countdown_publi>=0 || isPremium){
+            $("#player")[0].currentTime -= 10;
+        }
+        
     });
 
     $("#forward").click(function(){
-        $("#player")[0].currentTime += 10;
+        if(countdown_publi>=0 ||isPremium){
+            $("#player")[0].currentTime += 10;
+        }
+       
     });
 
     // Al detectar el evento de pausa, establecer que la canción no está reproduciéndose
@@ -54,25 +82,33 @@ $(document).ready(function(){
     /*Al hacer click en una cancion en el perfil de un artista*/ 
     $('body').on('click', '#playSong' , function(){
         
-        var rutaCancion = "/Proyecto_SW/audio/";
-        rutaCancion+= $(this).siblings("span")[0].innerText; 
-        nombreCancion= $(this).parent().siblings("div")[0].children().first().innerText; 
-        rutaCancion= rutaCancion.replace(/ /g, "");
-        let cancion= [rutaCancion, nombreCancion]; 
-        let canciones= [cancion]; 
-        changePlaylist(canciones); 
-        /*$("#player")[0].src=  rutaCancion; 
-        $("#player")[0].play();*/
+        if(countdown_publi>= 0){
+            var rutaCancion = "../../../audio/";
+            rutaCancion+= $(this).siblings("span")[0].innerText; 
+            nombreCancion= $(this).parent().siblings("div")[0].lastElementChild.innerText;  
+            rutaCancion= rutaCancion.replace(/ /g, "");
+            let cancion= [rutaCancion, nombreCancion]; 
+            let canciones= [cancion]; 
+            changePlaylist(canciones); 
+        }
+    
     }); 
 
     /*Al hacer click en reproducir playlist/album*/ 
     $('body').on('click', '#startPlaylist', function(){
-        var idPlaylist= $(this).siblings("span")[0].innerText.trim(); 
-        $.get("../../helpers/obtenerCanciones.php?idPlaylist=" + idPlaylist, changePlaylist); 
+        if(currentSong>= 0){
+            var idPlaylist= $(this).siblings("span")[0].innerText.trim(); 
+            $.get("../../helpers/obtenerCanciones.php?idPlaylist=" + idPlaylist, changePlaylist); 
+        }
     }); 
 
     function nextSong(){
-        currentSong++;
+        if(countdown_publi===0 && !user_premium){
+            countdown_publi= 3; 
+            $("#playlist li#cancionPubli").remove(); 
+        }
+        else currentSong++;
+
         if(currentSong == $("#playlist li a").length){
             currentSong = 0;
         }
@@ -80,6 +116,13 @@ $(document).ready(function(){
     }
 
     function changeSong(){
+        countdown_publi--;
+
+        if(countdown_publi==0 && !user_premium){
+            $("#playlist li.current-song").after(audioPubli); 
+        }
+
+        
         $("#playlist li").removeClass("current-song");
         $("#playlist li:eq("+currentSong+")").addClass("current-song");
         showNameSong(); 
@@ -88,6 +131,8 @@ $(document).ready(function(){
         if (isPlaying) {
             $("#playlist .current-song a").css("animation", "blinkColor 4s infinite");
         }
+        
+        
     }
 
     /*Esconder todas las canciones menos la actual*/ 
