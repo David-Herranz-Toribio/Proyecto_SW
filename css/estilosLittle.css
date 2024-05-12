@@ -6,6 +6,10 @@ body {
     background-color: #1a1a1a;
 }
 
+a{
+    text-decoration: none;
+    color: inherit;    
+}
 div.container{
     display: flex;
     flex-direction: column;
@@ -221,6 +225,7 @@ article.estiloPost div.botones_mensaje {
 article.estiloUsers{
     background-color: #081c31;
     border: solid 2px #230058;
+    word-break: keep-all;
     width: 80%; 
     margin: auto;
     z-index: 100;
@@ -276,6 +281,49 @@ div.post_info {
     display: flex; 
 }
 
+div.responder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5%;
+    padding: 6%;
+    word-break:normal;
+    min-width: 100px;
+    border: solid 2px #230058;
+    border-radius: 25px;
+    background-color: #412d4e;
+    transition: background-color 2.5s ease-out;
+    transition: background-color 0.5s ease-out, transform 2.5s ease-out;
+}
+div.responder label {
+    margin: 5px; /* Ajusta este valor según tus necesidades */
+}
+
+div.responder input {
+    margin: 5px; /* Ajusta este valor según tus necesidades */
+}
+div.responder:hover{
+    scale: 1.001;
+    background-color: #230058;
+
+}
+.responder details > summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 0.7em; /* Ajusta este valor según tus necesidades */
+    font-weight: bold;
+
+}
+
+.responder details > summary::-webkit-details-marker {  /* Chrome, Safari, Edge */
+    display: none;
+}
+
+.responder details > summary::marker {  /* Firefox */
+    display: none;
+}
+
+
 #headPost article {
     border: solid 5px #230058;
 }
@@ -295,7 +343,7 @@ section.default {
 
 section.datos_perfil {
     display: flex;
-    border: solid 6px #1e688b;
+    border: solid 5px #230058;
     border-radius: 25px;
     padding-top: 5%;
     padding-right: 5%;
@@ -310,9 +358,21 @@ section.datos_perfil {
 
 section.datos_perfil div{
     display: flex;
-    column-gap: 5%;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 21%;
+
 }
+.datos_perfil p {
+   font-size: large;
+   font-weight: bolder;
+}
+.datos_perfil img {    
+    width: 50px;
+    height: 50px;
+}
+
 
 section.publicaciones_perfil{
     grid-column-start: 1;
@@ -439,6 +499,8 @@ button  {
     border-radius: 15px;
     transition: background-color 0.3s ease-in-out;
     height: 40px;
+    cursor: pointer;
+
 }
 
 button:hover  {
@@ -449,7 +511,7 @@ button:hover  {
     background-color: #a25df1; 
     border: none;
     width: 100px;
-    height: 30px; 
+    height: 33px; 
 }
 
 .InfoFoll-button:hover {
@@ -937,16 +999,8 @@ a[name="user"] {
     box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); /* Añade esta línea */
     animation: none;
 }
-/*
-@keyframes pulsate1 {
-    0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-    50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.8); }
-    100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-}*/
 
 #suscripciones .tipo_suscripcion {
-    flex: 1 0 auto;
-    
     margin: 10px;
     padding: 20px;
     padding-bottom: 80px;
@@ -977,11 +1031,23 @@ a[name="user"] {
     vertical-align: middle;
 }
 #actualizarAdmin{
-    grid-column-start: 1;
+    grid-column-start: 2;
     max-height: 250px;
     margin: 10px;
     margin-top: 55px;
     background-color: #5b208b;
     border-radius: 29px;
     border:  solid 5px #230058;
+}
+.publicidad{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    color : goldenrod; 
+    font-size: 30px;
+    word-break: keep-all;
+    background-color: #000;
 }

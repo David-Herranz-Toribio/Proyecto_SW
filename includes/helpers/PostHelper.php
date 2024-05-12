@@ -107,9 +107,9 @@ function creacionPubliHTML(){
     $rutaSus=VIEWS_PATH."/tienda/Suscripcion.php";
     $rutaImg=IMG_PATH."/FotoSuscripcion.png";
     $html= <<<EOS
-    <article class = "estiloPost" style="height: 50vh; padding: 5%; display: flex; justify-content: center; align-items: center;" >
+    <article class = "estiloPost" >
         <a href="$rutaSus">
-            <div style="color : goldenrod; font-size: 30px;" >
+            <div class="publicidad"  >
                 <p>¡Desbloquea todo un mundo de beneficios con nuestra suscripción premium!</p>
                 <img src=$rutaImg height="200" width="200" alt="Foto de suscripcion">
                 <p>Accede a contenido exclusivo, funciones avanzadas y una experiencia sin interrupciones. ¡Únete ahora y lleva tu experiencia al siguiente nivel!</p>

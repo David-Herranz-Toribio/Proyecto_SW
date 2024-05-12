@@ -3,7 +3,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #1a1a1a;
 }
+
 a{
     text-decoration: none;
     color: inherit;    
@@ -196,6 +198,7 @@ article.estiloPost div.botones_mensaje {
 article.estiloUsers{
     background-color: #081c31;
     border: solid 2px #230058;
+    word-break: keep-all;
     width: 80%; 
     margin: auto;
     z-index: 100;
@@ -312,7 +315,7 @@ section.default {
 section.datos_perfil {
     width: 85%;
     display: flex;
-    border: solid 6px #1e688b;
+    border: solid 5px #230058;
     border-radius: 25px;
     margin: 3% 5%; 
     padding-top: 5%;
@@ -327,8 +330,15 @@ section.datos_perfil {
 
 section.datos_perfil div{
     display: flex;
-    column-gap: 5%;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 30%;
+
+}
+.datos_perfil p {
+   font-size: large;
+   font-weight: bolder;
 }
 
 section.publicaciones_perfil{
@@ -337,7 +347,6 @@ section.publicaciones_perfil{
     grid-row-start: 2;
     margin-bottom: 10%;
 }
-
 
 section.datos_perfil button {
     width: 75px;
@@ -455,6 +464,7 @@ button  {
     transition: background-color 0.3s ease-in-out;
     min-width: 30px;
     min-height: 25px;
+    cursor: pointer;
 }
 
 button:hover  {
@@ -465,7 +475,7 @@ button:hover  {
     background-color: #a25df1; 
     border: none;
     width: 100px;
-    height: 30px; 
+    height: 33px; 
 }
 
 .InfoFoll-button:hover {
@@ -962,16 +972,8 @@ a[name="user"] {
     box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); /* Añade esta línea */
     animation: none;
 }
-/*
-@keyframes pulsate1 {
-    0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-    50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.8); }
-    100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-}*/
 
 #suscripciones .tipo_suscripcion {
-    flex: 1 0 auto;
-    
     margin: 10px;
     padding: 20px;
     padding-bottom: 80px;
@@ -1009,4 +1011,16 @@ a[name="user"] {
     background-color: #5b208b;
     border-radius: 29px;
     border:  solid 5px #230058;
+}
+.publicidad{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    color : goldenrod; 
+    font-size: 30px;
+    word-break: keep-all;
+    background-color: #000;
 }

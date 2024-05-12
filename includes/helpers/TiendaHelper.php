@@ -78,7 +78,23 @@ function suscripcionHTML($yo){
 
     return $content;
 }
+function creacionPubliHTML(){
+    $rutaSus=VIEWS_PATH."/tienda/Suscripcion.php";
+    $rutaImg=IMG_PATH."/FotoSuscripcion.png";
+    $html= <<<EOS
+    <article class = "estiloProd" >
+        <a href="$rutaSus">
+            <div class="publicidad"  >
+                <p>¡Desbloquea todo un mundo de beneficios con nuestra suscripción premium!</p>
+                <img src=$rutaImg height="200" width="200" alt="Foto de suscripcion">
+                <p>Accede a contenido exclusivo, funciones avanzadas y una experiencia sin interrupciones. ¡Únete ahora y lleva tu experiencia al siguiente nivel!</p>
+            </div>
+        </a>
+    </article>
+    EOS; 
 
+    return $html;
+}
 function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 
     $rutaProdImg = IMG_PATH .  '/prodImages/'.$image;
@@ -213,19 +229,9 @@ function showProduct($yoYYoMismo, $id){
 
     $prod = SW\classes\Producto::obtenerProductoporId($id);
 
-    // Por si hay que hacer alguna busqueda mas tarde
-
-    // if(!empty($productos)){
-    //     if (isset($_GET['query'])) {
-    //         $textoBusqueda = $_GET['query'];
-    //         $productos = Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
-    //     }   
-    // }
-
     $content = "<h1 class = 'texto_infor'> Producto ".$prod->getNombre()." </h1>";
     $content .= "<section class = 'listaArticulos'>";
 
-    // MIRAR LOS BOCETOS PARA HACER ALGO MAS ESPECIFICO PARA PRODUCTO INDIVIDUAL Y PONER POST AQUI TAMBIEN POR EJEMPLO
     $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                          $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
                                        
@@ -245,10 +251,21 @@ function showProducts($yoYYoMismo){
             $productos = SW\classes\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
+    $contador = 1;
     foreach($productos as $prod){
         $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                          $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
-    }
+   
+        if (!isset($_SESSION['isSub']) || $_SESSION['isSub'] == false){
+            if ($contador == 3){
+                $content .= creacionPubliHTML();
+                $contador = 1;
+
+            }
+            else
+                $contador++;
+        }
+   }
     $content .= "</section>";
 
     return $content;
@@ -264,9 +281,19 @@ function showProductsArtista($yoYYoMismo){
             $productos = SW\classes\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
+    $contador = 1;
     foreach($productos as $prod){
         $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
-                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
+                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo); 
+        if (!isset($_SESSION['isSub']) || $_SESSION['isSub'] == false){
+            if ($contador == 3){
+                $content .= creacionPubliHTML();
+                $contador = 1;
+
+            }
+            else
+                $contador++;
+        }                                   
     }
     $content .= "</section>";
 
