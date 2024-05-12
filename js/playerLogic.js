@@ -128,10 +128,10 @@ $(document).ready(function(){
     function changeSong(){
         countdown_publi--;
 
-        if(countdown_publi==0 && !isPremium){
+        if(countdown_publi==0 && !isPremium){ //Entra la publi 
             $("#playlist li.current-song").after(audioPubli); 
-            if(currentSong==0){
-                currentSong++; 
+            if(currentSong==0){ //Si la playlist vuelve al principio, se tiene que reproducir el audio que iba despues del que se estaba reproduciendo
+                currentSong= $("#playlist li a").length-1; 
             }
         }
 
