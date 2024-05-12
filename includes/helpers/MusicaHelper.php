@@ -4,7 +4,7 @@ require_once '../../Config.php';
 require_once CLASSES_URL . '/Playlist.php';
 require_once CLASSES_URL . '/Cancion.php';
 require_once CLASSES_URL . '/Usuario.php';
-
+require_once CLASSES_URL . '/FormularioPlaylist.php'; 
 
 function showPlaylists($username){
     

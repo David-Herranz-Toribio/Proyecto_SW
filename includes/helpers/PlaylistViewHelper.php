@@ -1,6 +1,7 @@
 <?php
 
 require_once '../../Config.php';
+require_once CLASSES_URL . '/FormularioPlaylist.php'; 
 
 function displayPlaylist($playlist){
 
@@ -22,13 +23,13 @@ function displayPlaylistHeader($playlist){
     $duracion = $playlist->getPlaylistDuracion();
     $creador = $playlist->getIdUsuario();
     $fecha = $playlist->getPlaylistCreationDate();
-
+  
     // Rutas
     $rutaPerfilCreador = VIEWS_PATH . '/perfil/Perfil.php';
     $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
     
 
-    $buttons = displayButtons($playlistID, $crearMusicaPath);
+    $buttons = displayButtons($playlistID, $crearMusicaPath, $creador);
 
     // Generar HTML
     $html =<<<EOS
@@ -56,8 +57,10 @@ function displayPlaylistHeader($playlist){
     return $html;
 }
 
-function displayButtons($playlistID, $crearMusicaPath){
+function displayButtons($playlistID, $crearMusicaPath, $creador){
     $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarPlaylist.php'; 
+    $rutaModificar= VIEWS_PATH . '/musica/ModificarPlaylist.php';
+
     $addButton = '';
     if( isset($_SESSION['username']) && (isset($_SESSION['isArtist']) && $_SESSION['isArtist']) ){
         $addButton =<<<EOS
@@ -66,7 +69,11 @@ function displayButtons($playlistID, $crearMusicaPath){
     }
 
     $html =<<<EOS
-    <button class='remove_song_button'><a href=''> Modificar playlist </a></button>
+    <form action= $rutaModificar method= "post"> 
+    <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
+    <input type= "hidden" name= "idCreador" value= '$creador'>  
+    <button type= "submit"> Modificar playlist</button> 
+    </form> 
 
     <form action= $rutaBorrar method= "post"> 
     <input type= "hidden" name= "idPlaylist" value= '$playlistID'>

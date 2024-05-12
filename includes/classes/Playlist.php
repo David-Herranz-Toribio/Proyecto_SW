@@ -91,7 +91,7 @@ class Playlist{
 
         $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO playlist (id_user, duracion_total, imagen, nombre, fecha) 
-        VALUES ('%s', '%d', '%s', '%s', '%s')", $autor, 0, $conection->real_escape_string($imagen), $conection->real_escape_string($nombre), $creationDate);
+        VALUES ('%s', '%d', '%s', '%s', '%s')", $conection->real_escape_string($autor), 0, $conection->real_escape_string($imagen), $conection->real_escape_string($nombre), $creationDate);
         $rs = $conection->query($query);
         
         if($rs){}
@@ -142,6 +142,28 @@ class Playlist{
         return $rs;
     }
 
+
+    public static function actualizar($playlist){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+    
+        $query = sprintf(
+            "UPDATE playlist SET nombre= '%s', imagen= '%s' WHERE id_playlist = %d",
+            $conn->real_escape_string($playlist->nombre),
+            is_null($playlist->imagen) ? 'NULL' : $conn->real_escape_string($playlist->imagen),
+            $playlist->id_playlist
+        );
+    
+        $result = $conn->query($query);
+    
+        if (!$result) 
+            error_log($conn->error);
+        else if ($conn->affected_rows != 1) 
+            error_log("Se han actualizado '$conn->affected_rows' registros!");
+    
+        return $result;
+    }
+
     public function addCancion($id_cancion){
             
         $conection = Aplicacion::getInstance()->getConexionBd();
@@ -188,4 +210,11 @@ class Playlist{
         return $this->numCanciones;
     }
 
+    public function setPlaylistNombre($nombre){
+        $this->nombre= $nombre; 
+    }
+
+    public function setPlaylistImagen($img){
+        $this->imagen= $img; 
+    }
 }
