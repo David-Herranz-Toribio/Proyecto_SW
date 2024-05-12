@@ -399,7 +399,7 @@ function displayFollowing($user){
     <form action="$url" method="GET">
         <input type="hidden" name="opcion" value="$opcion">
         <input type="hidden" name="user" value="$username">
-        <p> $num_following <button class="InfoFoll-button" type="submit">Seguidos</button> </p>
+        <p> $num_following <button class="InfoFoll-button" type="submit">Siguiendo</button> </p>
     </form>
     EOS;
     return $html;

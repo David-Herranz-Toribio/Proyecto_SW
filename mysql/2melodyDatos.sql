@@ -35,16 +35,6 @@ INSERT INTO `usuario` (`id_user`, `nickname`, `password`, `foto`, `descripcion`,
 
 
 --
--- Volcado de datos para la tabla `ajustes`
---
-
-
-TRUNCATE TABLE `ajustes`;
-INSERT INTO `ajustes` ( `id_user`, `fuente`, `fontSize`, `temas`, `paginaPrincipal`) VALUES
-('user1', 'Arial', 12, 'Claro', 'Inicio'),
-('user2', 'Times New Roman', 14, 'Oscuro', 'Foro.php'),
-('user3', 'Verdana', 16, 'Neón', 'Merch.php');
---
 -- Volcado de datos para la tabla `artista`
 --
 TRUNCATE TABLE `artista`;
@@ -100,13 +90,6 @@ INSERT INTO `pedido_prod` (`id_pedido`, `id_prod`, `cantidad`)VALUES
 (3, 5, 2),
 (2, 6, 4);
 
-TRUNCATE TABLE `evento`;
-INSERT INTO `evento` (`id_artista`, `nombre`, `descripcion`, `fecha`) VALUES
-('user2', 'Concierto en vivo', '¡Únete a nosotros para una experiencia musical increíble!', '2024-04-15');
-
-TRUNCATE TABLE `evento_prod`;
-INSERT INTO `evento_prod` (`id_evento`, `id_prod`) VALUES
-(1, 1);
 --
 -- Volcado de datos para la tabla `post`
 --
@@ -153,9 +136,10 @@ INSERT INTO `cancion` (`id_cancion`, `titulo`, `imagen`, `fecha`, `id_artista`, 
 
 TRUNCATE TABLE `playlist`;-- la duracion esta en segundos
 INSERT INTO `playlist` (`id_playlist`, `id_user`, `duracion_total`, `imagen`, `nombre`, `fecha`) VALUES
-(1, 'user2', 200, 'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
-(2, 2, 300, 'playlist2.jpg', 'Descubrimientos', '2024-03-09'),
-(3, 3, 120, 'playlist3.jpg', 'Relax Total', '2024-03-10');
+(1, 'user1', 0, 'playlist_fav.png', 'Favoritos', '2024-03-07'),
+(2, 'user2', 200, 'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
+(3, 'user2', 0, 'playlist_fav.png', 'Favoritos', '2024-03-08'),
+(4, 'user3', 0, 'playlist_fav.png', 'Favoritos', '2024-03-09');
 
 TRUNCATE TABLE `play_cancion`;
 INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
