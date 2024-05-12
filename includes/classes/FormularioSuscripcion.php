@@ -28,9 +28,10 @@ class FormularioSuscripcion extends Formulario{
 
 
         // Se generan los mensajes de error si existen NO EXISTEN
-        
+        //$htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         
         $html =<<<EOS
+        
         <div id="suscripciones">
             <div class="tipo_suscripcion">
                 <h3> Prueba (30 seg) </h3>
@@ -99,8 +100,10 @@ class FormularioSuscripcion extends Formulario{
                     $today->add(new \DateInterval('PT30S'));
                 }
                 $user->actualiza();
-                $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
-                $_SESSION['isSub'] = $tipo;
+                if ($this->errores["precio"] !== "No tienes suficeintes corcheas" ){
+                    $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
+                    $_SESSION['isSub'] = $tipo;
+                }
             }
 
         }

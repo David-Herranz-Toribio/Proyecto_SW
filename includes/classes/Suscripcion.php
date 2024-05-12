@@ -99,7 +99,8 @@ class Suscripcion extends Comprable{
 
         if (!$rs)  
             error_log($conn->error);
-        $result = $rs->fetch_assoc()['fecha_fin'];
+        if ($rs->num_rows > 0)
+            $result = $rs->fetch_assoc()['fecha_fin'];
         return $result;
     }
 
