@@ -72,7 +72,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
         $responder = ''; 
     }
     else {
-        $form= new FormularioRespuesta($id);
+        $form= new FormularioRespuesta($id, '/foro/Foro.php');
         $responder= $form->gestiona(); 
     }
 

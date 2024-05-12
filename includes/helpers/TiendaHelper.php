@@ -3,8 +3,10 @@
 require_once CLASSES_URL . '/Producto.php';
 require_once CLASSES_URL . '/Pedido.php';
 require_once CLASSES_URL . '/Usuario.php';
+require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/FormularioProducto.php'; 
-
+require_once CLASSES_URL . '/FormularioPost.php';
+require_once  'PostHelper.php';
 
 function suscripcionHTML($yo){
 
@@ -234,7 +236,18 @@ function showProduct($yoYYoMismo, $id){
 
     $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                          $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
-                                       
+    
+    $content .=  "<h2>Reseñas</h2>";
+    if($yoYYoMismo){
+        $form = new FormularioPost(null, null, $id ,null); 
+        $content .= $form->gestiona();                                   
+    }
+
+    $listaPosts = SW\classes\Post::obtenerListaDeReseñas("producto", $id);
+    foreach($listaPosts as $post_aux){
+        $content .= creacionPostHTML($post_aux->getAutor(), $post_aux->getImagen(), $post_aux->getLikes(),
+                                     $post_aux->getTexto(), $post_aux->getId(), $post_aux->getPadre(), $yoYYoMismo);
+    }
     $content .= "</section>";
 
     return $content;
@@ -271,10 +284,10 @@ function showProducts($yoYYoMismo){
     return $content;
 }
 
-function showProductsArtista($yoYYoMismo){
+function showProductsArtista($artista){
     
     $content = "<section class = 'listaArticulos'>";
-    $productos = SW\classes\Producto::obtenerProductosDeArtista($yoYYoMismo);
+    $productos = SW\classes\Producto::obtenerProductosDeArtista($artista);
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
@@ -284,7 +297,7 @@ function showProductsArtista($yoYYoMismo){
     $contador = 1;
     foreach($productos as $prod){
         $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
-                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo); 
+                                         $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $artista); 
         if (!isset($_SESSION['isSub']) || $_SESSION['isSub'] == false){
             if ($contador == 3){
                 $content .= creacionPubliHTML();

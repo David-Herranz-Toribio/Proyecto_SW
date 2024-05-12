@@ -75,7 +75,38 @@ class Post{
         else 
             $operation = '=';
 
-        $query = "SELECT * FROM post P WHERE P.origen $operation $origen_aux ORDER BY P.fecha ASC";
+        $query = "SELECT * FROM post P 
+                    WHERE P.origen $operation $origen_aux 
+                    AND P.id_post NOT IN (SELECT pp.id_post FROM producto_post pp)
+                    AND P.id_post NOT IN (SELECT cp.id_post FROM cancion_post cp) 
+                    ORDER BY P.fecha ASC";
+
+        $rs = $conection->query($query);
+
+        while($fila = $rs->fetch_assoc()){
+            $post[] = new Post($fila['id_post'],$fila['id_user'], $fila['texto'], $fila['imagen'], $fila['likes'], $fila['origen'],$fila['tags'],  $fila['fecha']);
+        }
+        $rs->free();
+        
+        return $post;
+    }
+
+        public static function obtenerListaDeReseñas($tipo, $id){
+
+        $post = [];
+        $conection = Aplicacion::getInstance()->getConexionBd();
+
+  
+        if($tipo == 'producto')
+            $select= "AND P.id_post  IN (SELECT pp.id_post FROM producto_post pp WHERE pp.id_prod = $id)";
+        else if($tipo == 'cancion')
+            $select= "AND P.id_post  IN (SELECT cp.id_post FROM cancion_post cp WHERE cp.id_cancion = $id)";
+
+
+        $query = "SELECT * FROM post P WHERE P.origen IS NULL  
+                    $select 
+                    ORDER BY P.fecha ASC";
+
         $rs = $conection->query($query);
 
         while($fila = $rs->fetch_assoc()){
@@ -163,7 +194,40 @@ class Post{
 
         return $result;
     }
+    public static function insertaProdPost($prod, $post){
 
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO producto_post (id_prod, id_post) VALUES (%d, %d)",
+            $prod,
+            $post
+        );
+
+        $result = $conn->query($query);
+
+        if (!$result) 
+            error_log($conn->error);
+
+        return $result;
+    }
+    public static function insertaCancionPost($cancion, $post){
+
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO cancion_post (id_cancion, id_post) VALUES (%d, %d)",
+            $cancion,
+            $post
+        );
+
+        $result = $conn->query($query);
+
+        if (!$result) 
+            error_log($conn->error);
+
+        return $result;
+    }
     public static function insertaFav($post, $user){
 
         $result = false;
@@ -259,7 +323,7 @@ class Post{
             is_null($post->imagen) ? 'NULL' : $conn->real_escape_string($post->imagen),
             $post->num_likes,
             $post->tags, 
-            Post::generatePostDate(),
+            self::generatePostDate(),
             $post->id
         );
     

@@ -104,7 +104,18 @@ INSERT INTO `post` ( `id_user`, `texto`, `imagen`, `likes`, `origen`, `tags`, `f
 ('user2', '¡Feliz fin de semana!', 'Image2.jpg', 2, NULL, 'fin de semana, diversión', '2024-03-13'),
 ('user2', 'Gracias por la recomendación', NULL, 3, 3, 'agradecimiento, música', '2024-03-14'),
 ('user2', 'Qué buena foto, me encanta', 'Image1.jpg', 2, 2, 'apreciación, arte', '2024-03-15'),
-('user2', 'Totalmente de acuerdo contigo', 'Image2.jpg', 1, 4, 'concordancia, comunidad', '2024-03-16');
+('user2', 'Totalmente de acuerdo contigo', 'Image2.jpg', 1, 4, 'concordancia, comunidad', '2024-03-16'),
+('user5', 'Bonita Camiseta', 'Image1.jpg', 1, NULL, 'ropa, moda', '2024-03-17'),
+('user4', 'Las zapatillas modelo X son muy cómodas y tienen un diseño moderno.', 'Image8.jpg', 2, NULL, 'zapatillas, moda, reseña', '2024-03-23'),
+('user6', 'El libro "El gran viaje" es una lectura fascinante, muy recomendado.', 'Image9.jpg', 3, NULL, 'libros, lectura, reseña', '2024-03-24'),
+('user4', 'Los ingredientes frescos de nuestra tienda son perfectos para tus recetas.', 'Image10.jpg', 5, NULL, 'ingredientes, cocina, reseña', '2024-03-25'),
+('user3', 'Nuestros productos para mascotas son de alta calidad y a tu mascota le encantarán.', 'Image11.jpg', 4, NULL, 'mascotas, cuidado, reseña', '2024-03-26'),
+('user4', 'La colección de verano 2024 tiene diseños vibrantes y tejidos frescos.', 'Image12.jpg', 6, NULL, 'ropa, verano, reseña', '2024-03-27'),
+('user5', 'La canción tiene una melodía increíble y letras profundas.', 'Image13.jpg', 2, NULL, 'música, canción, reseña', '2024-03-28'),
+('user5', 'Es una balada conmovedora que te llegará al corazón.', 'Image14.jpg', 3, NULL, 'música, canción, reseña', '2024-03-29'),
+('user6', 'El ritmo te hará mover los pies. ¡No puedes dejar de bailar!', 'Image15.jpg', 5, NULL, 'música, canción, reseña', '2024-03-30'),
+('user4', 'Es una canción relajante perfecta para una noche tranquila.', 'Image16.jpg', 4, NULL, 'música, canción, reseña', '2024-03-31'),
+('user3', 'La canción te llenará de energía y positividad para empezar el día.', 'Image17.jpg', 6, NULL, 'música, canción, reseña', '2024-04-01');
 --
 -- Volcado de datos para la tabla `postfav`
 --
@@ -151,7 +162,22 @@ INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
 (3, 2),
 (3, 3);
 
+TRUNCATE TABLE `producto_post`;
+INSERT INTO `producto_post` (`id_prod`, `id_post`) VALUES
+(1, 10),
+(6, 11),
+(2, 12),
+(3, 13),
+(4, 14),
+(5, 15);
 
+TRUNCATE TABLE `cancion_post`;
+INSERT INTO `cancion_post` (`id_cancion`, `id_post`) VALUES
+(1, 16),
+(2, 17),
+(3, 18),
+(1, 19),
+(1, 20);
 --
 -- Volcado de datos para la tabla `subs`
 --

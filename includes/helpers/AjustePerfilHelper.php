@@ -5,15 +5,16 @@ function displayBotonesTemas(){
     $rutaEstiloClaro =  CSS_PATH .'/estiloClaro.css'; 
     $rutaEstiloOscuro = CSS_PATH .'/estiloOscuro.css';
 
-    /* Cambio modo claro/oscuro */ 
+    /* Cambio modo claro/oscuro 
     $html = <<<EOS
     <section class= 'botonesEstilo'> 
     <button type= "button" onclick= "toggleStyle('$rutaEstiloClaro')"> Modo claro </button> 
     <button type= "button" onclick= "toggleStyle('$rutaEstiloOscuro')"> Modo oscuro </button> 
     </section> 
     EOS;
+*/ 
+    return "";
 
-    return $html;
 }
 
 function displayImagenPerfil($imagen){

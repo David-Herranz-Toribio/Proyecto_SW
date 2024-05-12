@@ -7,11 +7,15 @@ class FormularioPost extends FormularioMultimedia
 {
     private $id_padre; 
     private $id_post; 
+    private $id_producto;
+    private $id_cancion;
 
-    public function __construct($id_padre, $id_post) {
+    public function __construct($id_padre, $id_post, $id_producto = null , $id_cancion = null) {
         parent::__construct('formPublicaPost', ['urlRedireccion' => VIEWS_PATH .'/foro/Foro.php', 'enctype' => 'multipart/form-data']);
         $this->id_padre= $id_padre; 
         $this->id_post= $id_post; 
+        $this->id_producto= $id_producto;  
+        $this->id_cancion= $id_cancion;
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -46,6 +50,9 @@ class FormularioPost extends FormularioMultimedia
         $legend_text
         <input type = "hidden" name = "id_post" value = $this->id_post>
         <input type = "hidden" name = "id_padre" value = $this->id_padre>
+        <input type = "hidden" name = "id_prod" value = $this->id_producto>
+        <input type = "hidden" name = "id_cancion" value = $this->id_cancion>
+
         <input type = "hidden" name = "Imagen_antigua" value = $imagen>
             Mensaje: <textarea name = "post_text"  required style = "resize: none; ">$mensaje</textarea><br><br>
 
@@ -82,12 +89,17 @@ class FormularioPost extends FormularioMultimedia
                 $post->setImagen($post_image ?? $imagen_ant); 
                 SW\classes\Post::actualizar($post); 
             }    
-
-
             else {
+                $producto= $_POST['id_prod'] !== "" ?  intval(htmlspecialchars($_POST['id_prod'])) : null;
+                $cancion= $_POST['id_cancion'] !== "" ? intval(htmlspecialchars($_POST['id_cancion'])): null;
                 $user=  SW\classes\Usuario::buscaUsuario($username);
+                
                 $post = $user->publicarPost($post_text, $post_image, $post_father);
-
+                if($producto != null){
+                    SW\classes\Post::insertaProdPost($producto, $post->getId());
+                }else if($cancion != null){
+                    SW\classes\Post::insertaCancionPostPost($cancion, $post->getId());
+                }
             }
         }
     }

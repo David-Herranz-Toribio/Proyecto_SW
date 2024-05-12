@@ -318,7 +318,7 @@ section.default {
 /*Estilo de la pagina de perfil del usuario*/
 
 section.datos_perfil {
-    width: 85%;
+    width: 80%;
     display: flex;
     border: solid 5px #230058;
     border-radius: 25px;
@@ -337,14 +337,14 @@ section.datos_perfil div{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
-    min-width: 30%;
-
+    width: 60hw;
+    min-width: 80px;
 }
 .datos_perfil p {
    font-size: large;
    font-weight: bolder;
 }
+
 
 section.publicaciones_perfil{
     grid-column-start: 2;

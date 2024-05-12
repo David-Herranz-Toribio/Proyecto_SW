@@ -122,6 +122,12 @@ CREATE TABLE `pedido_prod` (
   `cantidad` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `producto_post`;
+CREATE TABLE `producto_post` (
+  `id_prod` int(11) NOT NULL,
+  `id_post` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Estructura de tabla para la tabla `cancion y playlist`
@@ -140,6 +146,11 @@ CREATE TABLE `cancion` (
   `tags` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `cancion_post`;
+CREATE TABLE `cancion_post` (
+  `id_cancion` int(11) NOT NULL,
+  `id_post` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -249,6 +260,15 @@ ALTER TABLE `cancion`
   ADD PRIMARY KEY (`id_cancion`),
   ADD KEY `id_artista` (`id_artista`);
 
+ALTER TABLE `cancion_post` 
+  ADD PRIMARY KEY (`id_cancion`,`id_post`),
+  ADD KEY `id_post` (`id_post`),
+  ADD KEY `id_cancion` (`id_cancion`);
+
+ALTER TABLE `producto_post`
+  ADD PRIMARY KEY (`id_prod`,`id_post`),
+  ADD KEY `id_post` (`id_post`),
+  ADD KEY `id_prod` (`id_prod`);
 
 ALTER TABLE `playlist`
   ADD PRIMARY KEY (`id_playlist`),
@@ -326,6 +346,13 @@ ALTER TABLE `postfav`
   ALTER TABLE `cancion`
   ADD CONSTRAINT `cancion_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `artista` (`id_artista`) ON DELETE CASCADE;
 
+ALTER TABLE `cancion_post`
+  ADD CONSTRAINT `cancion_post_ibfk_1` FOREIGN KEY (`id_cancion`) REFERENCES `cancion` (`id_cancion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cancion_post_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE;
+
+ALTER TABLE `producto_post`
+  ADD CONSTRAINT `producto_post_ibfk_1` FOREIGN KEY (`id_prod`) REFERENCES `producto` (`id_prod`) ON DELETE CASCADE,
+  ADD CONSTRAINT `producto_post_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE;
 
   ALTER TABLE `cancionfav`
   ADD CONSTRAINT `cancionfav_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE,
