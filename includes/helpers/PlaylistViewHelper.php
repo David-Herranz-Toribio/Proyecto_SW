@@ -58,6 +58,7 @@ function displayPlaylistHeader($playlist){
 }
 
 function displayButtons($playlistID, $crearMusicaPath, $creador){
+    $playButton = IMG_PATH . '/play_button.png';
     $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarPlaylist.php'; 
     $rutaModificar= VIEWS_PATH . '/musica/ModificarPlaylist.php';
 
@@ -79,6 +80,10 @@ function displayButtons($playlistID, $crearMusicaPath, $creador){
     <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
     <button type= "submit"> Eliminar playlist</button> 
     </form> 
+
+
+    <button class='playButton' id='startPlaylist'> <img src=$playButton></button>
+    <span hidden> {$playlistID} </span> 
     $addButton
     EOS;
 

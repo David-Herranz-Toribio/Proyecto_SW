@@ -174,6 +174,25 @@ CREATE TABLE `cancion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `postfav`
+--
+DROP TABLE IF EXISTS `cancionfav`;
+CREATE TABLE `cancionfav` (
+  `id_cancion` int(11) NOT NULL,
+  `id_user` varchar(63) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+
+
+
+
+
 DROP TABLE IF EXISTS `playlist`;
 CREATE TABLE `playlist` (
   `id_playlist` int(11) NOT NULL,
@@ -374,6 +393,13 @@ ALTER TABLE `postfav`
 --
   ALTER TABLE `cancion`
   ADD CONSTRAINT `cancion_ibfk_1` FOREIGN KEY (`id_artista`) REFERENCES `artista` (`id_artista`) ON DELETE CASCADE;
+
+
+  ALTER TABLE `cancionfav`
+  ADD CONSTRAINT `cancionfav_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cancionfav_ibfk_2` FOREIGN KEY (`id_cancion`) REFERENCES `cancion` (`id_cancion`) ON DELETE CASCADE;
+
+
 
 ALTER TABLE `playlist`
   ADD CONSTRAINT `playlist_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id_user`) ON DELETE CASCADE;

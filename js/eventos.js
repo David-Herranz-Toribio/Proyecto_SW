@@ -1,5 +1,15 @@
 $(document).ready(function() {
 
+
+    //Validaciones al crear una playlist 
+    $("#campoNombrePlaylist").change(function(){
+        var url= "compruebaPlaylist.php?user=" + $('#id_user').val() + "&nombrePlaylist=" + $('#campoNombrePlaylist').val(); 
+        $.get(url,playlistExiste); 
+    }); 
+
+
+
+
     //Validaciones al registrarse 
     $("#campoUser").change(function(){
        var url= "compruebaUsuario.php?user=" + $('#campoUser').val(); 
@@ -47,6 +57,20 @@ $(document).ready(function() {
 		// tu codigo aqui (devuelve true ó false)
 	    return correo.endsWith('@ucm.es') ; 
 	}
+
+
+    function playlistExiste(data, status){
+        switch(data){
+            case 'existe': 
+             $("#validPlaylist").html( 'Ya existe &#x26a0');
+            break; 
+
+            case 'disponible': 
+            $("#validPlaylist").html( 'Disponible &#x2714');
+            break;  
+        }
+    }
+
 }
 )
 

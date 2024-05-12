@@ -63,7 +63,7 @@ function displayBotonesEliminarCuenta(){
 function displayFormularioModificar(){
 
     /* Crea el formulario de moficacion */ 
-    $form = new FormularioModificacion(); 
+    $form = new FormularioModificacionPerfil(); 
     $html = $form->gestiona();
     $html =<<<EOS
     <section class= 'formulario_style'>

@@ -168,6 +168,67 @@ class Cancion{
         return $cancion;
     }
 
+    //Logica de likes 
+
+    public static function insertaFav($cancion, $user){
+
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO cancionfav (id_cancion,id_user) VALUES (%d, '%s')",
+            $cancion->id_cancion,
+            $user
+        );
+
+        $result = $conn->query($query);
+
+        if (!$result) 
+            error_log($conn->error);
+
+        return $result;
+    }
+
+    public static function borraFav($post, $user){
+
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "DELETE FROM cancionfav WHERE (id_cancion = %d AND id_user = '%s')",
+            $cancion->id_cancion,
+            $user
+        );
+
+        $result = $conn->query($query);
+
+        if (!$result)  
+            error_log($conn->error);
+
+        return $result;
+    }
+
+    public function likeAsignado($id, $user){
+        $result= true; 
+        $conection= Aplicacion::getInstance()->getConexionBd(); 
+        $query = sprintf("SELECT * FROM cancionfav C WHERE C.id_cancion = %d AND C.id_user = '%s'", $id ,$user); 
+        $rs= $conection->query($query); 
+
+        if($rs->num_rows  == 0)
+            $result= false; 
+
+            $rs->free(); 
+        
+        return $result; 
+    }
+
+    public function aumentaLikes($num){
+        $this->likes +=  $num;
+    }
+
+    public function guardaFav(){
+        //!$this->id ? self::insertaFav($this, $this->id) : self::actualizar($this);
+        return $this;
+    }
+
 
     public static function obtenerCancionPorID($id_cancion){
             

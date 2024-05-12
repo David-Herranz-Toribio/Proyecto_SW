@@ -1,7 +1,7 @@
 <?php
 require_once '../../Config.php';
 require_once CLASSES_URL . '/Usuario.php'; 
-require_once CLASSES_URL . '/FormularioModificacion.php'; 
+require_once CLASSES_URL . '/FormularioModificacionPerfil.php'; 
 require_once HELPERS_URL . '/AjustePerfilHelper.php';
 
 

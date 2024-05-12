@@ -1,5 +1,5 @@
 <footer class="footer">
-    <audio src="" controls id="playr"></audio>
+    <audio src="" controls id="player"></audio>
 
     <ul id="playlist">
         <li id= 'cancionMuestra'><a href= <?= AUDIO_PATH .'/Cancion1.mp3'?>>Muestra de cancion</a></li>

@@ -53,11 +53,16 @@ $(document).ready(function(){
 
     /*Al hacer click en una cancion en el perfil de un artista*/ 
     $('body').on('click', '#playSong' , function(){
+        
         var rutaCancion = "/Proyecto_SW/audio/";
         rutaCancion+= $(this).siblings("span")[0].innerText; 
+        nombreCancion= $(this).parent().siblings("div")[0].children().first().innerText; 
         rutaCancion= rutaCancion.replace(/ /g, "");
-        $("#player")[0].src=  rutaCancion; 
-        $("#player")[0].play();
+        let cancion= [rutaCancion, nombreCancion]; 
+        let canciones= [cancion]; 
+        changePlaylist(canciones); 
+        /*$("#player")[0].src=  rutaCancion; 
+        $("#player")[0].play();*/
     }); 
 
     /*Al hacer click en reproducir playlist/album*/ 

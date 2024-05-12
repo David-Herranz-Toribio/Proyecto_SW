@@ -30,7 +30,7 @@ class Playlist{
     public static function crearPlaylistPorDefecto($autor, $creationDate){
 
         $defaultImage = 'playlist_fav.png';
-        return Playlist::crearPlaylistBD($autor, Playlist::$DEFAULT_PLAYLIST, $defaultImage, $creationDate);
+        return self::crearPlaylistBD($autor, Playlist::$DEFAULT_PLAYLIST, $defaultImage, $creationDate);
     }
 
     public static function obtenerPlaylistsBD($username){

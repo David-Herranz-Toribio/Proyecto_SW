@@ -4,7 +4,7 @@ require_once 'Usuario.php';
 require_once 'Pedido.php';
 
 
-class FormularioModificacion extends FormularioMultimedia {
+class FormularioModificacionPerfil extends FormularioMultimedia {
 
     public function __construct() {
         parent::__construct('formModificar', ['urlRedireccion' =>  VIEWS_PATH .'/perfil/Perfil.php', 'enctype' => 'multipart/form-data']);
@@ -17,12 +17,13 @@ class FormularioModificacion extends FormularioMultimedia {
         $nickName= $user->getNickname();  
         $desc= $user->getDescrip(); 
         $email= $user->getEmail(); 
-
+        $imagen= $user->getPhoto(); 
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'desc', 'email','imagen'], $this->errores, 'span', array('class' => 'error'));
 
         $camposForm= <<<EOF
+            <input type= 'hidden' name= "ImagenAntigua" value= '$imagen'> 
             $htmlErroresGlobales
             <fieldset class= "formRegistro">
             <legend> Modifica tu cuenta </legend> 
@@ -74,6 +75,7 @@ class FormularioModificacion extends FormularioMultimedia {
         $nickname = htmlspecialchars($datos['modify_nickname']);
         $descripcion= htmlspecialchars($datos['modify_descrip']); 
         $email = htmlspecialchars($datos['modify_email']);
+        $imagen_ant= htmlspecialchars($datos['ImagenAntigua']); 
         $password_length = strlen($datos['modify_password']);
         $password = $datos['modify_password'];
 
@@ -108,14 +110,8 @@ class FormularioModificacion extends FormularioMultimedia {
 
         $fotoPerfil= self::compruebaImagen('image', '/profileImages/'); 
 
-        if($fotoPerfil === NULL){ //No se ha subido foto de perfil 
-            $fotoPerfil = 'FotoPerfil.png'; //Se pone una foto de perfil por defecto
-        } 
-
-
-
         if(count($this->errores)===0){
-            $usu_mod->setPhoto($fotoPerfil); 
+            $usu_mod->setPhoto($fotoPerfil ?? $imagen_ant); 
             $usu_mod->actualiza(); 
         }
     }

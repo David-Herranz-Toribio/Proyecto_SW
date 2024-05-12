@@ -24,4 +24,6 @@ else{
     $content = displayPlaylist($playlist);
 }
 
+
+$scripts= ['playerLogic.js']; 
 require_once LAYOUT_URL;

@@ -23,4 +23,6 @@ else{
     $content = displayFormulario($username);
 }
 
+
+$scripts= ['eventos.js']; 
 require_once LAYOUT_URL;

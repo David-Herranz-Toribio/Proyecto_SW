@@ -8,7 +8,7 @@ class FormularioPlaylist extends FormularioMultimedia{
     private $id_playlist; 
 
     public function __construct($id_usuario, $id_playlist) {
-        parent::__construct('formCreatePlaylist', ['urlRedireccion' => VIEWS_PATH .'/musica/Musica.php']);
+        parent::__construct('formCreatePlaylist', ['urlRedireccion' => VIEWS_PATH .'/musica/Musica.php', 'enctype' => 'multipart/form-data']);
         $this->id_usuario = $id_usuario; 
         $this->id_playlist= $id_playlist; 
     }
@@ -43,7 +43,7 @@ class FormularioPlaylist extends FormularioMultimedia{
 
         $html =<<<EOS
         <fieldset>
-        <input type= 'hidden' name= 'id_user' value= $this->id_usuario> 
+        <input type= 'hidden' id= 'id_user' name= 'id_user' value= $this->id_usuario> 
         <input type= 'hidden' name= 'id_playlist' value= $this->id_playlist> 
         <input type= 'hidden' name= "Imagen_antigua" value= $imagen> 
         $legend_text
@@ -52,7 +52,7 @@ class FormularioPlaylist extends FormularioMultimedia{
 
                 <div class="createPlaylistImageInput">
                     <label> Imagen </label>
-                    <input name="imagen" type="file">
+                    <input name="imagen" type="file" accept="image/*">
                     {$erroresCampos['imagen']}
                     $imagen_html
                 </div>
@@ -61,7 +61,8 @@ class FormularioPlaylist extends FormularioMultimedia{
             <div class="createPlaylistConfig">
                 <div class="createPlaylistName">
                     <label> Nombre </label>
-                    <input name="nombre" type="text" required value= "$nombre">
+                    <input name="nombre" id= 'campoNombrePlaylist' type="text" required value= "$nombre">
+                    <span id= 'validPlaylist'> </span> 
                     {$erroresCampos['nombre']}
                 </div>
             </div>

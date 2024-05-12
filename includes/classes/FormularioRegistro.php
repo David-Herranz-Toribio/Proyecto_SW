@@ -68,6 +68,7 @@ class FormularioRegistro extends FormularioMultimedia {
             <label> Email </label>
             <div> 
             <input required type="text" name="email" id= 'campoEmail' value=$email>
+            {$erroresCampos['email']}
             <span id= 'validEmail'> </span> 
             </div> 
 
