@@ -110,7 +110,7 @@ class Usuario{
 
     public function deleteUser() {
         if($this->fotopath!="FotoPerfil.png"){
-            unlink(IMG_URL . '/profileImages/' . $this->fotoPath);
+            unlink(IMG_URL . '/profileImages/' . $this->fotopath);
         } 
 
         $result = false;

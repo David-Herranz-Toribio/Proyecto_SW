@@ -1028,4 +1028,5 @@ a[name="user"] {
     font-size: 30px;
     word-break: keep-all;
     background-color: #000;
+    border-radius: 25px;
 }
