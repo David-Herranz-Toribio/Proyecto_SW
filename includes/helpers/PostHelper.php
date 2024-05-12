@@ -153,16 +153,18 @@ function displayExplorerButton(){
 
     $view_path = VIEWS_PATH . '/foro/Foro.php';
     $value = 'EXPLORER';
+    $BrowserImage = IMG_PATH . '/Browser.png';
 
     $html =<<<EOS
     <div class='opcion_posts'>
-    <form action=$view_path method='get'>
-        <input type='hidden' name='opcion' value='$value'>
-        <button type='submit'> Explorar </button>
-    </form>
+        <form action="$view_path" method="get">
+            <input type="hidden" name="opcion" value="$value">
+            <button class="player-button" type="submit">
+                <img src="$BrowserImage" alt="Explorar" height="38" width="38">
+            </button>
+        </form>
     </div>
     EOS;
-
     return $html;
 }
 
@@ -170,17 +172,21 @@ function displayFollowedButton(){
 
     $view_path = VIEWS_PATH . '/foro/Foro.php';
     $value = 'FOLLOWED';
-
+    $UsersImage = IMG_PATH . '/Users_.png';
     $html =<<<EOS
     <div class='opcion_posts'>
-    <form action=$view_path method='get'>
-        <input type='hidden' name='opcion' value='$value'>
-        <button type='submit'> Contenido (seguidos)  </button>
-    </form>
+        <form action="$view_path" method="get">
+            <input type="hidden" name="opcion" value="$value">
+            <button class="player-button" type="submit">
+            <img src="$UsersImage" alt="Contenido (seguidos)" height="54" width="54">
+            </button>
+        </form>
     </div>
     EOS;
+
     return $html;
 }
+
 
 
 
@@ -226,25 +232,26 @@ function showResp($id_post, $yoYYoMismo){
 function showTestPosts($yoYYoMismo, $isTest){
 
     $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
-    if($isTest) 
+    if ($isTest) 
         $content = "<h1 class='texto_infor'> Posts </h1>";
     else 
         $content = "<h1 class='texto_infor'> Posts (Personas que sigues) </h1>";
-
     
     $content .= "<div class='botonesPost'>";
+    $content .= "<div class='botonesMarginTop'>";
     $content .= displayExplorerButton();
-    if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar
-
+    if (isset($_SESSION['username'])) {
         $content .= displayFollowedButton();
         $content .= <<< EOS
-        <form class= 'boton_publicar' action = $rutaPublicar method = "post">
-            <button type = "submit">Publicar</button>
+        <form class='boton_publicar' action='$rutaPublicar' method="post">
+            <button type="submit">Publicar</button>
         </form>
         EOS; 
     }
+    $content .= "</div>"; 
     $content .= "</div>";
-    $content .= "<section class = 'listaPost'>";
+    $content .= "<section class='listaPost'>";
+    
     if(!$isTest) {
         $user = SW\classes\Usuario::buscaUsuario($yoYYoMismo);
         $lista_seguidos = $user->obtenerListaSeguidos();
@@ -280,48 +287,6 @@ function showTestPosts($yoYYoMismo, $isTest){
 
     return $content;
 }
-
-function showFollowedPeoplePosts($yoYYoMismo){
-
-    $rutaPublicar = VIEWS_PATH . '/foro/CrearPost.php';
-    $content = "<h1 class = 'texto_infor'> Posts (Personas que sigues) </h1>";
-
-    $content .= "<section class='botonesPost'>";
-    $content .= displayExplorerButton();
-
-    if(isset($_SESSION['username'])){ //Si no se ha iniciado sesion no puedes publicar 
-
-        $content .= displayFollowedButton();
-        $content .= <<< EOS
-        <form class= 'boton_publicar' action = $rutaPublicar method = "post">
-        <button type = "submit">Publicar</button>
-        </form>
-        EOS; 
-    }
-    $content .= "</section>";
-    
-    $content .= "<section class = 'listaPost'>";
-    $user = SW\classes\Usuario::buscaUsuario($yoYYoMismo);
-    $lista_seguidos = $user->obtenerListaSeguidos();
-    $posts = [];
-    foreach($lista_seguidos as $seguido){
-        $postsSeguido = SW\classes\Post::obtenerPostsDeUsuario($seguido);
-        $posts = array_merge($posts, $postsSeguido);
-    }
-    if(!empty($posts)){
-        if (isset($_GET['query'])) {
-            $textoBusqueda = $_GET['query'];
-            $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
-        }   
-    }
-    foreach($posts as $post){
-        $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
-                                     $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo);   
-    }
-    $content .= "</section>";
-    return $content;
-}
-
 
 function modificatePost($postText, $postId){
 

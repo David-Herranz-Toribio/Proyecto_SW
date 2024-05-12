@@ -142,6 +142,11 @@ div#mensaje_bienvenida{
 }
 
 
+.botonesPost {
+    margin-top: 20px; 
+}
+
+
 /*Estilo de Footer*/
 
 footer.footer {
