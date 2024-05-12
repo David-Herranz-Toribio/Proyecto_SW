@@ -103,7 +103,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     return $html;
 }
 
-function creacionPubliHTML(){
+function creacionPubliHTML2(){
     $rutaSus=VIEWS_PATH."/tienda/Suscripcion.php";
     $rutaImg=IMG_PATH."/FotoSuscripcion.png";
     $html= <<<EOS
@@ -268,7 +268,7 @@ function showTestPosts($yoYYoMismo, $isTest){
                                      $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo); 
         if (!isset($_SESSION['isSub']) || $_SESSION['isSub'] == false){
             if ($contador == 3){
-                $content .= creacionPubliHTML();
+                $content .= creacionPubliHTML2();
                 $contador = 1;
 
             }
