@@ -12,7 +12,9 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
 $content = '';
 if(isset($_SESSION['username']))
     $content = showPlaylists($username);
-else
+else{
+    header('Location:'. VIEWS_PATH . '/log/Login.php');
+    exit(); 
     $content .= displayViewToNotLogged();
-
+}
 require_once LAYOUT_URL;
