@@ -28,24 +28,31 @@ class FormularioSuscripcion extends Formulario{
 
 
         // Se generan los mensajes de error si existen NO EXISTEN
-        
+        //$htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         
         $html =<<<EOS
+        
         <div id="suscripciones">
             <div class="tipo_suscripcion">
                 <h3> Prueba (30 seg) </h3>
+                <h4> [Gratis] </h4>
+
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="prueba"> Crear </button>
                 </div>
             </div>
             <div class="tipo_suscripcion">
                 <h3> Mensual (1 Mes) </h3>
+                <h4> [500 &#9834] </h4>
+
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="mensual"> Crear </button>
                 </div>
             </div>
             <div class="tipo_suscripcion">
                 <h3> Anual (1 Año) </h3>
+                <h4> [1500 &#9834] </h4>
+
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="anual"> Crear </button>
                 </div>
@@ -99,8 +106,10 @@ class FormularioSuscripcion extends Formulario{
                     $today->add(new \DateInterval('PT30S'));
                 }
                 $user->actualiza();
-                $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
-                $_SESSION['isSub'] = $tipo;
+                if ($this->errores["precio"] !== "No tienes suficeintes corcheas" ){
+                    $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
+                    $_SESSION['isSub'] = $tipo;
+                }
             }
 
         }
