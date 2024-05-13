@@ -2,27 +2,7 @@
 
 require_once '../../Config.php';
 require_once CLASSES_URL . '/FormularioPlaylist.php'; 
-
-function displayFavoriteSongPlaylist($playlist, $user){
-    $html = displayPlaylistHeader($playlist); 
-    
-    $all = SW\classes\Cancion::obtenerCancionesFav($user);
-
-    // Si no hay canciones, mostramos un mensaje
-    if(!$all)
-        return displayErrorMessage("No hay canciones en esta playlist");
-
-    
-    $html .= '<div class="songlist">';
-    foreach($all as $song){
-        $html .= displaySong($song);
-    }
-    $html .= "</div>";
-
-
-
-    return $html; 
-}
+require_once HELPERS_URL . '/MusicaHelper.php'; 
 
 
 function displayPlaylist($playlist){
@@ -133,7 +113,7 @@ function displayPlaylistSongs($playlist){
     
     $html = '<div class="songlist">';
     foreach($all as $song){
-        $html .= displaySong($song);
+        $html .= displayMusicStyle($song);
     }
     $html .= "</div>";
 

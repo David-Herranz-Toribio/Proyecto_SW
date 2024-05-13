@@ -15,7 +15,7 @@ function showPlaylists($username){
     $html = displayHeader();
 
     // Mostrar botones
-    $html .= displayButtons($username);
+    $html .= displayButtonsPlaylist($username);
 
     // Mostrar playlists
     $html .= displayPlaylists($playlists);
@@ -34,7 +34,7 @@ function displayHeader(){
     return $html;
 }
 
-function displayButtons($username){
+function displayButtonsPlaylist($username){
 
     // Boton para crear playlist
     $viewPath = VIEWS_PATH . '/musica/CrearPlaylist.php';
@@ -110,4 +110,46 @@ function displayViewToNotLogged(){
     EOS;
 
     return $html;
+}
+
+
+function displayMusicStyle($cancion){
+    
+    $rutaLike= HELPERS_PATH . '/ProcesarLikeCancion.php';
+    $playButton = IMG_PATH . '/play_button.png';
+    $optionsButton = IMG_PATH . '/options_button.png';
+
+    $idCancion= $cancion->getIdCancion(); 
+    $rutaVistaCancion= VIEWS_PATH. '/musica/CancionVista.php?id_cancion=' . $idCancion; 
+    $html =<<<EOS
+    <div class='album_song'>
+        <div class='songName'>
+            <p> <a href= $rutaVistaCancion > {$cancion->getCancionTitulo()} </a>  </p>
+        </div>
+
+        <div class='songDate'>
+            <p> {$cancion->getCancionFecha()} </p>
+        </div>
+
+        <div class='songLikes'>
+            <p> {$cancion->getCancionLikes()} &#9834 </p>
+            <form action = $rutaLike method = "post">
+            <input type = "hidden" name = "likeId" value = "$idCancion">
+            <button class type="submit"> &#9834 </button>
+            </form>
+        </div>
+
+        <div class='songLenght'>
+            <p> {$cancion->transformDuration()} </p>
+        </div>
+
+        <div class='songButtons'>
+            <button class='playButton' id= 'playSong' ><img src=$playButton></button>
+            <span hidden> {$cancion->getCancionRuta()} </span> 
+            <button class='optionsButton'><img src=$optionsButton></button>
+        </div>
+    </div>
+    EOS;
+
+    return $html; 
 }

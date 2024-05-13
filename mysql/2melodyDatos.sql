@@ -147,10 +147,10 @@ INSERT INTO `cancion` (`id_cancion`, `titulo`, `imagen`, `fecha`, `id_artista`, 
 
 TRUNCATE TABLE `playlist`;-- la duracion esta en segundos
 INSERT INTO `playlist` (`id_playlist`, `id_user`, `duracion_total`, `imagen`, `nombre`, `fecha`) VALUES
-(1, 'user1', 0, 'playlist_fav.png', 'Favoritos', '2024-03-07'),
+(10, 'user1', 0, 'playlist_fav.png', 'Favoritos', '2024-03-07'),
 (2, 'user2', 200, 'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
-(3, 'user2', 0, 'playlist_fav.png', 'Favoritos', '2024-03-08'),
-(4, 'user3', 0, 'playlist_fav.png', 'Favoritos', '2024-03-09');
+(30, 'user2', 0, 'playlist_fav.png', 'Favoritos', '2024-03-08'),
+(40, 'user3', 0, 'playlist_fav.png', 'Favoritos', '2024-03-09');
 
 TRUNCATE TABLE `play_cancion`;
 INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES

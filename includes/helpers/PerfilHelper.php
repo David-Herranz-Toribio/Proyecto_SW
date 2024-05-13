@@ -458,11 +458,7 @@ function displayArtistAlbum($playlist){
 }
 
 function displayAlbumMusic($playlist){
-    $rutaLike= HELPERS_PATH . '/ProcesarLikeCancion.php';
-
-    
-    $playButton = IMG_PATH . '/play_button.png';
-    $optionsButton = IMG_PATH . '/options_button.png';
+  
     $canciones = \SW\classes\Cancion::getSongsFromPlaylistID($playlist->getIdPlaylist());
     if(!$canciones){
 
@@ -477,36 +473,7 @@ function displayAlbumMusic($playlist){
 
     $html = "<div class='all_albumSongs'>";
     foreach($canciones as $cancion){
-        $idCancion= $cancion->getIdCancion(); 
-        $html .=<<<EOS
-        <div class='album_song'>
-            <div class='songName'>
-                <p> {$cancion->getCancionTitulo()} </p>
-            </div>
-
-            <div class='songDate'>
-                <p> {$cancion->getCancionFecha()} </p>
-            </div>
-
-            <div class='songLikes'>
-                <p> {$cancion->getCancionLikes()} &#9834 </p>
-                <form action = $rutaLike method = "post">
-                <input type = "hidden" name = "likeId" value = "$idCancion">
-                <button class type="submit"> &#9834 </button>
-                </form>
-            </div>
-
-            <div class='songLenght'>
-                <p> {$cancion->transformDuration()} </p>
-            </div>
-
-            <div class='songButtons'>
-                <button class='playButton' id= 'playSong' ><img src=$playButton></button>
-                <span hidden> {$cancion->getCancionRuta()} </span> 
-                <button class='optionsButton'><img src=$optionsButton></button>
-            </div>
-        </div>
-        EOS;
+       $html.= displayMusicStyle($cancion); 
     }
     $html .= "</div>";
 

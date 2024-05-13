@@ -4,7 +4,7 @@ class ListaGenerosMusicales {
 
 
     private static $lista = [
-    'Pop', 'Rock', 'Rap', 'Hip Hop', 'Latino', 'Jazz', 'R&B', 'K-Pop', 
+    'Pop', 'Rock', 'Rap', 'Hip Hop', 'Latino', 'Jazz', 'Indie' , 'K-Pop', 
     'J-Pop', 'Dubstep', 'Clásica', 'Disco', 'Funk', 'Jazz', 'Reggae', 'Metal'
     ];
 
