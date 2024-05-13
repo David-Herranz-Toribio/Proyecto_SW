@@ -15,8 +15,6 @@ function generateStaticHeader($currentPage) {
 	$iconImage = IMG_PATH . '/2MelodyLogo.png';
 	$linkIndex = PROJECT_PATH . '/index.php';
 	$placeholderText = \SW\classes\TopSearchBar::getPlaceHolderText();
-	$user = $_GET["user"] ?? isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
-	$opcion = $_GET["opcion"] ?? NULL;
 	$username = '';
 
 	if (!islogged()) {
@@ -24,7 +22,6 @@ function generateStaticHeader($currentPage) {
 		$altText = 'Foto de login';
 		$link = VIEWS_PATH . '/log/Login.php';
 		$texto = "Iniciar sesión";
-		$onclick = "location.assign('$link');";
 	}
 	else {
 		$loginImage = IMG_PATH . '/FotoLogoutUser.png';
@@ -38,9 +35,10 @@ function generateStaticHeader($currentPage) {
 				<img class='logoSubs' src='$susImg' alt='Simbolo Suscrito' height='25' width='30' class='simboloSuscrito'>
 			EOS2;
 		}
-		$onclick = "comprobar();";
 	}
-
+	echo "<script>";
+	echo "var link = '" .$link. "';";
+	echo "</script>";
 	$html = <<<EOS
 	<header class= 'header'>
 	<a class='logoApp' href="$linkIndex">
@@ -48,7 +46,6 @@ function generateStaticHeader($currentPage) {
 	</a>
 	EOS;
 
-	// Vistas que no muestran la barra de búsqueda
 	if (isset($_SESSION['login']) && \SW\classes\TopSearchBar::getDisplaySearchBar()){
 		$html .= <<<EOS
 		<form class='searchBar' action='$searchbarPage' method='get'>    

@@ -18,29 +18,21 @@ function displayBotonesEliminarCuenta(){
     $rutaDel = HELPERS_PATH . '/ProcesarEliminarUsuario.php'; 
     $RemoveImage = IMG_PATH . '/remove_user_.png';
     $html = <<<EOS
-    <form action=$rutaDel method="post" onsubmit="return confirmarEliminacion();">
-    <div class= 'info_session'> 
-            <div class= 'contenedor_texto'> 
-            <p>
-                Eliminar Cuenta
-            <p> 
+    <body>
+        <div class="info_session"> 
+            <div class="contenedor_texto"> 
+                <p>Eliminar Cuenta</p> 
             </div> 
-            <div class= 'contenedor_imagen'> 
-                <button type="submit" name="delete_button">
-                <img src="$RemoveImage" height="30" width="30" alt="Foto de eliminacion de cuenta">
-                </button>
+            <div class="contenedor_imagen"> 
+                <button type="submit" name="delete_button" id="DeleteUserButton"> 
+                    <img src="$RemoveImage" height="30" width="30" alt="Foto de eliminacion de cuenta">
+                </button> 
             </div> 
         </div> 
-    </form>
-
-    <script>
-    function confirmarEliminacion() {
-        var ok = window.confirm("¿Estás seguro de que quieres eliminar tu usuario?");
-        return ok;
-    }
-    </script>
+    </header>
     EOS;
 
+    echo "<script> var linkEliminar = '" . $rutaDel . "'; </script>";
     return $html;
 }
 
