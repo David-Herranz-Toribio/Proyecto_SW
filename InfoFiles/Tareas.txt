@@ -35,10 +35,9 @@
 
 -Suscripciones (David y Hugo)
     1)Varias cuotas: prueba, mensual, anual ✅
-    2)Descuentos en la tienda
-    3)No interrupcion mientras escuchas musica 
-    4)Icono especial en tu cuenta ✅
-    5)Pagina a parte para subscribirte ✅
+    2)Descuentos en la tienda ✅
+    3)Icono especial en tu cuenta ✅
+    4)Pagina a parte para subscribirte ✅
 
 -Foro: (Ignacio)
     1)Opcion de ver post de los seguidores✅
@@ -50,15 +49,15 @@
         2.1)Que al hacer sign up de un usuario, que se cree por defecto, una playlist "Tus Canciones Favoritas" [sugerencia Hugo] (Óscar)✅
     3)En el perfil de un artista, pestaña de Musica con todas sus canciones✅
     4)Sidebar izquierdo 2 opciones
-        4.1)Muestra toda la musica publicada (puedes filtrarla)
+        4.1)Muestra toda la musica publicada (puedes filtrarla por genero) ✅
         4.2)Tu musica favorita (que sea la playlist default "Tus Canciones Favoritas" [sugerencia Hugo])✅
-            4.2.1)Al darle me gusta a cancion añadir a playlist default "Tus Canciones Favoritas" [sugerencia Hugo]
+            4.2.1)Al darle me gusta a cancion añadir a playlist default "Tus Canciones Favoritas" [sugerencia Hugo]✅
     5)Vista de playlists (Óscar)✅
     6)Vista de canciones (Óscar)✅
 
 
 -CSS
-    1)Quitar reglas "redundantes"
+    1)Quitar reglas "redundantes" 
     1)Cambiar modo oscuro y modo claro (Alonso)
     2)Cambiar la fuente (Alonso)
     3)Media queries (Óscar)
@@ -69,6 +68,6 @@
 
 -Actualizar BD (Hugo)
     1)Añadir campo archivado (bool) para musica, produtos etc. Si es 0 no está 'borrado', si es 1 si lo esta✅
-    2)Añadir musica, eventos y subscripciones
+    2)Añadir musica, eventos y subscripciones✅
 
--Arreglar errores Practica 3 ❗❗❗❗(URGENTE)❗❗❗❗
+-Arreglar errores Practica 3 ❗❗❗❗(URGENTE)❗❗❗❗✅

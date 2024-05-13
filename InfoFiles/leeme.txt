@@ -1,9 +1,0 @@
-Todas las funcionalidades estan sujetas a posibles futuras actualizaciones y adiciones de contenido.
-La barra de busqueda no se debe poder usar en perfil (aunque sea visible)
-
-Tienda: entero
-Foro: entero
-Carrito: entero
-Musica: vacio
-Perfil: entero
-
