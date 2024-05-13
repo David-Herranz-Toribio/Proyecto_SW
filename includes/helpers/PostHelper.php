@@ -2,8 +2,28 @@
 
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/Usuario.php';
-require_once CLASSES_URL . '/FormularioRespuesta.php'; 
+require_once CLASSES_URL . '/FormularioRespuesta.php';
+require_once CLASSES_URL . '/FormularioPost.php'; 
 
+function crearFormReseña($id, $tipo, $yoYYoMismo){
+    $content =  "<h2>Reseñas</h2>";
+
+    if($tipo == "cancion")
+        $form = new FormularioPost(null, null, null, $id);    
+    else if($tipo == "producto"){
+        $form = new FormularioPost(null, null, $id, null); 
+    }
+    
+    $content .= $form->gestiona();                                   
+
+
+    $listaPosts = SW\classes\Post::obtenerListaDeReseñas($tipo, $id);
+    foreach($listaPosts as $post_aux){
+        $content .= creacionPostHTML($post_aux->getAutor(), $post_aux->getImagen(), $post_aux->getLikes(),
+                                     $post_aux->getTexto(), $post_aux->getId(), $post_aux->getPadre(), $yoYYoMismo);
+    }
+    return $content;
+}
 function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYoMismo){
 
     $rutaPerfil = VIEWS_PATH . '/perfil/Perfil.php';

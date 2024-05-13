@@ -1,11 +1,11 @@
 $(document).ready(function(){
     var currentSong = 0;
-    var countdown_publi= 3; 
+    var countdown_publi = 3; 
 
     var isPlaying = false; // Variable para verificar si la canción está reproduciéndose
-    var audioPubli= "<li id= 'cancionPubli'> <a href= '../../../audio/audio_publicidad.mp3'> Publicidad </a> </li>"; 
+    var audioPubli = "<li id= 'cancionPubli'> <a href= '../../../audio/audio_publicidad.mp3'> Publicidad </a> </li>"; 
 
-    var isPremium= 0; 
+    var isPremium = 0; 
 
     user_premium(function(result, error) {
         if (error) {
@@ -45,7 +45,7 @@ $(document).ready(function(){
         var playing = true;
         $("#playlist li:eq("+currentSong+")").addClass("current-song");
         $("#player")[0].src = $("#playlist li a")[currentSong].href;
-        $("#player")[0].play();
+        $("#player")[0].pause();
         isPlaying = true; // Establecer que la canción está reproduciéndose
         showNameSong(); 
     }

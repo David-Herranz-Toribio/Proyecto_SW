@@ -11,18 +11,18 @@ class FormularioModificacionPerfil extends FormularioMultimedia {
     }
 
     protected function generaCamposFormulario(&$datos){
-        $user= SW\classes\Usuario:: buscaUsuario($_SESSION['username']);  
 
-        $userName= $user->getUsername(); 
-        $nickName= $user->getNickname();  
-        $desc= $user->getDescrip(); 
-        $email= $user->getEmail(); 
-        $imagen= $user->getPhoto(); 
+        $user = SW\classes\Usuario::buscaUsuario($_SESSION['username']);  
+        $userName = $user->getUsername(); 
+        $nickName = $user->getNickname();  
+        $desc = $user->getDescrip(); 
+        $email = $user->getEmail(); 
+        $imagen = $user->getPhoto(); 
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'desc', 'email','imagen'], $this->errores, 'span', array('class' => 'error'));
 
-        $camposForm= <<<EOF
+        $camposForm =<<<EOF
             <input type= 'hidden' name= "ImagenAntigua" value= '$imagen'> 
             $htmlErroresGlobales
             <fieldset class= "formRegistro">
@@ -70,8 +70,10 @@ class FormularioModificacionPerfil extends FormularioMultimedia {
     }
 
     protected function procesaFormulario(&$datos){
+
         $this->errores = [];
 
+        // Recoger datos
         $nickname = htmlspecialchars($datos['modify_nickname']);
         $descripcion= htmlspecialchars($datos['modify_descrip']); 
         $email = htmlspecialchars($datos['modify_email']);
@@ -80,8 +82,8 @@ class FormularioModificacionPerfil extends FormularioMultimedia {
         $password = $datos['modify_password'];
 
 
-        /*TODO comprobar errores en los datos*/
-        $usu_mod= SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
+        /* Comprobar errores en los datos */
+        $usu_mod = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
 
         if($nickname) $usu_mod->setNickname($nickname);
 
@@ -103,14 +105,14 @@ class FormularioModificacionPerfil extends FormularioMultimedia {
                 $this->errores['password'] = 'La contraseña debe tener al menos 8 caracteres';
             }    
             else {
-                $password= password_hash($password, PASSWORD_DEFAULT);
+                $password = password_hash($password, PASSWORD_DEFAULT);
                 $usu_mod->setPassword($password);
             }
         } 
 
-        $fotoPerfil= self::compruebaImagen('image', '/profileImages/'); 
+        $fotoPerfil = self::compruebaImagen('image', '/profileImages/'); 
 
-        if(count($this->errores)===0){
+        if(count($this->errores) === 0){
             $usu_mod->setPhoto($fotoPerfil ?? $imagen_ant); 
             $usu_mod->actualiza(); 
         }

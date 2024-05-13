@@ -64,24 +64,23 @@ class FormularioLogin extends Formulario
         if ( ! $password || empty($password) ) {
             $this->errores['password'] = 'El password no puede estar vacío.';
         }
+        if(count($this->errores) !== 0) { return; }
         
-        if (count($this->errores) === 0) {
-            $usuario = SW\classes\Usuario::login($username, $password);
-        
-            if (!$usuario) {
-                $this->errores[] = "¡El usuario o la contraseña no coinciden!";
+
+        $usuario = SW\classes\Usuario::login($username, $password);
+        if (!$usuario) {
+            $this->errores[] = "¡El usuario o la contraseña no coinciden!";
+        }
+        else {
+            $_SESSION['login'] = true;
+            $_SESSION['username'] = $usuario->getUsername();
+            $num = SW\classes\Pedido::numProdporUserPP($username);
+            if($num){
+                $_SESSION['notif_prod'] = $num;
             }
-            else {
-                $_SESSION['login'] = true;
-                $_SESSION['username'] = $usuario->getUsername();
-                $num = SW\classes\Pedido::numProdporUserPP($username);
-                if($num){
-                    $_SESSION['notif_prod'] = $num;
-                }
-                $_SESSION['isArtist'] =  SW\classes\Usuario::esArtista($username); 
-                $_SESSION['isAdmin'] =  SW\classes\Usuario::esAdmin($username); 
-                $_SESSION['isSub'] =  SW\classes\Suscripcion::tieneSub($username); 
-            }
+            $_SESSION['isArtist'] =  SW\classes\Usuario::esArtista($username); 
+            $_SESSION['isAdmin'] =  SW\classes\Usuario::esAdmin($username); 
+            $_SESSION['isSub'] =  SW\classes\Suscripcion::tieneSub($username); 
         }
     }
 }

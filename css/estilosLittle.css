@@ -739,6 +739,10 @@ button:hover  {
     text-decoration: none;
     color: black;
 }
+.add_song_button{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
 
 .playlist_extra_info p{
     margin-inline: 6px;
@@ -750,9 +754,13 @@ button:hover  {
     grid-column: 2;
     margin-top: 1%;
     margin-inline: 8px;
-    border: 2px solid lightgray;
 }
+#songStyle{
+    grid-column-start: 2;
+    grid-row: 1;
 
+  
+}
 /*  ----------------- HACER ----------------- */
 /* Lista de canciones de un album */
 .artist_music{
@@ -807,9 +815,14 @@ button:hover  {
 .album_song{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-}
+    justify-content: space-around; 
+    border-radius :25px;
+    background-color: #120714;
 
+}
+.album_song:hover{
+    background-color: #5d0c67;
+}
 .songButtons{
     display: grid;
     grid-template-columns: 50% 50%;
@@ -882,7 +895,13 @@ button:hover  {
 .songNameAndArtist p{
     margin: 0px;
 }
-
+.songName:hover{
+    font-size:large;
+}
+.songName a:hover{
+    background-color: white;
+    color:black;
+}
 /* Apartado de explorar música */
 
 .explorarCanciones{

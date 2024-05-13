@@ -24,5 +24,5 @@ else{
 }
 
 
-$scripts= ['eventos.js']; 
+$scripts = ['eventos.js']; 
 require_once LAYOUT_URL;

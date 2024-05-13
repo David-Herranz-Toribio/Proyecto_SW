@@ -18,7 +18,9 @@ function displayPlaylist($playlist){
 
 function displayPlaylistHeader($playlist){
 
-    // Información de la playlist
+    // Rutas e información de la playlist
+    $rutaPerfilCreador = VIEWS_PATH . '/perfil/Perfil.php';
+    $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
     $playlistImage = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
     $playlistName = $playlist->getPlaylistNombre();
     $playlistID = $playlist->getIdPlaylist();
@@ -26,15 +28,10 @@ function displayPlaylistHeader($playlist){
     $creador = $playlist->getIdUsuario();
     $fecha = $playlist->getPlaylistCreationDate();
   
-    // Rutas
-    $rutaPerfilCreador = VIEWS_PATH . '/perfil/Perfil.php';
-    $crearMusicaPath = VIEWS_PATH . '/musica/CrearCancion.php';
-    
 
-   
+    // Botones
     $buttons = displayButtons($playlistID, $crearMusicaPath, $creador, $playlistName);
     
-
     // Generar HTML
     $html =<<<EOS
     <div class="playlist_header">
@@ -62,9 +59,10 @@ function displayPlaylistHeader($playlist){
 }
 
 function displayButtons($playlistID, $crearMusicaPath, $creador, $playlistName){
+
     $playButton = IMG_PATH . '/play_button.png';
-    $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarPlaylist.php'; 
-    $rutaModificar= VIEWS_PATH . '/musica/ModificarPlaylist.php';
+    $rutaBorrar = HELPERS_PATH . '/ProcesarEliminarPlaylist.php'; 
+    $rutaModificar = VIEWS_PATH . '/musica/ModificarPlaylist.php';
 
     $addButton = '';
     if( isset($_SESSION['username']) && (isset($_SESSION['isArtist']) && $_SESSION['isArtist']) ){
@@ -73,28 +71,29 @@ function displayButtons($playlistID, $crearMusicaPath, $creador, $playlistName){
         EOS;
     }
 
-    if($playlistName!='Favoritos'){ //No se puede modificar la playlist de 'Favoritos' 
+    //  Evitar eliminar la playlist de favoritos
+    if($playlistName != SW\classes\Playlist::$DEFAULT_PLAYLIST){ 
 
-    $modificar_eliminar= <<<EOS
-    <form action= $rutaModificar method= "post"> 
-    <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
-    <input type= "hidden" name= "idCreador" value= '$creador'>  
-    <button type= "submit"> Modificar playlist</button> 
-    </form> 
+        $modificar_eliminar =<<<EOS
+        <form action=$rutaModificar method="post">
+            <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
+            <input type= "hidden" name= "idCreador" value= '$creador'>
+            <button type= "submit"> Modificar playlist</button>
+        </form>
 
-    <form action= $rutaBorrar method= "post"> 
-    <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
-    <button type= "submit"> Eliminar playlist</button> 
-    </form> 
-    EOS; 
+        <form action=$rutaBorrar method="post"> 
+            <input type= "hidden" name= "idPlaylist" value= '$playlistID'>
+            <button type= "submit"> Eliminar playlist</button> 
+        </form> 
+        EOS;
     }
 
-    else $modificar_eliminar= ''; 
-    $html =<<<EOS
-    
-    $modificar_eliminar
+    else
+        $modificar_eliminar = '';
 
-    <button class='playButton' id='startPlaylist'> <img src=$playButton></button>
+    $html =<<<EOS
+    $modificar_eliminar
+    <button class='playButton' id='startPlaylist'><img src=$playButton></button>
     <span hidden> {$playlistID} </span> 
     $addButton
     EOS;
@@ -124,7 +123,7 @@ function displaySong($song){
 
     $songImagePath = $song->getCancionImagen();
     $nombre = $song->getCancionTitulo();
-    $id= $song->getIdCancion(); 
+    $id = $song->getIdCancion(); 
     $artista = $song->getIdArtista();
     $fecha = $song->getCancionFecha();
     $duracion = $song->getCancionDuracion();

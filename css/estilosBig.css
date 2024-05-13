@@ -727,7 +727,18 @@ button:hover  {
     grid-column: 2;
     margin-top: 1%;
     margin-inline: 8px;
-    border: 2px solid lightgray;
+}
+#songStyle{
+    grid-column-start: 2;
+    grid-row: 1;
+
+  
+}
+
+/* Vista añadir cancion a una playlist */
+#formAddCancion_Playlist{
+    grid-column-start: 2;
+    grid-row-start: 2;
 }
 
 /*  ----------------- HACER ----------------- */
@@ -785,8 +796,13 @@ button:hover  {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-}
+    border-radius :25px;
+    background-color: #120714;
 
+}
+.album_song:hover{
+    background-color: #5d0c67;
+}
 .songButtons{
     display: grid;
     grid-template-columns: 50% 50%;
@@ -859,7 +875,13 @@ button:hover  {
 .songNameAndArtist p{
     margin: 0px;
 }
-
+.songName:hover{
+    font-size:large;
+}
+.songName a:hover{
+    background-color: white;
+    color:black;
+}
 /* Apartado de explorar música */
 
 .explorarCanciones{

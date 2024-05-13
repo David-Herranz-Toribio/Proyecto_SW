@@ -98,7 +98,7 @@ class FormularioPost extends FormularioMultimedia
                 if($producto != null){
                     SW\classes\Post::insertaProdPost($producto, $post->getId());
                 }else if($cancion != null){
-                    SW\classes\Post::insertaCancionPostPost($cancion, $post->getId());
+                    SW\classes\Post::insertaCancionPost($cancion, $post->getId());
                 }
             }
         }
