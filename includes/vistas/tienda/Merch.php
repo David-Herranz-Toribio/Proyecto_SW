@@ -18,5 +18,5 @@ else {
     header('Location:'. VIEWS_PATH . '/log/Login.php');
     exit(); 
 }
-
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

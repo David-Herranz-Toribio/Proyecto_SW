@@ -25,5 +25,5 @@ else{
 }
 
 
-$scripts= ['playerLogic.js']; 
+$scripts= ['playerLogic.js', 'confirmacion.js']; 
 require_once LAYOUT_URL;

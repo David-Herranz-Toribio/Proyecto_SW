@@ -24,5 +24,5 @@ $content .= crearFormReseña($id_cancion ,'cancion', $yo);
 $content.= "</div >"; 
 $content .= "</div>"; 
 
-
+$scripts = ['playerLogic.js','confirmacion.js']; 
 require_once LAYOUT_URL;

@@ -17,5 +17,5 @@ $content = <<<EOS
     </section> 
 EOS; 
 
-
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

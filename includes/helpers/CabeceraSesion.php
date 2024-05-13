@@ -50,9 +50,8 @@ function generateStaticHeader($currentPage) {
 
 	// Vistas que no muestran la barra de búsqueda
 	if (isset($_SESSION['login']) && \SW\classes\TopSearchBar::getDisplaySearchBar()){
-
 		$html .= <<<EOS
-		<form class='searchBar' action='$searchbarPage' method='get'>	
+		<form class='searchBar' action='$searchbarPage' method='get'>    
 			<input class='searchInput' type="text" name="data" placeholder="$placeholderText">
 			<input type="hidden" name="searchOption" value='$searchOption'>
 			<button type="submit"> &#128269 </button>
@@ -61,16 +60,7 @@ function generateStaticHeader($currentPage) {
 	}
 
 	$html .= <<<EOS
-	<script>
-	function comprobar() {
-		var ok = window.confirm("¿Quieres cerrar sesión, $username?");
-		if (ok)
-		location.assign("$link");
-	}
-	</script>
-	</head>
 	<body>
-
 	<div class='session'>
 		<div class= 'info_session'> 
 			<div class= 'contenedor_texto'> 
@@ -79,7 +69,7 @@ function generateStaticHeader($currentPage) {
 		</div>
 
 		<div class= 'contenedor_imagen'> 
-			<p><a href="#" onclick="$onclick"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
+			<p><a href="#" id="logoutButton"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
 		</div>
 	</div>
 	</header>
