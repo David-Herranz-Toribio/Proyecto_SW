@@ -46,7 +46,6 @@ CREATE TABLE `usuario` (
 DROP TABLE IF EXISTS `artista`;
 CREATE TABLE `artista` (
   `id_artista` varchar(63) NOT NULL,
-  `integrantes` tinytext DEFAULT NULL,
   `archivado` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -142,7 +141,6 @@ CREATE TABLE `cancion` (
   `id_artista` varchar(63) DEFAULT NULL,
   `likes` int(11) DEFAULT NULL,
   `ruta` varchar(255) DEFAULT NULL,
-  `duracion` int(11) DEFAULT NULL,
   `tags` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -170,7 +168,6 @@ DROP TABLE IF EXISTS `playlist`;
 CREATE TABLE `playlist` (
   `id_playlist` int(11) NOT NULL,
   `id_user` varchar(63) DEFAULT NULL,
-  `duracion_total` int(11) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `fecha` date DEFAULT NULL

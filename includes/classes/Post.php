@@ -132,17 +132,6 @@ class Post{
         return $result;
     }
 
-    public static function LupaDescripcionPostExistentes($posts, $textoBusqueda) {
-        
-        $result = [];
-        foreach ($posts as $post) {
-            if (stripos($post->getTexto(), $textoBusqueda) !== false) { 
-                $result[] = $post; 
-            }
-        }
-        return $result;
-    }
-
     public static function LupaUsuarioPostExistentes($posts, $textoBusqueda) {
 
         $result = [];

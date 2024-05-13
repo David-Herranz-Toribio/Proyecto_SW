@@ -38,9 +38,9 @@ INSERT INTO `usuario` (`id_user`, `nickname`, `password`, `foto`, `descripcion`,
 -- Volcado de datos para la tabla `artista`
 --
 TRUNCATE TABLE `artista`;
-INSERT INTO `artista` (`id_artista`, `integrantes`) VALUES
-('user2', 'John Doe, Jane Smith'),
-('user7', 'Usuario Borrado y Billy Jean is not My Lover');
+INSERT INTO `artista` (`id_artista`) VALUES
+('user2'),
+('user6');
 
 
 
@@ -139,28 +139,41 @@ INSERT INTO `postfav` (`id_post`, `id_user`) VALUES
 -- Volcado de datos para la tabla `canciones y playlist`
 --
 TRUNCATE TABLE `cancion`;
-INSERT INTO `cancion` (`id_cancion`, `titulo`, `imagen`, `fecha`, `id_artista`, `likes`, `ruta`, `duracion`, `tags`) VALUES
-(1, 'Canción 1', 'imagen1.jpg', '2024-03-08', 'user2', 100, 'Cancion1.mp3', 240, 'pop, dance'),
-(2, 'Canción 2', 'imagen2.jpg', '2024-03-09', 'user2', 85, 'Cancion2.mp3', 180, 'rock'),
-(3, 'Canción 3', 'imagen3.jpg', '2024-03-10', 'user2', 120, 'Cancion3.mp3', 300, 'electrónica');
+INSERT INTO `cancion` (`id_cancion`, `titulo`, `fecha`, `id_artista`, `likes`, `ruta`, `tags`) VALUES
+(1, 'Canción 1', '2024-03-08', 'user2', 100, 'Cancion1.mp3', 'pop, dance'),
+(2, 'Canción 2', '2024-03-09', 'user2', 85, 'Cancion2.mp3', 'rock'),
+(3, 'Canción 3', '2024-03-10', 'user2', 120, 'Cancion3.mp3', 'electrónica'),
+(4, 'CancionChill', '2020-02-05', 'user6', 50, 'CancionChill.mp3', 'indie'),
+(5, 'Drive-Breakbeat', '2021-03-06', 'user6', 50, 'Drive-Breakbeat.mp3', 'Hip Hop'); 
 
 
 TRUNCATE TABLE `playlist`;-- la duracion esta en segundos
-INSERT INTO `playlist` (`id_playlist`, `id_user`, `duracion_total`, `imagen`, `nombre`, `fecha`) VALUES
-(10, 'user1', 0, 'playlist_fav.png', 'Favoritos', '2024-03-07'),
-(2, 'user2', 200, 'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
-(30, 'user2', 0, 'playlist_fav.png', 'Favoritos', '2024-03-08'),
-(40, 'user3', 0, 'playlist_fav.png', 'Favoritos', '2024-03-09');
+INSERT INTO `playlist` (`id_playlist`, `id_user`,`imagen`, `nombre`, `fecha`) VALUES
+(10, 'user1', 'playlist_fav.png', 'Favoritos', '2024-03-07'),
+(2, 'user2',  'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
+(30, 'user2', 'playlist_fav.png', 'Favoritos', '2024-03-08'),
+(40, 'user3', 'playlist_fav.png', 'Favoritos', '2024-03-09'),
+(50, 'user4', 'playlist_fav.png', 'Favoritos', '2024-04-01'), 
+(60, 'user5', 'playlist_fav.png', 'Favoritos', '2024-04-02'),
+(70, 'user6', 'playlist_fav.png', 'Favoritos', '2024-04-10'),
+(3, 'user6', 'playlist3.jpg', 'MyOwnSongs', '2020-03-01'); 
 
 TRUNCATE TABLE `play_cancion`;
 INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
-(1, 1),
+(10, 1),
 (1, 2),
 (1, 3),
 (2, 1),
 (2, 3),
-(3, 2),
-(3, 3);
+(30, 3),
+(3, 3),
+(3, 5); 
+
+TRUNCATE TABLE `cancionfav`;
+INSERT INTO `cancionfav` (`id_cancion`, `id_user`) VALUES
+(3, 'user3'), 
+(1, 'user1'), 
+(3, 'user1');
 
 TRUNCATE TABLE `producto_post`;
 INSERT INTO `producto_post` (`id_prod`, `id_post`) VALUES

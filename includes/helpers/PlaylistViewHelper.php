@@ -24,7 +24,6 @@ function displayPlaylistHeader($playlist){
     $playlistImage = IMG_PATH . '/songImages/' . $playlist->getPlaylistImagen();
     $playlistName = $playlist->getPlaylistNombre();
     $playlistID = $playlist->getIdPlaylist();
-    $duracion = $playlist->getPlaylistDuracion();
     $creador = $playlist->getIdUsuario();
     $fecha = $playlist->getPlaylistCreationDate();
   
@@ -47,7 +46,6 @@ function displayPlaylistHeader($playlist){
                     <a href="$rutaPerfilCreador?user=$creador"> @$creador </a>
                 </div>
                 
-                <p> Duración: $duracion </p>
                 <p> Creada el $fecha </p>
                 $buttons
             </div>
@@ -115,54 +113,6 @@ function displayPlaylistSongs($playlist){
         $html .= displayMusicStyle($song);
     }
     $html .= "</div>";
-
-    return $html;
-}
-
-function displaySong($song){
-
-    $songImagePath = $song->getCancionImagen();
-    $nombre = $song->getCancionTitulo();
-    $id = $song->getIdCancion(); 
-    $artista = $song->getIdArtista();
-    $fecha = $song->getCancionFecha();
-    $duracion = $song->getCancionDuracion();
-    $rutaBorrar= HELPERS_PATH . '/ProcesarEliminarCancion.php';
-
-
-     if ($_SESSION['username']==$artista || (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true)){
-        $user_info= <<<EOS
-        <div> 
-        <form action= $rutaBorrar method= "post"> 
-            <input type= "hidden" name= "idCancion" value= '$id'>
-            <button type= "submit"> &#10060 </button> 
-        </form> 
-        </div> 
-        EOS; 
-     }
-     else $user_info= ''; 
-
-    $html =<<<EOS
-    <div class="playlistSong">
-        <img src="$songImagePath">
-        <div class="songInfo">
-            <div class="songNameAndArtist">
-                <p> $nombre </p>
-                <p> $artista </p>
-            </div>
-
-            <div class="songDate">
-                <p> $fecha </p>
-            </div>
-
-            <div class="songLenght">
-                <p> $duracion </p>
-            </div>
-            $user_info
-           
-        </div>
-    </div>
-    EOS;
 
     return $html;
 }

@@ -9,7 +9,6 @@ class Playlist{
 
     private $id_playlist;
     private $id_usuario;
-    private $duracion;
     private $imagen;
     private $nombre;
     private $creationDate;
@@ -20,7 +19,6 @@ class Playlist{
 
         $this->id_playlist = $parameters['id_playlist'];
         $this->id_usuario = $parameters['id_usuario'];
-        $this->duracion = $parameters['duracion'];
         $this->imagen = $parameters['imagen'];
         $this->nombre = $parameters['nombre'];
         $this->creationDate = $parameters['creationDate'];
@@ -48,7 +46,6 @@ class Playlist{
             $parameters = [];
             $parameters['id_playlist'] = $fila['id_playlist'];
             $parameters['id_usuario'] = $fila['id_user'];
-            $parameters['duracion'] = $fila['duracion_total'];
             $parameters['imagen'] = $fila['imagen'];
             $parameters['nombre'] = $fila['nombre'];
             $parameters['creationDate'] = $fila['fecha'];
@@ -75,7 +72,6 @@ class Playlist{
             $parameters = [];
             $parameters['id_playlist'] = $fila['id_playlist'];
             $parameters['id_usuario'] = $fila['id_user'];
-            $parameters['duracion'] = $fila['duracion_total'];
             $parameters['imagen'] = $fila['imagen'];
             $parameters['nombre'] = $fila['nombre'];
             $parameters['creationDate'] = $fila['fecha'];
@@ -106,7 +102,6 @@ class Playlist{
             $parameters = [];
             $parameters['id_playlist'] = $fila['id_playlist'];
             $parameters['id_usuario'] = $fila['id_user'];
-            $parameters['duracion'] = $fila['duracion_total'];
             $parameters['imagen'] = $fila['imagen'];
             $parameters['nombre'] = $fila['nombre'];
             $parameters['creationDate'] = $fila['fecha'];
@@ -122,8 +117,8 @@ class Playlist{
     public static function crearPlaylistBD($autor, $nombre, $imagen, $creationDate){
 
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO playlist (id_user, duracion_total, imagen, nombre, fecha) 
-        VALUES ('%s', '%d', '%s', '%s', '%s')", $conection->real_escape_string($autor), 0, $conection->real_escape_string($imagen), $conection->real_escape_string($nombre), $creationDate);
+        $query = sprintf("INSERT INTO playlist (id_user,  imagen, nombre, fecha) 
+        VALUES ('%s', '%s', '%s', '%s')", $conection->real_escape_string($autor), $conection->real_escape_string($imagen), $conection->real_escape_string($nombre), $creationDate);
         $rs = $conection->query($query);
         
         if($rs){}
@@ -164,16 +159,6 @@ class Playlist{
 
         return $result;
     }
-
-    public static function eliminarPlaylist($id_playlist){
-
-        $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM playlist WHERE id_playlist = '%s'", $id_playlist);
-        $rs = $conection->query($query);
-
-        return $rs;
-    }
-
 
     public static function actualizar($playlist){
         $result = false;
@@ -233,10 +218,6 @@ class Playlist{
 
     public function getIdUsuario(){
         return $this->id_usuario;
-    }
-
-    public function getPlaylistDuracion(){
-        return $this->duracion;
     }
 
     public function getPlaylistImagen(){
