@@ -80,7 +80,6 @@ function displayPlaylists($data){
         $id = $playlist['id_playlist'];
         $image = $playlist['imagen'];
         $nombre = $playlist['nombre'];
-        $duracionTotal = transformDuration($playlist['duracion_total']);
 
         $html .=<<<EOS
         <article class="music_playlist">
@@ -90,7 +89,6 @@ function displayPlaylists($data){
 
             <div class="music_playlist_info">
                 <a href="$view_path?id=$id"><h2> $nombre </h2></a>
-                <p> Duración total: $duracionTotal </p>
             </div>
         </article>
         EOS;
@@ -100,15 +98,6 @@ function displayPlaylists($data){
     return $html;
 }
 
-function transformDuration($duracion){
-
-    $minutes = intdiv($duracion, 60);
-    $seconds = $duracion - (60 * $minutes);
-    if($seconds < 10)
-        $seconds = '0' . $seconds;
-
-    return $minutes . ':' . $seconds;
-}
 
 function displayCanciones($data){
 
@@ -122,7 +111,6 @@ function displayCanciones($data){
         $titulo = $cancion['titulo'];
         $fecha = $cancion['fecha'];
         $likes = $cancion['likes'];
-        $duracion = transformDuration($cancion['duracion']);
         $artista = $cancion['id_artista'];
         $photo = $cancion['imagen'];
         $ruta = $cancion['ruta'];
@@ -139,10 +127,6 @@ function displayCanciones($data){
 
             <div class='songLikes'>
                 <p> $likes &#9834 </p>
-            </div>
-
-            <div class='songLenght'>
-                <p> $duracion </p>
             </div>
 
             <div class='songButtons'>

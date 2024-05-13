@@ -40,5 +40,5 @@ if($user){
     else $playlist->addCancion($id); 
 }
 
-header('Location: ' . VIEWS_PATH . '/foro/Foro.php');
+header('Location: ' . VIEWS_PATH . '/musica/Musica.php');
 exit();

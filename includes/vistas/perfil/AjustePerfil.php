@@ -14,8 +14,7 @@ $perfil = SW\classes\Usuario::buscaUsuario($_SESSION['username']);
 $image = IMG_PATH . '/profileImages/' . $perfil->getPhoto();
 
 // Generar HTML
-$content = displayBotonesTemas();
-$content .= displayImagenPerfil($image);
+$content = displayImagenPerfil($image);
 $content .= displayBotonesEliminarCuenta();
 $content .= displayFormularioModificar();
 

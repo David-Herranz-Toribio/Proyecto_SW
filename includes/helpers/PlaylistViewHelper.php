@@ -90,9 +90,10 @@ function displayButtons($playlistID, $crearMusicaPath, $creador, $playlistName){
         $modificar_eliminar = '';
 
     $html =<<<EOS
-    $modificar_eliminar
     <button class='playButton' id='startPlaylist'><img src=$playButton></button>
     <span hidden> {$playlistID} </span> 
+    $modificar_eliminar
+ 
     $addButton
     EOS;
 

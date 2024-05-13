@@ -95,7 +95,7 @@ $(document).ready(function(){
         if(countdown_publi> 0 ||isPremium){
             var rutaCancion = "../../../audio/";
             rutaCancion+= $(this).siblings("span")[0].innerText; 
-            nombreCancion= $(this).parent().siblings("div")[0].lastElementChild.innerText;  
+            nombreCancion= $(this).parent().siblings("div")[0].firstElementChild.innerText;  
             rutaCancion= rutaCancion.replace(/ /g, "");
             let cancion= [rutaCancion, nombreCancion]; 
             let canciones= [cancion]; 
