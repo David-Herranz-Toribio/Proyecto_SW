@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     //Validaciones al crear una playlist 
     $("#campoNombrePlaylist").change(function(){
-        var url= "compruebaPlaylist.php?user=" + $('#id_user').val() + "&nombrePlaylist=" + $('#campoNombrePlaylist').val(); 
+        var url= "../../helpers/compruebaPlaylist.php?user=" + $('#id_user').val() + "&nombrePlaylist=" + $('#campoNombrePlaylist').val(); 
         $.get(url,playlistExiste); 
     }); 
 
@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     //Validaciones al registrarse 
     $("#campoUser").change(function(){
-       var url= "compruebaUsuario.php?user=" + $('#campoUser').val(); 
+       var url= "../../helpers/compruebaUsuario.php?user=" + $('#campoUser').val(); 
        $.get(url,usuarioExiste);
     }); 
 

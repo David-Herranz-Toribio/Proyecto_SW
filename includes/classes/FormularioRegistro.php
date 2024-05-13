@@ -32,10 +32,6 @@ class FormularioRegistro extends FormularioMultimedia {
         $link_a_artista = ''; 
 
         if($this->isArtist == true){
-            $opciones_de_artista = <<<EOS
-            <label> Integrantes(user1,user2): </label>
-            <input type='text' name='integrantes' value=$integrantes>
-            EOS;
             $title = 'artista';
         }
 

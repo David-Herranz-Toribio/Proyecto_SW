@@ -40,7 +40,7 @@ function displayAllMusicTypes(){
     foreach(ListaGenerosMusicales::getListaGenerosMusicales() as $genero){
         $html.=<<<EOS
         <div class='musicalGenre'>
-            <a href=$viewPath?genre='$genero'>
+            <a href=$viewPath?genre=$genero>
                 $genero
             </a>
         </div>
