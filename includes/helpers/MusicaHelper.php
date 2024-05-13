@@ -121,10 +121,13 @@ function displayMusicStyle($cancion){
 
     $idCancion= $cancion->getIdCancion(); 
     $rutaVistaCancion= VIEWS_PATH. '/musica/CancionVista.php?id_cancion=' . $idCancion; 
+    $rutaVistaArtista= VIEWS_PATH. '/perfil/Perfil.php?user=' . $cancion->getIdArtista();
+
     $html =<<<EOS
     <div class='album_song'>
         <div class='songName'>
             <p> <a href= $rutaVistaCancion > {$cancion->getCancionTitulo()} </a>  </p>
+            <p> <a href= $rutaVistaArtista > {$cancion->getIdArtista()} </a> </p>
         </div>
 
         <div class='songDate'>

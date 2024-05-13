@@ -2,6 +2,7 @@
 
 require_once '../../Config.php';
 require_once HELPERS_URL . '/MusicaHelper.php';
+require_once HELPERS_URL . '/PostHelper.php';
 
 
 // Selección de barra de búsqueda y visibilidad
@@ -13,7 +14,16 @@ $id_cancion = $_GET["id_cancion"] ?? NULL;
 
 $cancion= SW\classes\Cancion:: obtenerCancionPorID($id_cancion); 
 
-$content = "<div class= 'songlist'> "; 
+$content = "<div id='songStyle'>";
+$content .= "<h1> ".$cancion->getCancionTitulo()."</h1>"; 
+
 $content .= displayMusicStyle($cancion);
+
+$content.= "<div >"; 
+
+$content .= crearFormReseña($id_cancion ,'cancion', $yo);
+$content.= "</div >"; 
 $content .= "</div>"; 
+
+
 require_once LAYOUT_URL;

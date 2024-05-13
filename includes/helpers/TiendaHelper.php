@@ -237,17 +237,8 @@ function showProduct($yoYYoMismo, $id){
     $content .= creacionProductoHTML($prod->getId(), $prod->getNombre(), $prod->getDescripcion(), $prod->getAutor(),
                                          $prod->getImagen(), $prod->getStock(), $prod->getPrecio(), $yoYYoMismo);   
     
-    $content .=  "<h2>Reseñas</h2>";
-    if($yoYYoMismo){
-        $form = new FormularioPost(null, null, $id ,null); 
-        $content .= $form->gestiona();                                   
-    }
+    $content .= crearFormReseña($id,'producto', $yoYYoMismo);
 
-    $listaPosts = SW\classes\Post::obtenerListaDeReseñas("producto", $id);
-    foreach($listaPosts as $post_aux){
-        $content .= creacionPostHTML($post_aux->getAutor(), $post_aux->getImagen(), $post_aux->getLikes(),
-                                     $post_aux->getTexto(), $post_aux->getId(), $post_aux->getPadre(), $yoYYoMismo);
-    }
     $content .= "</section>";
 
     return $content;
