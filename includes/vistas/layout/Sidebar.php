@@ -47,7 +47,5 @@
 
         <li><a href="<?=VIEWS_PATH?>/tienda/Suscripcion.php"><img src="<?=IMG_PATH?>/FotoSuscripcion.png" height="50" width="50" alt="Foto de suscripcion"></a></li>
 
-
-       
     </ul>
 </nav>

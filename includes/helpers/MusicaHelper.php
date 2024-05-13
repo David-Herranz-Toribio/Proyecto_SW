@@ -142,10 +142,6 @@ function displayMusicStyle($cancion){
             </form>
         </div>
 
-        <div class='songLenght'>
-            <p> {$cancion->transformDuration()} </p>
-        </div>
-
         <div class='songButtons'>
             <button class='playButton' id='playSong' ><img src=$playButton></button>
             <span hidden> {$cancion->getCancionRuta()} </span> 
