@@ -19,19 +19,19 @@ class FormularioPlaylist extends FormularioMultimedia{
             $legend_text= <<<EOS
             <legend> <strong> Modificar Playlist </strong> </legend>
             EOS; 
-            $playlist= SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist); 
-            $nombre= $playlist->getPlaylistNombre(); 
-            $imagen= $playlist->getPlaylistImagen();
-            $imagen_html= "<img src= '".IMG_PATH . '/songImages/' . $imagen."' width = '70' height= '70'>"; 
+            $playlist = SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist); 
+            $nombre = $playlist->getPlaylistNombre(); 
+            $imagen = $playlist->getPlaylistImagen();
+            $imagen_html = "<img src= '" . IMG_PATH . '/songImages/' . $imagen . "' width = '70' height= '70'>"; 
         }
 
         else {
             $legend_text= <<<EOS
             <legend> <strong>  Crear Playlist </strong>  </legend>
             EOS; 
-            $nombre= ''; 
-            $imagen= ''; 
-            $imagen_html= ''; 
+            $nombre = ''; 
+            $imagen = ''; 
+            $imagen_html = ''; 
         }
 
 
@@ -77,53 +77,51 @@ class FormularioPlaylist extends FormularioMultimedia{
     }
 
     protected function procesaFormulario(&$datos){
+
         $this->errores = [];
+
         // Recoger datos
         $nombre = htmlspecialchars($datos['nombre'], ENT_QUOTES);
-
         $creationDate = new DateTime();
         $creationDate = $creationDate->format('Y-m-d');
         $id_usuario = filter_var($_SESSION['username'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $id_playlist= filter_var($datos['id_playlist'], FILTER_SANITIZE_NUMBER_INT); 
-        $imagen_ant= $datos['Imagen_antigua']; 
+        $id_playlist = filter_var($datos['id_playlist'], FILTER_SANITIZE_NUMBER_INT); 
+        $imagen_ant = $datos['Imagen_antigua']; 
 
         // Validar datos
-       
-
         if(SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){
             $this->errores['nombre'] = 'Ya existe una playlist con ese nombre';
         }
         // Verificar que la imagen es adecuada -> archivo imagen, peso máximo, etc...
-        if($datos['imagen']=== '' && $imagen_ant==''){
-            $imagen = 'playlist1.jpg'; 
+        if(!isset($datos['imagen']) && $imagen_ant == ''){
+            $imagen = 'playlistDefault.png'; 
         }
         else
             $imagen = self::compruebaImagen('imagen', '/songImages/'); 
 
 
         // Si hay errores, salimos
-        if(count($this->errores) === 0) {
-             // Crear playlist en la base de datos
-            if($id_playlist!=''){
-                $playlist= SW\classes\Playlist::obtenerPlaylistByID($id_playlist);
-                $playlist->setPlaylistNombre($nombre); 
-                $playlist->setPlaylistImagen($imagen ?? $imagen_ant);
+        if(count($this->errores) !== 0) { return; }
 
-                SW\classes\Playlist::actualizar($playlist);
-            }
+        
+        // Crear playlist en la base de datos
+        if($id_playlist != ''){
+            $playlist= SW\classes\Playlist::obtenerPlaylistByID($id_playlist);
+            $playlist->setPlaylistNombre($nombre); 
+            $playlist->setPlaylistImagen($imagen ?? $imagen_ant);
+            SW\classes\Playlist::actualizar($playlist);
+        }
+        else {
+            $done = SW\classes\Playlist::crearPlaylistBD($_SESSION['username'], $nombre, $imagen, $creationDate);
+            if(!$done){
 
-            else {
-                $done = SW\classes\Playlist::crearPlaylistBD($_SESSION['username'], $nombre, $imagen, $creationDate);
-                if(!$done){
+                $html =<<<EOS
+                <div class="creatingPlaylistError">
+                    <h2> Ocurrió un error creando la playlist </h2>
+                </div>
+                EOS;
 
-                    $html =<<<EOS
-                    <div class="creatingPlaylistError">
-                        <h2> Ocurrió un error creando la playlist </h2>
-                    </div>
-                    EOS;
-
-                    return $html;
-                }
+                return $html;
             }
         }
     }

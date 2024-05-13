@@ -408,7 +408,7 @@ function displayFollowing($user){
 function displayArtistMusic($artist_username){
 
     $albums = \SW\classes\Playlist::obtenerPlaylistsBD($artist_username);
-    if(!$albums){
+    if(!$albums || count($albums) <= 1){
 
         $html =<<<EOS
         <section class="emptyMusicList">
@@ -422,6 +422,11 @@ function displayArtistMusic($artist_username){
     // Mostrar todas las playlists
     $html = "<section class='artist_music'>";
     foreach($albums as $p){
+
+        // No mostrar la playlist de favoritos -> privada
+        if($p->getPlaylistNombre() == SW\classes\Playlist::$DEFAULT_PLAYLIST)
+            continue;
+
         $html .= "<div class='fullAlbum'>";
         $html .= displayArtistAlbum($p);
         $html .= displayAlbumMusic($p);

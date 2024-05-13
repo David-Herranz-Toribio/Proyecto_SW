@@ -10,13 +10,14 @@ $user = null;
 if(isset($_SESSION['username']))
     $user = $_SESSION['username'];
 
-//Log usear or ask again for his account
+// Log user or ask again for his account
 if($user){
-    //añadir like BD
+    
+    // Añadir like BD
     $aux = 1;
     $cancion = SW\classes\Cancion::obtenerCancionPorID($id);
     
-    $borrarLike= $cancion->likeAsignado($id,$user); 
+    $borrarLike = $cancion->likeAsignado($id,$user); 
 
 
     if($borrarLike){
@@ -31,8 +32,7 @@ if($user){
     $cancion->aumentaLikes($aux);
     SW\classes\Cancion::actualizar($cancion);
 
-    //Insertar en la playlist de favs la cancion 
-
+    //Insertar en la playlist de favs la cancion
     $playlist= SW\classes\Playlist::obtenerPlaylistFav("Favoritos", filter_var($_SESSION['username'])); 
     if($borrarLike){
         $playlist->quitarCancion($id); 

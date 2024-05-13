@@ -93,7 +93,7 @@ class FormularioCrearAlbum extends Formulario{
         if(0){
             $this->errores['imagen'] = 'La imagen no es válida';
         }
-        if(count($this->errores) != 0) {return;}
+        if(count($this->errores) != 0) { return; }
 
         
         // Crear album en la base de datos

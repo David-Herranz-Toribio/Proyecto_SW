@@ -1,5 +1,4 @@
 <?php
-
 require_once '../../Config.php';
 require_once HELPERS_URL . '/MusicaHelper.php';
 require_once HELPERS_URL . '/PostHelper.php';

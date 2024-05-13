@@ -83,25 +83,24 @@ class FormularioCrearCancion extends FormularioMultimedia{
         
         $audio = self::compruebaMusica('ruta', '/');
 
-        if(count($this->errores) == 0){
+        if(count($this->errores) !== 0) { return; }
 
-            // Obtener parametros
-            $titulo = $datos['titulo'];
-            $fecha = $datos['fecha'];
-            $duracion = 0;
-            $tags = $datos['tags'];
-            $playlist = SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist);
-            $imagen = $playlist->getPlaylistImagen();
+        // Obtener parametros
+        $titulo = $datos['titulo'];
+        $fecha = $datos['fecha'];
+        $duracion = 0;
+        $tags = $datos['tags'];
+        $playlist = SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist);
+        $imagen = $playlist->getPlaylistImagen();
 
-            // Crear objeto en la base de datos
-            $cancion = SW\classes\Cancion::crearCancion($this->id_artista, $titulo, $imagen, $fecha, $duracion, $audio, $tags);
-            $ok = $cancion->crearCancionBD();
+        // Crear objeto en la base de datos
+        $cancion = SW\classes\Cancion::crearCancion($this->id_artista, $titulo, $imagen, $fecha, $duracion, $audio, $tags);
+        $ok = $cancion->crearCancionBD();
 
-            // Relacionar playlist y cancion en la base de datos SOLO si se ha creado correctamente la cancion
-            if($ok){
-                $cancion = \SW\classes\Cancion::obtenerCancionPorNombre($this->id_artista, $titulo);
-                $playlist->addCancion($cancion->getIdCancion());
-            }
+        // Relacionar playlist y cancion en la base de datos SOLO si se ha creado correctamente la cancion
+        if($ok){
+            $cancion = \SW\classes\Cancion::obtenerCancionPorNombre($this->id_artista, $titulo);
+            $playlist->addCancion($cancion->getIdCancion());
         }
     }
 }

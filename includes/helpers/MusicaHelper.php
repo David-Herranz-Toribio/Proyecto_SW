@@ -115,14 +115,14 @@ function displayViewToNotLogged(){
 
 function displayMusicStyle($cancion){
     
-    $rutaLike= HELPERS_PATH . '/ProcesarLikeCancion.php';
+    $idCancion = $cancion->getIdCancion();
+    $rutaLike = HELPERS_PATH . '/ProcesarLikeCancion.php';
     $playButton = IMG_PATH . '/play_button.png';
     $optionsButton = IMG_PATH . '/options_button.png';
-
-    $idCancion= $cancion->getIdCancion(); 
-    $rutaVistaCancion= VIEWS_PATH. '/musica/CancionVista.php?id_cancion=' . $idCancion; 
     $rutaVistaArtista= VIEWS_PATH. '/perfil/Perfil.php?user=' . $cancion->getIdArtista();
-
+    $rutaVistaCancion = VIEWS_PATH . '/musica/CancionVista.php?id_cancion=' . $idCancion;
+    $addSongPath = VIEWS_PATH . '/musica/CancionEnPlaylist.php';
+    
     $html =<<<EOS
     <div class='album_song'>
         <div class='songName'>
@@ -147,9 +147,9 @@ function displayMusicStyle($cancion){
         </div>
 
         <div class='songButtons'>
-            <button class='playButton' id= 'playSong' ><img src=$playButton></button>
+            <button class='playButton' id='playSong' ><img src=$playButton></button>
             <span hidden> {$cancion->getCancionRuta()} </span> 
-            <button class='optionsButton'><img src=$optionsButton></button>
+            <a class='optionsButton' href=$addSongPath?song=$idCancion><img src=$optionsButton></a>
         </div>
     </div>
     EOS;

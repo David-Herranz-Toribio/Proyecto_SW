@@ -168,8 +168,7 @@ class Cancion{
         return $cancion;
     }
 
-    //Logica de likes 
-
+    // Logica de likes
     public static function insertaFav($cancion, $user){
 
         $result = false;
@@ -210,13 +209,12 @@ class Cancion{
         $result= true; 
         $conection= Aplicacion::getInstance()->getConexionBd(); 
         $query = sprintf("SELECT * FROM cancionfav C WHERE C.id_cancion = %d AND C.id_user = '%s'", $id ,$user); 
-        $rs= $conection->query($query); 
+        $rs = $conection->query($query); 
 
-        if($rs->num_rows  == 0)
-            $result= false; 
+        if($rs->num_rows == 0)
+            $result = false; 
 
-            $rs->free(); 
-        
+        $rs->free();
         return $result; 
     }
 

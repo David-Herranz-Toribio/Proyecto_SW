@@ -735,6 +735,12 @@ button:hover  {
   
 }
 
+/* Vista añadir cancion a una playlist */
+#formAddCancion_Playlist{
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+
 /*  ----------------- HACER ----------------- */
 /* Lista de canciones de un album */
 .artist_music{

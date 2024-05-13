@@ -4,10 +4,11 @@ require_once '../Config.php';
 require_once CLASSES_URL . '/Playlist.php'; 
 
 
-$id= filter_var($_POST['idPlaylist'], FILTER_VALIDATE_INT); 
+$id = filter_var($_POST['idPlaylist'], FILTER_VALIDATE_INT); 
+if($id){
+    $playlist = SW\classes\Playlist::obtenerPlaylistByID($id);
+    $playlist->borrarPlaylist();
+}
 
-$playlist= SW\classes\Playlist::obtenerPlaylistByID($id); 
-$playlist->borrarPlaylist(); 
-
-header('Location: '. VIEWS_PATH . '/perfil/Perfil.php'); 
+header('Location: ' . VIEWS_PATH . '/musica/Musica.php'); 
 exit(); 

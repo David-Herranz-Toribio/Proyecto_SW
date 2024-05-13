@@ -196,6 +196,20 @@ class Playlist{
         return $result;
     }
 
+    public function existeCancion($id_cancion){
+
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM play_cancion WHERE id_playlist = '%d' AND id_cancion = '%d'", $this->id_playlist, $id_cancion);
+        $rs = $conection->query($query);
+
+        if($rs->fetch_assoc()){
+            $rs->free();
+            return true;
+        }
+
+        return false;
+    }
+
     public function addCancion($id_cancion){
             
         $conection = Aplicacion::getInstance()->getConexionBd();
