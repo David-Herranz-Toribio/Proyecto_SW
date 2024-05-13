@@ -22,9 +22,6 @@ if(!$playlist){
 else{
     // Mostrar el contenido de la playlist
     $content = displayPlaylist($playlist);
-    /*if($playlist->getPlaylistNombre()=='Favoritos'){
-        $content= displayFavoriteSongPlaylist($playlist, filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
-    }*/
 }
 
 

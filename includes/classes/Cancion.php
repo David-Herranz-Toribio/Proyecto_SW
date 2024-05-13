@@ -9,7 +9,6 @@ class Cancion{
     private $titulo;
     private $imagen;
     private $fecha;
-    private $duracion;
     private $likes;
     private $ruta;
     private $tags;
@@ -22,14 +21,13 @@ class Cancion{
         $this->titulo = $parameters['titulo'];
         $this->imagen = $parameters['imagen'];
         $this->fecha = $parameters['fecha'];
-        $this->duracion = $parameters['duracion'];
         $this->likes = $parameters['likes'];
         $this->ruta = $parameters['ruta'];
         $this->tags = $parameters['tags'];
     }
 
 
-    public static function crearCancion($id_artista, $titulo, $imagen, $fecha, $duracion, $ruta, $tags){
+    public static function crearCancion($id_artista, $titulo, $imagen, $fecha,$ruta, $tags){
 
         $parameters = [];
         $parameters['id_cancion'] = NULL;
@@ -37,7 +35,6 @@ class Cancion{
         $parameters['titulo'] = $titulo;
         $parameters['imagen'] = $imagen;
         $parameters['fecha'] = $fecha;
-        $parameters['duracion'] = $duracion;
         $parameters['likes'] = 0;
         $parameters['ruta'] = $ruta;
         $parameters['tags'] = $tags;
@@ -66,7 +63,6 @@ class Cancion{
             $parameters['id_artista'] = $fila['id_artista'];
             $parameters['likes'] = $fila['likes'];
             $parameters['ruta'] = $fila['ruta'];
-            $parameters['duracion'] = $fila['duracion'];
             $parameters['tags'] = $fila['tags'];
 
             $canciones[] = new Cancion($parameters);
@@ -97,7 +93,6 @@ class Cancion{
             $parameters['id_artista'] = $fila['id_artista'];
             $parameters['likes'] = $fila['likes'];
             $parameters['ruta'] = $fila['ruta'];
-            $parameters['duracion'] = $fila['duracion'];
             $parameters['tags'] = $fila['tags'];
 
             $canciones[] = new Cancion($parameters);
@@ -112,7 +107,7 @@ class Cancion{
         
         $canciones = [];
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf( "SELECT * FROM cancion C WHERE C.id_artista = '%s'", $id_artista);
+        $query = sprintf( "SELECT * FROM cancion C WHERE C.id_artista = '%s'", $conection->real_escape_string($id_artista));
         $rs = $conection->query($query);
         
         if(!$rs)
@@ -128,7 +123,6 @@ class Cancion{
             $parameters['id_artista'] = $fila['id_artista'];
             $parameters['likes'] = $fila['likes'];
             $parameters['ruta'] = $fila['ruta'];
-            $parameters['duracion'] = $fila['duracion'];
             $parameters['tags'] = $fila['tags'];
 
             $canciones[] = new Cancion($parameters);
@@ -142,7 +136,7 @@ class Cancion{
             
         $cancion = false;
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf( "SELECT * FROM cancion C WHERE C.id_artista = '%s' AND C.titulo = '%s'", $id_artista, $nombre);
+        $query = sprintf( "SELECT * FROM cancion C WHERE C.id_artista = '%s' AND C.titulo = '%s'", $conection->real_escape_string($id_artista) , $nombre);
         $rs = $conection->query($query);
         
         if(!$rs)
@@ -158,7 +152,6 @@ class Cancion{
             $parameters['id_artista'] = $fila['id_artista'];
             $parameters['likes'] = $fila['likes'];
             $parameters['ruta'] = $fila['ruta'];
-            $parameters['duracion'] = $fila['duracion'];
             $parameters['tags'] = $fila['tags'];
 
             $cancion = new Cancion($parameters);
@@ -177,7 +170,7 @@ class Cancion{
         $query = sprintf(
             "INSERT INTO cancionfav (id_cancion,id_user) VALUES (%d, '%s')",
             $cancion->id_cancion,
-            $user
+            $conn->real_escape_string($user)
         );
 
         $result = $conn->query($query);
@@ -195,7 +188,7 @@ class Cancion{
         $query = sprintf(
             "DELETE FROM cancionfav WHERE (id_cancion = %d AND id_user = '%s')",
             $cancion->id_cancion,
-            $user
+            $conn->real_escape_string($user)
         );
 
         $result = $conn->query($query);
@@ -209,7 +202,7 @@ class Cancion{
     public function likeAsignado($id, $user){
         $result= true; 
         $conection= Aplicacion::getInstance()->getConexionBd(); 
-        $query = sprintf("SELECT * FROM cancionfav C WHERE C.id_cancion = %d AND C.id_user = '%s'", $id ,$user); 
+        $query = sprintf("SELECT * FROM cancionfav C WHERE C.id_cancion = %d AND C.id_user = '%s'", $id , $conection->real_escape_stri($user)); 
         $rs= $conection->query($query); 
 
         if($rs->num_rows  == 0)
@@ -250,7 +243,6 @@ class Cancion{
             $parameters['id_artista'] = $fila['id_artista'];
             $parameters['likes'] = $fila['likes'];
             $parameters['ruta'] = $fila['ruta'];
-            $parameters['duracion'] = $fila['duracion'];
             $parameters['tags'] = $fila['tags'];
 
             $cancion = new Cancion($parameters);
@@ -292,7 +284,7 @@ class Cancion{
         $query = sprintf(
             "INSERT INTO cancion (titulo, imagen, fecha, id_artista, likes, ruta, duracion, tags) 
             VALUES ('%s','%s','%s','%s','%s','%s', '%s', '%s')",
-            $this->titulo, $this->imagen, $this->fecha, $this->id_artista, $this->likes, $this->ruta, $this->duracion, $this->tags);
+            $conn->real_escape_string($this->titulo), $conn->real_escape_string($this->imagen), $this->fecha, $conn->real_escape_string($this->id_artista), $this->likes, $conn->real_escape_string($this->ruta), $conn->real_escape_string($this->tags));
 
         $result = $conn->query($query);
 
@@ -317,17 +309,6 @@ class Cancion{
         return $result; 
     }
 
-    /* Pasar la duracion de la canción de, por ejemplo, 137 segundos a 2:17 */
-    public function transformDuration(){
-
-        $minutes = intdiv($this->duracion, 60);
-        $seconds = $this->duracion - (60 * $minutes);
-        if($seconds < 10)
-            $seconds = '0' . $seconds;
-
-        return $minutes . ':' . $seconds;
-    }
-
     public function getIdCancion(){
         return $this->id_cancion;
     }
@@ -346,10 +327,6 @@ class Cancion{
 
     public function getCancionFecha(){
         return $this->fecha;
-    }
-
-    public function getCancionDuracion(){
-        return $this->duracion;
     }
 
     public function getCancionLikes(){

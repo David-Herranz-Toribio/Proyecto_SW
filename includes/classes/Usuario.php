@@ -46,7 +46,6 @@ class Usuario{
         $artist = $parametros['isArtist'];
         $birth = $parametros['birthdate'];
 
-        $artist_members = $parametros['artist_members'];
         $profile_image = $parametros['profile_image'];
 
         $conection = Aplicacion::getInstance()->getConexionBd();
@@ -60,7 +59,7 @@ class Usuario{
         if($conection) {
             if($artist) {
                 $query = "INSERT INTO artista (id_artista, integrantes) VALUES "; 
-                $values = "('$username', '$artist_members'); "; 
+                $values = "('$username'); "; 
                 $query .= $values;
                 $conection->query($query); 
 
