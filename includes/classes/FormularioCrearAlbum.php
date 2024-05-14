@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Formulario.php';
+require_once 'FormularioMultimedia.php';
 require_once 'Playlist.php';
 
 
@@ -12,12 +12,12 @@ require_once 'Playlist.php';
         - Nombre del album
         - Año
 */
-class FormularioCrearAlbum extends Formulario{
+class FormularioCrearAlbum extends FormularioMultimedia{
 
     private $id_usuario;
 
     public function __construct($id_usuario) {
-        parent::__construct('formCreateAlbum', ['urlRedireccion' => VIEWS_PATH .'/perfil/Perfil.php']);
+        parent::__construct('formCreateAlbum', ['urlRedireccion' => VIEWS_PATH .'/musica/Musica.php',  'enctype' => 'multipart/form-data']);
         $this->id_usuario = $id_usuario;
     }
 
@@ -32,8 +32,6 @@ class FormularioCrearAlbum extends Formulario{
         $html =<<<EOS
         <fieldset>
         <legend> Crear Album </legend>
-        <form action=$procesarPath method="post">
-
             <div class="createPlaylistImage">
                 <img src=$defaulImage alt="Imagen de la playlist">
 
@@ -61,7 +59,6 @@ class FormularioCrearAlbum extends Formulario{
             <div>
                 <button type="submit"> Crear </button>
             </div>
-        </form>
         </fieldset>
         EOS;
 
@@ -72,10 +69,16 @@ class FormularioCrearAlbum extends Formulario{
 
         // Obtener datos
         $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
-        $imagen = isset($_POST['imagen']) && $_POST['imagen'] ? $_POST['imagen'] : $defaulImage;
-        $nombre = htmlspecialchars($_POST['nombre']);
+
+
+
+        //$imagen = isset($datos['imagen']) && $datos['imagen'] ? $datos['imagen'] : $defaulImage;
+        $imagen = !isset($datos['imagen']) ? self::compruebaImagen('imagen', '/songImages/') : 'FotoPerfil.png';
+
+
+        $nombre = htmlspecialchars($datos['nombre']);
         $id_usuario = filter_var($_SESSION['username'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $creationDate = new \DateTime($_POST['date']);
+        $creationDate = new \DateTime($datos['date']);
         $today = new \DateTime();
         
 

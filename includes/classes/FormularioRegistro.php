@@ -105,7 +105,7 @@ class FormularioRegistro extends FormularioMultimedia {
         $password_length = strlen($datos['password']);
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $birthdate = $datos['birthdate'];
-        $imagen = isset($datos['image']) ? self::compruebaImagen($datos['image'], '/profileImages/') : 'FotoPerfil.png';
+        $imagen = !isset($datos['image']) ? self::compruebaImagen('image', '/profileImages/') : 'FotoPerfil.png';
 
 
         // La contraseña no tiene al menos 8 caracteres
@@ -176,6 +176,8 @@ class FormularioRegistro extends FormularioMultimedia {
                     
                 // Iniciar sesión
                 $_SESSION['username'] = $username; 
+                //Usuario no suscrito
+                $_SESSION['isSub']= false; 
             }
         }
     }

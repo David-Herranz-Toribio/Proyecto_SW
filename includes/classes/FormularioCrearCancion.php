@@ -71,8 +71,7 @@ class FormularioCrearCancion extends FormularioMultimedia{
     protected function procesaFormulario(&$datos){
 
         $this->errores = [];
-        /* El nombre no existe ya dentro del album */
-        
+
         $playlist = SW\classes\Playlist::obtenerPlaylistByID($this->id_playlist);
         /* El archivo de audio de la cancion pasa los filtros */ 
         
