@@ -181,7 +181,7 @@ class Playlist{
         return $result;
     }
 
-    public function existeCancion($id_cancion){
+    public function yaPuesta($id_cancion){
 
         $conection = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM play_cancion WHERE id_playlist = '%d' AND id_cancion = '%d'", $this->id_playlist, $id_cancion);
@@ -194,6 +194,24 @@ class Playlist{
 
         return false;
     }
+
+
+    public function comprobarNombreCancion($nombre){ //Esta funcion comprueba que cuando un artista añade una cancion, no haya ninguna previamente con el mismo nombre 
+        $conection = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM cancion C
+        JOIN play_cancion P ON C.id_cancion = P.id_cancion
+        WHERE P.id_playlist= %d AND C.titulo= '%s'", $this->id_playlist, $conection->real_escape_string($nombre)); 
+
+        $rs = $conection->query($query);
+
+        if($rs->fetch_assoc()){
+            $rs->free();
+            return true;
+        }
+
+        return false;
+    }
+
 
     public function addCancion($id_cancion){
             

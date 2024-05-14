@@ -28,11 +28,17 @@ class FormularioSuscripcion extends Formulario{
 
 
         // Se generan los mensajes de error si existen NO EXISTEN
-        //$htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
-        
+        $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
+    
         $html =<<<EOS
+        <span id= "errorSuscripcion"> 
+
+        $htmlErroresGlobales
+
+        </span> 
         
         <div id="suscripciones">
+        
             <div class="tipo_suscripcion">
                 <h3> Prueba (30 seg) </h3>
                 <h4> [Gratis] </h4>
@@ -48,6 +54,7 @@ class FormularioSuscripcion extends Formulario{
                 <div>
                     <button type="submit" name="tipo_suscripcion" value="mensual"> Crear </button>
                 </div>
+                
             </div>
             <div class="tipo_suscripcion">
                 <h3> Anual (1 Año) </h3>
@@ -94,19 +101,19 @@ class FormularioSuscripcion extends Formulario{
                         $today->add(new \DateInterval('P1M'));
                     }
                     else
-                        $this->errores["precio"]= "No tienes suficeintes corcheas"; 
+                        $this->errores[]= "No tienes suficientes corcheas"; 
                 }else if($tipo == 'anual'){
                     if ($user->getKarma() >= 1500){
                         $user->setKarma($user->getKarma() - 1500);
                         $today->add(new \DateInterval('P1Y'));
                     }
                     else
-                        $this->errores["precio"]= "No tienes suficeintes corcheas";
+                        $this->errores[]= "No tienes suficientes corcheas";
                 }else{
                     $today->add(new \DateInterval('PT30S'));
                 }
                 $user->actualiza();
-                if ($this->errores["precio"] !== "No tienes suficeintes corcheas" ){
+                if (count($this->errores)==0){
                     $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
                     $_SESSION['isSub'] = $tipo;
                 }

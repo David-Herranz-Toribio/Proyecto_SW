@@ -123,6 +123,19 @@ function displayMusicStyle($cancion){
     $rutaVistaCancion = VIEWS_PATH . '/musica/CancionVista.php?id_cancion=' . $idCancion;
     $addSongPath = VIEWS_PATH . '/musica/CancionEnPlaylist.php';
     
+    if ($_SESSION['username'] == $cancion->getIdArtista() || (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true)){
+        $rutaEliminar = HELPERS_PATH . '/ProcesarEliminarCancion.php';
+
+        $user_info = <<<EOS2
+        <div> 
+            <form action= $rutaEliminar method="post">
+                <input type="hidden" name="idCancion" value= '$idCancion'>
+                <button type="submit"> &#10060</button>
+            </form>
+        </div> 
+        EOS2;
+    }
+
     $html =<<<EOS
     <div class='album_song'>
         <div class='songName'>
@@ -143,9 +156,11 @@ function displayMusicStyle($cancion){
         </div>
 
         <div class='songButtons'>
+            
             <button class='playButton' id='playSong' ><img src=$playButton></button>
             <span hidden> {$cancion->getCancionRuta()} </span> 
             <a class='optionsButton' href=$addSongPath?song=$idCancion><img src=$optionsButton></a>
+            $user_info
         </div>
     </div>
     EOS;
