@@ -45,12 +45,6 @@ class FormularioCrearCancion extends FormularioMultimedia{
                 {$erroresCampos['titulo']}
             </div>
             
-            <div class='songYearInput'>
-                <label for='songYearInput'> Fecha: </label>
-                <input type='date' id='songYearInput' name="fecha">
-                {$erroresCampos['fecha']}
-            </div>
-
             <div class='songGenres'>
                 <label for="genres"> Géneros: </label>
                 <select id="genres" name='tags' multiple>
@@ -84,21 +78,6 @@ class FormularioCrearCancion extends FormularioMultimedia{
         
         $audio = self::compruebaMusica('ruta', '/');
 
-        $fecha = new \DateTime($datos['fecha']); 
-
-        $fecha_hoy= new \DateTime(); 
-
-
-        $fecha=  intval(date("Ymd", strtotime($fecha->format('Y-m-d'))));
-
-        $fecha_hoy  = intval(date("Ymd", strtotime($fecha_hoy->format('Y-m-d'))));
-
-        if( $fecha> $fecha_hoy )
-        $this->errores['fecha'] = 'La fecha debe ser anterior al dia actual';
-
-        
-        if(count($this->errores) !== 0) { return; }
-
         // Obtener parametros
         $titulo = $datos['titulo'];
        
@@ -115,9 +94,7 @@ class FormularioCrearCancion extends FormularioMultimedia{
 
         if(count($this->errores)==0){
             // Crear objeto en la base de datos
-            $cancion = SW\classes\Cancion::crearCancion($this->id_artista, $titulo, $imagen, $fecha, $audio, $tags);
-
-
+            $cancion = SW\classes\Cancion::crearCancion($this->id_artista, $titulo, $imagen, $playlist->getPlaylistCreationDate(), $audio, $tags);
 
             $ok = $cancion->crearCancionBD();
 
