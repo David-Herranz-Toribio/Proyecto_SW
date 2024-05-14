@@ -12,4 +12,6 @@ $yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 $prod = $_GET["prod"] ?? NULL;
 
 $content = showProduct($yo, $prod);
+
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

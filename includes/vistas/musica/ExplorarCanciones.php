@@ -24,5 +24,5 @@ else{
         $content = displayAllMusicTypes();
     }
 }
-
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

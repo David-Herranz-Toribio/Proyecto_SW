@@ -19,4 +19,5 @@ else{
     $content = displayPlaylistsToAdd($username, $id_cancion);
 }
 
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

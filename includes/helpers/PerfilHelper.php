@@ -157,10 +157,6 @@ function displayPosts($user){
 
         return $html;
     }
-    else if (isset($_GET['query'])) {
-        $textoBusqueda = $_GET['query'];
-        $lista_posts = SW\classes\Post::LupaDescripcionPostExistentes($lista_posts, $textoBusqueda);
-    }
     foreach($lista_posts as $post){
         $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(), 
                                   $post->getTexto(), $post->getId(), $post->getPadre(), $_SESSION['username']);

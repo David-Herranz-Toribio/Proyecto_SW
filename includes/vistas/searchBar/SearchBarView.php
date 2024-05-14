@@ -9,4 +9,5 @@ $content = searchQuery($data, $opcion);
 if(!$content)
     $content = displayMessage("No se han encontrado resultados");
 
+
 require_once LAYOUT_URL;

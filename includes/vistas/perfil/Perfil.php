@@ -5,7 +5,7 @@ require_once HELPERS_URL . '/PerfilHelper.php';
 
 // Barra de búsqueda para usuarios
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->buscarUsuario();
+$topSearchBar->notDisplaySearchBar();
 
 // Obtenemos el username del perfil a visualizar (Otro usuario/Yo)
 if(isset($_SESSION['username'])){
@@ -21,6 +21,6 @@ else{
     $content = showNotLogged();
 }
 
-$scripts = ['playerLogic.js', 'desplegable.js']; 
+$scripts = ['playerLogic.js', 'desplegable.js', 'confirmacion.js']; 
 
 require_once LAYOUT_URL;

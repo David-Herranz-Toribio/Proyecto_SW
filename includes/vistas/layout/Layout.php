@@ -13,7 +13,7 @@
         $scripts = $scripts ?? [];
         foreach ($scripts as $script) {
             echo "<script src=\"" . JS_PATH . "/$script\"></script>";
-        }
+        }   
     ?>
 </head>
 

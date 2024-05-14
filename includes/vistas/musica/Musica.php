@@ -17,4 +17,6 @@ else{
     exit(); 
     $content .= displayViewToNotLogged();
 }
+
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

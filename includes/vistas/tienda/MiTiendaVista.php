@@ -18,5 +18,5 @@ if(isset($_SESSION['isArtist']) && $_SESSION['isArtist']){
     exit();
 }
 
-
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

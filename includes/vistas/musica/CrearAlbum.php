@@ -18,4 +18,5 @@ else{
     $content = displayFormulario($username);
 }
 
+$scripts = ['confirmacion.js']; 
 require_once LAYOUT_URL;

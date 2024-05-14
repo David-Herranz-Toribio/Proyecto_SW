@@ -15,8 +15,6 @@ function generateStaticHeader($currentPage) {
 	$iconImage = IMG_PATH . '/2MelodyLogo.png';
 	$linkIndex = PROJECT_PATH . '/index.php';
 	$placeholderText = \SW\classes\TopSearchBar::getPlaceHolderText();
-	$user = $_GET["user"] ?? isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
-	$opcion = $_GET["opcion"] ?? NULL;
 	$username = '';
 
 	if (!islogged()) {
@@ -24,7 +22,6 @@ function generateStaticHeader($currentPage) {
 		$altText = 'Foto de login';
 		$link = VIEWS_PATH . '/log/Login.php';
 		$texto = "Iniciar sesión";
-		$onclick = "location.assign('$link');";
 	}
 	else {
 		$loginImage = IMG_PATH . '/FotoLogoutUser.png';
@@ -38,9 +35,10 @@ function generateStaticHeader($currentPage) {
 				<img class='logoSubs' src='$susImg' alt='Simbolo Suscrito' height='25' width='30' class='simboloSuscrito'>
 			EOS2;
 		}
-		$onclick = "comprobar();";
 	}
-
+	echo "<script>";
+	echo "var link = '" .$link. "';";
+	echo "</script>";
 	$html = <<<EOS
 	<header class= 'header'>
 	<a class='logoApp' href="$linkIndex">
@@ -48,11 +46,9 @@ function generateStaticHeader($currentPage) {
 	</a>
 	EOS;
 
-	// Vistas que no muestran la barra de búsqueda
 	if (isset($_SESSION['login']) && \SW\classes\TopSearchBar::getDisplaySearchBar()){
-
 		$html .= <<<EOS
-		<form class='searchBar' action='$searchbarPage' method='get'>	
+		<form class='searchBar' action='$searchbarPage' method='get'>    
 			<input class='searchInput' type="text" name="data" placeholder="$placeholderText">
 			<input type="hidden" name="searchOption" value='$searchOption'>
 			<button type="submit"> &#128269 </button>
@@ -61,16 +57,7 @@ function generateStaticHeader($currentPage) {
 	}
 
 	$html .= <<<EOS
-	<script>
-	function comprobar() {
-		var ok = window.confirm("¿Quieres cerrar sesión, $username?");
-		if (ok)
-		location.assign("$link");
-	}
-	</script>
-	</head>
 	<body>
-
 	<div class='session'>
 		<div class= 'info_session'> 
 			<div class= 'contenedor_texto'> 
@@ -79,7 +66,7 @@ function generateStaticHeader($currentPage) {
 		</div>
 
 		<div class= 'contenedor_imagen'> 
-			<p><a href="#" onclick="$onclick"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
+			<p><a href="#" id="logoutButton"><img src="$loginImage" height="30" width="30" alt="$altText"></a></p> 
 		</div>
 	</div>
 	</header>

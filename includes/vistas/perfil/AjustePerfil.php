@@ -18,7 +18,7 @@ $content = displayImagenPerfil($image);
 $content .= displayBotonesEliminarCuenta();
 $content .= displayFormularioModificar();
 
-$scripts = ['eventos.js']; 
+$scripts = ['eventos.js', 'confirmacion.js']; 
 
 require_once LAYOUT_URL; 
 
