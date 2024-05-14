@@ -1,5 +1,6 @@
 /* Estilos de la cabecera - HEADER */
 body {
+    color: #e1e1e1;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -22,6 +23,7 @@ div.container{
 .header {
     display: grid;
     grid-template-columns: 25% 50% 25%;
+    background-color: #000000;
     grid-template-rows: 50% 50%;
     justify-items: center;
     align-items: center;
@@ -84,6 +86,7 @@ div.container{
 .sidebar {
     background-color: #120118;
     width: 100%;
+    background-color: #120118;
     position: sticky;
     bottom: 0px;
     margin-top: auto;
@@ -1017,6 +1020,13 @@ a[name="user"] {
     50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
     100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
 }
+
+span#errorSuscripcion{
+    color: goldenrod;
+    animation: pulsate 4s infinite;
+}
+
+
 #suscripciones {
     display: flex;
     justify-content: space-evenly;

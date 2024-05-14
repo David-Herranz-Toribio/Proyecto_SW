@@ -15,9 +15,10 @@ class FormularioAddCancion_Playlist extends Formulario{
     }
 
     protected function generaCamposFormulario(&$datos){
-
+        $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         // Mostrar las playlists del usuario, excepto la de favoritos
         $html =<<<EOS
+        $htmlErroresGlobales
         <fieldset>
             <label> Selecciona una de tus playlists: </label><br>
             <select name='playlist'>
@@ -42,13 +43,14 @@ class FormularioAddCancion_Playlist extends Formulario{
     }
 
     protected function procesaFormulario(&$datos){
-
+        $this->errores= []; 
         $playlistID = $datos['playlist'];
         $playlist = SW\classes\Playlist::obtenerPlaylistByID($playlistID);
 
         // Solo si la canción no está ya en la playlist
-        if(!$playlist->existeCancion($this->id_cancion))
+        if(!$playlist->yaPuesta($this->id_cancion))
             $playlist->addCancion($this->id_cancion);
+        else $this->errores[]= "Ya está en esa playlist!"; 
     }
 
 }

@@ -282,8 +282,8 @@ class Cancion{
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO cancion (titulo, imagen, fecha, id_artista, likes, ruta, tags) 
-            VALUES ('%s','%s','%s','%s','%s','%s', '%s')",
-            $conn->real_escape_string($this->titulo), $conn->real_escape_string($this->imagen), $this->fecha, $conn->real_escape_string($this->id_artista), $this->likes, $conn->real_escape_string($this->ruta), $conn->real_escape_string($this->tags));
+            VALUES ('%s','%s','%s','%s',%d,'%s', '%s')",
+            $conn->real_escape_string($this->titulo), $conn->real_escape_string($this->imagen), $this->fecha, $conn->real_escape_string($this->id_artista), $this->likes, $this->ruta, $conn->real_escape_string($this->tags));
 
         $result = $conn->query($query);
 
