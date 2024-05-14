@@ -57,7 +57,6 @@ function generateStaticHeader($currentPage) {
 	}
 
 	$html .= <<<EOS
-	<body>
 	<div class='session'>
 		<div class= 'info_session'> 
 			<div class= 'contenedor_texto'> 

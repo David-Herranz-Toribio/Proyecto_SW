@@ -1,6 +1,7 @@
 /*Estilos de la cabecera*/
 body {
     font-family: Arial, sans-serif;
+    color: #e1e1e1;
     margin: 0;
     padding: 0;
     background-color: #1a1a1a;
@@ -27,6 +28,7 @@ div.container{
     display: flex;
     position: fixed;
     flex-wrap: nowrap;
+    background-color: #000000;
     justify-content: space-between;
     align-items: center;
     height: 10%;
@@ -69,6 +71,7 @@ div.container{
 
 nav.sidebar {
     border: solid 2px #230058;
+    background-color: #120118;
     min-width: 100px;
     width: 10%; 
     height: 100vh;
@@ -122,6 +125,7 @@ ul.opciones{
 
 #content {
     grid-area: contenido;
+    background-color: #1a1a1a;
     display: grid;
     grid-template-columns: 15% 65% 20% ; 
     grid-template-rows: minmax(25px, auto);
