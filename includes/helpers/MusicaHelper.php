@@ -136,6 +136,8 @@ function displayMusicStyle($cancion){
         EOS2;
     }
 
+    else $user_info= ''; 
+
     $html =<<<EOS
     <div class='album_song'>
         <div class='songName'>
