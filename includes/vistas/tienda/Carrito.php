@@ -12,7 +12,7 @@ $user = null;
 $content = "<section class='default'>";
 
 if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
+    $user = filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $content .= showCarrito($user);
 }
 else {

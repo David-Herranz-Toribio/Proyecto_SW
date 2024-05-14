@@ -8,7 +8,7 @@ require_once HELPERS_URL . '/MusicaHelper.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->buscarPlaylists();
 
-$username = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+$username = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : NULL;
 $content = '';
 if(isset($_SESSION['username']))
     $content = showPlaylists($username);

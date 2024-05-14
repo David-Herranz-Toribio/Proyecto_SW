@@ -36,7 +36,7 @@ class FormularioRespuesta extends FormularioMultimedia
 
     protected function procesaFormulario(&$datos)
     {
-        $username = $_SESSION['username']; 
+        $username = filter_var($_SESSION['username'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
 
         /*TODO Procesar imagen*/ 

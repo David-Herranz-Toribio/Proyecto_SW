@@ -70,11 +70,10 @@ class FormularioPost extends FormularioMultimedia
     protected function procesaFormulario(&$datos)
     {   
         $this->errores= []; 
-        $username = $_SESSION['username']; 
+        $username = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
         $id= filter_var($datos['id_post'], FILTER_VALIDATE_INT);  
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
-        $imagen_ant= $datos['Imagen_antigua']; 
-        /*TODO Procesar imagen*/ 
+        $imagen_ant= htmlspecialchars($datos['Imagen_antigua']); 
         $post_image= self:: compruebaImagen("image", '/postImages/'); 
 
         if(count($this->errores)===0){

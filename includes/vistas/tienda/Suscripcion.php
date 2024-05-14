@@ -11,7 +11,7 @@ require_once CLASSES_URL . '/Suscripcion.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->notDisplaySearchBar();
 
-$yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$yo = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
 if(!$yo){
     header('Location: ' . VIEWS_PATH . '/log/Login.php');
     exit();

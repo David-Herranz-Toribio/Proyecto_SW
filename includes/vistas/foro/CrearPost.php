@@ -8,11 +8,7 @@ require_once CLASSES_URL . '/FormularioPost.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->notDisplaySearchBar();
 
-if(isset($_POST['id_padre'])) 
-    $id_padre = $_POST['id_padre']; 
-else 
-    $id_padre = NULL; 
-
+$id_padre = isset($_POST['id_padre']) ? filter_var($_POST['id_padre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
 
 $form = new FormularioPost($id_padre, null); 
 $htmlform = $form->gestiona(); 

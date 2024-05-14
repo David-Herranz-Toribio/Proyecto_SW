@@ -9,12 +9,12 @@ $topSearchBar->notDisplaySearchBar();
 
 // Obtenemos el username del perfil a visualizar (Otro usuario/Yo)
 if(isset($_SESSION['username'])){
-
-    $usuario = $_GET["user"] ?? $_SESSION['username'];
-    $opcion = $_GET['opcion'] ?? NULL;
+    $usuario = filter_var($_GET["user"] ?? $_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $opcion = filter_var($_GET['opcion'] ?? NULL, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $user = SW\classes\Usuario::buscaUsuario($usuario);
     $content = showProfile($user, $opcion);
 }
+
 else{
     header('Location:'. VIEWS_PATH . '/log/Login.php');
     exit(); 

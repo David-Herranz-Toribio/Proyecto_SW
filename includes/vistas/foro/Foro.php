@@ -7,8 +7,8 @@ require_once HELPERS_URL . '/PostHelper.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->notDisplaySearchBar();
 
-$yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
-$opcion = $_GET['opcion'] ?? NULL;
+$yo = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
+$opcion = isset($_GET['opcion']) ? filter_var($_GET['opcion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : NULL;
 $content = showMainPosts($yo, $opcion);
 
 $scripts = ['confirmacion.js']; 

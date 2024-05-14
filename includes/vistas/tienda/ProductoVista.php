@@ -8,8 +8,8 @@ require_once HELPERS_URL . '/TiendaHelper.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->buscarProductos();
 
-$yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
-$prod = $_GET["prod"] ?? NULL;
+$yo = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
+$prod = isset($_GET["prod"]) ? filter_var($_GET["prod"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
 
 $content = showProduct($yo, $prod);
 

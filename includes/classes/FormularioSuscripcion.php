@@ -70,24 +70,23 @@ class FormularioSuscripcion extends Formulario{
     }
 
     protected function procesaFormulario(&$datos){
-
+        $username = filter_var($_SESSION['username'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Obtener datos
         if($this->modo == 'eliminarSuscripcion'){
             $eliminar = isset($datos['eliminar']) ?? htmlspecialchars($datos['eliminar']);
             if($eliminar == 'eliminar'){
-                $done = SW\classes\Suscripcion::eliminarSuscripcion($_SESSION['username']);
+                $done = SW\classes\Suscripcion::eliminarSuscripcion($username);
                 $_SESSION['isSub'] = null;
             }
         }else if($this->modo == 'añadirSuscripcion'){
             $tipo = isset($datos['tipo_suscripcion']) ? htmlspecialchars($datos['tipo_suscripcion']) : null;
-            $id_usuario = $_SESSION['username'];
+            $id_usuario = $username;
             $today = new DateTime();
             
 
             // Comprobar que el tipo de suscripcion es correcto
             if( $tipo == 'mensual' || $tipo == 'anual' || $tipo == 'prueba'){
-
-                $user = SW\classes\Usuario::buscaUsuario($_SESSION['username']);
+                $user = SW\classes\Usuario::buscaUsuario($username);
                 if($tipo == 'mensual'){
                     if ($user->getKarma() >= 500){
                         $user->setKarma($user->getKarma() - 500);
@@ -107,7 +106,7 @@ class FormularioSuscripcion extends Formulario{
                 }
                 $user->actualiza();
                 if ($this->errores["precio"] !== "No tienes suficeintes corcheas" ){
-                    $done = SW\classes\Suscripcion::insertarSuscripcion($_SESSION['username'], $tipo, $today->format('Y-m-d H:i:s'));
+                    $done = SW\classes\Suscripcion::insertarSuscripcion($username, $tipo, $today->format('Y-m-d H:i:s'));
                     $_SESSION['isSub'] = $tipo;
                 }
             }

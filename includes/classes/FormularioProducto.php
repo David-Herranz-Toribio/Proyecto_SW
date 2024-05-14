@@ -81,15 +81,13 @@ class FormularioProducto extends FormularioMultimedia
     {
         $this->errores= []; 
 
-        $id = $datos['Id'];
-        $autor = $datos['Autor'];
+        $id= filter_var($datos['Id'], FILTER_VALIDATE_INT);  
+        $autor = isset($datos['Autor']) ? filter_var($datos['Autor'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
         $nombre = htmlspecialchars($datos['Nombre']);
         $descripcion = isset($datos['Descripcion']) ? htmlspecialchars($datos['Descripcion']) : "$nombre de $autor"; 
-        $stock = $datos['Stock'];
-        $precio = $datos['Precio'];
-        $imagen_ant = $datos['Imagen_antigua'];
-        
-        /*Procesar imagen*/ 
+        $stock= filter_var($datos['Stock'], FILTER_VALIDATE_INT);  
+        $precio = filter_var($datos['Precio'], FILTER_VALIDATE_FLOAT);
+        $imagen_ant= htmlspecialchars($datos['Imagen_antigua']); 
         $imagen= self::compruebaImagen('Imagen', '/prodImages/'); 
 
         if(count($this->errores)===0){

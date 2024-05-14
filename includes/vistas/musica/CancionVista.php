@@ -8,13 +8,13 @@ require_once HELPERS_URL . '/PostHelper.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->buscarCancion();
 
-$yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
-$id_cancion = $_GET["id_cancion"] ?? NULL;
+$yo = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
+$id_cancion = isset($_GET["id_cancion"]) ? filter_var($_GET["id_cancion"], FILTER_VALIDATE_INT) : null;
 
-$cancion= SW\classes\Cancion:: obtenerCancionPorID($id_cancion); 
+$cancion = SW\classes\Cancion::obtenerCancionPorID($id_cancion);
 
 $content = "<div id='songStyle'>";
-$content .= "<h1> ".$cancion->getCancionTitulo()."</h1>"; 
+$content .= "<h1> ".htmlspecialchars($cancion->getCancionTitulo())."</h1>"; 
 
 $content .= displayMusicStyle($cancion);
 

@@ -74,7 +74,7 @@ class FormularioCrearAlbum extends Formulario{
         $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
         $imagen = isset($_POST['imagen']) && $_POST['imagen'] ? $_POST['imagen'] : $defaulImage;
         $nombre = htmlspecialchars($_POST['nombre']);
-        $id_usuario = $_SESSION['username'];
+        $id_usuario = filter_var($_SESSION['username'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $creationDate = new \DateTime($_POST['date']);
         $today = new \DateTime();
         

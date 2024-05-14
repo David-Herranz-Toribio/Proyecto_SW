@@ -10,7 +10,7 @@ $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->notDisplaySearchBar();
 
 // Obtener el id de la playlist seleccionada por el usuario
-$playlist_id = isset($_GET['id']) ? $_GET['id'] : NULL;
+$playlist_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : NULL;
 
 // Obtener playlist de la base de datos
 $playlist = SW\classes\Playlist::obtenerPlaylistByID($playlist_id);

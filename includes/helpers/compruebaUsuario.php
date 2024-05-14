@@ -7,7 +7,7 @@ require_once CLASSES_URL . "/Usuario.php";
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->buscarUsuario();
 
-$user = $_GET['user']; 
+$user = filter_var($_GET['user'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 if(SW\classes\Usuario::buscaUsuario($user)==false){
     echo("disponible"); 
 }

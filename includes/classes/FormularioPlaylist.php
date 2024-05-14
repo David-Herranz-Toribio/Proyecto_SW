@@ -84,9 +84,9 @@ class FormularioPlaylist extends FormularioMultimedia{
         $nombre = htmlspecialchars($datos['nombre'], ENT_QUOTES);
         $creationDate = new DateTime();
         $creationDate = $creationDate->format('Y-m-d');
-        $id_usuario = filter_var($_SESSION['username'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $id_usuario = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
         $id_playlist = filter_var($datos['id_playlist'], FILTER_SANITIZE_NUMBER_INT); 
-        $imagen_ant = $datos['Imagen_antigua']; 
+        $imagen_ant= htmlspecialchars($datos['Imagen_antigua']); 
 
         // Validar datos
         if(SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){

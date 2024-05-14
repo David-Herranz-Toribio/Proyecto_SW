@@ -8,7 +8,7 @@ require_once HELPERS_URL . '/TiendaHelper.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->buscarProductos();
 
-$yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+$yo = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
 $content = "<section class='default'>";
 if($yo){
     $content .= "<h1 class='texto_infor'> Productos </h1>";

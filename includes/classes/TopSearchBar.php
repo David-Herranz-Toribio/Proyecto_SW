@@ -58,7 +58,6 @@ class TopSearchBar {
     // Construimos la consulta SQL
     public static function buildQuery($data, $opcion){
 
-        $username = $_SESSION['username'];
         $html = '';
         switch($opcion){
         case self::$USUARIOS:

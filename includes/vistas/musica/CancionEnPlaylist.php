@@ -9,7 +9,7 @@ if(isset($_GET['song']))
 
 $username = '';
 if(isset($_SESSION['username']))
-    $username = $_SESSION['username'];
+    $username = filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 $content = '';
 if($id_cancion == ''){
