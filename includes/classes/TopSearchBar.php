@@ -6,6 +6,7 @@ class TopSearchBar {
 
     public static $USUARIOS = 'USUARIOS';
     public static $SEGUIDORES = 'SEGUIDORES';
+    public static $POSTS = 'POSTS';
     public static $PLAYLISTS = 'PLAYLISTS';
     public static $CANCIONES = 'CANCIONES';
     public static $PRODUCTOS = 'PRODUCTOS';
@@ -58,6 +59,9 @@ class TopSearchBar {
     // Construimos la consulta SQL
     public static function buildQuery($data, $opcion){
 
+        $username = $_SESSION['username'];
+        $playlistDefaultName = Playlist::$DEFAULT_PLAYLIST;
+
         $html = '';
         switch($opcion){
         case self::$USUARIOS:
@@ -66,14 +70,17 @@ class TopSearchBar {
         case self::$SEGUIDORES:
             $html = "SELECT id_user FROM seguidores WHERE id_seguidor LIKE '%$data%'";
             break;
+        case self::$POSTS:
+            $html = "SELECT * FROM post P WHERE P.texto LIKE '%$data%'";
+            break;
         case self::$PLAYLISTS:
-            $html = "SELECT * FROM playlist P WHERE P.nombre LIKE '%$data%'";
+            $html = "SELECT * FROM playlist P WHERE P.nombre LIKE '%$data%' AND P.nombre != '$playlistDefaultName'";
             break;
         case self::$CANCIONES:
             $html = "SELECT * FROM cancion C WHERE C.titulo LIKE '%$data%'";
             break;
         case self::$PRODUCTOS:
-            $html = "SELECT * FROM producto P WHERE P.nombre LIKE '%$data%'";
+            $html = "SELECT * FROM producto P WHERE P.nombre LIKE '$data%'";
             break;
         case self::$NO_DISPLAY:
         default:
@@ -98,6 +105,14 @@ class TopSearchBar {
             return;
         self::$placeHolderText = 'Buscar seguidores/seguidos';
         self::$opcion = TopSearchBar::$SEGUIDORES;
+    }
+
+    public static function buscarPosts(){
+            
+        if(!isset($_SESSION['login']))
+            return;
+        self::$placeHolderText = 'Buscar posts';
+        self::$opcion = TopSearchBar::$POSTS;
     }
 
     public static function buscarPlaylists(){

@@ -6,7 +6,8 @@ require_once CLASSES_URL . '/Usuario.php';
 require_once CLASSES_URL . '/Post.php';
 require_once CLASSES_URL . '/FormularioProducto.php'; 
 require_once CLASSES_URL . '/FormularioPost.php';
-require_once  'PostHelper.php';
+require_once 'PostHelper.php';
+
 
 function suscripcionHTML($yo){
 
@@ -80,6 +81,7 @@ function suscripcionHTML($yo){
 
     return $content;
 }
+
 function creacionPubliHTML(){
     $rutaSus=VIEWS_PATH."/tienda/Suscripcion.php";
     $rutaImg=IMG_PATH."/FotoSuscripcion.png";
@@ -97,6 +99,7 @@ function creacionPubliHTML(){
 
     return $html;
 }
+
 function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $id_pedido, $cantidad, $user){
 
     $rutaProdImg = IMG_PATH .  '/prodImages/'.$image;
@@ -148,12 +151,12 @@ function creacionCarritoHTML($id, $nombre, $descripcion, $autor, $image, $stock,
 
     return $html;
 }
+
 function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock, $precio, $yoYYoMismo){
 
     $rutaProdImg = IMG_PATH . '/prodImages/' . $image;
     $rutaProducto = VIEWS_PATH . '/tienda/ProductoVista.php';
     $rutaArtista = VIEWS_PATH . '/perfil/Perfil.php';
-
     $rutaCompra = HELPERS_PATH . '/ProcesarProducto.php';
 
     //Imagen y nombre del producto
@@ -174,25 +177,32 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
     $compra = '<p> No queda stock </p>';
     if($stock != 0){
-     
-        $compra = '<button type = "submit" class = "botonCompra"> Comprar </button>
-                   <input type="number" name="Cantidad" value="0" min="0" max="'. $stock.'"/>
-                   <p style="display:inline"> <output name="result">0</output> &#9834</p> ';
+        $compra =<<<EOS
+        <button type = "submit" class = "botonCompra"> Comprar </button>
+        <input type="number" name="Cantidad" value="0" min="0" max=$stock/>
+        <p style="display:inline"> <output name="result">0</output> &#9834</p>
+        EOS;
     }
-    //Descripcion del producto
+
+    // Descripcion del producto
     $prodDesc =<<<EOS2
     <div class="prod_info">
         <p>$descripcion</p> 
         <p>Quedan $stock unidades por valor de $precio &#9834 cada una</p>
+    EOS2;
+
+    // No mostrar botones de compra si es mi misma pagina 
+    if($yoYYoMismo !== $autor){
+        $prodDesc .= <<<EOS2
         <form action = $rutaCompra method="post" oninput="result.value= (parseFloat($precio) * parseInt(Cantidad.value)).toFixed(2)">            
             <input hidden name="Id" value= $id> 
             $compra
         </form>
-    </div>
-    EOS2;
+        EOS2;
+    }
+    $prodDesc .= "</div>";  
     
     $botones = '';
-    
     //Eliminar y modificar un producto
     if ($yoYYoMismo == $autor || (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == true)){
         $rutaMod = VIEWS_PATH . '/tienda/MiTiendaVista.php';
@@ -216,11 +226,11 @@ function creacionProductoHTML($id, $nombre, $descripcion, $autor, $image, $stock
 
 
     $html =<<<EOS6
-        <article class = "estiloProd">
-            $prodInfo
-            $prodDesc
-            $botones
-        </article>
+    <article class = "estiloProd">
+        $prodInfo
+        $prodDesc
+        $botones
+    </article>
     EOS6;
 
     return $html;
@@ -252,7 +262,6 @@ function showProducts($yoYYoMismo){
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $productos = SW\classes\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
     $contador = 1;
@@ -282,7 +291,6 @@ function showProductsArtista($artista){
     if(!empty($productos)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $productos = SW\classes\Producto::LupaNombreProductoExistentes($productos, $textoBusqueda);
         }   
     }
     $contador = 1;
@@ -403,7 +411,6 @@ function showHistorialPedidos($id_user){
         $lista = ''; 
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $pedidos = SW\classes\Pedido::LupaFechaHistorialPedidos($pedidos, $textoBusqueda);
         }
         foreach($pedidos as $pedido){
             $lista .= "<article class= 'estiloPed'>";

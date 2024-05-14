@@ -1,4 +1,4 @@
-/*Estilos de la cabecera*/
+/* Estilos de la cabecera */
 body {
     font-family: Arial, sans-serif;
     color: #e1e1e1;
@@ -67,7 +67,12 @@ div.container{
     width: 50%;
 }
 
-/*Estilos del menu de navegacion*/ 
+.listaUsuarios{
+    grid-column: 2;
+    align-items: center;
+}
+
+/* Estilos del menu de navegacion */ 
 
 nav.sidebar {
     border: solid 2px #230058;
@@ -209,7 +214,7 @@ article.estiloUsers{
     border: solid 2px #230058;
     word-break: keep-all;
     width: 80%; 
-    margin: auto;
+    margin-block: 5px;
     z-index: 100;
 }
 article.estiloUsers div.botones_mensaje {
@@ -349,6 +354,10 @@ section.datos_perfil div{
    font-weight: bolder;
 }
 
+section.datos_perfil .identidad .user_info{
+    flex-direction: column;
+}
+
 
 section.publicaciones_perfil{
     grid-column-start: 2;
@@ -363,11 +372,14 @@ section.datos_perfil button {
 }
 
 div.user_image img {
-    border-radius:150px;
+    border-radius: 150px;
     border:3px solid white;
+    position: relative;
+    right: 15%;
 }
 
-/*Estilo de la pagina de ajustes*/
+
+/* Estilo de la pagina de ajustes */
 
 section.botonesEstilo {
     display: flex;
@@ -745,7 +757,7 @@ button:hover  {
     grid-row-start: 2;
 }
 
-/*  ----------------- HACER ----------------- */
+
 /* Lista de canciones de un album */
 .artist_music{
     display: flex;
@@ -802,7 +814,7 @@ button:hover  {
     justify-content: space-around;
     border-radius :25px;
     background-color: #120714;
-
+    margin-block: 5px;
 }
 .album_song:hover{
     background-color: #5d0c67;
@@ -835,6 +847,11 @@ button:hover  {
     height: 30px;
 }
 
+
+.allSongs{
+    grid-column: 2;
+    grid-row: 2;
+}
 
 /* Formulario de creación de playlist */
 .createPlaylistForm{
@@ -988,6 +1005,13 @@ a[name="user"] {
     50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
     100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
 }
+
+span#errorSuscripcion{
+    color: goldenrod;
+    animation: pulsate 4s infinite;
+}
+
+
 #suscripciones {
     display: flex;
     justify-content: space-evenly;

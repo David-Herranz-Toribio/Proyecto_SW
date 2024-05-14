@@ -124,9 +124,10 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
 }
 
 function creacionPubliHTML2(){
-    $rutaSus=VIEWS_PATH."/tienda/Suscripcion.php";
-    $rutaImg=IMG_PATH."/FotoSuscripcion.png";
-    $html= <<<EOS
+
+    $rutaSus = VIEWS_PATH . "/tienda/Suscripcion.php";
+    $rutaImg = IMG_PATH . "/FotoSuscripcion.png";
+    $html = <<<EOS
     <article class = "estiloPost" >
         <a href="$rutaSus">
             <div class="publicidad"  >
@@ -231,7 +232,6 @@ function showResp($id_post, $yoYYoMismo){
         if(!empty($posts)){
             if (isset($_GET['query'])) {
                 $textoBusqueda = $_GET['query'];
-                $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
             }   
         }
 
@@ -258,7 +258,6 @@ function showTestPosts($yoYYoMismo, $isTest){
         $content = "<h1 class='texto_infor'> Posts (Personas que sigues) </h1>";
     
     $content .= "<div class='botonesPost'>";
-    $content .= "<div class='botonesMarginTop'>";
     $content .= displayExplorerButton();
     if (isset($_SESSION['username'])) {
         $content .= displayFollowedButton();
@@ -268,7 +267,6 @@ function showTestPosts($yoYYoMismo, $isTest){
         </form>
         EOS; 
     }
-    $content .= "</div>"; 
     $content .= "</div>";
     $content .= "<section class='listaPost'>";
     
@@ -286,7 +284,6 @@ function showTestPosts($yoYYoMismo, $isTest){
     if(!empty($posts)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
         } 
     }  
     $contador = 1;

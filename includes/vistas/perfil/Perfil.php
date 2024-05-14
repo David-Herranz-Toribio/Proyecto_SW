@@ -5,7 +5,7 @@ require_once HELPERS_URL . '/PerfilHelper.php';
 
 // Barra de búsqueda para usuarios
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-$topSearchBar->notDisplaySearchBar();
+$topSearchBar->buscarUsuario();
 
 // Obtenemos el username del perfil a visualizar (Otro usuario/Yo)
 if(isset($_SESSION['username'])){
