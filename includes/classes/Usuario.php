@@ -58,7 +58,7 @@ class Usuario{
 
         if($conection) {
             if($artist) {
-                $query = "INSERT INTO artista (id_artista, integrantes) VALUES "; 
+                $query = "INSERT INTO artista (id_artista) VALUES "; 
                 $values = "('$username'); "; 
                 $query .= $values;
                 $conection->query($query); 
@@ -366,17 +366,7 @@ class Usuario{
         }
 
         return $result; 
-    }
-
-    public static function LupaUsuariosCoincidentes($lista, $textoBusqueda) {
-        $result = [];
-        foreach ($lista as $usuario) {
-            if(stripos($usuario->getUsername(), $textoBusqueda) !== false) { 
-                $result[] = $usuario; 
-            }
-        }
-        return $result;
-    }    
+    }   
 
     public static function buscaNicknameBD($nickname){
         

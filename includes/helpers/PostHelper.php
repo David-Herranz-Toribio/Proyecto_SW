@@ -232,7 +232,6 @@ function showResp($id_post, $yoYYoMismo){
         if(!empty($posts)){
             if (isset($_GET['query'])) {
                 $textoBusqueda = $_GET['query'];
-                $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
             }   
         }
 
@@ -285,7 +284,6 @@ function showTestPosts($yoYYoMismo, $isTest){
     if(!empty($posts)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
         } 
     }  
     $contador = 1;
