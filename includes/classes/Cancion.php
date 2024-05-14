@@ -74,9 +74,10 @@ class Cancion{
 
 
     public static function obtenerCancionesporGenero($genero){
+
         $canciones = [];
         $conection = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf( "SELECT * FROM cancion C  WHERE C.tags LIKE  '%s' ", "%" . $genero ."%");
+        $query = sprintf( "SELECT * FROM cancion C  WHERE C.tags LIKE  '%s'", "%" . $genero ."%");
         $rs = $conection->query($query);
 
         if(!$rs){

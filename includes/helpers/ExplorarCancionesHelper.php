@@ -8,23 +8,21 @@ require_once HELPERS_URL . '/MusicaHelper.php';
 function displaySongsWithGenre($genre){
 
     // Mostrar una serie de canciones del genero musical 'genre'
-    $canciones= SW\classes\Cancion::obtenerCancionesporGenero($genre);
+    $canciones = SW\classes\Cancion::obtenerCancionesporGenero($genre);
     
-    if($canciones==NULL){
-        $listaCanciones= displayErrorMessage("Sin resultados");  
+    if($canciones == NULL){
+        return displayErrorMessage("Sin resultados");  
     }
 
-    else {
-        $listaCanciones= '<div class= "songlist">'; 
-        $listaCanciones .= <<<EOS
-        <p> Canciones de <strong> $genre </strong> </p> 
-        EOS; 
-        foreach($canciones as $cancion_act){
-            $listaCanciones .= displayMusicStyle($cancion_act); 
-        }
+    $listaCanciones = '<div class="songlist">'; 
+    $listaCanciones .= <<<EOS
+    <p> Canciones de <strong> $genre </strong> </p> 
+    EOS;
+    foreach($canciones as $cancion_act){
+        $listaCanciones .= displayMusicStyle($cancion_act); 
+    }
+    $listaCanciones .= "</div>";
 
-        $listaCanciones .= "</div>";
-    } 
     return $listaCanciones; 
 }
 
