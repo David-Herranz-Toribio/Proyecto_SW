@@ -107,16 +107,6 @@ class Producto extends Comprable{
         return $result;
     }
 
-    public static function LupaNombreProductoExistentes($productos, $textoBusqueda) {
-        $result = [];
-        foreach ($productos as $producto) {
-            if (stripos($producto->getNombre(), $textoBusqueda) !== false) { 
-                $result[] = $producto; 
-            }
-        }
-        return $result;
-    }
-
     public function borrarProducto(){
         if ($this->imagen != 'FotoMerch.png')
             unlink(IMG_URL . '/prodImages/'. $this->imagen);

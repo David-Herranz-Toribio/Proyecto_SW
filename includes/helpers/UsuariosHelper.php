@@ -11,16 +11,16 @@ function creacionApartadoUsuario($autor, $origen){
 
     //Imagen de usuario junto a su username
     $user = SW\classes\Usuario::buscaUsuario($autor);
-    $rutaPFP = IMG_PATH . '/profileImages/'.$user->getPhoto();
+    $rutaPFP = IMG_PATH . '/profileImages/' . $user->getPhoto();
     
     $user_info= <<<EOS
     <div class="user_info">
-    <div class= 'user_image'> 
-    <img alt="user_info" src=$rutaPFP width="50px" height="50px">
-    </div>
-    <div class= 'user_name'> 
-    <a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> 
-    </div>
+        <div class= 'user_image'> 
+            <img alt="user_info" src=$rutaPFP width="50px" height="50px">
+        </div>
+        <div class= 'user_name'> 
+            <a href= "$rutaPerfil?user=$autor" name="user">@$autor</a> 
+        </div>
     </div>
     EOS; 
     $me = SW\classes\Usuario::buscaUsuario($_SESSION['username']); 
@@ -49,12 +49,11 @@ function displayFollowButton($username, $text, $following, $autor){
     $html =<<<EOS
     <div class= "botones_mensaje"> 
         <form action=$rutaSeguimiento method="post"> 
-        <input type="hidden" name="opcion" value="$opcion">
-        <input type="hidden" name="return" value="$rutaRetorno?user=$autor&opcion=$opcion">
-        <input type="hidden" name="id" value=$username>
-        <input type="hidden" name="no_seguir/seguir" value=$following>
-        <button class="InfoFoll-button" type="submit"> $text </button>
-
+            <input type="hidden" name="opcion" value="$opcion">
+            <input type="hidden" name="return" value="$rutaRetorno?user=$autor&opcion=$opcion">
+            <input type="hidden" name="id" value=$username>
+            <input type="hidden" name="no_seguir/seguir" value=$following>
+            <button class="InfoFoll-button" type="submit"> $text </button>
         </form>
     </div>
     EOS;
@@ -64,6 +63,7 @@ function displayFollowButton($username, $text, $following, $autor){
 
 
 function showUsers($user, $opcion){
+    
     $content = "<section class = 'listaPost'>";
     if ($opcion == 'FOLLOWERS') {
         $message = "Seguidores de ";
@@ -84,10 +84,9 @@ function showUsers($user, $opcion){
     if(!empty($result)){
         if (isset($_GET['query'])) {
             $textoBusqueda = $_GET['query'];
-            $result = $user->LupaUsuariosCoincidentes($result, $textoBusqueda);
         }   
     
-        $content .= "<section class = 'listaPost'>";
+        $content .= "<section class='listaPost'>";
         foreach($result as $usuario){
             $content .= creacionApartadoUsuario($usuario->getUsername(), $user->getUsername());   
         }

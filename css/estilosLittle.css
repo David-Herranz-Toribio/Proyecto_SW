@@ -231,12 +231,18 @@ article.estiloPost div.botones_mensaje {
     padding: 1%;
 }
 
+.listaUsuarios{
+    align-items: center;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
 article.estiloUsers{
     background-color: #081c31;
     border: solid 2px #230058;
     word-break: keep-all;
     width: 80%; 
-    margin: auto;
+    margin-block: 5px;
     z-index: 100;
 }
 article.estiloUsers div.botones_mensaje {
@@ -359,7 +365,6 @@ section.datos_perfil {
     border-radius: 25px;
     padding-top: 5%;
     padding-right: 5%;
-    margin-inline: 3%;
     align-items: center;
     flex-direction: column;
     grid-row-start: 1;
@@ -381,10 +386,13 @@ section.datos_perfil div{
    font-weight: bolder;
 }
 .datos_perfil img {    
-    width: 50px;
-    height: 50px;
+    width: 90px;
+    height: 90px;
 }
 
+section.datos_perfil .identidad .user_info{
+    flex-direction: column;
+}
 
 section.publicaciones_perfil{
     grid-column-start: 1;
@@ -866,6 +874,12 @@ button:hover  {
     height: 30px;
 }
 
+
+.allSongs{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 2;
+}
 
 /* Formulario de creación de playlist */
 .createPlaylistForm{

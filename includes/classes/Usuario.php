@@ -366,17 +366,7 @@ class Usuario{
         }
 
         return $result; 
-    }
-
-    public static function LupaUsuariosCoincidentes($lista, $textoBusqueda) {
-        $result = [];
-        foreach ($lista as $usuario) {
-            if(stripos($usuario->getUsername(), $textoBusqueda) !== false) { 
-                $result[] = $usuario; 
-            }
-        }
-        return $result;
-    }    
+    }   
 
     public static function buscaNicknameBD($nickname){
         

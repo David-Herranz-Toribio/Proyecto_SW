@@ -59,18 +59,6 @@ class Pedido{
         return $result; 
     }
 
-    public static function LupaFechaHistorialPedidos($pedidos, $textoBusqueda) {
-        $result = [];
-        foreach ($pedidos as $pedido) {
-            if (stripos($pedido->getFecha(), $textoBusqueda) !== false) { 
-                $result[] = $pedido; 
-            }
-        }
-        return $result;
-    }
-
-
-
     public static function actualiza($pedido){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();

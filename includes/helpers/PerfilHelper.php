@@ -48,10 +48,14 @@ function displayProfileHeader($user, $isArtist, $isSelfProfile){
     $html = "<section class='datos_perfil'>";
     $html .= "<div class= 'identidad'>";
 
-    // Mostrar imagen, nickname, username y descripcion
+    // Mostrar imagen
     $html .= displayUserImage($user);
+
+    // Mostrar nickname y username
+    $html .= "<div class='user_info'>";
     $html .= displayNickname($user);
     $html .= displayUsername($user);
+    $html .= "</div>";
 
     // Mostrar las corcheas si es el perfil del cliente
     if($isSelfProfile)
@@ -178,7 +182,6 @@ function displayFavoritePost ($user){
     }
     else if (isset($_GET['query'])) {
         $textoBusqueda = $_GET['query'];
-        $posts = SW\classes\Post::LupaUsuarioPostExistentes($posts, $textoBusqueda);
     }
     
     foreach($posts as $post){
