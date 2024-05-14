@@ -149,8 +149,8 @@ function displayMusicStyle($cancion){
 
         <div class='songLikes'>
             <p> {$cancion->getCancionLikes()} &#9834 </p>
-            <form action = $rutaLike method = "post">
-            <input type = "hidden" name = "likeId" value = "$idCancion">
+            <form action=$rutaLike method="post">
+            <input type="hidden" name="likeId" value="$idCancion">
             <button class type="submit"> &#9834 </button>
             </form>
         </div>

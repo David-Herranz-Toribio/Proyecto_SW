@@ -5,7 +5,7 @@ require_once HELPERS_URL . '/PostHelper.php';
 
 // Selección de barra de búsqueda y visibilidad
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
-
+$topSearchBar->buscarUsuario();
 
 $yo = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 $opcion = $_GET['opcion'] ?? NULL;
