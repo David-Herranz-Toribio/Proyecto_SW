@@ -122,7 +122,18 @@ class Usuario{
             error_log($conn->error);
         } 
         return $result;
-    }    
+    }
+
+    public function deleteArtist(){
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE artista SET archivado = 1 WHERE id_artista = '%s'", $this->username); 
+        $result = $conn->query($query);
+        $conn->query("SET FOREIGN_KEY_CHECKS=0");
+        $result = $conn->query($query);
+
+        return $result;
+    }
 
     public function publicarPost($post_text, $post_image, $post_father){
         $post = Post::crearPost($this->username, $post_text, $post_image, 0, null, $post_father, Post::generatePostDate());
@@ -213,7 +224,7 @@ class Usuario{
 
     public function estaSiguiendo ($user){
         
-        $result = true; 
+        $result = true;
         $seguidor = $this->getUsername(); 
         $conn = Aplicacion::getInstance()->getConexionBd();
 
@@ -253,10 +264,16 @@ class Usuario{
         $usuario = self::buscaUsuario($username); 
         
         //El login es correcto
-        if($usuario && $usuario->comprueba_password($password))
-            return $usuario; 
+        if(!$usuario || !$usuario->comprueba_password($password))
+            return false;
 
-        return false; 
+        // Si es artista, comprobar que no esta archivado
+        if(self::esArtista($usuario->getUsername())){
+            if(is_null(self::estaArchivado($usuario->getUsername())))
+                return false;
+        }
+
+        return $usuario; 
     }
 
     //Comprueba si la contraseña es correcta
@@ -268,12 +285,11 @@ class Usuario{
     public static function esArtista($id_u) {
 
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $conn->real_escape_string($id_u)); 
+        $query = sprintf("SELECT * FROM artista A WHERE A.id_artista= '%s'", $id_u); 
         $rs = $conn->query($query);  
 
         if(!$rs){
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return;
+            return false;
         }
 
         $fila = $rs->fetch_assoc(); 
@@ -282,6 +298,8 @@ class Usuario{
         else 
             return false;
     }
+
+
     public static function esAdmin($id_u) {
 
         $result = true;
@@ -333,7 +351,7 @@ class Usuario{
     } 
 
     //Metodo que busca en la base de datos un usuario por su nombre 
-    public static function buscaUsuario($username){
+    public static function  buscaUsuario($username){
 
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario U WHERE U.id_user= '%s'", $username); 
@@ -398,6 +416,20 @@ class Usuario{
             return true;
 
         return false;
+    }
+
+    public static function estaArchivado($id_user){
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM artista WHERE id_artista = '%s' AND archivado = 1", $id_user); 
+        $rs = $conn->query($query);  
+
+        $result = $rs->fetch_assoc();
+        if(is_null($result))
+            return false;
+        
+        $rs->free();
+        return true; 
     }
 
     public function aumentaKarma($num){
