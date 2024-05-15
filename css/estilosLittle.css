@@ -11,8 +11,12 @@ body {
 
 a{
     text-decoration: none;
-    color: inherit;    
+    color: white;
 }
+.registros{
+    text-decoration: underline;
+    color: rgb(137, 0, 179);
+}  
 div.container{
     display: flex;
     flex-direction: column;
