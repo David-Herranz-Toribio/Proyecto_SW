@@ -3,11 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2024 a las 22:38:01
+-- Tiempo de generación: 15-05-2024 a las 17:29:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -23,183 +22,118 @@ SET time_zone = "+00:00";
 --
 
 --
--- Volcado de datos para la tabla `usuario`
---
-INSERT INTO `usuario` (`id_user`, `nickname`, `password`, `foto`, `descripcion`, `karma`, `fecha`, `correo`, `admin`) VALUES
-('user1', 'User Uno', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', '¡Hola! Soy User Uno.', 100, '2001-03-09', 'user1@gmail.com', 1),
-('user2', 'User Dos', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', 'Bienvenido a mi perfil.', 80, '2003-03-09', 'user2@gmail.com', 0),
-('user3', 'User Tres', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil3.jpg', 'Descubre mi mundo.', 120, '2000-03-09', 'user3@gmail.com', 0),
-('user4', 'User Cuatro', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil2.jpg', '¡Hola! Soy User Cuatro.', 90, '2002-03-09', 'user4@gmail.com', 0),
-('user5', 'User Cinco', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil1.jpg', '¡Hola! Soy User Cinco.', 110, '2004-03-09', 'user5@gmail.com', 0),
-('user6', 'User Seis', '$2y$10$O3c1kBFa2yDK5F47IUqusOJmIANjHP6EiPyke5dD18ldJEow.e0eS', 'Perfil3.jpg', '¡Hola! Soy User Seis.', 70, '2005-03-09', 'user6@gmail.com', 0);
-
-
---
 -- Volcado de datos para la tabla `artista`
 --
-TRUNCATE TABLE `artista`;
-INSERT INTO `artista` (`id_artista`) VALUES
-('user2'),
-('user6');
 
-
-
-TRUNCATE TABLE `seguidores`;
-
--- Ejemplo de inserción de datos en la tabla seguidores
-INSERT INTO `seguidores` (`id_user`, `id_seguidor`) VALUES
-('user1', 'user3'),
-('user2', 'user3'),
-('user3', 'user1');
-
+INSERT INTO `artista` (`id_artista`, `archivado`) VALUES
+('bad_bunny', 0),
+('direS', 0),
+('Eagles', 0),
+('icecube', 0),
+('jamiroquai', 0),
+('Mozart', 0),
+('skrillex', 0);
 
 --
--- Volcado de datos para la tabla `producto`
+-- Volcado de datos para la tabla `cancion`
 --
 
-TRUNCATE TABLE `producto`;
-INSERT INTO `producto` (`id_artista`, `imagen`, `nombre`, `descripcion`, `stock`, `precio`) VALUES
-('user2', 'FotoEntrada.png', 'Entrada Artista 1', 'Entrada para John Doe y Jane Smith', 150, 10.99),
-('user2', 'FotoMerch.png', 'Camiseta Artista 1', 'Camiseta con diseño exclusivo del artista 1', 50, 20.99),
-('user2', 'FotoMerch.png', 'Póster Firmado', 'Póster firmado por el artista 2', 30, 15.5),
-('user2', 'FotoMerch.png', 'Álbum en Vinilo', 'Edición especial en vinilo del álbum del artista 3', 10, 35.75),
-('user2', 'FotoMerch.png', 'Camiseta Artista 1', 'Camiseta con diseño exclusivo del artista 2', 50, 20.99),
-('user2', 'FotoMerch.png', 'Taza de Colección', 'Taza de colección con el arte del usuario 2', 0, 8.5),
-('user2', 'FotoMerch.png', 'Póster Artista 1', 'Póster con ilustraciones del artista 1', 40, 12.75),
-('user2', 'FotoMerch.png', 'Edición Limitada en Vinilo', 'Edición limitada en vinilo de las canciones del artista 2', 10, 45.99);
+INSERT INTO `cancion` (`id_cancion`, `titulo`, `imagen`, `fecha`, `id_artista`, `likes`, `ruta`, `tags`) VALUES
+(1, 'Me fui de vacaciones', 'Un verano sin ti.png', '2019-07-01', 'bad_bunny', 0, '6644a8b20c4ec.mp3', 'Reggaeton'),
+(2, 'Titi me preguntó', 'Un verano sin ti.png', '2019-07-01', 'bad_bunny', 1, '6644ac9615789.mp3', 'Reggaeton'),
+(4, 'Sultans Of Swing', 'Sultans Of Swing.jpg', '1978-01-01', 'direS', 0, '6644ad7d6c1c0.mp3', 'Rock'),
+(5, 'You know how we do it', 'Lethal Injection.jpg', '1978-01-01', 'icecube', 0, '6644aed979df0.mp3', 'Hip'),
+(6, 'Hotel California', 'Hotel California.jpg', '1976-12-08', 'Eagles', 0, '6644afd0a71b2.mp3', 'Rock'),
+(7, 'Virtual Insanity', 'Travelling without moving.jpg', '1996-08-28', 'jamiroquai', 0, '6644b07dd4dbd.mp3', 'Disco'),
+(8, 'Bangarang', 'Bangarang.jpg', '2011-12-23', 'skrillex', 0, '6644b1125ff70.mp3', 'Dubstep'),
+(9, 'Concierto Piano Orquesta Mov 1', 'Concierto Piano Orquesta 20 D Minor.jpg', '1785-01-01', 'Mozart', 0, '6644b1d356023.mp3', 'Clásica');
 
 --
--- Volcado de datos para la tabla `pedido`
+-- Volcado de datos para la tabla `cancionfav`
 --
 
-TRUNCATE TABLE `pedido`;
-INSERT INTO `pedido` (`id_user`, `estado`, `total`, `fecha`)VALUES
-('user1', 'En proceso', 50, '2024-03-08'),
-('user2', 'En proceso', 75.5, '2024-03-09'),
-('user1', 'Procesado', 30.2, '2024-03-10');
+INSERT INTO `cancionfav` (`id_cancion`, `id_user`) VALUES
+(2, 'bad_bunny');
+
 --
--- Volcado de datos para la tabla `pedido_prod`
+-- Volcado de datos para la tabla `playlist`
 --
 
-TRUNCATE TABLE `pedido_prod`;
-INSERT INTO `pedido_prod` (`id_pedido`, `id_prod`, `cantidad`)VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(2, 4, 1),
-(3, 5, 2),
-(2, 6, 4);
+INSERT INTO `playlist` (`id_playlist`, `id_user`, `imagen`, `nombre`, `fecha`) VALUES
+(2, 'user1', 'playlist_fav.png', 'Favoritos', '2024-05-15'),
+(3, 'user2', 'playlist_fav.png', 'Favoritos', '2024-05-15'),
+(4, 'user3', 'playlist_fav.png', 'Favoritos', '2024-05-15'),
+(5, 'user4', 'playlist_fav.png', 'Favoritos', '2024-05-15'),
+(6, 'admin', 'playlist_fav.png', 'Favoritos', '2024-05-15'),
+(7, 'bad_bunny', 'Un verano sin ti.png', 'Un verano sin ti', '2019-07-01'),
+(8, 'direS', 'Sultans Of Swing.jpg', 'Sultans Of Swing', '1978-01-01'),
+(9, 'icecube', 'Lethal Injection.jpg', 'Lethal Injection', '1978-01-01'),
+(10, 'Eagles', 'Hotel California.jpg', 'Hotel California', '1976-12-08'),
+(11, 'jamiroquai', 'Travelling without moving.jpg', 'Travelling without moving', '1996-08-28'),
+(12, 'skrillex', 'Bangarang.jpg', 'Bangarang', '2011-12-23'),
+(13, 'Mozart', 'Concierto Piano Orquesta 20 D Minor.jpg', 'Concierto Piano Orquesta 20 D Minor', '1785-01-01');
+
+--
+-- Volcado de datos para la tabla `play_cancion`
+--
+
+INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
+(7, 1),
+(7, 2),
+(8, 4),
+(9, 5),
+(10, 6),
+(11, 7),
+(12, 8),
+(13, 9);
 
 --
 -- Volcado de datos para la tabla `post`
 --
 
-TRUNCATE TABLE `post`;
-INSERT INTO `post` ( `id_user`, `texto`, `imagen`, `likes`, `origen`, `tags`, `fecha`) VALUES
-('user3', '¡Hola mundo!', 'Image1.jpg', 1, NULL, 'saludo, inicio', '2024-03-08'),
-('user1', 'Una foto increíble', NULL, 1, NULL, 'foto, arte', '2024-03-09'),
-('user1', 'Nuevo descubrimiento musical', 'Image2.jpg', 1, 1, 'música, recomendación', '2024-03-10'),
-('user2', '¡Hola a todos!', NULL, 1, NULL, 'saludo, comunidad', '2024-03-11'),
-('user2', 'Compartiendo mi último trabajo', 'Image1.jpg', 1, NULL, 'arte, diseño', '2024-03-12'),
-('user2', '¡Feliz fin de semana!', 'Image2.jpg', 2, NULL, 'fin de semana, diversión', '2024-03-13'),
-('user2', 'Gracias por la recomendación', NULL, 3, 3, 'agradecimiento, música', '2024-03-14'),
-('user2', 'Qué buena foto, me encanta', 'Image1.jpg', 2, 2, 'apreciación, arte', '2024-03-15'),
-('user2', 'Totalmente de acuerdo contigo', 'Image2.jpg', 1, 4, 'concordancia, comunidad', '2024-03-16'),
-('user5', 'Bonita Camiseta', 'Image1.jpg', 1, NULL, 'ropa, moda', '2024-03-17'),
-('user4', 'Las zapatillas modelo X son muy cómodas y tienen un diseño moderno.', 'Image8.jpg', 2, NULL, 'zapatillas, moda, reseña', '2024-03-23'),
-('user6', 'El libro "El gran viaje" es una lectura fascinante, muy recomendado.', 'Image9.jpg', 3, NULL, 'libros, lectura, reseña', '2024-03-24'),
-('user4', 'Los ingredientes frescos de nuestra tienda son perfectos para tus recetas.', 'Image10.jpg', 5, NULL, 'ingredientes, cocina, reseña', '2024-03-25'),
-('user3', 'Nuestros productos para mascotas son de alta calidad y a tu mascota le encantarán.', 'Image11.jpg', 4, NULL, 'mascotas, cuidado, reseña', '2024-03-26'),
-('user4', 'La colección de verano 2024 tiene diseños vibrantes y tejidos frescos.', 'Image12.jpg', 6, NULL, 'ropa, verano, reseña', '2024-03-27'),
-('user5', 'La canción tiene una melodía increíble y letras profundas.', 'Image13.jpg', 2, NULL, 'música, canción, reseña', '2024-03-28'),
-('user5', 'Es una balada conmovedora que te llegará al corazón.', 'Image14.jpg', 3, NULL, 'música, canción, reseña', '2024-03-29'),
-('user6', 'El ritmo te hará mover los pies. ¡No puedes dejar de bailar!', 'Image15.jpg', 5, NULL, 'música, canción, reseña', '2024-03-30'),
-('user4', 'Es una canción relajante perfecta para una noche tranquila.', 'Image16.jpg', 4, NULL, 'música, canción, reseña', '2024-03-31'),
-('user3', 'La canción te llenará de energía y positividad para empezar el día.', 'Image17.jpg', 6, NULL, 'música, canción, reseña', '2024-04-01');
---
--- Volcado de datos para la tabla `postfav`
---
-TRUNCATE TABLE `postfav`;
-INSERT INTO `postfav` (`id_post`, `id_user`) VALUES
-(1, 'user1'),
-(2, 'user1'),
-(3, 'user1'),
-(4, 'user1'),
-(5, 'user1'),
-(6, 'user1'),
-(6, 'user2'),
-(7, 'user3'),
-(7, 'user2'),
-(7, 'user1'),
-(8, 'user3'),
-(8, 'user2'),
-(9, 'user3');
+INSERT INTO `post` (`id_post`, `id_user`, `texto`, `imagen`, `likes`, `origen`, `tags`, `fecha`) VALUES
+(8, 'user1', 'Alguna recomendación de musica??😋', 'NULL', 0, NULL, '', '2024-05-15'),
+(9, 'user2', 'No se que poner por aquí', 'NULL', 0, NULL, '', '2024-05-15'),
+(15, 'user2', 'El cucho', '6644cf2383d6d.jpg', 0, NULL, '', '2024-05-15'),
+(18, 'user3', 'Buenos dias, que Dios os bendiga a todos', '6644d10bcfa08.jpg', 0, NULL, '', '2024-05-15');
 
 --
--- Volcado de datos para la tabla `canciones y playlist`
+-- Volcado de datos para la tabla `seguidores`
 --
-TRUNCATE TABLE `cancion`;
-INSERT INTO `cancion` (`id_cancion`, `titulo`, `fecha`, `id_artista`, `likes`, `ruta`, `tags`) VALUES
-(1, 'Canción 1', '2024-03-08', 'user2', 100, 'Cancion1.mp3', 'pop, dance'),
-(2, 'Canción 2', '2024-03-09', 'user2', 85, 'Cancion2.mp3', 'rock'),
-(3, 'Canción 3', '2024-03-10', 'user2', 120, 'Cancion3.mp3', 'electrónica'),
-(4, 'CancionChill', '2020-02-05', 'user6', 50, 'CancionChill.mp3', 'indie'),
-(5, 'Drive-Breakbeat', '2021-03-06', 'user6', 50, 'Drive-Breakbeat.mp3', 'Hip Hop'); 
 
+INSERT INTO `seguidores` (`id_user`, `id_seguidor`) VALUES
+('bad_bunny', 'user2'),
+('user1', 'user3'),
+('user2', 'user1'),
+('user2', 'user3'),
+('user3', 'user1'),
+('user3', 'user2'),
+('user4', 'user1');
 
-TRUNCATE TABLE `playlist`;-- la duracion esta en segundos
-INSERT INTO `playlist` (`id_playlist`, `id_user`,`imagen`, `nombre`, `fecha`) VALUES
-(10, 'user1', 'playlist_fav.png', 'Favoritos', '2024-03-07'),
-(2, 'user2',  'playlist1.jpg', 'Mi Playlist', '2024-03-08'),
-(30, 'user2', 'playlist_fav.png', 'Favoritos', '2024-03-08'),
-(40, 'user3', 'playlist_fav.png', 'Favoritos', '2024-03-09'),
-(50, 'user4', 'playlist_fav.png', 'Favoritos', '2024-04-01'), 
-(60, 'user5', 'playlist_fav.png', 'Favoritos', '2024-04-02'),
-(70, 'user6', 'playlist_fav.png', 'Favoritos', '2024-04-10'),
-(3, 'user6', 'playlist3.jpg', 'MyOwnSongs', '2020-03-01'); 
-
-TRUNCATE TABLE `play_cancion`;
-INSERT INTO `play_cancion` (`id_playlist`, `id_cancion`) VALUES
-(10, 1),
-(1, 2),
-(1, 3),
-(2, 1),
-(2, 3),
-(30, 3),
-(3, 3),
-(3, 5); 
-
-TRUNCATE TABLE `cancionfav`;
-INSERT INTO `cancionfav` (`id_cancion`, `id_user`) VALUES
-(3, 'user3'), 
-(1, 'user1'), 
-(3, 'user1');
-
-TRUNCATE TABLE `producto_post`;
-INSERT INTO `producto_post` (`id_prod`, `id_post`) VALUES
-(1, 10),
-(6, 11),
-(2, 12),
-(3, 13),
-(4, 14),
-(5, 15);
-
-TRUNCATE TABLE `cancion_post`;
-INSERT INTO `cancion_post` (`id_cancion`, `id_post`) VALUES
-(1, 16),
-(2, 17),
-(3, 18),
-(1, 19),
-(1, 20);
 --
--- Volcado de datos para la tabla `subs`
+-- Volcado de datos para la tabla `suscripcion`
 --
-INSERT INTO `suscripcion` (`id_user`, `tipo`, `fecha_fin`, `archivado` ) VALUES
-('user1', 'Mensual', '2024-12-31','0'),
-('user2', 'Anual', '2025-06-15','0'),
-('user3', 'Diario', '2024-03-20','1');
 
-SET FOREIGN_KEY_CHECKS=1;
+INSERT INTO `suscripcion` (`id_user`, `tipo`, `fecha_fin`, `archivado`) VALUES
+('bad_bunny', 'prueba', '2024-05-15 15:59:16', NULL);
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_user`, `nickname`, `password`, `foto`, `descripcion`, `karma`, `fecha`, `correo`, `admin`) VALUES
+('admin', 'admin', '$2y$10$QfAEJM0JlHfQo8vUJzGhsevdw5d19jPr8Anr.dvwKyJFERzEFY0ze', 'FotoPerfil.png', '', 0, '1990-01-01', 'admin@gmail.com', 1),
+('bad_bunny', 'Bad Bunny', '$2y$10$h58nkhB3VweRSCSgjMdchuNMv6sLriS0nHIW7L4Otu0ZcH3BaIm.W', 'bad_bunny.jpg', '', 1, '1994-03-10', 'badbunny@gmail.com', 0),
+('direS', 'dire straits', '$2y$10$z.M2mFRqj/sGHfGYxxNNJ.2EyOa.cCrrAqFSss91LJo8IRWkcW3o6', 'direS.jpg', '', 0, '1990-01-01', 'direstraits@gmail.com', 0),
+('Eagles', 'Eagles', '$2y$10$b8xmdcYaAVRdIM1ArM17F.NeohAlIuW5YzfV0V57RIvYyWRrzXZSe', 'Eagles.jpg', '', 0, '1990-01-01', 'eagles@gmail.com', 0),
+('icecube', 'IceCube', '$2y$10$QhoTwHc7cuJE./sRi8ZX7ujljPXatDReHNK5ocE8SWgmHzVjhvxp.', 'icecube.jpg', '', 0, '1990-01-01', 'icecube@gmail.com', 0),
+('jamiroquai', 'jamiroquai', '$2y$10$srFYodSt0wrKwz3oUYJgPO03HlV/WPAL3V6UOOrRPplCS.mxcxb6i', 'jamiroquai.png', '', 0, '1990-01-01', 'jamiroquai@gmail.com', 0),
+('Mozart', 'W.A Mozart', '$2y$10$jFbTYsuYsoZDwUR0sJaz.uI0wT2bEqY2wGwAnOGD0rnqtRrJxxeSm', 'Mozart.jpg', '', 0, '1770-01-01', 'mozart@gmail.com', 0),
+('skrillex', 'skrillex', '$2y$10$LMqU7g52Rjdy0Gogv6vEqOyORLvvk9oXvHQ78Wg0nplP4U6GVv5N.', 'skrillex.png', '', 0, '2000-01-01', 'skrillex@gmail.com', 0),
+('user1', 'usuario1', '$2y$10$g04E4EX/k.6V.iRBeDT/SeUjad9nbVK1ljfDS0zGKq71TXlM8tk.e', 'user1.jpg', '', 1400, '2001-01-01', 'user1@gmail.com', 0),
+('user2', 'usuario2', '$2y$10$TE5N3zjZL9TtP8YU.GV2Ke3OrXPY1yQCkwihLRsx5Hns8Rydi0IyO', 'user2.png', '', 0, '2002-02-02', 'user2@gmail.com', 0),
+('user3', 'usuario3', '$2y$10$WOCU76J1/izTEHCrF915J.lL1KKxrmRg1qj0EDpF3viORf18h3eoq', 'user3.jpg', '', 0, '2003-03-03', 'user3@gmail.com', 0),
+('user4', 'usuario4', '$2y$10$61rTW9moQAhtYRnDDVs3kuxxywezQep/D8SBeplSJQNj1vmIBlWwq', 'FotoPerfil.png', '', 0, '2000-04-04', 'user4@gmail.com', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

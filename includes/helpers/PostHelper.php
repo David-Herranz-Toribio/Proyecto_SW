@@ -127,10 +127,11 @@ function creacionPubliHTML2(){
 
     $rutaSus = VIEWS_PATH . "/tienda/Suscripcion.php";
     $rutaImg = IMG_PATH . "/FotoSuscripcion.png";
-    $html = <<<EOS
-    <article class = "estiloPost" >
+
+    $html =<<<EOS
+    <article class="estiloPost">
         <a href="$rutaSus">
-            <div class="publicidad"  >
+            <div class="publicidad">
                 <p>¡Desbloquea todo un mundo de beneficios con nuestra suscripción premium!</p>
                 <img src=$rutaImg height="200" width="200" alt="Foto de suscripcion">
                 <p>Accede a contenido exclusivo, funciones avanzadas y una experiencia sin interrupciones. ¡Únete ahora y lleva tu experiencia al siguiente nivel!</p>
@@ -228,22 +229,15 @@ function showResp($id_post, $yoYYoMismo){
                                   $post_aux->getTexto(), $post_aux->getId(), $post_aux->getPadre(), $yoYYoMismo);
         $html .= "</div>";
 
+
         $posts = SW\classes\Post::obtenerListaDePosts($id_post); 
-        if(!empty($posts)){
-            if (isset($_GET['query'])) {
-                $textoBusqueda = $_GET['query'];
-            }   
-        }
-
         $html.= "<div id='post_respuestas'>"; 
-
-
         foreach($posts as $post){
             $html .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
                                       $post->getTexto(), $post->getId(), $post->getPadre(), $yoYYoMismo);
         }
-        $html.= "</div>"; 
-        $html.= "</section> ";
+        $html .= "</div>"; 
+        $html .= "</section> ";
     }
 
     return $html;
@@ -281,11 +275,7 @@ function showTestPosts($yoYYoMismo, $isTest){
     }
     else 
         $posts = SW\classes\Post::obtenerListaDePosts();
-    if(!empty($posts)){
-        if (isset($_GET['query'])) {
-            $textoBusqueda = $_GET['query'];
-        } 
-    }  
+
     $contador = 1;
     foreach($posts as $post){
         $content .= creacionPostHTML($post->getAutor(), $post->getImagen(), $post->getLikes(),
