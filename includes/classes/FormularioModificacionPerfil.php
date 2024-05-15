@@ -12,12 +12,12 @@ class FormularioModificacionPerfil extends FormularioMultimedia {
 
     protected function generaCamposFormulario(&$datos){
 
-        $user = SW\classes\Usuario::buscaUsuario($_SESSION['username']);  
-        $userName = $user->getUsername(); 
-        $nickName = $user->getNickname();  
-        $desc = $user->getDescrip(); 
-        $email = $user->getEmail(); 
-        $imagen = $user->getPhoto(); 
+        $user = SW\classes\Usuario::buscaUsuario($_SESSION['username']);
+        $userName = $user->getUsername();
+        $nickName = $user->getNickname();
+        $desc = $user->getDescrip();
+        $email = $user->getEmail();
+        $imagen = $user->getPhoto();
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'desc', 'email','imagen'], $this->errores, 'span', array('class' => 'error'));
@@ -25,7 +25,7 @@ class FormularioModificacionPerfil extends FormularioMultimedia {
         $camposForm =<<<EOF
             <input type= 'hidden' name= "ImagenAntigua" value= '$imagen'> 
             $htmlErroresGlobales
-            <fieldset class= "formRegistro">
+            <fieldset>
             <legend> Modifica tu cuenta </legend> 
 
             <input hidden name="id_user" value= "$userName">

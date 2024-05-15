@@ -49,7 +49,6 @@ function suscripcionHTML($yo){
         $content .= <<<EOS2
             <h1>¡Ya tienes una suscripción activa!</h1>
             <p>Si deseas cambiar tu suscripción, primero cancela la actual</p>
-            <p>Si deseas cancelar tu suscripción, ve a tu perfil</p> 
 
             <div class="timer" id="timer">
                 Tiempo restante: <span id="time">----Cargando----</span>

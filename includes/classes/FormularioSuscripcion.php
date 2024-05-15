@@ -3,15 +3,6 @@
 require_once 'Formulario.php';
 require_once 'Usuario.php'; 
 
-
-/*
-
-    Formulario para crear un album == Playlist
-    Campos:
-        - Portada
-        - Nombre del album
-        - Año
-*/
 class FormularioSuscripcion extends Formulario{
 
     private $id_usuario;

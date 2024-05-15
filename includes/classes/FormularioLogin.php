@@ -78,7 +78,7 @@ class FormularioLogin extends Formulario
             if($num){
                 $_SESSION['notif_prod'] = $num;
             }
-            $_SESSION['isArtist'] =  SW\classes\Usuario::esArtista($username); 
+            $_SESSION['isArtist'] =  SW\classes\Usuario::esArtista($username);
             $_SESSION['isAdmin'] =  SW\classes\Usuario::esAdmin($username); 
             $_SESSION['isSub'] =  SW\classes\Suscripcion::tieneSub($username); 
         }
