@@ -1,14 +1,10 @@
 $(document).ready(function() {
 
-
     //Validaciones al crear una playlist 
     $("#campoNombrePlaylist").change(function(){
         var url= "../../helpers/compruebaPlaylist.php?user=" + $('#id_user').val() + "&nombrePlaylist=" + $('#campoNombrePlaylist').val(); 
         $.get(url,playlistExiste); 
     }); 
-
-
-
 
     //Validaciones al registrarse 
     $("#campoUser").change(function(){
@@ -21,19 +17,20 @@ $(document).ready(function() {
 		campo[0].setCustomValidity(""); 
 
 		const esCorreoValido = campo[0].checkValidity();
-		if (esCorreoValido && correoValidoUCM(campo.val())) {
+		if (esCorreoValido && correoValido(campo.val())) {
 			$("#validEmail").html( '&#x2714');  
 			campo[0].setCustomValidity("");
 		} else {			
 			$("#validEmail").html( '&#x26a0'); 
 			campo[0].setCustomValidity(
-				"El correo debe ser válido y acabar por @ucm.es");
+				"El correo debe ser válido y acabar por @gmail.com");
 		}
     })
 
     $("#campoPassword").keyup(function(event){
-        var password= $('#campoPassword').val(); 
-        if(password.length<8){
+
+        var password = $('#campoPassword').val(); 
+        if(password.length < 8){
             $("#validPassword").html('&#x26a0 Mín 8 caracteres'); 
         }
         else $("#validPassword").html('&#x2714'); 
@@ -41,6 +38,7 @@ $(document).ready(function() {
 
 
     function usuarioExiste(data, status){
+
         switch(data){
             case 'existe': 
              $("#validUser").html( 'Ya existe &#x26a0');
@@ -53,9 +51,9 @@ $(document).ready(function() {
     }
 
 
-    function correoValidoUCM(correo) {
-		// tu codigo aqui (devuelve true ó false)
-	    return correo.endsWith('@ucm.es') ; 
+    function correoValido(correo) {
+		
+	    return correo.endsWith('@gmail.com'); 
 	}
 
 
@@ -71,8 +69,7 @@ $(document).ready(function() {
         }
     }
 
-}
-)
+})
 
 function startTimer(diference) {
     let diff = diference;
@@ -102,6 +99,7 @@ function startTimer(diference) {
         }
     }, 1000);
 }
+
 function peticionAjaxSus(url, data) {
     $.ajax({
         type: "POST",

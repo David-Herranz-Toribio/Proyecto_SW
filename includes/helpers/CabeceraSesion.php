@@ -36,9 +36,11 @@ function generateStaticHeader($currentPage) {
 			EOS2;
 		}
 	}
-	echo "<script>";
-	echo "var link = '" .$link. "';";
-	echo "</script>";
+
+	echo "<script>"
+		. "var link = '$link'"
+		. "</script>";
+
 	$html = <<<EOS
 	<header class= 'header'>
 	<a class='logoApp' href="$linkIndex">

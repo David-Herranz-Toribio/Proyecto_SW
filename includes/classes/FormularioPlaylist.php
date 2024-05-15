@@ -97,7 +97,7 @@ class FormularioPlaylist extends FormularioMultimedia{
             $imagen = 'playlistDefault.png'; 
         }
         else
-            $imagen = self::compruebaImagen('imagen', '/songImages/'); 
+            $imagen = self::compruebaImagen($nombre, 'imagen', '/songImages/'); 
 
 
         // Si hay errores, salimos

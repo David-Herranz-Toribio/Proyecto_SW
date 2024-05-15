@@ -1,4 +1,23 @@
 
+---------------------------------------------------- USUARIOS ----------------------------------------------------
+Usuarios:
+1. user1 - userpass
+2. user2 - userpass
+3. user3 - userpass
+4. user4 - userpass
+
+Admins:
+1. admin - adminpass
+
+Artistas:
+1. eagles - artistapass
+2. direS - artistapass
+3. jamiroquai - artistapass
+4. skrillex - artistapass
+5. Mozart - artistapass
+6. bad_bunny - artistapass
+7. icecube - artistapass
+
 ---------------------------------------------------- CAMBIOS FINALES ----------------------------------------------------
 
 -Vista explorar canciones✅
@@ -6,8 +25,8 @@
 -CSS resultados de búsqueda (Óscar)✅
 -Validar TODOS los datos mandados por formularios
 -CSS de los albumes (Óscar)✅
--Correcciones de la práctica 3
--Memoria
+-Correcciones de la práctica 3✅
+-Memoria✅
 
 --------------------------------------------------- Proyecto Final ---------------------------------------------------
 
@@ -56,7 +75,7 @@
 
 
 -CSS
-    1)Quitar reglas "redundantes"
+    1)Quitar reglas "redundantes"✅
     2)Cambiar la fuente (Alonso)
     3)Media queries (Óscar)✅
  

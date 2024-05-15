@@ -43,14 +43,15 @@ class FormularioAddCancion_Playlist extends Formulario{
     }
 
     protected function procesaFormulario(&$datos){
-        $this->errores= []; 
+
+        $this->errores = []; 
         $playlistID = $datos['playlist'];
         $playlist = SW\classes\Playlist::obtenerPlaylistByID($playlistID);
 
         // Solo si la canción no está ya en la playlist
         if(!$playlist->yaPuesta($this->id_cancion))
             $playlist->addCancion($this->id_cancion);
-        else $this->errores[]= "Ya está en esa playlist!"; 
+        else $this->errores[] = "Ya está en esa playlist!"; 
     }
 
 }

@@ -110,7 +110,7 @@ class FormularioModificacionPerfil extends FormularioMultimedia {
             }
         } 
 
-        $fotoPerfil = self::compruebaImagen('image', '/profileImages/'); 
+        $fotoPerfil = self::compruebaImagen($_SESSION['username'] ,'image', '/profileImages/'); 
 
         if(count($this->errores) === 0){
             $usu_mod->setPhoto($fotoPerfil ?? $imagen_ant); 

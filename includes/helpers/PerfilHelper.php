@@ -198,7 +198,7 @@ function displayOrders($user){
     $lista_pedidos = showHistorialPedidos($user->getUsername());
 
     $html =<<<EOS
-    <section class= 'publicaciones_perfil'> 
+    <section class='publicaciones_perfil'> 
         $lista_pedidos
     </section> 
     EOS;
@@ -407,7 +407,7 @@ function displayFollowing($user){
 function displayArtistMusic($artist_username){
 
     $albums = \SW\classes\Playlist::obtenerPlaylistsBD($artist_username);
-    if(!$albums || count($albums) <= 1){
+    if(!$albums){
 
         $html =<<<EOS
         <section class="emptyMusicList">

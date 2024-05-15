@@ -12,10 +12,10 @@ class FormularioPost extends FormularioMultimedia
 
     public function __construct($id_padre, $id_post, $id_producto = null , $id_cancion = null) {
         parent::__construct('formPublicaPost', ['urlRedireccion' => VIEWS_PATH .'/foro/Foro.php', 'enctype' => 'multipart/form-data']);
-        $this->id_padre= $id_padre; 
-        $this->id_post= $id_post; 
-        $this->id_producto= $id_producto;  
-        $this->id_cancion= $id_cancion;
+        $this->id_padre = $id_padre; 
+        $this->id_post = $id_post; 
+        $this->id_producto = $id_producto;  
+        $this->id_cancion = $id_cancion;
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -71,14 +71,21 @@ class FormularioPost extends FormularioMultimedia
     {   
         $this->errores= []; 
         $username = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
-        $id= filter_var($datos['id_post'], FILTER_VALIDATE_INT);  
+        $id = filter_var($datos['id_post'], FILTER_VALIDATE_INT);  
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
-        $imagen_ant= htmlspecialchars($datos['Imagen_antigua']); 
-        $post_image= self:: compruebaImagen("image", '/postImages/'); 
+        $imagen_ant = htmlspecialchars($datos['Imagen_antigua']);
+        $post_image = '';
+        if($imagen_ant == "" ){
+            $post_image = self::compruebaImagen($username, 'image', '/postImages/');
+            $post_image = $post_image === false ? NULL : $post_image;
+        }
+        else
+            $post_image = $imagen_ant;
+            
 
-        if(count($this->errores)===0){
+        if(count($this->errores) === 0){
 
-            if($datos['id_padre'] != "") $post_father= $datos['id_padre']; 
+            if($datos['id_padre'] != "") $post_father = $datos['id_padre']; 
             else $post_father = 'NULL'; 
 
 

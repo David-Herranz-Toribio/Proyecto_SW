@@ -135,14 +135,24 @@ function displayMusicStyle($cancion){
         </div> 
         EOS2;
     }
+    else
+        $user_info = ''; 
 
-    else $user_info= ''; 
-
+    $botonLike = '';
+    if(!$_SESSION['isArtist']){
+        $botonLike =<<<EOS
+        <form action=$rutaLike method="post">
+        <input type="hidden" name="likeId" value="$idCancion">
+        <button class type="submit"> &#9834 </button>
+        </form>
+        EOS;
+    }
+    
     $html =<<<EOS
     <div class='album_song'>
         <div class='songName'>
-            <p> <a href= $rutaVistaCancion > {$cancion->getCancionTitulo()} </a>  </p>
-            <p> <a href= $rutaVistaArtista > {$cancion->getIdArtista()} </a> </p>
+            <p> <a href=$rutaVistaCancion> {$cancion->getCancionTitulo()} </a>  </p>
+            <p> <a href=$rutaVistaArtista> {$cancion->getIdArtista()} </a> </p>
         </div>
 
         <div class='songDate'>
@@ -151,16 +161,12 @@ function displayMusicStyle($cancion){
 
         <div class='songLikes'>
             <p> {$cancion->getCancionLikes()} &#9834 </p>
-            <form action=$rutaLike method="post">
-            <input type="hidden" name="likeId" value="$idCancion">
-            <button class type="submit"> &#9834 </button>
-            </form>
+            $botonLike
         </div>
 
         <div class='songButtons'>
-            
             <button class='playButton' id='playSong' ><img src=$playButton></button>
-            <span hidden> {$cancion->getCancionRuta()} </span> 
+            <span hidden>{$cancion->getCancionRuta()}</span> 
             <a class='optionsButton' href=$addSongPath?song=$idCancion><img src=$optionsButton></a>
             $user_info
         </div>

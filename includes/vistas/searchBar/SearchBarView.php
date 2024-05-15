@@ -12,5 +12,8 @@ $content = searchQuery($data, $opcion);
 if(!$content)
     $content = displayMessage("No se han encontrado resultados");
 
+if($opcion === \SW\classes\TopSearchBar::$CANCIONES){
+    $scripts = ['playerLogic.js', 'desplegable.js', 'confirmacion.js'];
+}
 
 require_once LAYOUT_URL;
