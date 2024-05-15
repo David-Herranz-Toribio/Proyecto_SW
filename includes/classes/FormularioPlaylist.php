@@ -92,13 +92,6 @@ class FormularioPlaylist extends FormularioMultimedia{
         if($id_playlist == "" && SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){
             $this->errores['nombre'] = 'Ya existe una playlist con ese nombre';
         }
-        // Verificar que la imagen es adecuada -> archivo imagen, peso máximo, etc...
-        if($imagen_ant == ''){
-            $imagen = 'playlistDefault.png'; 
-        }
-        else
-            $imagen = self::compruebaImagen($nombre, 'imagen', '/songImages/'); 
-
 
         // Si hay errores, salimos
         if(count($this->errores) !== 0) { return; }
