@@ -8,9 +8,9 @@ require_once CLASSES_URL . '/FormularioPlaylist.php';
 $topSearchBar = SW\classes\TopSearchBar::getInstance();
 $topSearchBar->notDisplaySearchBar();
 
-$idPlaylist= filter_var($_POST['idPlaylist'], FILTER_SANITIZE_NUMBER_INT); 
+$idPlaylist = filter_var($_POST['idPlaylist'], FILTER_SANITIZE_NUMBER_INT); 
 
-$artista= filter_var($_POST['idCreador'], FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+$artista = filter_var($_POST['idCreador'], FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
 
 
 $form = new FormularioPlaylist($artista ,$idPlaylist); 

@@ -69,19 +69,14 @@ class FormularioCrearAlbum extends FormularioMultimedia{
         
         // Validar datos
         $this->errores = [];
+        
         // Obtener datos
         $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
         $nombre = htmlspecialchars($datos['nombre']);
         $id_usuario = filter_var($_SESSION['username'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $creationDate = new \DateTime($datos['date']);
         $today = new \DateTime();
-
         $imagen = !isset($datos['imagen']) ? self::compruebaImagen($nombre ,'imagen', '/songImages/') : 'FotoPerfil.png';
-
-
-        
-        
-
      
         $today_num = intval(date("Ymd", strtotime($today->format('Y-m-d'))));
         $date_num = intval(date("Ymd", strtotime($creationDate->format('Y-m-d'))));

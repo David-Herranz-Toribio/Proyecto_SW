@@ -67,8 +67,8 @@ class FormularioPost extends FormularioMultimedia
         return $html;
     }
 
-    protected function procesaFormulario(&$datos)
-    {   
+    protected function procesaFormulario(&$datos){
+
         $this->errores= []; 
         $username = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
         $id = filter_var($datos['id_post'], FILTER_VALIDATE_INT);  
@@ -77,11 +77,17 @@ class FormularioPost extends FormularioMultimedia
         $post_image = '';
         if($imagen_ant == "" ){
             $post_image = self::compruebaImagen($username, 'image', '/postImages/');
-            $post_image = $post_image === false ? NULL : $post_image;
+            $post_image = $post_image !== NULL ? $post_image : NULL;
         }
-        else
-            $post_image = $imagen_ant;
-            
+        else{
+            $post_image = self::compruebaImagen($username, 'image', '/postImages/');
+            if(!$post_image)
+                $post_image = $post_image === NULL ? NULL : $imagen_ant;
+            else{
+                unlink(IMG_URL . '/postImages/' . $imagen_ant);
+            }
+        } 
+
 
         if(count($this->errores) === 0){
 

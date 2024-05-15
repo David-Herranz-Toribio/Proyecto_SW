@@ -294,11 +294,11 @@ class Post{
     public static function actualizar($post){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-    
+
         $query = sprintf(
             "UPDATE post SET texto = '%s', imagen = '%s', likes = %d, tags = '%s', fecha = '%s' WHERE id_post = %d",
             $conn->real_escape_string($post->texto),
-            is_null($post->imagen) ? 'NULL' : $conn->real_escape_string($post->imagen),
+            is_null($post->imagen) ? 'NULL' : $post->imagen,
             $post->num_likes,
             $post->tags, 
             self::generatePostDate(),

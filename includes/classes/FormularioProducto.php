@@ -55,7 +55,7 @@ class FormularioProducto extends FormularioMultimedia
 
             <label>Imagen</label>
             <div> 
-            <input type = "file" name = "Imagen" accept = "image/*">
+            <input type = "file" name = "imagen" accept = "image/*">
             {$erroresCampos['imagen']}
             $imagen_html
             </div> 
@@ -87,10 +87,14 @@ class FormularioProducto extends FormularioMultimedia
         $descripcion = isset($datos['Descripcion']) ? htmlspecialchars($datos['Descripcion']) : "$nombre de $autor"; 
         $stock= filter_var($datos['Stock'], FILTER_VALIDATE_INT);  
         $precio = filter_var($datos['Precio'], FILTER_VALIDATE_FLOAT);
-        $imagen_ant= htmlspecialchars($datos['Imagen_antigua']); 
-        $imagen= self::compruebaImagen($nombre, 'imagen', '/prodImages/'); 
+        $imagen_ant = htmlspecialchars($datos['Imagen_antigua']); 
+        $imagen = self::compruebaImagen($nombre, 'imagen', '/prodImages/'); 
 
-        if(count($this->errores)===0){
+        if(count($this->errores) === 0){
+            if($imagen_ant != "" && ($imagen_ant !== 'FotoMerch.png' && $imagen_ant !== 'FotoEntrada.png')){
+                unlink(IMG_URL . '/prodImages/' . $imagen_ant);
+            }
+            
             $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);
             $producto->guarda();
         }

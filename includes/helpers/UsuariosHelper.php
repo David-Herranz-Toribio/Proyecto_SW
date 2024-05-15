@@ -64,7 +64,6 @@ function displayFollowButton($username, $text, $following, $autor){
 
 function showUsers($user, $opcion){
     
-    $content = "<section class = 'listaPost'>";
     if ($opcion == 'FOLLOWERS') {
         $message = "Seguidores de ";
         $lista = $user->obtenerListaSeguidores();
@@ -73,6 +72,8 @@ function showUsers($user, $opcion){
         $message = "Seguidos de ";
         $lista = $user->obtenerListaSeguidos();
     }
+
+
     $message .= $user->getUsername();
     $content = "<h1 class = 'texto_infor'> $message </h1>";
     $result = [];
@@ -82,10 +83,7 @@ function showUsers($user, $opcion){
             $result[] = $usuario; 
     }
     if(!empty($result)){
-        if (isset($_GET['query'])) {
-            $textoBusqueda = $_GET['query'];
-        }   
-    
+ 
         $content .= "<section class='listaPost'>";
         foreach($result as $usuario){
             $content .= creacionApartadoUsuario($usuario->getUsername(), $user->getUsername());   

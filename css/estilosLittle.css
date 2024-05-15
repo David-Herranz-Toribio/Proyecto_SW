@@ -1110,3 +1110,8 @@ span#errorSuscripcion{
     background-color: #000;
     border-radius: 25px;
 }
+
+.lista_seguidores{
+    grid-column: 2;
+    grid-row: 2;
+}
