@@ -22,8 +22,6 @@ class FormularioCrearAlbum extends FormularioMultimedia{
     }
 
     protected function generaCamposFormulario(&$datos){
-
-        $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
         $procesarPath = HELPERS_PATH . '/CrearPlaylist.php';
 
         // Se generan los mensajes de error si existen
@@ -33,8 +31,6 @@ class FormularioCrearAlbum extends FormularioMultimedia{
         <fieldset>
         <legend> Crear Album </legend>
             <div class="createPlaylistImage">
-                <img src=$defaulImage alt="Imagen de la playlist">
-
                 <div class="createPlaylistImageInput">
                     <label> Imagen </label>
                     <input name="imagen" type="file">
