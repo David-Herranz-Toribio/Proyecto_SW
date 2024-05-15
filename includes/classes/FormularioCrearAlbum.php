@@ -66,7 +66,9 @@ class FormularioCrearAlbum extends FormularioMultimedia{
     }
 
     protected function procesaFormulario(&$datos){
-
+        
+        // Validar datos
+        $this->errores = [];
         // Obtener datos
         $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
 
@@ -82,8 +84,7 @@ class FormularioCrearAlbum extends FormularioMultimedia{
         $today = new \DateTime();
         
 
-        // Validar datos
-        $this->errores = [];
+     
         $today_num = intval(date("Ymd", strtotime($today->format('Y-m-d'))));
         $date_num = intval(date("Ymd", strtotime($creationDate->format('Y-m-d'))));
 
