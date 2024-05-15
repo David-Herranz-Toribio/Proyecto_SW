@@ -79,7 +79,7 @@ class FormularioProducto extends FormularioMultimedia
 
     protected function procesaFormulario(&$datos)
     {
-        $this->errores= []; 
+        $this->errores = []; 
 
         $id= filter_var($datos['Id'], FILTER_VALIDATE_INT);  
         $autor = isset($datos['Autor']) ? filter_var($datos['Autor'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
@@ -88,7 +88,7 @@ class FormularioProducto extends FormularioMultimedia
         $stock= filter_var($datos['Stock'], FILTER_VALIDATE_INT);  
         $precio = filter_var($datos['Precio'], FILTER_VALIDATE_FLOAT);
         $imagen_ant= htmlspecialchars($datos['Imagen_antigua']); 
-        $imagen= self::compruebaImagen('Imagen', '/prodImages/'); 
+        $imagen= self::compruebaImagen($nombre, 'imagen', '/prodImages/'); 
 
         if(count($this->errores)===0){
             $producto = SW\classes\Producto::crearProducto($id, $nombre, $descripcion, $imagen ?? $imagen_ant , $autor, $stock, $precio);

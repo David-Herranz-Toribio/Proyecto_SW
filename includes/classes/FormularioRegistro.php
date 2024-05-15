@@ -22,7 +22,6 @@ class FormularioRegistro extends FormularioMultimedia {
         $email = $datos['email'] ?? ''; 
         $birthdate = $datos['birthdate'] ?? ''; 
         $title = 'usuario';
-        $integrantes = $datos['integrantes'] ?? '';
 
         $htmlErroresGlobales =  self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['username', 'nickname', 'password', 'email', 'birthdate', 'imagen'], $this->errores, 'span', array('class' => 'error'));
@@ -80,15 +79,15 @@ class FormularioRegistro extends FormularioMultimedia {
             {$erroresCampos['birthdate']}
             </div> 
             
-            $opciones_de_artista 
+            $opciones_de_artista
 
             <label> Foto de perfil </label>
             <div> 
-                <input type="file" name="image" accept="image/*">
+                <input type="file" name='image'>
                 {$erroresCampos['imagen']}
             </div> 
             <button type="submit" name="register_button" > Sign In </button>
-            </field> 
+            </fieldset> 
 
             $link_a_artista
         EOF; 
@@ -105,7 +104,14 @@ class FormularioRegistro extends FormularioMultimedia {
         $password_length = strlen($datos['password']);
         $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
         $birthdate = $datos['birthdate'];
-        $imagen = !isset($datos['image']) ? self::compruebaImagen('image', '/profileImages/') : 'FotoPerfil.png';
+        $nombreImagen = self::compruebaImagen($username, 'image', '/profileImages/');
+        if(isset($_FILES['image']) &&  $nombreImagen){
+            $imagen = $_FILES['image'];
+            $datos['profile_image'] = $nombreImagen;
+        }
+        else{
+            $datos['profile_image'] = 'FotoPerfil.png';
+        }
 
 
         // La contraseña no tiene al menos 8 caracteres
@@ -143,8 +149,6 @@ class FormularioRegistro extends FormularioMultimedia {
             if( $birth_num > $fecha_num )
                 $this->errores['birthdate'] = 'La fecha debe ser anterior al dia actual';
         }
-
-        $datos['profile_image'] = $imagen; 
 
         if(count($this->errores) === 0){
             $usuario = SW\classes\Usuario::buscaUsuario($username); 

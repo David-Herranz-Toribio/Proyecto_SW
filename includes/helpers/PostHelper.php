@@ -72,7 +72,7 @@ function creacionPostHTML($autor, $image, $likes, $texto, $id, $id_padre, $yoYYo
     EOS3;
 
     //Imagen del post
-    $rutaImagen = IMG_PATH . '/postImages/'.$image;
+    $rutaImagen = IMG_PATH . '/postImages/'. $image;
     $post_image = "";
 
     if(!is_null($image) && file_exists(IMG_URL . '/postImages/' . $image) ){

@@ -11,46 +11,42 @@ class FormularioMultimedia extends Formulario {
         
     }
 
-    protected function compruebaImagen($id, $url)
+    protected function compruebaImagen($idUser, $id, $url)
     {
         
         if ($_FILES[$id]['name'] != ''){
             $archivo_nombre = $_FILES[$id]['name'];
             $archivo_tamaño = $_FILES[$id]['size']/1024;
             $archivo_temporal = $_FILES[$id]['tmp_name'];
-        
-            $directorio_destino = IMG_URL . $url;
-        
 
-            /*Comprobar que la extension está permitida*/ 
+            /* Comprobar que la extension está permitida */ 
             $extension = pathinfo($archivo_nombre, PATHINFO_EXTENSION);
-            $ok= in_array($extension, self::EXTENSIONES_IMAGEN); 
+            $ok = in_array($extension, self::EXTENSIONES_IMAGEN); 
 
             //Comprobar que el fichero es efectivamente una imagen 
-            $finfo= new finfo(FILEINFO_MIME); 
+            $finfo = new finfo(FILEINFO_MIME); 
             $type = $finfo->file($archivo_temporal); 
 
-            $ok= $ok && preg_match('/image\/.+/', $type); 
+            $ok = $ok && preg_match('/image\/.+/', $type); 
 
             if(!$ok){
-                $this->errores["imagen"]= "El archivo tiene un nombre o tipo inadecuado"; 
+                $this->errores["imagen"] = "El archivo tiene un nombre o tipo inadecuado"; 
             }
 
             if(count($this->errores) > 0){
                 return -1; 
             }
 
-
-            //Nombre con extension
-            $image = uniqid() . '.' . $extension;
-        
-            //Ruta de guardado
-            $ruta_destino = $directorio_destino . $image;
+            // Nombre con extension
+            $directorio_destino = IMG_URL . $url;
+            $imagen = uniqid() . '.' . $extension;
+            $ruta_destino = $directorio_destino . $imagen;
             move_uploaded_file($archivo_temporal, $ruta_destino);
-            
-            return $image; 
+
+            return $imagen; 
         }
-        else return NULL; 
+        else
+            return false; 
     }
 
 
@@ -61,13 +57,11 @@ class FormularioMultimedia extends Formulario {
             $archivo_nombre = $_FILES[$id]['name'];
             $archivo_tamaño_mb = ($_FILES[$id]['size']/1024) /1024;
             $archivo_temporal = $_FILES[$id]['tmp_name'];
-
-
             $directorio_destino = AUDIO_URL . $url;
 
             /* Comprobar que la extension está permitida */ 
             $extension = pathinfo($archivo_nombre, PATHINFO_EXTENSION);
-            $ok= in_array($extension, self::EXTENSIONES_SONIDO); 
+            $ok = in_array($extension, self::EXTENSIONES_SONIDO); 
 
 
             //Comprobar que el fichero es efectivamente uno de tipo audio

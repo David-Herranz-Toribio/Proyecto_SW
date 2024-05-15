@@ -2,7 +2,7 @@
     <audio src="" controls id="player"></audio>
 
     <ul id="playlist">
-        <li id= 'cancionMuestra'><a href= <?= AUDIO_PATH .'/Cancion1.mp3'?>>Canción ambiente </a></li>
+        <li id='cancionMuestra'></a></li>
     </ul>
     <button class="player-button" id="prev"><img src="<?=IMG_PATH?>/PlayerImages/Prev_Button.png" height="30" width="30"></button>
     <button class="player-button" id="rewind"><img src="<?=IMG_PATH?>/PlayerImages/Rewind_Button.png" height="30" width="30"></button>

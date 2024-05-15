@@ -286,7 +286,7 @@ class Usuario{
 
         $result = true;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE id_user= '%s' AND admin = 1", $conn->real_escape_string($id_u)); 
+        $query = sprintf("SELECT * FROM usuario WHERE id_user = '%s' AND admin = 1", $conn->real_escape_string($id_u)); 
         $rs = $conn->query($query);  
 
         if($rs->num_rows == 0)

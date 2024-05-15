@@ -160,8 +160,8 @@ function display_canciones($data){
             </div>
 
             <div class='songButtons'>
-                <button class='playButton' id= 'playSong' ><img src=$playButton></button>
-                <span hidden> $ruta </span> 
+                <button class='playButton' id='playSong' ><img src=$playButton></button>
+                <span hidden>$ruta</span> 
                 <button class='optionsButton'><img src=$optionsButton></button>
             </div>
         </div>

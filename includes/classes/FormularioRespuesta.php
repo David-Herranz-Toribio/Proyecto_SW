@@ -40,7 +40,7 @@ class FormularioRespuesta extends FormularioMultimedia
         $post_text = isset($datos['post_text']) ? htmlspecialchars($datos['post_text']) : false;  
 
         /*TODO Procesar imagen*/ 
-        $post_image= self::compruebaImagen('image', '/postImages/'); 
+        $post_image= self::compruebaImagen($username, 'image', '/postImages/'); 
 
         if(count($this->errores)===0){
             if($datos['id_padre'] != "") $post_father= $datos['id_padre']; 
