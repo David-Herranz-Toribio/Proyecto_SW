@@ -36,7 +36,6 @@ class FormularioPlaylist extends FormularioMultimedia{
 
 
         $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
-        $procesarPath = HELPERS_PATH . '/CrearPlaylist.php';
 
         // Se generan los mensajes de error si existen
         $erroresCampos = self::generaErroresCampos(['imagen', 'nombre'], $this->errores, 'span', array('class' => 'error'));
@@ -86,14 +85,15 @@ class FormularioPlaylist extends FormularioMultimedia{
         $creationDate = $creationDate->format('Y-m-d');
         $id_usuario = isset($_SESSION['username']) ? filter_var($_SESSION['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
         $id_playlist = filter_var($datos['id_playlist'], FILTER_SANITIZE_NUMBER_INT); 
-        $imagen_ant= htmlspecialchars($datos['Imagen_antigua']); 
+        $imagen_ant = htmlspecialchars($datos['Imagen_antigua']); 
 
         // Validar datos
-        if(SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){
+        $imagen = !isset($datos['imagen']) ? self::compruebaImagen($nombre, 'imagen', '/songImages/') : 'FotoPerfil.png';
+        if($id_playlist == "" && SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){
             $this->errores['nombre'] = 'Ya existe una playlist con ese nombre';
         }
         // Verificar que la imagen es adecuada -> archivo imagen, peso máximo, etc...
-        if(!isset($datos['imagen']) && $imagen_ant == ''){
+        if($imagen_ant == ''){
             $imagen = 'playlistDefault.png'; 
         }
         else

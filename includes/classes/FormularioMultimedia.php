@@ -46,7 +46,7 @@ class FormularioMultimedia extends Formulario {
             return $imagen; 
         }
         else
-            return false; 
+            return NULL; 
     }
 
 
