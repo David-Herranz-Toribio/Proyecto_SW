@@ -35,8 +35,6 @@ class FormularioPlaylist extends FormularioMultimedia{
         }
 
 
-        $defaulImage = IMG_PATH . '/profileImages/FotoPerfil.png';
-
         // Se generan los mensajes de error si existen
         $erroresCampos = self::generaErroresCampos(['imagen', 'nombre'], $this->errores, 'span', array('class' => 'error'));
 
@@ -47,8 +45,6 @@ class FormularioPlaylist extends FormularioMultimedia{
         <input type= 'hidden' name= "Imagen_antigua" value= $imagen> 
         $legend_text
             <div class="createPlaylistImage">
-                <img src=$defaulImage alt="Imagen de la playlist">
-
                 <div class="createPlaylistImageInput">
                     <label> Imagen </label>
                     <input name="imagen" type="file" accept="image/*">
@@ -92,13 +88,6 @@ class FormularioPlaylist extends FormularioMultimedia{
         if($id_playlist == "" && SW\classes\Playlist::existeNombrePlaylist($id_usuario, $nombre)){
             $this->errores['nombre'] = 'Ya existe una playlist con ese nombre';
         }
-        // Verificar que la imagen es adecuada -> archivo imagen, peso máximo, etc...
-        if($imagen_ant == ''){
-            $imagen = 'playlistDefault.png'; 
-        }
-        else
-            $imagen = self::compruebaImagen($nombre, 'imagen', '/songImages/'); 
-
 
         // Si hay errores, salimos
         if(count($this->errores) !== 0) { return; }
