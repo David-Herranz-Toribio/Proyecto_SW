@@ -40,7 +40,7 @@ class FormularioLogin extends Formulario
         </div>
 
         <button id= 'sendLogin' type="submit"> Log in </button>
-        <p> ¿No tienes cuenta? <a href="$registerPath"> Regístrate </a></p>
+        <p> ¿No tienes cuenta? <a class='registros' href="$registerPath"> Regístrate </a></p>
         </fieldset>
         EOF;
 

@@ -37,7 +37,7 @@ class FormularioRegistro extends FormularioMultimedia {
         else {
             $enlace = VIEWS_PATH . '/log/SignUpArtist.php';
             $link_a_artista =<<<EOS
-            <p> Eres un artista? <a href= $enlace> Crea tu cuenta aquí </a></p>
+            <p> Eres un artista? <a class='registros' href= $enlace> Crea tu cuenta aquí </a></p>
             EOS; 
 
         }
